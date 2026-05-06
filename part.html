@@ -1,0 +1,4142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avenir Research</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Avenir Research">
+<meta property="og:title" content="PART — PT Pratama Abadi Nusa Industri | Avenir Research">
+<meta property="og:description" content="Riset ekuitas mendalam PART: industri manufaktur komponen.">
+<meta property="og:url" content="https://avenirresearch.app/katalog/part">
+<meta property="og:image" content="https://avenirresearch.app/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PART — PT Pratama Abadi Nusa Industri | Avenir Research">
+<meta name="twitter:description" content="Riset ekuitas mendalam PART: industri manufaktur komponen.">
+<meta name="description" content="Riset ekuitas mendalam PART: industri manufaktur komponen.">
+
+<style>
+
+:root {
+
+--bg: #F7F5F0; 
+--bg2: #FFFFFF;
+--bg3: #F0EDE8;
+--bg4: #E8E5DF;
+
+--grn: #1B6B3A;
+--grn2: #1B6B3A;
+--grn-d: #114523;
+--grn-l: #24894A;
+--grn-gl: rgba(27,107,58,0.07);
+
+--t: #18211D;
+--t2: #4A6355;
+--t3: #8EA899;
+
+--bd: #DDE7E2;
+
+--gold: #8B6914;
+--gold-l: #A8820F;
+--red: #B83232;
+--blue: #1A5C9B;
+--teal: #1A7A6E;
+--orange: #B85C1A;
+--up: #1A7A3C;
+--dn: #B83232;
+
+--shadow: 0 2px 16px rgba(0,0,0,.07);
+--shadow-md: 0 6px 28px rgba(0,0,0,.10);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+background:var(--bg);
+color:var(--t);
+font-family:'Segoe UI', Arial, 'Helvetica Neue', sans-serif;
+font-size:13.5px;
+line-height:1.72;
+-webkit-font-smoothing:antialiased;
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.nav{
+position:sticky;top:0;z-index:500;
+background:rgba(255,255,255,.97);
+backdrop-filter:blur(12px);
+border-bottom:1px solid var(--bd);
+box-shadow:0 1px 8px rgba(0,0,0,.06);
+}
+.nav-in{max-width:1120px;margin:0 auto;padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.nav-logo{height:22px;flex-shrink:0;filter:none}
+.nav-ticker{
+font-family:'Courier New',monospace;font-size:10.5px;letter-spacing:.05em;
+padding:3px 10px;border-radius:6px;border:1.5px solid;
+background:rgba(27,107,58,.06);color:var(--grn);border-color:rgba(27,107,58,.25);font-weight:700;
+}
+.nav-back{
+display:inline-flex;align-items:center;gap:5px;
+color:var(--t2);background:#fff;border:1.5px solid var(--bd);
+cursor:pointer;font-size:12px;font-weight:600;padding:6px 13px;
+border-radius:8px;font-family:'Segoe UI',Arial,sans-serif;
+transition:all .18s;text-decoration:none;
+}
+.nav-back:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-gl)}
+.nav-btn{
+background:#fff;border:1.5px solid var(--bd);cursor:pointer;
+padding:7px 9px;border-radius:7px;display:flex;flex-direction:column;
+gap:4px;flex-shrink:0;transition:all .2s;
+}
+.nav-btn span{display:block;width:18px;height:2px;background:var(--t2);border-radius:2px;transition:all .3s}
+.nav-btn:hover{border-color:var(--grn)}
+.nav-btn.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-btn.open span:nth-child(2){opacity:0}
+.nav-btn.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+.drawer{
+position:fixed;top:0;right:-260px;width:240px;height:100vh;
+background:#fff;border-left:1px solid var(--bd);
+padding:62px 22px 22px;z-index:99;
+transition:right .28s ease;box-shadow:-4px 0 20px rgba(0,0,0,.1);
+}
+.drawer.open{right:0}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:98;opacity:0;pointer-events:none;transition:opacity .28s}
+.overlay.open{opacity:1;pointer-events:all}
+.drawer-lbl{font-size:9px;font-weight:700;color:var(--t3);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.drawer-menu{list-style:none}
+.drawer-menu a{display:block;padding:9px 11px;color:var(--t2);text-decoration:none;font-size:13px;font-weight:500;border-radius:7px;transition:all .15s}
+.drawer-menu a:hover{background:var(--grn-gl);color:var(--grn)}
+
+.idx-hero{
+padding:64px 28px 48px;text-align:center;
+background:linear-gradient(160deg,#EEF7F2 0%,#F7F5F0 60%,#F0EDE8 100%);
+border-bottom:1px solid var(--bd);
+position:relative;overflow:hidden;
+}
+.idx-hero::before{
+content:'';position:absolute;inset:0;opacity:.04;
+background-image:radial-gradient(circle,#1B6B3A 1px,transparent 1px);
+background-size:28px 28px;
+}
+.idx-tag{
+display:inline-flex;align-items:center;gap:7px;font-size:9.5px;font-weight:700;
+color:var(--grn);letter-spacing:2px;text-transform:uppercase;
+background:rgba(27,107,58,.08);border:1px solid rgba(27,107,58,.2);
+padding:4px 13px;border-radius:100px;margin-bottom:14px;position:relative;
+}
+.idx-tag .dot{width:5px;height:5px;border-radius:50%;background:var(--grn);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.idx-hero h1{
+font-family:Georgia,'Times New Roman',serif;
+font-size:clamp(28px,5vw,46px);font-weight:700;margin:12px 0;color:var(--t);
+position:relative;
+}
+.idx-hero h1 em{font-style:normal;color:var(--grn)}
+.idx-hero p{font-size:14.5px;color:var(--t2);max-width:560px;margin:0 auto 28px;position:relative}
+.idx-stats{
+display:inline-flex;gap:28px;flex-wrap:wrap;justify-content:center;
+padding:14px 28px;background:#fff;
+border:1.5px solid var(--bd);border-radius:12px;
+box-shadow:var(--shadow);position:relative;
+}
+.is-v{font-family:'Courier New',monospace;font-size:22px;font-weight:700;color:var(--grn)}
+.is-l{font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.6px;margin-top:2px}
+
+.filter-bar{max-width:1120px;margin:0 auto;padding:22px 28px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.filter-lbl{font-size:10.5px;color:var(--t3);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-right:4px}
+.fbtn{
+padding:5px 15px;border-radius:100px;border:1.5px solid var(--bd);
+background:#fff;color:var(--t2);font-size:12px;font-weight:600;cursor:pointer;
+transition:all .18s;font-family:'Segoe UI',Arial,sans-serif;
+box-shadow:0 1px 3px rgba(0,0,0,.05);
+}
+.fbtn:hover,.fbtn.active{background:var(--grn);border-color:var(--grn);color:#fff;box-shadow:0 2px 8px rgba(27,107,58,.3)}
+
+.grid{max-width:1120px;margin:0 auto;padding:24px 28px 64px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.card{
+background:#fff;border:1.5px solid var(--bd);border-radius:14px;
+overflow:hidden;display:flex;flex-direction:column;
+transition:transform .2s,border-color .2s,box-shadow .2s;
+box-shadow:var(--shadow);
+}
+.card:hover{transform:translateY(-4px);border-color:var(--grn);box-shadow:var(--shadow-md)}
+.card-hd{padding:20px 22px 14px}
+.badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px}
+.badge{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:100px;border:1.5px solid}
+.bdcf{color:var(--gold);background:rgba(139,105,20,.08);border-color:rgba(139,105,20,.2)}
+.bnew{color:var(--up);background:rgba(26,122,60,.08);border-color:rgba(26,122,60,.2)}
+.sector{
+font-size:10px;font-weight:700;color:var(--t2);
+background:var(--bg3);border:1px solid var(--bd);
+padding:2px 9px;border-radius:100px;display:inline-block;margin-bottom:9px;
+}
+.ticker{
+float:right;font-family:'Courier New',monospace;font-size:10.5px;
+padding:2px 9px;border-radius:5px;border:1.5px solid;margin-top:2px;
+color:var(--grn);background:rgba(27,107,58,.06);border-color:rgba(27,107,58,.2);font-weight:700;
+}
+.card h2{
+font-family:Georgia,'Times New Roman',serif;
+font-size:18px;font-weight:700;color:var(--t);margin-bottom:6px;clear:both;line-height:1.3;
+}
+.card-sub{font-size:12px;color:var(--t2);line-height:1.6}
+.cdiv{height:1px;background:var(--bd)}
+.card-m{padding:13px 22px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.cmv{font-family:'Courier New',monospace;font-size:13.5px;font-weight:700;color:var(--t)}
+.cml{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.cup{color:var(--up)!important}.cdn{color:var(--dn)!important}.cn{color:var(--gold)!important}
+.card-tags{padding:9px 22px;display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:9.5px;padding:2px 8px;border-radius:100px;font-weight:600;border:1px solid}
+.tg{background:rgba(26,122,60,.07);color:var(--up);border-color:rgba(26,122,60,.18)}
+.ty{background:rgba(139,105,20,.07);color:var(--gold);border-color:rgba(139,105,20,.18)}
+.tb{background:rgba(26,92,155,.07);color:var(--blue);border-color:rgba(26,92,155,.18)}
+.tt{background:rgba(26,122,110,.07);color:var(--teal);border-color:rgba(26,122,110,.18)}
+.tr{background:rgba(184,50,50,.07);color:var(--dn);border-color:rgba(184,50,50,.18)}
+.card-ft{
+padding:16px 22px 18px;
+display:flex; flex-direction:column; gap:12px;
+margin-top:auto; background:var(--bg3);
+}
+.card-date{font-size:12px;color:var(--t2)}
+.card-date{font-size:11px;color:var(--t3)}
+.cta{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:var(--grn);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Segoe UI',Arial,sans-serif;transition:all .2s;box-shadow:0 2px 8px rgba(27,107,58,.25)}
+.cta:hover{background:var(--grn-l);transform:translateY(-1px)}
+.soon{opacity:.45;pointer-events:none}
+
+.hero{
+padding:52px 28px 40px;
+position:relative;overflow:hidden;
+border-bottom:1px solid var(--bd);
+}
+.hero-inner{max-width:800px;margin:0 auto;position:relative;z-index:1}
+
+.hero::after{
+content:'';position:absolute;left:0;top:0;width:5px;height:100%;
+background:var(--grn);
+}
+.htag{
+display:inline-flex;align-items:center;gap:7px;font-size:9px;font-weight:700;
+color:var(--grn);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;
+}
+.htag .dot{width:5px;height:5px;border-radius:50%;background:var(--grn);animation:pulse 2s infinite}
+.hero h1{
+font-family:Georgia,'Times New Roman',serif;
+font-size:clamp(22px,3.5vw,34px);font-weight:700;line-height:1.25;
+margin-bottom:14px;color:var(--t);
+}
+.hero h1 em{font-style:normal;color:var(--grn)}
+.hsub{font-size:14px;color:var(--t2);line-height:1.75;max-width:680px;margin-bottom:14px}
+.hmeta{
+font-size:11.5px;color:var(--t3);display:flex;gap:10px;flex-wrap:wrap;
+padding-top:12px;border-top:1px solid var(--bd);
+}
+.hbadge{
+display:inline-flex;align-items:center;gap:4px;
+background:rgba(27,107,58,.07);border:1px solid rgba(27,107,58,.18);
+border-radius:20px;padding:2px 9px;font-size:10px;color:var(--grn);font-weight:700;
+}
+.hbadge.gold{background:rgba(139,105,20,.07);border-color:rgba(139,105,20,.18);color:var(--gold)}
+
+#page-smar .hero{
+background-image:linear-gradient(to right,rgba(255,255,255,.97) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 100%),url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1400&q=75&auto=format&fit=crop');
+background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+#page-wifi .hero{
+background-image:linear-gradient(to right,rgba(255,255,255,.97) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 100%),url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=75&auto=format&fit=crop');
+background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+#page-ptro .hero{
+background-image:linear-gradient(to right,rgba(255,255,255,.97) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 100%),url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1400&q=75&auto=format&fit=crop');
+background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+#page-dewa .hero{
+background-image:linear-gradient(to right,rgba(255,255,255,.97) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 100%),url('https://images.unsplash.com/photo-1565608087341-404b25492fee?w=1400&q=75&auto=format&fit=crop');
+background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+#page-cmry .hero{
+background-image:linear-gradient(to right,rgba(255,255,255,.97) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 100%),url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1400&q=75&auto=format&fit=crop');
+background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+#page-ades .hero{
+background-image:linear-gradient(to right,rgba(255,255,255,.97) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 100%),url('https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=1400&q=75&auto=format&fit=crop');
+background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+#page-avia .hero{
+background-image:linear-gradient(to right,rgba(255,255,255,.97) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 100%),url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1400&q=75&auto=format&fit=crop');
+background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+#page-mrvl .hero{
+background-image:linear-gradient(to right,rgba(255,255,255,.97) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 100%),url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=75&auto=format&fit=crop');
+background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+#page-nisp .hero{
+background-image:linear-gradient(to right,rgba(255,255,255,.97) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 100%),url('https://images.unsplash.com/photo-1501167786227-4cba60f6d58f?w=1400&q=75&auto=format&fit=crop');
+background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+#page-bbri .hero{
+background-image:linear-gradient(to right,rgba(255,255,255,.97) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 100%),url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1400&q=75&auto=format&fit=crop');
+background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+#page-asgr .hero{
+background-image:linear-gradient(to right,rgba(255,255,255,.97) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 100%),url('https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?w=1400&q=75&auto=format&fit=crop');
+background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+#page-part .hero{
+background-image:linear-gradient(to right,rgba(255,255,255,.97) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 100%),url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1400&q=75&auto=format&fit=crop');
+background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+
+.cnt{max-width:860px;margin:0 auto;padding:32px 28px 48px}
+
+h2.sec{
+font-family:Georgia,'Times New Roman',serif;
+font-size:20px;font-weight:700;color:var(--t);
+margin:40px 0 14px;padding:14px 0 14px;
+border-bottom:2px solid var(--bd);
+display:flex;align-items:center;gap:10px;
+}
+h2.sec .n{
+display:inline-flex;align-items:center;justify-content:center;
+width:28px;height:28px;background:var(--grn);color:#fff;
+font-family:'Segoe UI',Arial,sans-serif;font-size:11px;font-weight:700;
+border-radius:7px;flex-shrink:0;
+}
+h3.sub{
+font-size:11px;font-weight:700;color:var(--t3);
+margin:24px 0 10px;letter-spacing:.12em;text-transform:uppercase;
+padding-bottom:6px;border-bottom:1px solid var(--bd);
+}
+p{margin-bottom:10px;color:var(--t2)}
+strong{color:var(--t);font-weight:700}
+
+.sg4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin:14px 0}
+.sg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:14px 0}
+.sg2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.stat{
+background:#fff;border:1.5px solid var(--bd);border-radius:10px;
+padding:16px;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,.04);
+}
+.sv{
+font-family:'Courier New',monospace;font-size:21px;font-weight:700;
+margin-bottom:4px;color:var(--t);
+}
+.sl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.6px}
+.sd{font-size:11px;margin-top:4px;font-weight:600}
+.sup{color:var(--up)!important}.sdn{color:var(--dn)!important}.sn{color:var(--gold)!important}
+
+.box{
+background:var(--bg3);border:1.5px solid var(--bd);border-radius:10px;
+padding:18px 22px;margin:16px 0;
+}
+.box p{color:var(--t);margin:0;font-size:13.5px;line-height:1.7}
+.box-warn{background:#FFF8F0;border-color:rgba(184,92,26,.2)}
+.box-gold{background:#FDF8EC;border-color:rgba(139,105,20,.2)}
+.co{
+border-left:3px solid var(--gold);border-radius:0 10px 10px 0;
+padding:14px 18px;margin:16px 0;background:#FDF8EC;
+}
+.co p,.co{font-size:13px;color:var(--t);margin:0}
+.co strong{color:var(--gold)}
+
+.dg{
+background:#fff;border:1.5px solid var(--bd);border-radius:10px;
+padding:18px;margin:14px 0;overflow-x:auto;
+box-shadow:0 1px 6px rgba(0,0,0,.04);
+}
+.dg-l{font-size:9.5px;font-weight:700;color:var(--grn);text-transform:uppercase;letter-spacing:1.4px;margin-bottom:12px}
+.dg-n{font-size:11px;color:var(--t3);margin-top:10px;line-height:1.55;font-style:italic}
+.svg-c{width:100%;max-width:700px;display:block;margin:0 auto}
+
+.cg2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.cg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0}
+.cd{
+background:#fff;border:1.5px solid var(--bd);border-radius:10px;
+padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.cd h4{font-size:13px;font-weight:700;margin-bottom:6px;color:var(--t)}
+.cd p{font-size:12.5px;color:var(--t2);margin:0;line-height:1.65}
+
+.tbl{width:100%;border-collapse:collapse;margin:8px 0;font-size:12.5px}
+.tbl thead th{
+background:var(--grn);color:#fff;padding:9px 13px;
+text-align:left;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+}
+.tbl td{padding:8px 13px;border-bottom:1px solid var(--bd);color:var(--t2)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+.tbl tr:hover td{background:rgba(27,107,58,.04)}
+.r{text-align:right!important}.c{text-align:center!important}
+.b{font-weight:700;color:var(--t)!important}
+.g{color:var(--up)!important;font-weight:600}
+.rr{color:var(--dn)!important;font-weight:600}
+.gg{color:var(--grn)!important;font-weight:700}
+.bl{color:var(--blue)!important;font-weight:600}
+.py{color:var(--gold)!important;font-weight:600}
+
+.risk{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--bd)}
+.risk:last-child{border-bottom:none}
+.rdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.rh{background:var(--red)}.rm{background:var(--gold)}.rl{background:var(--up)}
+.rt{font-size:13px;font-weight:700;color:var(--t);margin-bottom:3px}
+.rd{font-size:12.5px;color:var(--t2);line-height:1.65}
+
+.sc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:16px 0}
+.sc{border-radius:12px;padding:18px;border:1.5px solid;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.sc-bull{background:#F0F9F3;border-color:rgba(26,122,60,.2)}
+.sc-base{background:#EEF4FB;border-color:rgba(26,92,155,.2)}
+.sc-bear{background:#FBF0F0;border-color:rgba(184,50,50,.2)}
+.sc-title{font-size:13px;font-weight:700;margin-bottom:10px}
+.sc-bull .sc-title{color:var(--up)}.sc-base .sc-title{color:var(--blue)}.sc-bear .sc-title{color:var(--dn)}
+.sc li{font-size:11.5px;color:var(--t2);list-style:none;padding:3.5px 0;border-bottom:1px solid rgba(0,0,0,.06)}
+.sc li:last-child{border:none}.sc li strong{color:var(--t)}
+.sc-note{font-size:10.5px;color:var(--t3);margin-top:10px;font-style:italic}
+
+.sens-wrap{overflow-x:auto;margin:10px 0}
+.sens-tbl{width:100%;border-collapse:collapse;font-size:11.5px}
+.sens-tbl th{background:var(--bg3);color:var(--t2);padding:8px 10px;text-align:center;font-size:9.5px;font-weight:700;border-bottom:1.5px solid var(--bd)}
+.sens-tbl th:first-child{text-align:left}
+.sens-tbl td{padding:7px 10px;border-bottom:1px solid var(--bd);text-align:center;color:var(--t2)}
+.sens-tbl td:first-child{text-align:left;font-weight:700;color:var(--t)}
+.base-cell{background:#EEF4FB!important;border:2px solid var(--blue)!important;color:var(--blue)!important;font-weight:700!important}
+.bull-cell{color:var(--up)!important;font-weight:600!important}
+.bear-cell{color:var(--dn)!important;font-weight:600!important}
+
+.score-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:10px 0}
+.score-tbl th{background:var(--bg3);color:var(--t2);padding:9px 13px;text-align:left;font-size:9.5px;font-weight:700;border-bottom:1.5px solid var(--bd)}
+.score-tbl td{padding:8px 13px;border-bottom:1px solid var(--bd);color:var(--t2)}
+.score-tbl td:first-child{font-weight:700;color:var(--t)}
+.score-tbl tr:last-child td{border-bottom:none}
+.score-tbl tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+.pill{display:inline-block;padding:2px 9px;border-radius:100px;font-size:9.5px;font-weight:700;border:1.5px solid;white-space:nowrap}
+.pg{background:#EDF7F1;color:var(--up);border-color:rgba(26,122,60,.2)}
+.py{background:#FDF8EC;color:var(--gold);border-color:rgba(139,105,20,.2)}
+.pr{background:#FBF0F0;color:var(--dn);border-color:rgba(184,50,50,.2)}
+.pb{background:#EEF4FB;color:var(--blue);border-color:rgba(26,92,155,.2)}
+
+.dcf-box{background:#fff;border:2px solid var(--gold);border-radius:12px;padding:22px;margin:18px 0}
+.dcf-box h3{color:var(--gold);font-size:14.5px;font-weight:700;margin-bottom:12px}
+.dcf-tbl{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0}
+.dcf-tbl th{background:#FDF8EC;color:var(--gold);padding:8px 10px;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:center}
+.dcf-tbl th:first-child{text-align:left}
+.dcf-tbl td{padding:6px 10px;border-bottom:1px solid var(--bd);color:var(--t2);text-align:center}
+.dcf-tbl td:first-child{text-align:left;font-weight:500}
+.dcf-tbl .b{font-weight:700;color:var(--t)}.dcf-tbl .gg{color:var(--gold);font-weight:700}
+.dcf-tbl .ev-row td{background:rgba(27,107,58,.06);font-weight:800}
+.dcf-results{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0}
+.dcf-cell{background:var(--bg3);border-radius:10px;padding:16px;text-align:center;border-top:3px solid}
+.dcf-cell .lbl{font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;font-weight:700}
+.dcf-cell .val{font-size:24px;font-weight:700;font-family:'Courier New',monospace;margin-bottom:3px}
+.dcf-cell .sub{font-size:10px;color:var(--t3);line-height:1.6}
+
+footer{
+background:var(--t);border-top:1px solid var(--bd);
+padding:32px 28px;text-align:center;
+}
+footer img{height:22px;margin-bottom:12px;display:block;margin-left:auto;margin-right:auto;filter:brightness(0) invert(1);opacity:.85}
+.ft-links{display:flex;gap:20px;list-style:none;justify-content:center;margin-bottom:10px;flex-wrap:wrap}
+.ft-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:12px;transition:color .2s}
+.ft-links a:hover{color:#fff}
+.ft-copy{font-family:'Courier New',monospace;font-size:11px;color:rgba(255,255,255,.45);line-height:1.7}
+.ft-copy strong{color:var(--grn-l)}
+.ft-dis{font-size:10px;color:rgba(255,255,255,.3);max-width:620px;margin:7px auto 0;line-height:1.6}
+
+@media(max-width:640px){
+.sg4{grid-template-columns:1fr 1fr}
+.sc-grid{grid-template-columns:1fr}
+.dcf-results{grid-template-columns:1fr}
+.cg2,.sg2{grid-template-columns:1fr}
+.cnt,.hero,.idx-hero{padding-left:16px;padding-right:16px}
+.grid{padding:14px;grid-template-columns:1fr}
+.nav-in{padding:0 16px}
+}
+
+.photo-band{
+margin:36px -28px;
+height:260px;
+background-size:cover;
+background-position:center;
+position:relative;
+overflow:hidden;
+box-shadow:0 6px 28px rgba(0,0,0,.14);
+}
+.photo-band-overlay{
+position:absolute;inset:0;
+background:linear-gradient(
+to bottom,
+rgba(0,0,0,.08) 0%,
+rgba(0,0,0,.02) 40%,
+rgba(0,0,0,.18) 80%,
+rgba(0,0,0,.42) 100%
+);
+}
+.photo-band-caption{
+position:absolute;bottom:14px;left:24px;z-index:1;
+color:rgba(255,255,255,.92);font-size:11px;font-weight:700;
+letter-spacing:.08em;text-transform:uppercase;
+text-shadow:0 1px 6px rgba(0,0,0,.6);
+}
+
+.submit-info-box strong { color:#C9A84C; }
+
+.cta-unlock {
+display: flex; align-items: center; justify-content: center; gap: 10px;
+width: 100%; padding: 11px 18px; border-radius: 10px; border: none;
+font-size: 13px; font-weight: 700; cursor: pointer;
+transition: all .2s; font-family: inherit;
+background: var(--grn2, #1B6B3A); color: #fff;
+letter-spacing: .01em; position: relative; overflow: hidden;
+}
+.cta-unlock::before {
+content: ''; position: absolute; inset: 0;
+background: linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent);
+transform: translateX(-100%); transition: transform .4s;
+}
+.cta-unlock:hover::before { transform: translateX(100%); }
+.cta-unlock:hover { background: #1f7d44; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(27,107,58,.35); }
+.cta-unlock .ctu-lock {
+background: rgba(255,255,255,.15); border-radius: 6px;
+padding: 3px 8px; font-size: 11px; font-weight: 800;
+letter-spacing: .04em; flex-shrink: 0;
+}
+.cta-unlock.unlocked {
+background: var(--grn2, #1B6B3A);
+}
+.cta-unlock.unlocked:hover { background: #3DAA6E; }
+
+.pw-overlay {
+position: fixed; inset: 0; z-index: 600;
+background: rgba(8,13,9,.94); backdrop-filter: blur(16px);
+display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+.pw-box {
+background: #0F1E17; border: 1px solid rgba(201,168,76,.3);
+border-radius: 20px; padding: 44px 36px; max-width: 440px; width: 100%;
+text-align: center; box-shadow: 0 40px 80px rgba(0,0,0,.7);
+animation: pwIn .22s ease;
+}
+@keyframes pwIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.pw-eyebrow { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#C9A84C; margin-bottom:20px; }
+.pw-lock { font-size:36px; margin-bottom:12px; }
+.pw-title { font-family:'Cormorant Garamond','Georgia',serif; font-size:22px; font-weight:400; color:#F0EDE6; margin-bottom:8px; line-height:1.3; }
+.pw-sub { font-size:13px; color:#8AA696; font-weight:300; line-height:1.65; margin-bottom:24px; }
+.pw-price-pill {
+display: inline-flex; align-items: center; gap: 10px;
+background: rgba(201,168,76,.1); border: 1px solid rgba(201,168,76,.25);
+border-radius: 50px; padding: 10px 24px; margin-bottom: 24px;
+}
+.pw-price-num { font-family:'IBM Plex Mono',monospace; font-size:24px; font-weight:700; color:#C9A84C; }
+.pw-price-lbl { font-size:12px; color:#8AA696; text-align:left; line-height:1.4; }
+.pw-feats { text-align:left; list-style:none; padding:0; margin:0 0 24px; display:flex; flex-direction:column; gap:7px; }
+.pw-feats li { display:flex; gap:8px; font-size:13px; color:#C8C2B5; font-weight:300; }
+.pw-feats li::before { content:'✓'; color:#3DAA6E; font-weight:700; flex-shrink:0; }
+.pw-btn-pay {
+width:100%; padding:14px; border-radius:50px; border:none;
+background:#C9A84C; color:#080D09; font-size:15px; font-weight:700;
+cursor:pointer; font-family:inherit; letter-spacing:.01em;
+transition:all .25s; margin-bottom:10px;
+}
+.pw-btn-pay:hover { background:#E8C96B; transform:translateY(-1px); box-shadow:0 10px 28px rgba(201,168,76,.4); }
+.pw-btn-back {
+width:100%; padding:11px; border-radius:50px;
+border:1px solid rgba(255,255,255,.1); color:#8AA696;
+background:none; font-size:13px; cursor:pointer; font-family:inherit; transition:all .2s;
+}
+.pw-btn-back:hover { border-color:rgba(255,255,255,.25); color:#C8C2B5; }
+.pw-hint { margin-top:14px; font-size:12px; color:#8AA696; }
+.pw-hint a { color:#C9A84C; cursor:pointer; text-decoration:none; }
+
+.ar-overlay {
+position:fixed; inset:0; z-index:700;
+background:rgba(0,0,0,.7); backdrop-filter:blur(14px);
+display:none; align-items:center; justify-content:center; padding:20px;
+}
+.ar-overlay.open { display:flex; }
+.ar-box {
+background:#0F1E17; border:1px solid rgba(201,168,76,.3);
+border-radius:18px; padding:36px; max-width:420px; width:100%;
+position:relative; animation:pwIn .22s ease;
+}
+.ar-close {
+position:absolute; top:12px; right:12px; background:rgba(255,255,255,.06);
+border:none; color:#8AA696; width:28px; height:28px; border-radius:7px;
+font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+transition:all .2s;
+}
+.ar-close:hover { background:rgba(255,255,255,.12); color:#F0EDE6; }
+.ar-box h3 { font-family:'Cormorant Garamond','Georgia',serif; font-size:22px; font-weight:400; color:#F0EDE6; margin-bottom:6px; }
+.ar-box p { font-size:13px; color:#8AA696; font-weight:300; margin-bottom:22px; line-height:1.6; }
+.ar-step {
+background:#080D09; border-radius:10px; padding:14px 16px;
+margin-bottom:16px; font-size:13px; color:#C8C2B5; line-height:1.65;
+}
+.ar-step strong { color:#C9A84C; }
+.ar-step a { color:#C9A84C; text-decoration:none; font-weight:600; }
+.ar-step a:hover { text-decoration:underline; }
+.ar-label { font-size:11px; font-weight:700; letter-spacing:.06em; color:#8AA696; margin-bottom:5px; display:block; }
+.ar-input {
+width:100%; padding:11px 14px; background:#162A1E; border:1px solid rgba(255,255,255,.1);
+border-radius:8px; color:#F0EDE6; font-size:14px; font-family:'IBM Plex Mono',monospace;
+outline:none; transition:border-color .2s; margin-bottom:14px; letter-spacing:.06em;
+}
+.ar-input:focus { border-color:#C9A84C; }
+.ar-input::placeholder { color:rgba(200,194,181,.25); font-family:inherit; letter-spacing:0; font-size:13px; }
+.ar-err { background:rgba(214,78,78,.1); border:1px solid rgba(214,78,78,.3); border-radius:8px; padding:9px 13px; font-size:13px; color:#E88080; margin-bottom:12px; display:none; }
+.ar-btn-verify {
+width:100%; padding:13px; border-radius:50px; border:none;
+background:#C9A84C; color:#080D09; font-size:14px; font-weight:700;
+cursor:pointer; font-family:inherit; transition:all .25s;
+}
+.ar-btn-verify:hover { background:#E8C96B; }
+
+.nav-saw-hint {
+display:none; 
+}
+.nav-user-chip {
+display:none; align-items:center; gap:8px;
+padding:5px 14px 5px 6px; border-radius:50px;
+background:rgba(27,107,58,.15); border:1px solid rgba(27,107,58,.3);
+font-size:12px; font-weight:600; color:#3DAA6E; cursor:pointer;
+}
+.nav-user-chip .chip-dot {
+width:20px; height:20px; border-radius:50%; background:#1B6B3A;
+color:#fff; font-size:10px; display:flex; align-items:center; justify-content:center;
+font-weight:700;
+}
+.nav-open-btn {
+padding:7px 18px; border-radius:50px; border:1px solid rgba(201,168,76,.3);
+color:#C9A84C; background:rgba(201,168,76,.07); font-size:12px; font-weight:600;
+cursor:pointer; font-family:inherit; transition:all .2s;
+}
+.nav-open-btn:hover { background:rgba(201,168,76,.15); }
+
+.nav-auth { display:flex; align-items:center; gap:8px; }
+.nav-btn-login {
+padding:7px 18px; border-radius:50px; font-size:12px; font-weight:600;
+border:1px solid rgba(255,255,255,.12); color:var(--t2); background:transparent;
+cursor:pointer; font-family:inherit; transition:all .2s; letter-spacing:.01em;
+}
+.nav-btn-login:hover { border-color:var(--gold,#8B6914); color:var(--gold,#8B6914); }
+.nav-btn-register {
+padding:7px 18px; border-radius:50px; font-size:12px; font-weight:700;
+border:none; color:#fff; background:var(--grn2,#1B6B3A);
+cursor:pointer; font-family:inherit; transition:all .2s; letter-spacing:.01em;
+}
+.nav-btn-register:hover { background:#3DAA6E; }
+.nav-btn-analyst {
+padding:6px 14px; border-radius:50px; font-size:11px; font-weight:600;
+border:1px solid rgba(139,105,20,.35); color:var(--gold,#8B6914);
+background:rgba(139,105,20,.08); cursor:pointer; font-family:inherit;
+transition:all .2s; letter-spacing:.01em;
+}
+.nav-btn-analyst:hover { background:rgba(139,105,20,.16); border-color:var(--gold,#8B6914); }
+.nav-user-pill {
+display:none; align-items:center; gap:8px;
+padding:5px 14px 5px 5px; border-radius:50px;
+background:rgba(27,107,58,.12); border:1px solid rgba(27,107,58,.25);
+}
+.nav-user-pill .pill-avatar {
+width:24px; height:24px; border-radius:50%; background:var(--grn2,#1B6B3A);
+display:flex; align-items:center; justify-content:center;
+font-size:11px; font-weight:800; color:#fff; flex-shrink:0;
+}
+.nav-user-pill .pill-name { font-size:12px; font-weight:600; color:var(--grn,#1B6B3A); }
+.nav-logout-btn {
+background:none; border:none; color:var(--t3,#8AA696); font-size:11px;
+cursor:pointer; font-family:inherit; padding:0; margin-left:4px; transition:color .2s;
+}
+.nav-logout-btn:hover { color:var(--t,#18211D); }
+
+.auth-overlay {
+position:fixed; inset:0; z-index:900;
+background:rgba(0,0,0,.65); backdrop-filter:blur(14px);
+display:none; align-items:center; justify-content:center; padding:20px;
+}
+.auth-overlay.open { display:flex; }
+.auth-box {
+background:var(--bg2,#fff); border:1px solid var(--bd,#DDE7E2);
+border-radius:20px; padding:40px; max-width:420px; width:100%;
+position:relative; box-shadow:0 30px 60px rgba(0,0,0,.15);
+animation:authIn .22s ease;
+}
+@keyframes authIn { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+.auth-close {
+position:absolute; top:14px; right:14px; background:var(--bg3,#F7F5F0);
+border:none; color:var(--t2,#4A6355); width:28px; height:28px; border-radius:7px;
+font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+transition:all .2s;
+}
+.auth-close:hover { background:var(--bd,#DDE7E2); }
+.auth-view { display:none; }
+.auth-view.active { display:block; }
+.auth-box h3 {
+font-family:'Cormorant Garamond','Playfair Display','Georgia',serif;
+font-size:24px; font-weight:600; color:var(--t,#18211D); margin-bottom:6px;
+}
+.auth-box .auth-sub { font-size:13px; color:var(--t2,#4A6355); margin-bottom:24px; font-weight:300; }
+.auth-tabs {
+display:flex; gap:4px; background:var(--bg3,#F7F5F0);
+border-radius:50px; padding:4px; margin-bottom:22px;
+}
+.auth-tab {
+flex:1; padding:8px; border-radius:50px; text-align:center; font-size:12px;
+font-weight:600; cursor:pointer; border:none; background:transparent;
+color:var(--t2,#4A6355); font-family:inherit; transition:all .2s;
+}
+.auth-tab.active { background:#fff; color:var(--t,#18211D); box-shadow:0 1px 3px rgba(0,0,0,.1); }
+.auth-fg { margin-bottom:14px; }
+.auth-fg label { display:block; font-size:11px; font-weight:700; color:var(--t2,#4A6355); margin-bottom:5px; letter-spacing:.05em; }
+.auth-fg input, .auth-fg select {
+width:100%; padding:11px 14px; background:var(--bg3,#F7F5F0);
+border:1px solid var(--bd,#DDE7E2); border-radius:8px;
+color:var(--t,#18211D); font-size:14px; font-family:inherit;
+transition:border-color .2s; outline:none;
+}
+.auth-fg input:focus, .auth-fg select:focus { border-color:var(--grn,#1B6B3A); }
+.auth-fg input::placeholder { color:var(--t3,#8AA696); font-size:13px; }
+.auth-fg select { appearance:none; cursor:pointer; }
+.auth-2col { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.auth-err {
+background:rgba(214,78,78,.08); border:1px solid rgba(214,78,78,.25);
+border-radius:8px; padding:9px 13px; font-size:13px; color:#B94040;
+margin-bottom:12px; display:none;
+}
+.auth-submit {
+width:100%; padding:13px; border-radius:50px; font-size:14px; font-weight:700;
+cursor:pointer; border:none; font-family:inherit; transition:all .25s; margin-top:4px;
+}
+.auth-submit.grn { background:var(--grn2,#1B6B3A); color:#fff; }
+.auth-submit.grn:hover { background:#3DAA6E; }
+.auth-submit.gold { background:var(--gold,#8B6914); color:#fff; }
+.auth-submit.gold:hover { filter:brightness(1.1); }
+.auth-toggle { text-align:center; font-size:12px; color:var(--t2,#4A6355); margin-top:14px; }
+.auth-toggle a { color:var(--grn,#1B6B3A); cursor:pointer; font-weight:600; text-decoration:none; }
+.auth-sep { text-align:center; font-size:12px; color:var(--t3,#8AA696); margin:12px 0; }
+.auth-success-icon { font-size:44px; text-align:center; margin-bottom:14px; }
+
+.auth-info-box {
+background:rgba(139,105,20,.07); border:1px solid rgba(139,105,20,.2);
+border-radius:8px; padding:12px 14px; margin-bottom:16px;
+font-size:13px; color:var(--t2,#4A6355); line-height:1.6; font-weight:300;
+}
+.auth-info-box strong { color:var(--gold,#8B6914); }
+
+#page-index.active {
+display: flex !important;
+flex-direction: column;
+min-height: 100vh;
+}
+#page-index .idx-hero { flex-shrink: 0; }
+#page-index .filter-bar { flex-shrink: 0; }
+#page-index .grid { flex: 1 0 auto; }
+#page-index footer {
+margin-top: auto;
+flex-shrink: 0;
+}
+
+.nav { flex-wrap: nowrap; }
+.nav-in {
+flex: 1;
+display: flex;
+align-items: center;
+gap: 14px;
+min-width: 0;
+}
+.nav-auth {
+flex-shrink: 0;
+margin-left: auto;
+}
+
+@media (max-width: 640px) {
+.nav-in > span { display: none; }
+.nav-btn-analyst { display: none; }
+.nav-btn-login { padding: 6px 12px; font-size: 11px; }
+.nav-btn-register { padding: 6px 12px; font-size: 11px; }
+}
+
+.nav {
+position: sticky; top: 0; z-index: 400;
+display: flex; align-items: center;
+padding: 0 24px; height: 52px;
+background: var(--bg); border-bottom: 1px solid var(--bd);
+gap: 0;
+}
+.nav-col { display: flex; align-items: center; }
+.nav-left { flex: 1; justify-content: flex-start; }
+.nav-center-col {
+flex: 0 0 auto;
+position: absolute; left: 50%; transform: translateX(-50%);
+pointer-events: none;
+}
+.nav-label {
+font-size: 10px; font-weight: 700; color: var(--t3);
+letter-spacing: 1.8px; text-transform: uppercase;
+}
+.nav-right { flex: 1; justify-content: flex-end; gap: 6px; }
+.nav-logo { height: 28px; width: auto; }
+
+@media (max-width: 600px) {
+.nav-center-col { display: none; }
+.nav-btn-analyst { display: none; }
+.nav-btn-login { padding: 6px 12px; font-size: 11px; }
+.nav-btn-register{ padding: 6px 12px; font-size: 11px; }
+}
+
+.nav-links { display:flex; gap:4px; }
+.nav-link {
+padding:6px 14px; border-radius:50px; font-size:12px; font-weight:500;
+border:none; background:transparent; color:var(--t2); cursor:pointer;
+font-family:inherit; transition:all .2s; letter-spacing:.01em;
+}
+.nav-link:hover { background:var(--bg3); color:var(--t); }
+.nav-link.active-link { background:var(--bg3); color:var(--t); font-weight:700; }
+@media (max-width: 700px) { .nav-links { display:none; } }
+
+.nav-cart-btn {
+position:relative; background:none; border:none; color:var(--t2);
+cursor:pointer; padding:6px 8px; border-radius:8px; transition:all .2s;
+display:flex; align-items:center;
+}
+.nav-cart-btn:hover { background:var(--bg3); color:var(--t); }
+.cart-badge {
+position:absolute; top:0; right:0; width:16px; height:16px;
+background:var(--grn); color:#fff; border-radius:50%; font-size:9px;
+font-weight:800; display:flex; align-items:center; justify-content:center;
+font-family:'IBM Plex Mono',monospace;
+}
+
+.nav-auth-drop-wrap { position:relative; }
+.nav-auth-main-btn {
+display:flex; align-items:center; gap:5px;
+padding:7px 16px; border-radius:50px; font-size:12px; font-weight:700;
+border:none; background:var(--grn2); color:#fff; cursor:pointer;
+font-family:inherit; transition:all .2s;
+}
+.nav-auth-main-btn:hover { background:#3DAA6E; }
+.nav-auth-main-btn svg { transition:transform .2s; }
+.nav-auth-main-btn.open svg { transform:rotate(180deg); }
+.nav-drop {
+position:absolute; top:calc(100% + 10px); right:0;
+background:var(--bg2); border:1px solid var(--bd);
+border-radius:14px; padding:8px; min-width:210px;
+box-shadow:0 12px 32px rgba(0,0,0,.12);
+display:none; flex-direction:column; gap:2px;
+z-index: 600;
+}
+.nav-drop.open { display:flex; }
+.nav-drop-section {
+font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase;
+color:var(--t3); padding:6px 12px 3px;
+}
+.nav-drop-item {
+text-align:left; padding:9px 14px; border-radius:8px; border:none;
+background:transparent; color:var(--t); font-size:13px; cursor:pointer;
+font-family:inherit; transition:background .15s; width:100%;
+}
+.nav-drop-item:hover { background:var(--bg3); }
+.nav-drop-divider { height:1px; background:var(--bd); margin:4px 8px; }
+
+.cart-overlay {
+position:fixed; inset:0; z-index:90;
+background:rgba(0,0,0,.5); backdrop-filter:blur(6px);
+display:none;
+}
+.cart-overlay.open { display:block; }
+.cart-drawer {
+position:fixed; top:0; right:0; bottom:0; width:360px; max-width:100vw;
+background:var(--bg2); border-left:1px solid var(--bd);
+display:flex; flex-direction:column; z-index:801;
+transform:translateX(100%); transition:transform .3s ease;
+}
+.cart-overlay.open .cart-drawer { transform:translateX(0); }
+.cart-header {
+padding:20px 24px; border-bottom:1px solid var(--bd);
+display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.cart-header h3 { font-family:'Cormorant Garamond','Georgia',serif; font-size:20px; font-weight:600; }
+.cart-close-btn {
+background:var(--bg3); border:none; color:var(--t2); width:30px; height:30px;
+border-radius:8px; cursor:pointer; font-size:16px; display:flex;
+align-items:center; justify-content:center; transition:all .2s;
+}
+.cart-close-btn:hover { background:var(--bd); }
+.cart-items { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; }
+.cart-empty {
+flex:1; display:flex; flex-direction:column; align-items:center;
+justify-content:center; gap:12px; color:var(--t3); text-align:center;
+}
+.cart-empty-icon { font-size:48px; opacity:.4; }
+.cart-item {
+display:flex; align-items:center; gap:12px; padding:14px;
+background:var(--bg3); border-radius:12px; border:1px solid var(--bd);
+}
+.cart-item-ticker {
+width:42px; height:42px; border-radius:10px; background:var(--grn2);
+color:#fff; font-size:10px; font-weight:800; display:flex;
+align-items:center; justify-content:center; flex-shrink:0; letter-spacing:.05em;
+}
+.cart-item-info { flex:1; min-width:0; }
+.cart-item-name { font-size:13px; font-weight:600; color:var(--t); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cart-item-price { font-size:12px; color:var(--gold); font-family:'IBM Plex Mono',monospace; font-weight:700; margin-top:2px; }
+.cart-item-remove {
+background:none; border:none; color:var(--t3); cursor:pointer;
+font-size:16px; padding:4px; border-radius:6px; transition:all .2s; flex-shrink:0;
+}
+.cart-item-remove:hover { background:rgba(214,78,78,.1); color:#D64E4E; }
+.cart-footer {
+padding:20px 24px; border-top:1px solid var(--bd); flex-shrink:0;
+}
+.cart-total-row {
+display:flex; justify-content:space-between; align-items:center;
+margin-bottom:14px;
+}
+.cart-total-lbl { font-size:13px; color:var(--t2); }
+.cart-total-num { font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:700; color:var(--t); }
+.cart-checkout-btn {
+width:100%; padding:14px; border-radius:50px; border:none;
+background:var(--grn2); color:#fff; font-size:14px; font-weight:700;
+cursor:pointer; font-family:inherit; transition:all .25s;
+}
+.cart-checkout-btn:hover { background:#3DAA6E; transform:translateY(-1px); box-shadow:0 8px 20px rgba(27,107,58,.3); }
+.cart-checkout-btn:disabled { opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+
+.cta-add-cart {
+width:100%; padding:8px; border-radius:8px;
+border:1px solid var(--bd); background:transparent;
+color:var(--t2); font-size:12px; font-weight:600;
+cursor:pointer; font-family:inherit; transition:all .2s; margin-top:6px;
+}
+.cta-add-cart:hover { border-color:var(--grn); color:var(--grn); background:rgba(27,107,58,.05); }
+.cta-add-cart.in-cart { border-color:var(--grn2); color:var(--grn2); background:rgba(27,107,58,.07); }
+
+.info-page { max-width:760px; margin:0 auto; padding:60px 28px 80px; }
+.info-page .ip-eyebrow {
+font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+color:var(--grn); margin-bottom:14px;
+}
+.info-page h1 {
+font-family:'Cormorant Garamond','Playfair Display','Georgia',serif;
+font-size:clamp(32px,6vw,52px); font-weight:600; line-height:1.1;
+margin-bottom:16px; color:var(--t);
+}
+.info-page h1 em { font-style:normal; color:var(--grn); }
+.info-page .ip-lead {
+font-size:17px; color:var(--t2); font-weight:300; line-height:1.75;
+margin-bottom:48px; max-width:600px;
+}
+.ip-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:40px; }
+@media (max-width:580px) { .ip-grid { grid-template-columns:1fr; } }
+.ip-card {
+background:var(--bg2); border:1px solid var(--bd); border-radius:16px;
+padding:28px; transition:all .25s;
+}
+.ip-card:hover { border-color:var(--grn); transform:translateY(-2px); }
+.ip-card .ic-icon { font-size:28px; margin-bottom:14px; }
+.ip-card h3 { font-size:16px; font-weight:700; margin-bottom:8px; color:var(--t); }
+.ip-card p { font-size:13px; color:var(--t2); font-weight:300; line-height:1.65; }
+.ip-rev-box {
+background:var(--bg3); border:1px solid var(--bd); border-radius:16px;
+padding:32px; display:flex; align-items:center; gap:24px;
+margin:32px 0; flex-wrap:wrap;
+}
+.ip-rev-num {
+font-family:'IBM Plex Mono',monospace; font-size:48px; font-weight:700;
+line-height:1; flex-shrink:0;
+}
+.ip-rev-num.gold { color:var(--gold); }
+.ip-rev-num.grn { color:var(--grn); }
+.ip-rev-text { flex:1; }
+.ip-rev-text strong { font-size:15px; font-weight:700; color:var(--t); display:block; margin-bottom:6px; }
+.ip-rev-text p { font-size:13px; color:var(--t2); font-weight:300; line-height:1.6; }
+.ip-steps { display:flex; flex-direction:column; gap:20px; margin-bottom:40px; }
+.ip-step { display:flex; gap:18px; align-items:flex-start; }
+.ip-step-num {
+width:36px; height:36px; border-radius:50%; background:var(--grn2);
+color:#fff; font-size:13px; font-weight:800; display:flex;
+align-items:center; justify-content:center; flex-shrink:0; margin-top:2px;
+}
+.ip-step-body h4 { font-size:15px; font-weight:700; margin-bottom:5px; color:var(--t); }
+.ip-step-body p { font-size:13px; color:var(--t2); font-weight:300; line-height:1.65; }
+.ip-cta-box {
+background:linear-gradient(135deg, rgba(27,107,58,.08), rgba(27,107,58,.03));
+border:1px solid rgba(27,107,58,.2); border-radius:16px;
+padding:36px; text-align:center; margin-top:40px;
+}
+.ip-cta-box h3 { font-family:'Cormorant Garamond','Georgia',serif; font-size:26px; margin-bottom:10px; }
+.ip-cta-box p { color:var(--t2); font-size:14px; margin-bottom:22px; }
+.ip-cta-btn {
+padding:13px 32px; border-radius:50px; border:none;
+background:var(--grn2); color:#fff; font-size:14px; font-weight:700;
+cursor:pointer; font-family:inherit; transition:all .25s;
+}
+.ip-cta-btn:hover { background:#3DAA6E; transform:translateY(-1px); }
+.ip-cta-btn.gold-btn { background:var(--gold); color:#fff; }
+.ip-cta-btn.gold-btn:hover { filter:brightness(1.1); }
+
+@media (max-width: 600px) {
+.nav-logo { height: 20px !important; }
+}
+
+.nav-auth-main-btn {
+display: flex !important;
+align-items: center;
+gap: 6px;
+padding: 8px 18px !important;
+border-radius: 50px !important;
+font-size: 13px !important;
+font-weight: 700 !important;
+border: none !important;
+background: var(--grn2, #1B6B3A) !important;
+color: #ffffff !important;
+cursor: pointer;
+font-family: inherit;
+transition: all .2s;
+white-space: nowrap;
+}
+.nav-auth-main-btn:hover {
+background: #2a8f50 !important;
+transform: translateY(-1px);
+box-shadow: 0 4px 14px rgba(27,107,58,.3);
+}
+.nav-auth-main-btn.open {
+background: #2a8f50 !important;
+}
+.nav-auth-main-btn svg {
+transition: transform .2s;
+stroke: #fff !important;
+}
+.nav-auth-main-btn.open svg { transform: rotate(180deg); }
+
+.nav-drop {
+min-width: 230px !important;
+border-radius: 16px !important;
+box-shadow: 0 16px 40px rgba(0,0,0,.16) !important;
+padding: 10px !important;
+}
+.nav-drop-section {
+font-size: 10px;
+font-weight: 700;
+letter-spacing: .08em;
+text-transform: uppercase;
+color: var(--t3);
+padding: 8px 12px 4px;
+}
+.nav-drop-item {
+padding: 10px 14px !important;
+font-size: 13px !important;
+font-weight: 500 !important;
+border-radius: 10px !important;
+text-align: left;
+display: block;
+width: 100%;
+}
+.nav-drop-item:hover {
+background: var(--bg3) !important;
+color: var(--grn) !important;
+}
+.nav-drop-divider {
+height: 1px;
+background: var(--bd);
+margin: 6px 10px;
+}
+
+@media (max-width: 760px) {
+.nav-center-col { display: none !important; }
+}
+
+.nav-center-col { display: none !important; }
+
+.grid {
+align-items: start !important;
+}
+
+.card {
+height: auto !important;
+min-height: unset !important;
+}
+
+.card-ft {
+margin-top: 12px !important;
+}
+
+.cart-footer { display: block; }
+.cart-footer.empty { display: none; }
+
+.home-hero {
+position: relative; padding: 60px 24px 80px; overflow: hidden;
+background: linear-gradient(180deg, #fff 0%, #F0F4F0 100%);
+border-bottom: 1px solid var(--bd);
+}
+.home-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.hh-bg-svg { width: 100%; height: 100%; }
+.home-hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; text-align: center; }
+.hh-tag {
+display: inline-flex; align-items: center; gap: 6px;
+padding: 6px 14px; border-radius: 50px;
+background: rgba(27,107,58,.08); border: 1px solid rgba(27,107,58,.2);
+font-size: 10px; font-weight: 700; letter-spacing: .12em;
+color: var(--grn); text-transform: uppercase; margin-bottom: 24px;
+}
+.hh-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--grn); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.hh-title {
+font-family: 'Cormorant Garamond','Playfair Display','Georgia',serif;
+font-size: clamp(32px, 6vw, 54px); font-weight: 600; line-height: 1.1;
+margin-bottom: 18px; color: var(--t); letter-spacing: -.01em;
+}
+.hh-title em { font-style: normal; color: var(--grn); }
+.hh-lead {
+font-size: 16px; color: var(--t2); font-weight: 300;
+line-height: 1.7; margin: 0 auto 32px; max-width: 580px;
+}
+.hh-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
+.hh-btn-primary {
+padding: 13px 28px; border-radius: 50px; border: none;
+background: var(--grn2); color: #fff; font-size: 14px; font-weight: 700;
+cursor: pointer; font-family: inherit; transition: all .25s;
+}
+.hh-btn-primary:hover { background: #3DAA6E; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(27,107,58,.3); }
+.hh-btn-secondary {
+padding: 13px 28px; border-radius: 50px;
+background: #fff; color: var(--gold); font-size: 14px; font-weight: 700;
+border: 1px solid rgba(139,105,20,.3); cursor: pointer; font-family: inherit; transition: all .25s;
+}
+.hh-btn-secondary:hover { border-color: var(--gold); background: #FFFAEB; }
+.hh-stats {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 0;
+  background: var(--dark);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.hh-stat {
+  padding: 24px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  position: relative;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  transition: background .2s;
+  min-width: 0;
+}
+.hh-stat:last-child { border-right: none; }
+.hh-stat:hover { background: rgba(255,255,255,0.03); }
+.hh-stat::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 16px; right: 16px;
+  height: 2px;
+  background: var(--grn);
+  border-radius: 0 0 4px 4px;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.hh-stat:hover::before { opacity: 1; }
+.hhs-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+.hhs-num span { color: var(--grn); }
+.hhs-lbl {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+@media (max-width: 480px) {
+.hh-stats { grid-template-columns: repeat(2,1fr); }
+.hh-cta { flex-direction: column; }
+.hh-btn-primary, .hh-btn-secondary { width: 100%; }
+}
+
+.home-featured { max-width: 1120px; margin: 0 auto; padding: 60px 24px; }
+.hf-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--gold); margin-bottom: 16px; }
+.hf-card {
+background: linear-gradient(135deg, #FFFEF8 0%, #FFF8E1 100%);
+border: 1px solid #E8D896; border-radius: 18px; padding: 32px;
+display: flex; gap: 32px; align-items: center;
+box-shadow: 0 8px 24px rgba(139,105,20,.08);
+}
+.hf-left { flex: 1; min-width: 0; }
+.hf-right { flex-shrink: 0; }
+.hf-svg { width: 180px; height: 180px; }
+.hf-badge {
+display: inline-block; padding: 4px 12px; border-radius: 50px;
+background: rgba(61,170,110,.12); color: #1B6B3A; font-size: 11px;
+font-weight: 800; letter-spacing: .04em; margin-bottom: 14px;
+}
+.hf-title {
+font-family: 'Cormorant Garamond','Georgia',serif;
+font-size: 26px; font-weight: 600; color: var(--t); margin-bottom: 10px; line-height: 1.2;
+}
+.hf-tagline { font-size: 14px; color: var(--t2); line-height: 1.6; margin-bottom: 18px; font-weight: 300; }
+.hf-metrics { display: flex; gap: 20px; margin-bottom: 22px; flex-wrap: wrap; }
+.hfm { display: flex; flex-direction: column; gap: 2px; }
+.hfm-num { font-family: 'IBM Plex Mono',monospace; font-size: 18px; font-weight: 700; color: var(--grn); }
+.hfm-lbl { font-size: 10px; color: var(--t3); letter-spacing: .04em; text-transform: uppercase; }
+.hf-btn {
+padding: 11px 22px; border-radius: 50px; border: none;
+background: var(--grn2); color: #fff; font-size: 13px; font-weight: 700;
+cursor: pointer; font-family: inherit; transition: all .25s;
+}
+.hf-btn:hover { background: #3DAA6E; }
+@media (max-width: 700px) {
+.hf-card { flex-direction: column; text-align: center; padding: 24px; }
+.hf-svg { width: 130px; height: 130px; }
+.hf-metrics { justify-content: center; }
+}
+
+.home-cats { max-width: 1120px; margin: 0 auto; padding: 60px 24px; }
+.hc-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--grn); margin-bottom: 14px; text-align: center; }
+.hc-title {
+font-family: 'Cormorant Garamond','Georgia',serif;
+font-size: clamp(26px,4vw,38px); font-weight: 600; text-align: center;
+margin-bottom: 36px; color: var(--t); line-height: 1.2;
+}
+.hc-title em { font-style: normal; color: var(--grn); }
+.hc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.hc-item {
+background: #fff; border: 1px solid var(--bd); border-radius: 14px;
+padding: 22px 16px; text-align: center; cursor: pointer;
+transition: all .2s; display: flex; flex-direction: column; gap: 8px; align-items: center;
+}
+.hc-item:hover { border-color: var(--grn); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.06); }
+.hc-icon {
+width: 48px; height: 48px; border-radius: 12px;
+display: flex; align-items: center; justify-content: center;
+font-size: 22px;
+}
+.hc-name { font-size: 13px; font-weight: 700; color: var(--t); }
+.hc-count { font-size: 11px; color: var(--t3); }
+@media (max-width: 720px) { .hc-grid { grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 480px) { .hc-grid { grid-template-columns: repeat(2,1fr); } }
+
+.home-how { max-width: 1120px; margin: 0 auto; padding: 60px 24px; }
+.hw-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--grn); margin-bottom: 14px; text-align: center; }
+.hw-title {
+font-family: 'Cormorant Garamond','Georgia',serif;
+font-size: clamp(26px,4vw,38px); font-weight: 600; text-align: center;
+margin-bottom: 40px; color: var(--t); line-height: 1.2;
+}
+.hw-title em { font-style: normal; color: var(--grn); }
+.hw-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.hw-step {
+background: #fff; border: 1px solid var(--bd); border-radius: 16px;
+padding: 28px 24px; text-align: center; position: relative;
+}
+.hw-num {
+position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+width: 28px; height: 28px; background: var(--grn2); color: #fff;
+font-family: 'IBM Plex Mono',monospace; font-size: 13px; font-weight: 800;
+border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+.hw-icon { font-size: 32px; margin-bottom: 14px; margin-top: 4px; }
+.hw-step h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--t); }
+.hw-step p { font-size: 13px; color: var(--t2); font-weight: 300; line-height: 1.6; }
+@media (max-width: 700px) { .hw-steps { grid-template-columns: 1fr; } }
+
+.home-cta { max-width: 1120px; margin: 0 auto; padding: 40px 24px 80px; }
+.hct-box {
+background: linear-gradient(135deg, var(--grn2), #2a8f50);
+border-radius: 20px; padding: 48px 32px; text-align: center; color: #fff;
+}
+.hct-box h2 {
+font-family: 'Cormorant Garamond','Georgia',serif;
+font-size: clamp(28px,4vw,40px); font-weight: 600; margin-bottom: 12px;
+}
+.hct-box p { color: rgba(255,255,255,.85); font-size: 15px; margin-bottom: 26px; font-weight: 300; }
+.hct-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.hct-actions .hh-btn-primary { background: #fff; color: var(--grn2); }
+.hct-actions .hh-btn-primary:hover { background: #f0f0f0; }
+.hct-actions .hh-btn-secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,.4); }
+.hct-actions .hh-btn-secondary:hover { background: rgba(255,255,255,.1); border-color: #fff; }
+
+.auth-overlay { overflow-y: auto !important; padding: 20px !important; align-items: flex-start !important; }
+.auth-overlay.open { display: flex !important; }
+.auth-box {
+max-height: calc(100vh - 40px);
+overflow-y: auto;
+margin: auto !important;
+}
+.auth-box::-webkit-scrollbar { width: 6px; }
+.auth-box::-webkit-scrollbar-thumb { background: var(--bd); border-radius: 3px; }
+
+.hh-btn-primary {
+background: #1B6B3A !important;
+color: #ffffff !important;
+padding: 13px 28px !important;
+border-radius: 50px !important;
+border: none !important;
+font-size: 14px !important;
+font-weight: 700 !important;
+cursor: pointer !important;
+font-family: inherit !important;
+transition: all .25s !important;
+display: inline-block !important;
+}
+.hh-btn-primary:hover {
+background: #24894A !important;
+transform: translateY(-1px);
+box-shadow: 0 8px 20px rgba(27,107,58,.3);
+}
+.hh-btn-secondary {
+background: #ffffff !important;
+color: #8B6914 !important;
+padding: 13px 28px !important;
+border-radius: 50px !important;
+border: 1.5px solid #8B6914 !important;
+font-size: 14px !important;
+font-weight: 700 !important;
+cursor: pointer !important;
+font-family: inherit !important;
+transition: all .25s !important;
+display: inline-block !important;
+}
+.hh-btn-secondary:hover {
+background: #FFFAEB !important;
+border-color: #A8820F !important;
+}
+
+.hct-box {
+background: linear-gradient(135deg, #1B6B3A 0%, #24894A 100%) !important;
+border-radius: 20px;
+padding: 48px 32px;
+text-align: center;
+color: #fff;
+}
+.hct-box h2 {
+font-family: 'Cormorant Garamond','Georgia',serif;
+font-size: clamp(28px,4vw,40px);
+font-weight: 600;
+margin-bottom: 12px;
+color: #ffffff !important;
+}
+.hct-box p {
+color: rgba(255,255,255,.9) !important;
+font-size: 15px;
+margin-bottom: 26px;
+font-weight: 300;
+}
+.hct-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.hct-actions .hh-btn-primary {
+background: #ffffff !important;
+color: #1B6B3A !important;
+}
+.hct-actions .hh-btn-primary:hover {
+background: #f5f5f5 !important;
+}
+.hct-actions .hh-btn-secondary {
+background: transparent !important;
+color: #ffffff !important;
+border: 1.5px solid rgba(255,255,255,.5) !important;
+}
+.hct-actions .hh-btn-secondary:hover {
+background: rgba(255,255,255,.12) !important;
+border-color: #fff !important;
+}
+
+.cart-item-ticker {
+width: 50px !important;
+height: 50px !important;
+background: #1B6B3A !important;
+color: #ffffff !important;
+font-size: 11px !important;
+font-weight: 800 !important;
+border-radius: 12px !important;
+display: flex !important;
+align-items: center !important;
+justify-content: center !important;
+flex-shrink: 0 !important;
+letter-spacing: .04em !important;
+}
+
+.cart-checkout-btn {
+width: 100% !important;
+padding: 14px !important;
+border-radius: 50px !important;
+border: none !important;
+background: #1B6B3A !important;
+color: #ffffff !important;
+font-size: 14px !important;
+font-weight: 700 !important;
+cursor: pointer !important;
+font-family: inherit !important;
+transition: all .25s !important;
+}
+.cart-checkout-btn:hover {
+background: #24894A !important;
+transform: translateY(-1px);
+box-shadow: 0 8px 20px rgba(27,107,58,.3);
+}
+
+.auth-submit.grn { background: #1B6B3A !important; color: #ffffff !important; }
+.auth-submit.grn:hover { background: #24894A !important; }
+.auth-submit.gold { background: #8B6914 !important; color: #ffffff !important; }
+.auth-submit.gold:hover { background: #A8820F !important; }
+
+.nav-auth-main-btn { background: #1B6B3A !important; color: #ffffff !important; }
+.nav-auth-main-btn:hover { background: #24894A !important; }
+
+.hf-btn { background: #1B6B3A !important; color: #ffffff !important; }
+.hf-btn:hover { background: #24894A !important; }
+
+.ip-cta-btn { background: #1B6B3A !important; color: #ffffff !important; }
+.ip-cta-btn:hover { background: #24894A !important; }
+.ip-cta-btn.gold-btn { background: #8B6914 !important; color: #ffffff !important; }
+.ip-step-num { background: #1B6B3A !important; color: #ffffff !important; }
+
+#btn-smar { background: #1B6B3A !important; color: #ffffff !important; }
+
+.cart-pay-methods {
+margin-top: 14px;
+padding-top: 14px;
+border-top: 1px dashed var(--bd);
+}
+.cpm-lbl {
+display: block;
+font-size: 11px;
+color: var(--t3);
+margin-bottom: 8px;
+text-align: center;
+}
+.cpm-icons {
+display: flex;
+flex-wrap: wrap;
+gap: 5px;
+justify-content: center;
+}
+.cpm-icon {
+padding: 4px 10px;
+background: var(--bg3);
+border: 1px solid var(--bd);
+border-radius: 6px;
+font-size: 10px;
+font-weight: 700;
+color: var(--t2);
+letter-spacing: .02em;
+}
+
+.fbtn-mine {
+background: rgba(139,105,20,.1) !important;
+color: #8B6914 !important;
+border-color: rgba(139,105,20,.3) !important;
+font-weight: 700 !important;
+}
+.fbtn-mine.active {
+background: #8B6914 !important;
+color: #ffffff !important;
+}
+
+:root {
+--bg: #F2EDE2 !important; 
+--bg2: #FFFFFF !important;
+--bg3: #E8E1D2 !important;
+--bg-dk: #0E1411 !important; 
+--bg-dk2: #1A2520 !important;
+--grn: #1B6B3A !important;
+--grn2: #1B6B3A !important;
+--grn-d: #0D3D20 !important; 
+--grn-l: #4CAF80 !important;
+--gold: #B8924A !important; 
+--gold-l: #D4A04F !important;
+--t: #18211D !important;
+--t2: #4A5550 !important;
+--t3: #8A938E !important;
+--bd: #D8CFC0 !important; 
+--bd-dk: #2A3530 !important;
+}
+
+body {
+font-family: 'DM Sans', 'Inter', -apple-system, system-ui, sans-serif !important;
+font-feature-settings: normal;
+letter-spacing: -0.005em;
+}
+h1, h2, h3, h4, h5, h6, .hh-title, .hf-title, .hc-title, .hw-title, .info-page h1, .auth-box h3 {
+font-family: 'Fraunces', 'Times New Roman', Georgia, serif !important;
+font-feature-settings: normal;
+letter-spacing: -0.02em !important;
+font-weight: 500 !important;
+}
+.hh-title em, .hf-title em, .hc-title em, .hw-title em, h1 em, h2 em, .info-page h1 em {
+font-style: italic !important;
+font-weight: 300 !important; 
+}
+.cmv, .stat-num, .hhs-num, .hfm-num, .ip-rev-num, .cart-total-num,
+.cart-item-price, .cart-item-ticker, .price-badge, .cpm-icon, .ar-input,
+.is-v {
+font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace !important;
+font-feature-settings: normal;
+letter-spacing: -0.02em;
+}
+
+.card, .ip-card, .ip-rev-box, .ip-cta-box, .hc-item, .hw-step, .hf-card,
+.cart-item, .auth-box, .auth-fg input, .auth-fg select,
+.cart-drawer, .hh-stat, .hct-box, .nav-drop {
+border-radius: 6px !important;
+}
+.hh-btn-primary, .hh-btn-secondary, .hf-btn, .ip-cta-btn,
+.cart-checkout-btn, .auth-submit, .nav-auth-main-btn,
+.cta-unlock, .fbtn, .ar-btn-verify, .pw-btn-pay, .nav-btn-login,
+.nav-btn-register, .nav-cart-btn, .nav-link, .price-badge,
+.cpm-icon, .hh-tag, .hf-badge, .hw-num {
+border-radius: 4px !important;
+}
+.cta-add-cart { border-radius: 4px !important; }
+.modal-close, .ar-close, .auth-close, .cart-close-btn, .cart-item-remove {
+border-radius: 4px !important;
+}
+
+.pill-avatar, .ip-step-num, .chip-dot, .hh-dot, .cart-badge, .hh-stat .hhs-num,
+.cart-item-ticker { border-radius: 6px !important; }
+.pill-avatar, .ip-step-num, .chip-dot, .cart-badge, .hh-dot { border-radius: 50% !important; }
+
+.nav {
+background: #FFFFFF !important;
+border-bottom: 1px solid var(--bd) !important;
+height: 60px !important;
+padding: 0 28px !important;
+}
+.nav-auth-main-btn {
+background: #18211D !important;
+border-radius: 4px !important;
+padding: 9px 20px !important;
+font-size: 12px !important;
+letter-spacing: 0.03em !important;
+text-transform: uppercase !important;
+font-weight: 600 !important;
+}
+.nav-auth-main-btn:hover { background: #0D3D20 !important; }
+.nav-cart-btn { color: var(--t) !important; }
+.cart-badge { background: var(--gold) !important; }
+
+.home-hero {
+background: #FFFFFF !important;
+padding: 80px 24px 100px !important;
+border-bottom: 1px solid var(--bd) !important;
+}
+.home-hero-inner { max-width: 880px !important; text-align: left !important; }
+.hh-tag {
+background: transparent !important;
+border: 1px solid var(--bd) !important;
+color: var(--t2) !important;
+padding: 7px 14px !important;
+font-size: 10px !important;
+letter-spacing: 0.18em !important;
+}
+.hh-dot { background: var(--gold) !important; }
+.hh-title {
+font-size: clamp(40px, 7vw, 76px) !important;
+font-weight: 400 !important;
+line-height: 1.02 !important;
+margin-bottom: 28px !important;
+color: var(--t) !important;
+}
+.hh-title em { color: var(--grn) !important; }
+.hh-lead {
+font-size: 17px !important;
+color: var(--t2) !important;
+font-weight: 400 !important;
+max-width: 580px !important;
+line-height: 1.65 !important;
+margin: 0 0 36px 0 !important;
+}
+.hh-cta { justify-content: flex-start !important; }
+.hh-btn-primary {
+background: var(--t) !important;
+color: #FFFFFF !important;
+padding: 14px 28px !important;
+font-size: 13px !important;
+letter-spacing: 0.04em !important;
+text-transform: uppercase !important;
+border-radius: 4px !important;
+}
+.hh-btn-primary:hover { background: var(--grn-d) !important; }
+.hh-btn-secondary {
+background: transparent !important;
+color: var(--t) !important;
+border: 1px solid var(--t) !important;
+padding: 14px 28px !important;
+font-size: 13px !important;
+letter-spacing: 0.04em !important;
+text-transform: uppercase !important;
+border-radius: 4px !important;
+}
+.hh-btn-secondary:hover { background: var(--t) !important; color: #FFF !important; }
+
+
+.hh-stat:last-child { border-right: none !important; }
+.hhs-num { color: var(--t) !important; font-size: 28px !important; font-weight: 600 !important; }
+.hhs-lbl { color: var(--t3) !important; letter-spacing: 0.1em !important; font-size: 10px !important; }
+
+.home-hero-bg { opacity: 0.4 !important; }
+.hh-bg-svg { mix-blend-mode: multiply; }
+
+.hf-card {
+background: var(--bg-dk) !important;
+border: 1px solid var(--bd-dk) !important;
+color: #F5F1EA !important;
+padding: 0 !important;
+border-radius: 6px !important;
+overflow: hidden;
+display: grid !important;
+grid-template-columns: 1.2fr 1fr !important;
+gap: 0 !important;
+box-shadow: none !important;
+align-items: stretch !important;
+}
+.hf-left { padding: 48px 44px !important; }
+.hf-right {
+background: linear-gradient(135deg, var(--grn-d) 0%, var(--grn) 100%) !important;
+display: flex !important; align-items: center !important; justify-content: center !important;
+padding: 40px !important;
+}
+.hf-svg { width: 240px !important; height: 240px !important; }
+.hf-svg circle:first-of-type { stroke: rgba(255,255,255,0.15) !important; }
+.hf-svg text { fill: #FFFFFF !important; }
+.hf-badge {
+background: var(--gold) !important;
+color: var(--bg-dk) !important;
+border-radius: 4px !important;
+padding: 4px 10px !important;
+font-size: 10px !important;
+letter-spacing: 0.1em !important;
+}
+.hf-title {
+color: #FFFFFF !important;
+font-size: 32px !important;
+font-weight: 400 !important;
+line-height: 1.15 !important;
+}
+.hf-tagline { color: rgba(245,241,234,0.7) !important; }
+.hfm-num { color: var(--gold-l) !important; }
+.hfm-lbl { color: rgba(245,241,234,0.5) !important; }
+.hf-btn {
+background: #FFFFFF !important;
+color: var(--bg-dk) !important;
+padding: 12px 24px !important;
+font-size: 12px !important;
+letter-spacing: 0.05em !important;
+text-transform: uppercase !important;
+}
+.hf-btn:hover { background: var(--gold) !important; color: var(--bg-dk) !important; }
+@media (max-width: 760px) {
+.hf-card { grid-template-columns: 1fr !important; }
+.hf-left { padding: 32px 28px !important; }
+.hf-right { padding: 36px !important; order: -1 !important; }
+.hf-svg { width: 160px !important; height: 160px !important; }
+}
+
+.hf-eyebrow, .hc-eyebrow, .hw-eyebrow {
+font-family: 'JetBrains Mono', monospace !important;
+font-size: 10px !important;
+letter-spacing: 0.2em !important;
+color: var(--t3) !important;
+margin-bottom: 18px !important;
+}
+
+.hc-title, .hw-title {
+font-size: clamp(32px, 5vw, 48px) !important;
+font-weight: 400 !important;
+margin-bottom: 48px !important;
+}
+
+.hc-item {
+background: var(--bg2) !important;
+border: 1px solid var(--bd) !important;
+border-radius: 6px !important;
+padding: 28px 18px !important;
+}
+.hc-item:hover { border-color: var(--t) !important; transform: none !important; box-shadow: none !important; }
+.hc-icon {
+width: 44px !important; height: 44px !important;
+background: var(--bg3) !important;
+color: var(--t) !important;
+font-size: 20px !important;
+border-radius: 4px !important;
+}
+.hc-name { font-weight: 600 !important; font-size: 13px !important; }
+.hc-count { color: var(--t3) !important; font-size: 11px !important; }
+
+.hw-step {
+background: var(--bg2) !important;
+border: 1px solid var(--bd) !important;
+padding: 36px 28px !important;
+text-align: left !important;
+}
+.hw-num {
+position: relative !important;
+top: 0 !important; left: 0 !important; transform: none !important;
+width: 32px !important; height: 32px !important;
+background: var(--t) !important;
+margin: 0 0 18px 0 !important;
+border-radius: 4px !important;
+font-family: 'JetBrains Mono', monospace !important;
+}
+.hw-icon { font-size: 28px !important; margin-bottom: 16px !important; margin-top: 0 !important; }
+.hw-step h4 { font-size: 17px !important; font-weight: 600 !important; }
+.hw-step p { font-size: 14px !important; line-height: 1.65 !important; }
+
+.hct-box {
+background: var(--bg-dk) !important;
+border-radius: 6px !important;
+padding: 64px 32px !important;
+}
+.hct-box h2 {
+font-size: clamp(34px, 5vw, 52px) !important;
+font-weight: 400 !important;
+color: #FFFFFF !important;
+}
+.hct-box p {
+color: rgba(245,241,234,0.7) !important;
+font-size: 16px !important;
+max-width: 480px;
+margin: 12px auto 32px !important;
+}
+.hct-actions .hh-btn-primary {
+background: var(--gold) !important;
+color: var(--bg-dk) !important;
+}
+.hct-actions .hh-btn-primary:hover { background: var(--gold-l) !important; }
+.hct-actions .hh-btn-secondary {
+border-color: rgba(255,255,255,0.3) !important;
+color: #FFFFFF !important;
+}
+.hct-actions .hh-btn-secondary:hover {
+background: rgba(255,255,255,0.1) !important;
+border-color: #FFFFFF !important;
+}
+
+.card {
+border-radius: 6px !important;
+border: 1px solid var(--bd) !important;
+box-shadow: none !important;
+background: var(--bg2) !important;
+}
+.card:hover { border-color: var(--t) !important; transform: none !important; box-shadow: 0 1px 0 var(--t) !important; }
+.card h2 {
+font-family: 'Fraunces', serif !important;
+font-weight: 500 !important;
+letter-spacing: -0.01em !important;
+}
+.card-ft { background: transparent !important; border-top: 1px solid var(--bd) !important; }
+.cta-unlock {
+background: var(--t) !important;
+color: #FFF !important;
+border-radius: 4px !important;
+font-size: 12px !important;
+letter-spacing: 0.05em !important;
+text-transform: uppercase !important;
+}
+.cta-unlock:hover { background: var(--grn-d) !important; }
+.cta-unlock .ctu-lock {
+background: rgba(255,255,255,0.12) !important;
+border-radius: 3px !important;
+font-family: 'JetBrains Mono', monospace !important;
+}
+#btn-smar { background: var(--grn) !important; }
+.cta-add-cart { font-size: 11px !important; letter-spacing: 0.04em !important; text-transform: uppercase !important; }
+
+.fbtn {
+border-radius: 4px !important;
+font-size: 12px !important;
+letter-spacing: 0.04em !important;
+font-weight: 600 !important;
+}
+.fbtn.active { background: var(--t) !important; color: #FFF !important; border-color: var(--t) !important; }
+
+.info-page h1 {
+font-size: clamp(40px, 7vw, 64px) !important;
+font-weight: 400 !important;
+line-height: 1.05 !important;
+}
+.ip-eyebrow {
+font-family: 'JetBrains Mono', monospace !important;
+letter-spacing: 0.2em !important;
+}
+.ip-card {
+border-radius: 6px !important;
+border: 1px solid var(--bd) !important;
+padding: 32px 28px !important;
+}
+.ip-card:hover { border-color: var(--t) !important; transform: none !important; }
+.ip-rev-box {
+background: var(--bg-dk) !important;
+color: #F5F1EA !important;
+border: none !important;
+border-radius: 6px !important;
+padding: 36px !important;
+}
+.ip-rev-num.gold { color: var(--gold-l) !important; }
+.ip-rev-num.grn { color: var(--grn-l) !important; }
+.ip-rev-text strong { color: #FFFFFF !important; }
+.ip-rev-text p { color: rgba(245,241,234,0.7) !important; }
+.ip-step-num {
+background: var(--t) !important;
+border-radius: 4px !important;
+font-family: 'JetBrains Mono', monospace !important;
+font-size: 12px !important;
+}
+.ip-cta-box {
+background: var(--bg-dk) !important;
+border: none !important;
+color: #FFFFFF !important;
+padding: 48px 32px !important;
+}
+.ip-cta-box h3 { color: #FFFFFF !important; font-size: 32px !important; }
+.ip-cta-box p { color: rgba(245,241,234,0.7) !important; }
+.ip-cta-btn {
+background: var(--gold) !important;
+color: var(--bg-dk) !important;
+border-radius: 4px !important;
+padding: 14px 32px !important;
+font-size: 12px !important;
+letter-spacing: 0.05em !important;
+text-transform: uppercase !important;
+}
+.ip-cta-btn:hover { background: var(--gold-l) !important; }
+
+.auth-box { border-radius: 6px !important; padding: 36px !important; }
+.auth-box h3 { font-size: 28px !important; font-weight: 400 !important; }
+.auth-fg input, .auth-fg select { border-radius: 4px !important; background: var(--bg) !important; }
+.auth-submit { border-radius: 4px !important; font-size: 12px !important; letter-spacing: 0.04em !important; text-transform: uppercase !important; }
+.auth-submit.grn { background: var(--t) !important; }
+.auth-submit.grn:hover { background: var(--grn-d) !important; }
+
+.cart-drawer { background: var(--bg2) !important; }
+.cart-header h3 { font-family: 'Fraunces', serif !important; font-weight: 500 !important; }
+.cart-item { background: var(--bg) !important; border-radius: 6px !important; }
+.cart-item-ticker { border-radius: 4px !important; font-family: 'JetBrains Mono', monospace !important; }
+.cart-checkout-btn {
+background: var(--t) !important;
+border-radius: 4px !important;
+font-size: 12px !important;
+letter-spacing: 0.05em !important;
+text-transform: uppercase !important;
+}
+.cart-checkout-btn:hover { background: var(--grn-d) !important; }
+.cpm-icon {
+border-radius: 3px !important;
+background: var(--bg) !important;
+border: 1px solid var(--bd) !important;
+font-family: 'DM Sans', sans-serif !important;
+text-transform: none !important;
+letter-spacing: 0 !important;
+}
+
+footer {
+background: var(--bg-dk) !important;
+color: rgba(245,241,234,0.7) !important;
+padding: 48px 28px !important;
+border-top: none !important;
+}
+
+.idx-hero {
+background: #FFFFFF !important;
+border-bottom: 1px solid var(--bd) !important;
+padding: 64px 24px !important;
+}
+.idx-hero h1 {
+font-family: 'Fraunces', serif !important;
+font-size: clamp(38px, 6vw, 56px) !important;
+font-weight: 400 !important;
+}
+.idx-hero h1 em { color: var(--grn) !important; font-style: normal !important; font-weight: 600 !important; }
+.idx-tag {
+background: transparent !important;
+border: 1px solid var(--bd) !important;
+color: var(--t2) !important;
+font-family: 'JetBrains Mono', monospace !important;
+font-size: 10px !important;
+letter-spacing: 0.18em !important;
+border-radius: 4px !important;
+}
+.idx-stats > div {
+border-radius: 4px !important;
+background: var(--bg) !important;
+border: 1px solid var(--bd) !important;
+}
+.is-v { color: var(--t) !important; font-weight: 600 !important; }
+
+body { background: #FFFFFF !important; }
+
+.home-why {
+background: var(--bg-dk);
+color: #F5F1EA;
+padding: 100px 24px;
+}
+.hwhy-inner { max-width: 1120px; margin: 0 auto; }
+.hwhy-eyebrow {
+font-family: 'JetBrains Mono', monospace;
+font-size: 10px; letter-spacing: 0.2em;
+color: var(--gold-l);
+margin-bottom: 18px;
+text-align: center;
+}
+.hwhy-title {
+font-family: 'Fraunces', serif;
+font-size: clamp(34px, 5vw, 56px);
+font-weight: 400;
+line-height: 1.05;
+letter-spacing: -0.02em;
+text-align: center;
+margin: 0 auto 18px;
+max-width: 720px;
+color: #FFFFFF;
+}
+.hwhy-title em { font-style: normal; font-weight: 600; color: var(--gold-l); }
+.hwhy-lead {
+text-align: center;
+font-size: 16px;
+color: rgba(245,241,234,0.7);
+font-weight: 400;
+line-height: 1.7;
+max-width: 620px;
+margin: 0 auto 64px;
+}
+.hwhy-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1px;
+background: var(--bd-dk);
+border: 1px solid var(--bd-dk);
+}
+@media (max-width: 720px) { .hwhy-grid { grid-template-columns: 1fr; } }
+.hwhy-card {
+background: var(--bg-dk);
+padding: 44px 36px;
+position: relative;
+transition: background .3s;
+}
+.hwhy-card:hover { background: var(--bg-dk2); }
+.hwhy-num {
+font-family: 'JetBrains Mono', monospace;
+font-size: 12px;
+color: var(--gold-l);
+letter-spacing: 0.2em;
+margin-bottom: 24px;
+}
+.hwhy-card h3 {
+font-family: 'Fraunces', serif;
+font-size: 24px;
+font-weight: 500;
+letter-spacing: -0.01em;
+color: #FFFFFF;
+margin-bottom: 14px;
+line-height: 1.2;
+}
+.hwhy-card p {
+font-size: 14px;
+color: rgba(245,241,234,0.7);
+line-height: 1.7;
+font-weight: 400;
+margin-bottom: 22px;
+}
+.hwhy-tag {
+display: inline-block;
+font-family: 'JetBrains Mono', monospace;
+font-size: 10px;
+letter-spacing: 0.1em;
+color: var(--gold-l);
+padding: 5px 10px;
+border: 1px solid rgba(184,146,74,0.35);
+border-radius: 3px;
+text-transform: uppercase;
+}
+
+.photo-splash {
+background: #FFFFFF;
+border-bottom: 1px solid var(--bd);
+padding: 0;
+}
+.ps-grid {
+max-width: 1280px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 0;
+align-items: stretch;
+}
+@media (max-width: 860px) {
+.ps-grid { grid-template-columns: 1fr; }
+.photo-splash-rev .ps-img { order: -1; }
+}
+.ps-img {
+position: relative;
+min-height: 480px;
+overflow: hidden;
+background: var(--bg-dk);
+}
+.ps-img img {
+width: 100%; height: 100%;
+object-fit: cover;
+display: block;
+filter: saturate(0.92) contrast(1.05);
+}
+.ps-img-tag {
+position: absolute;
+bottom: 28px;
+left: 28px;
+background: var(--bg-dk);
+color: #FFFFFF;
+padding: 14px 20px;
+border-radius: 4px;
+border-left: 3px solid var(--gold);
+}
+.ps-img-tag-rev { left: auto; right: 28px; border-left: none; border-right: 3px solid var(--gold); }
+.ps-img-tag-num {
+font-family: 'JetBrains Mono', monospace;
+font-size: 14px;
+font-weight: 700;
+letter-spacing: 0.04em;
+color: var(--gold-l);
+}
+.ps-img-tag-lbl {
+font-size: 10px;
+letter-spacing: 0.15em;
+color: rgba(245,241,234,0.6);
+text-transform: uppercase;
+margin-top: 4px;
+}
+.ps-text {
+padding: 80px 60px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+background: #FFFFFF;
+}
+@media (max-width: 860px) {
+.ps-text { padding: 56px 32px; }
+.ps-img { min-height: 360px; }
+}
+.ps-eyebrow {
+font-family: 'JetBrains Mono', monospace;
+font-size: 10px;
+letter-spacing: 0.2em;
+color: var(--t3);
+margin-bottom: 18px;
+}
+.ps-text h2 {
+font-family: 'Fraunces', serif;
+font-size: clamp(28px, 4vw, 44px);
+font-weight: 400;
+line-height: 1.1;
+letter-spacing: -0.02em;
+color: var(--t);
+margin-bottom: 24px;
+}
+.ps-text h2 em { font-style: normal; font-weight: 600; color: var(--grn); }
+.ps-body {
+font-size: 16px;
+color: var(--t2);
+line-height: 1.75;
+font-weight: 400;
+margin-bottom: 28px;
+}
+.ps-list {
+list-style: none;
+padding: 0;
+margin: 0;
+display: flex;
+flex-direction: column;
+gap: 12px;
+border-top: 1px solid var(--bd);
+padding-top: 24px;
+}
+.ps-list li {
+display: flex;
+align-items: flex-start;
+gap: 14px;
+font-size: 14px;
+color: var(--t);
+font-weight: 500;
+line-height: 1.5;
+}
+.ps-list li::before {
+content: '';
+flex-shrink: 0;
+width: 8px; height: 8px;
+background: var(--grn);
+border-radius: 1px;
+margin-top: 7px;
+}
+
+.smar-photo-hero {
+position: relative;
+margin: 24px 0 36px;
+border-radius: 6px;
+overflow: hidden;
+border: 1px solid var(--bd);
+}
+.smar-photo-hero img {
+width: 100%;
+height: auto;
+display: block;
+filter: saturate(0.95);
+}
+.smar-photo-hero .ph-overlay {
+position: absolute;
+bottom: 16px; left: 16px;
+background: rgba(14,20,17,0.92);
+color: #FFFFFF;
+padding: 10px 16px;
+border-radius: 4px;
+border-left: 3px solid var(--gold);
+font-family: 'JetBrains Mono', monospace;
+font-size: 11px;
+letter-spacing: 0.06em;
+}
+.smar-photo-split {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 0;
+margin: 32px 0;
+border: 1px solid var(--bd);
+border-radius: 6px;
+overflow: hidden;
+background: var(--bg2);
+}
+@media (max-width: 720px) {
+.smar-photo-split { grid-template-columns: 1fr; }
+}
+.smar-photo-split .sps-img {
+background: var(--bg3);
+min-height: 320px;
+position: relative;
+overflow: hidden;
+}
+.smar-photo-split .sps-img img {
+width: 100%; height: 100%;
+object-fit: cover;
+display: block;
+filter: saturate(0.95);
+}
+.smar-photo-split .sps-img.product-bg img {
+object-fit: contain;
+background: linear-gradient(135deg, #FAFAF8 0%, #F0EDE6 100%);
+padding: 20px;
+}
+.smar-photo-split .sps-img-tag {
+position: absolute;
+bottom: 14px; left: 14px;
+background: rgba(14,20,17,0.92);
+color: #FFFFFF;
+padding: 8px 14px;
+border-radius: 4px;
+border-left: 3px solid var(--gold);
+font-family: 'JetBrains Mono', monospace;
+font-size: 10px;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+max-width: 240px;
+}
+.smar-photo-split .sps-text {
+padding: 32px 28px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+.smar-photo-split .sps-eyebrow {
+font-family: 'JetBrains Mono', monospace;
+font-size: 10px;
+letter-spacing: 0.18em;
+color: var(--gold);
+margin-bottom: 10px;
+text-transform: uppercase;
+}
+.smar-photo-split h4 {
+font-family: 'Fraunces', serif;
+font-size: 22px;
+font-weight: 500;
+letter-spacing: -0.01em;
+color: var(--t);
+margin-bottom: 12px;
+line-height: 1.2;
+}
+.smar-photo-split p {
+font-size: 14px;
+color: var(--t2);
+line-height: 1.65;
+margin-bottom: 12px;
+}
+.smar-photo-split p:last-child { margin-bottom: 0; }
+
+.nav-logo {
+height: 32px !important;
+width: auto !important;
+image-rendering: -webkit-optimize-contrast;
+image-rendering: crisp-edges;
+-ms-interpolation-mode: bicubic;
+display: block;
+flex-shrink: 0;
+}
+@media (max-width: 600px) {
+.nav-logo { height: 24px !important; }
+}
+
+footer img[alt*="Avenir"] {
+image-rendering: -webkit-optimize-contrast;
+image-rendering: crisp-edges;
+}
+
+.home-logo-bar {
+position: absolute;
+top: 0; left: 0; right: 0;
+padding: 24px 32px;
+z-index: 50;
+pointer-events: none;
+}
+.hlb-link {
+display: inline-flex;
+align-items: center;
+text-decoration: none;
+pointer-events: auto;
+}
+.hlb-logo {
+height: 36px;
+width: auto;
+display: block;
+image-rendering: -webkit-optimize-contrast;
+image-rendering: crisp-edges;
+filter: drop-shadow(0 1px 2px rgba(0,0,0,0.04));
+transition: opacity .2s;
+}
+.hlb-link:hover .hlb-logo { opacity: 0.85; }
+
+@media (max-width: 600px) {
+.home-logo-bar { padding: 18px 22px; }
+.hlb-logo { height: 28px; }
+}
+
+#page-home { position: relative; }
+
+#page-home .home-hero { padding-top: 100px !important; }
+@media (max-width: 600px) {
+#page-home .home-hero { padding-top: 80px !important; }
+}
+
+body,
+*:not([class*="mono"]):not([class*="num"]):not([class*="code"]) {
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+system-ui, sans-serif !important;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.hh-title, .hf-title, .hc-title, .hw-title,
+.hwhy-title, .hwhy-card h3,
+.ps-text h2, .ps-text h4,
+.ip-hero h1, .info-page h1,
+.auth-box h3,
+.cart-header h3,
+.idx-hero h1,
+.smar-photo-split h4,
+.sec,
+[class*="sec-title"],
+[class*="page-title"] {
+font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif !important;
+font-style: normal !important; 
+letter-spacing: -0.02em !important;
+}
+
+h1, .hh-title, .hwhy-title, .idx-hero h1 {
+font-weight: 700 !important;
+}
+h2, h3, .hf-title, .hc-title, .hw-title, .ps-text h2 {
+font-weight: 600 !important;
+}
+h4, .hwhy-card h3, .smar-photo-split h4, .hw-step h4 {
+font-weight: 600 !important;
+}
+
+em, .hh-title em, .hf-title em, .hc-title em,
+.hw-title em, .hwhy-title em, .ps-text h2 em,
+.hct-box h2 em {
+font-family: 'Space Grotesk', system-ui, sans-serif !important;
+font-style: normal !important;
+font-weight: 300 !important; 
+color: inherit;
+}
+
+.cmv, .stat-num, .hhs-num, .hfm-num, .ip-rev-num, .cart-total-num,
+.cart-item-price, .cart-item-ticker, .price-badge, .cpm-icon,
+.is-v, .hw-num, .hwhy-num, .ps-img-tag-num,
+.hf-eyebrow, .hc-eyebrow, .hw-eyebrow, .hwhy-eyebrow,
+.ps-eyebrow, .sps-eyebrow, .ip-eyebrow,
+.idx-tag, .hh-tag, .ph-overlay, .sps-img-tag,
+[class*="mono"], [class*="ticker"], [class*="price"],
+code, pre {
+font-family: 'JetBrains Mono', 'IBM Plex Mono', 'Fira Code',
+monospace !important;
+font-style: normal !important;
+letter-spacing: -0.01em !important;
+}
+
+.nav-auth-main-btn, .nav-drop-section,
+.hh-btn-primary, .hh-btn-secondary,
+.fbtn, .cta-unlock, .hf-btn,
+.ip-cta-btn, .auth-submit,
+.cart-checkout-btn {
+font-family: 'Inter', system-ui, sans-serif !important;
+font-weight: 600 !important;
+letter-spacing: 0.02em !important;
+}
+
+.nav-wordmark, .nav-brand {
+font-family: 'Space Grotesk', system-ui, sans-serif !important;
+font-weight: 700 !important;
+}
+
+p, .body-text, .ip-card p, .hwhy-card p,
+.hh-lead, .hf-tagline, .ps-body,
+.ps-text p, .res-desc, .card-body,
+.info-page p, .ip-desc {
+font-family: 'Inter', system-ui, sans-serif !important;
+font-weight: 400 !important;
+letter-spacing: -0.005em !important;
+}
+
+.label, .tag-pill, .section-num,
+.ip-step-num, .hf-badge,
+.nav-drop-section {
+font-family: 'Inter', system-ui, sans-serif !important;
+font-weight: 600 !important;
+letter-spacing: 0.06em !important;
+text-transform: uppercase !important;
+}
+
+[style*="Fraunces"],
+[style*="Cormorant"],
+[style*="DM Sans"],
+[style*="Playfair"],
+[style*="Georgia"],
+[style*="Times New Roman"] {
+font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif !important;
+font-style: normal !important;
+}
+
+em {
+font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif !important;
+font-style: normal !important;
+font-weight: inherit !important; 
+color: var(--grn) !important; 
+}
+
+.hwhy-title em,
+.home-why em,
+.hct-box h2 em,
+.hf-card em,
+.ip-rev-box em {
+color: var(--gold-l) !important;
+}
+
+p em, li em, .lead em, .hh-lead em, .ps-body em {
+color: var(--grn) !important;
+font-weight: 500 !important;
+font-style: normal !important;
+}
+
+*[style*="LoraI"],
+*[style*="Lora-Italic"],
+*[style*="Fraunces"],
+*[style*="Cormorant"],
+*[style*="italic"] {
+font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif !important;
+font-style: normal !important;
+}
+
+.hl {
+font-family: inherit !important;
+font-size: inherit !important;
+font-weight: 700 !important;
+font-style: normal !important;
+color: var(--grn) !important;
+line-height: inherit !important;
+letter-spacing: inherit !important;
+display: inline !important;
+}
+
+.home-why .hl,
+.hwhy-title .hl,
+.hct-box .hl,
+.hf-card .hl,
+.ip-rev-box .hl {
+color: var(--gold-l) !important;
+font-weight: 700 !important;
+}
+
+em {
+font-family: inherit !important;
+font-size: inherit !important;
+font-weight: 500 !important;
+font-style: normal !important;
+color: var(--grn) !important;
+}
+
+.hwhy-title, .hh-title, .idx-hero h1 {
+font-weight: 700 !important;
+}
+.hf-title, .hc-title, .hw-title, h2, h3 {
+font-weight: 600 !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.hwhy-title, .hh-title, .hf-title, .hc-title,
+.hw-title, .idx-hero h1, .hl, .sec {
+font-feature-settings: normal !important;
+-webkit-font-feature-settings: normal !important;
+font-variant: normal !important;
+text-rendering: optimizeLegibility;
+}
+
+.home-why .hl,
+.hwhy-title .hl,
+.hct-box .hl,
+.hf-card .hl,
+.ip-rev-box .hl,
+.ip-cta-box .hl {
+font-weight: 700 !important;
+background: linear-gradient(135deg, #D4A04F 0%, #B8924A 40%, #E8BF70 70%, #B8924A 100%) !important;
+-webkit-background-clip: text !important;
+-webkit-text-fill-color: transparent !important;
+background-clip: text !important;
+filter: drop-shadow(0 0 12px rgba(184,146,74,0.55))
+drop-shadow(0 2px 4px rgba(0,0,0,0.4)) !important;
+text-shadow: none !important;
+}
+
+.hl {
+font-weight: 700 !important;
+background: linear-gradient(135deg, #1B6B3A 0%, #24894A 50%, #1B6B3A 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+filter: drop-shadow(0 1px 3px rgba(27,107,58,0.35));
+text-shadow: none;
+}
+
+/* ── CRM: fin-table Salesforce header color ── */
+#page-crm .fin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  border: 1.5px solid #00A1E0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+#page-crm .fin-table thead tr th {
+  background: #00A1E0 !important;
+  color: #ffffff !important;
+  font-family: 'Space Grotesk','Inter',sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  padding: 10px 12px !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  text-align: left;
+}
+#page-crm .fin-table tbody tr td {
+  padding: 8px 12px !important;
+  border: 1px solid #d0e8f4 !important;
+  color: var(--t2);
+  vertical-align: middle;
+}
+#page-crm .fin-table tbody tr:nth-child(even) td {
+  background: rgba(0,161,224,0.04) !important;
+}
+#page-crm .fin-table tbody tr:hover td {
+  background: rgba(0,161,224,0.08) !important;
+}
+#page-crm .fin-table tbody tr td:first-child {
+  font-weight: 500;
+  color: var(--t);
+  border-left: 3px solid #00A1E0 !important;
+}
+
+/* ── DESKTOP FONT SIZE FIX ── */
+@media (min-width: 768px) {
+  body { font-size: 15px !important; }
+  .hsub { font-size: 15.5px !important; line-height: 1.75 !important; }
+  .box p { font-size: 14.5px !important; line-height: 1.72 !important; }
+  .cnt p { font-size: 14.5px !important; }
+  .cg2 .cd p, .cg2 .cd li,
+  .cd ul li, .cd p { font-size: 13.5px !important; }
+  .fin-table td, .fin-table th { font-size: 13px !important; }
+  #page-crm .fin-table td,
+  #page-crm .fin-table th { font-size: 13px !important; }
+  .sc-note { font-size: 12px !important; }
+  .sv { font-size: 22px !important; }
+  .sl { font-size: 12px !important; }
+  .sd { font-size: 11.5px !important; }
+  h2.sec { font-size: 20px !important; }
+  h4 { font-size: 15px !important; }
+  .sps-body { font-size: 15px !important; }
+  .sps-text p { font-size: 14px !important; }
+  .sps-text h4 { font-size: 18px !important; }
+  .hwhy-card p { font-size: 14px !important; }
+  .ps-body { font-size: 15.5px !important; }
+  .hh-lead { font-size: 17px !important; }
+}
+
+/* ═══ EQUAL HEIGHT CARDS ═══ */
+.grid { align-items: stretch !important; }
+.card { height: 100% !important; }
+.card-hd, .cdiv, .card-m, .card-tags { flex-shrink: 0 !important; }
+.card-ft { margin-top: auto !important; }
+
+/* ═══ RESEARCH PAGES: semua sejajar dengan .cnt (max-width 860px) ═══ */
+.hero { padding: 52px 0 40px !important; }
+.htag, .hero h1, .hsub, .hmeta {
+  max-width: 860px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 28px !important;
+  padding-right: 28px !important;
+  box-sizing: border-box;
+}
+.smar-photo-hero {
+  max-width: 860px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 28px !important;
+  padding-right: 28px !important;
+  box-sizing: border-box;
+}
+.smar-photo-hero img { border-radius: 6px; width: 100%; }
+.smar-photo-hero .ph-overlay { left: 44px !important; bottom: 16px !important; }
+.smar-photo-split {
+  max-width: 860px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* ── NAV: hapus absolute center ── */
+.nav-center-col {
+  display: none !important;
+}
+
+/* ── HTAG: sejajar dengan konten hero (padding-left 28px) ── */
+.htag {
+  padding-left: 28px !important;
+  padding-right: 28px !important;
+  max-width: 860px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: flex !important;
+  box-sizing: border-box;
+}
+
+/* ── HOME logo bar tetap di kiri ── */
+.home-logo-bar {
+  position: absolute;
+  top: 0; left: 0;
+  padding: 24px 32px;
+  z-index: 50;
+}
+
+/* ── HOME NAV BAR: sejajar dengan hero content ── */
+.home-nav-bar {
+  width: 100%;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--bd);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.home-nav-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 28px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+}
+.hlb-logo {
+  height: 30px !important;
+  width: auto !important;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+}
+/* Override absolute positioning yang lama */
+.home-logo-bar {
+  position: static !important;
+}
+/* Hero tidak perlu padding-top extra lagi */
+#page-home .home-hero {
+  padding-top: 80px !important;
+}
+@media (max-width: 600px) {
+  .home-nav-inner { padding: 0 18px; }
+  .hlb-logo { height: 24px !important; }
+  #page-home .home-hero { padding-top: 60px !important; }
+}
+
+/* ── HOME: logo di dalam hero, tanpa nav bar ── */
+.home-nav-bar { display: none !important; }
+
+.home-hero-logo {
+  margin-bottom: 28px;
+}
+.home-hero-logo .hlb-logo {
+  height: 32px !important;
+  width: auto !important;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Hero padding normal kembali */
+#page-home .home-hero {
+  padding-top: 52px !important;
+  padding-bottom: 80px !important;
+}
+@media (max-width: 600px) {
+  #page-home .home-hero { padding-top: 40px !important; }
+  .home-hero-logo .hlb-logo { height: 26px !important; }
+}
+
+/* ── REVERT: home logo bar original ── */
+.home-nav-bar { display: none !important; }
+.home-hero-logo { display: none !important; }
+.home-logo-bar {
+  position: absolute !important;
+  top: 0 !important; left: 0 !important; right: 0 !important;
+  padding: 24px 32px !important;
+  z-index: 50 !important;
+  pointer-events: none !important;
+  background: none !important;
+  border: none !important;
+}
+.hlb-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  pointer-events: auto !important;
+}
+.hlb-logo {
+  height: 32px !important;
+  width: auto !important;
+  display: block !important;
+}
+#page-home .home-hero {
+  padding-top: 100px !important;
+  position: relative !important;
+}
+@media (max-width: 600px) {
+  .home-logo-bar { padding: 18px 22px !important; }
+  .hlb-logo { height: 26px !important; }
+  #page-home .home-hero { padding-top: 80px !important; }
+}
+
+/* Nav & Footer controlled via JS */
+
+/* ── Nav logged-in state ── */
+#nav-loggedin { align-items: center; gap: 10px; }
+.nav-user-pill {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--grn-gl); border: 1px solid rgba(27,107,58,.2);
+  border-radius: 50px; padding: 5px 12px 5px 5px; cursor: default;
+}
+.pill-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--grn); color: #fff;
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.pill-name { font-size: 13px; font-weight: 600; color: var(--grn); }
+.nav-logout-btn {
+  font-size: 12px; font-weight: 600; color: var(--t2);
+  background: transparent; border: 1.5px solid var(--bd);
+  border-radius: 50px; padding: 6px 14px; cursor: pointer;
+  font-family: inherit; transition: all .2s;
+}
+.nav-logout-btn:hover { border-color: #e53e3e; color: #e53e3e; }
+
+/* ── Nav global button style ── */
+.nav-auth-main-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--dark); color: #fff;
+  border: none; border-radius: 8px;
+  padding: 9px 16px; cursor: pointer;
+  font-size: 13px; font-weight: 700;
+  font-family: inherit; letter-spacing: .04em;
+  transition: background .2s;
+}
+.nav-auth-main-btn:hover { background: #1a2a1e; }
+.nav-auth-main-btn svg { transition: transform .2s; }
+.nav-auth-main-btn.open svg { transform: rotate(180deg); }
+
+.nav-cart-btn {
+  position: relative; background: transparent;
+  border: none; cursor: pointer; padding: 6px;
+  color: var(--t2); display: flex; align-items: center;
+  border-radius: 8px; transition: color .2s;
+}
+.nav-cart-btn:hover { color: var(--grn); }
+
+
+
+/* ── News Banner di Index ── */
+.idx-news-banner {
+  display: flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, #0E1411 0%, #1B3A2A 100%);
+  border: 1px solid rgba(27,107,58,.3);
+  border-radius: 10px; padding: 12px 18px;
+  margin-bottom: 20px; cursor: pointer;
+  transition: border-color .2s;
+}
+.idx-news-banner:hover { border-color: var(--grn); }
+.idx-news-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  color: var(--grn); background: rgba(27,107,58,.15);
+  padding: 3px 8px; border-radius: 4px; flex-shrink: 0;
+}
+.idx-news-text {
+  font-size: 13px; color: #e8e2d6; flex: 1;
+  font-family: 'Inter', sans-serif;
+}
+.idx-news-arrow { color: var(--grn); font-size: 16px; flex-shrink: 0; }
+
+/* ── News Page ── */
+.news-page { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+.news-page-header { margin-bottom: 40px; }
+.news-page-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  color: var(--grn); text-transform: uppercase; margin-bottom: 16px;
+}
+.news-page-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--grn); }
+.news-page h1 { font-size: clamp(24px,4vw,36px); font-weight: 800; color: var(--dark); line-height: 1.2; margin-bottom: 12px; }
+.news-grid { display: grid; gap: 20px; }
+.news-card {
+  background: #fff; border: 1px solid var(--bd);
+  border-radius: 14px; overflow: hidden;
+  transition: box-shadow .2s, transform .2s;
+  cursor: pointer;
+}
+.news-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.08); transform: translateY(-2px); }
+.news-card-body { padding: 24px; }
+.news-card-cat {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  color: var(--grn); text-transform: uppercase; margin-bottom: 10px;
+}
+.news-card-title { font-size: 18px; font-weight: 700; color: var(--dark); line-height: 1.35; margin-bottom: 10px; }
+.news-card-excerpt { font-size: 14px; color: var(--t2); line-height: 1.6; margin-bottom: 16px; }
+.news-card-meta { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--t3); }
+.news-card-date { font-family: 'JetBrains Mono', monospace; }
+.news-card-free { background: rgba(27,107,58,.1); color: var(--grn); padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+
+/* ── Article view ── */
+.news-article { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+.news-article-back { display: inline-flex; align-items: center; gap: 6px; color: var(--t2); font-size: 13px; cursor: pointer; margin-bottom: 32px; transition: color .2s; background: none; border: none; font-family: inherit; }
+.news-article-back:hover { color: var(--grn); }
+.news-article-tag { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: var(--grn); text-transform: uppercase; margin-bottom: 12px; }
+.news-article h1 { font-size: clamp(22px,4vw,34px); font-weight: 800; color: var(--dark); line-height: 1.25; margin-bottom: 16px; }
+.news-article-meta { display: flex; align-items: center; gap: 16px; font-size: 13px; color: var(--t2); padding-bottom: 24px; border-bottom: 1px solid var(--bd); margin-bottom: 32px; }
+.news-article-body { font-size: 15px; line-height: 1.8; color: var(--t1); }
+.news-article-body h2 { font-size: 19px; font-weight: 700; color: var(--dark); margin: 32px 0 12px; }
+.news-article-body h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin: 24px 0 8px; }
+.news-article-body p { margin-bottom: 16px; }
+.news-article-body .highlight { background: rgba(27,107,58,.08); border-left: 3px solid var(--grn); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 20px 0; font-weight: 500; }
+.news-article-body table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+.news-article-body th { background: var(--dark); color: #fff; padding: 10px 14px; text-align: left; font-size: 12px; letter-spacing: .05em; }
+.news-article-body td { padding: 10px 14px; border-bottom: 1px solid var(--bd); }
+.news-article-body tr:nth-child(even) td { background: #f8f6f1; }
+.news-article-body .tag-pos { color: var(--grn); font-weight: 700; }
+.news-article-body .tag-neg { color: #e53e3e; font-weight: 700; }
+.news-article-body .tag-neu { color: #B8924A; font-weight: 700; }
+.news-disclaimer { font-size: 12px; color: var(--t3); border-top: 1px solid var(--bd); margin-top: 48px; padding-top: 20px; line-height: 1.6; }
+
+/* ══════════════════════════════════════════
+   DESKTOP LAYOUT FIX — unified container
+   ══════════════════════════════════════════ */
+
+/* Global container — semua konten halaman */
+.page-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 28px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Nav sudah pakai max-width 1120px via nav-in — match ini */
+.nav { box-sizing: border-box; }
+
+/* Semua .cnt sudah pakai 860px — pertahankan untuk artikel */
+.cnt { box-sizing: border-box; }
+
+/* News page — samakan padding dengan nav */
+.news-page {
+  max-width: 1120px !important;
+  padding: 40px 28px 80px !important;
+}
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+/* News article — readable width tapi aligned */
+.news-article {
+  max-width: 760px !important;
+  padding: 40px 28px 80px !important;
+}
+
+/* idx-hero padding alignment */
+.idx-hero {
+  padding-left: 28px !important;
+  padding-right: 28px !important;
+}
+
+/* Semua page aktif — pastikan tidak ada overflow tersembunyi */
+.page.active {
+  display: block;
+  min-height: calc(100vh - 52px);
+}
+
+/* Fix home hero padding */
+#page-home .home-hero {
+  padding-left: 28px !important;
+  padding-right: 28px !important;
+}
+
+/* Fix .cnt padding konsisten */
+.cnt {
+  padding-left: 28px !important;
+  padding-right: 28px !important;
+}
+
+/* Mobile override */
+@media (max-width: 768px) {
+  .news-page { padding: 28px 18px 60px !important; }
+  .news-article { padding: 28px 18px 60px !important; }
+  .news-grid { grid-template-columns: 1fr !important; }
+  .cnt { padding-left: 18px !important; padding-right: 18px !important; }
+  .idx-hero { padding-left: 18px !important; padding-right: 18px !important; }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+/* ═══ SUPABASE CLIENT ═══ */
+const _sb = supabase.createClient('https://wkcqnqtwuxzcjagitkmk.supabase.co', 'sb_publishable_YYtylX5tqzI0Xdy3OrQPgQ_YIXP2zSM');
+</script>
+
+<style>
+/* === Mobile table scroll - tabel fixed width, scroll horizontal === */
+@media (max-width: 820px) {
+  /* Wrap setiap table jadi scroll container */
+  table {
+    display: block;
+    width: 100% !important;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+    /* Visual hint: subtle gradient shadow di edge */
+    background: 
+      linear-gradient(to right, white 30%, rgba(255,255,255,0)),
+      linear-gradient(to right, rgba(0,0,0,.08), rgba(255,255,255,0) 30%) 0 100%,
+      radial-gradient(farthest-side at 0 50%, rgba(0,0,0,.15), rgba(0,0,0,0)),
+      radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.15), rgba(0,0,0,0)) 100%;
+    background-attachment: local, local, scroll, scroll;
+    background-repeat: no-repeat;
+    background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+    background-color: white;
+  }
+  /* Table cells tetap tidak wrap (paksa horizontal scroll) */
+  table td, table th {
+    white-space: nowrap;
+    min-width: max-content;
+  }
+  /* Khusus tabel "Identitas Perusahaan" yang 2 kolom — boleh wrap */
+  .box table[style*="width:100%"]:not(.tbl) td:first-child,
+  .box table[style*="width:100%"]:not(.tbl) td:nth-child(2) {
+    white-space: normal;
+  }
+}
+</style>
+
+<style>
+/* AVENIR: Force footer always visible — override SPA legacy JS */
+body > footer {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+</style>
+</head>
+<body>
+<nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+  <div style="max-width:1280px;margin:0 auto;padding:0 18px;display:flex;align-items:center;height:54px;gap:18px;position:relative">
+    <a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0">
+      <img data-avlogo="1" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Avenir" style="height:26px;width:auto">
+    </a>
+    <div class="nav-links-desktop" style="display:flex;gap:2px;flex:1;align-items:center">
+      <a href="index.html" class="nav-link">Beranda</a>
+      <a href="katalog.html" class="nav-link">Katalog</a>
+      <a href="news.html" class="nav-link">News</a>
+      <a href="tentang.html" class="nav-link">Tentang</a>
+      <a href="mitra.html" class="nav-link">Mitra</a>
+    </div>
+    <div class="nav-right-desktop" style="display:flex;gap:6px;align-items:center;flex-shrink:0">
+      <button onclick="CART.open()" class="nav-icon-btn" title="Keranjang">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+      </button>
+      <button data-auth="guest" onclick="AUTH.open('login')" class="nav-btn-secondary">Sign In</button>
+      <button data-auth="guest" onclick="AUTH.open('register')" class="nav-btn-primary">Daftar</button>
+      <div data-auth="user" style="display:none;position:relative" id="user-menu-wrap">
+        <button onclick="document.getElementById('user-dropdown').style.display=document.getElementById('user-dropdown').style.display==='block'?'none':'block'" class="nav-btn-user" id="nav-user-name-item">
+          👤 <span id="nav-user-name">Akun</span>
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div id="user-dropdown" style="display:none;position:absolute;top:100%;right:0;margin-top:6px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.1);min-width:160px;overflow:hidden;z-index:10">
+          <a href="pengguna.html" class="user-dd-item">Akun Saya</a>
+          <button onclick="AUTH.logout();document.getElementById('user-dropdown').style.display='none'" class="user-dd-logout">Keluar →</button>
+        </div>
+      </div>
+    </div>
+    <button class="nav-hamburger" onclick="document.getElementById('mobile-drawer').classList.toggle('open')" aria-label="Menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobile-drawer" class="mobile-drawer">
+    <a href="index.html" class="mob-link">Beranda</a>
+    <a href="katalog.html" class="mob-link">Katalog Riset</a>
+    <a href="news.html" class="mob-link">Market News</a>
+    <a href="tentang.html" class="mob-link">Tentang Avenir</a>
+    <a href="mitra.html" class="mob-link">Mitra Terverifikasi</a>
+    <div class="mob-divider"></div>
+    <button data-auth="guest" onclick="AUTH.open('login');document.getElementById('mobile-drawer').classList.remove('open')" class="mob-link mob-btn-style">Sign In</button>
+    <button data-auth="guest" onclick="AUTH.open('register');document.getElementById('mobile-drawer').classList.remove('open')" class="mob-link mob-btn-primary-style">Daftar Gratis</button>
+    <a data-auth="user" style="display:none" href="pengguna.html" class="mob-link">Akun Saya</a>
+    <button data-auth="user" style="display:none" onclick="AUTH.logout()" class="mob-link mob-btn-logout-style">Keluar →</button>
+  </div>
+</nav>
+<style>
+  .nav-link { padding:6px 11px; border-radius:6px; text-decoration:none; color:#4b5563; font-size:12.5px; font-weight:600; transition:all .15s; }
+  .nav-link:hover { background:#f3f4f6; color:#1B6B3A; }
+  .nav-link.active { background:#ecfdf5; color:#1B6B3A; }
+  .nav-icon-btn { background:transparent; border:1px solid #e5e7eb; border-radius:7px; width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; color:#4b5563; }
+  .nav-icon-btn:hover { background:#f3f4f6; }
+  .cart-badge { position:absolute; top:-4px; right:-4px; background:#dc2626; color:#fff; font-size:9px; font-weight:700; padding:1px 4px; border-radius:8px; min-width:16px; text-align:center; }
+  .nav-btn-secondary { padding:6px 13px; background:transparent; border:1px solid #d1d5db; border-radius:7px; font-size:12.5px; font-weight:600; color:#374151; cursor:pointer; font-family:inherit; }
+  .nav-btn-secondary:hover { background:#f9fafb; border-color:#1B6B3A; color:#1B6B3A; }
+  .nav-btn-primary { padding:6px 13px; background:#1B6B3A; color:#fff; border:none; border-radius:7px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; }
+  .nav-btn-primary:hover { background:#155028; }
+  .nav-btn-user { padding:6px 11px; background:#f3f4f6; border:1px solid #e5e7eb; border-radius:7px; font-size:12.5px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:5px; font-family:inherit; }
+  .user-dd-item { display:block; padding:9px 12px; text-decoration:none; color:#374151; font-size:12.5px; font-weight:500; }
+  .user-dd-item:hover { background:#f9fafb; }
+  .user-dd-logout { display:block; width:100%; text-align:left; padding:9px 12px; background:transparent; border:none; border-top:1px solid #f3f4f6; color:#dc2626; font-size:12.5px; font-weight:600; cursor:pointer; font-family:inherit; }
+  .user-dd-logout:hover { background:#fef2f2; }
+  .nav-hamburger { display:none; background:transparent; border:1px solid #e5e7eb; border-radius:7px; width:34px; height:34px; align-items:center; justify-content:center; cursor:pointer; color:#374151; }
+  .mobile-drawer { display:none; position:absolute; top:54px; left:0; right:0; background:#fff; border-bottom:1px solid #e5e7eb; box-shadow:0 8px 20px rgba(0,0,0,.06); padding:8px 0 14px; max-height:calc(100vh - 54px); overflow-y:auto; z-index:499; }
+  .mobile-drawer.open { display:block; }
+  .mob-link { display:block; padding:11px 18px; text-decoration:none; color:#374151; font-size:14px; font-weight:600; background:transparent; border:none; width:100%; text-align:left; cursor:pointer; font-family:inherit; }
+  .mob-link:hover { background:#f9fafb; color:#1B6B3A; }
+  .mob-divider { border-top:1px solid #f3f4f6; margin:6px 14px; }
+  .mob-btn-primary-style { background:#1B6B3A !important; color:#fff !important; border-radius:8px !important; margin:6px 18px !important; width:calc(100% - 36px) !important; text-align:center !important; }
+  .mob-btn-primary-style:hover { background:#155028 !important; color:#fff !important; }
+  .mob-btn-logout-style { color:#dc2626 !important; }
+  @media (max-width: 820px) {
+    .nav-links-desktop, .nav-right-desktop { display:none !important; }
+    .nav-hamburger { 
+      display:flex !important;
+      position:absolute !important;
+      right:18px !important;
+      top:50% !important;
+      transform:translateY(-50%) !important;
+      margin-left:0 !important;
+    }
+  }
+  }
+</style>
+<div class="auth-overlay" id="auth-overlay" onclick="AUTH.closeOutside(event)">
+ <div class="auth-box">
+  <button class="auth-close" onclick="AUTH.close()">✕</button>
+
+  <!-- LOGIN -->
+  <div class="auth-view active" id="auth-login">
+   <h3>Selamat Datang</h3>
+   <p class="auth-sub">Masuk untuk mengakses riset yang sudah Anda beli</p>
+   <div class="auth-err" id="login-err"></div>
+   <div class="auth-fg"><label>EMAIL</label><input type="email" id="l-email" placeholder="email@anda.com" autocomplete="email"></div>
+   <div class="auth-fg"><label>PASSWORD</label><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password"></div>
+   <button class="auth-submit grn" onclick="AUTH.login()">Masuk →</button>
+   <div class="auth-sep">Belum punya akun?</div>
+   <button class="auth-submit" style="background:transparent;border:1px solid var(--bd);color:var(--t2);font-weight:600;padding:11px;border-radius:50px;width:100%;cursor:pointer;font-family:inherit" onclick="AUTH.show('register')">Daftar Gratis</button>
+  </div>
+
+  <!-- REGISTER -->
+  <div class="auth-view" id="auth-register">
+   <h3>Buat Akun</h3>
+   <p class="auth-sub">Daftar gratis untuk mulai mengakses riset premium</p>
+   <div class="auth-err" id="reg-err"></div>
+   <div class="auth-2col">
+    <div class="auth-fg"><label>NAMA DEPAN</label><input type="text" id="r-fname" placeholder="Budi"></div>
+    <div class="auth-fg"><label>NAMA BELAKANG</label><input type="text" id="r-lname" placeholder="Santoso"></div>
+   </div>
+   <div class="auth-fg"><label>EMAIL</label><input type="email" id="r-email" placeholder="email@anda.com" autocomplete="email"></div>
+   <div class="auth-fg"><label>PASSWORD</label><input type="password" id="r-pass" placeholder="Min. 8 karakter" autocomplete="new-password"></div>
+   <div class="auth-fg">
+    <label>PROFIL INVESTOR</label>
+    <select id="r-profile">
+     <option>Investor Individu</option>
+     <option>Trader Aktif</option>
+     <option>Fund Manager</option>
+     <option>Institusi / Perusahaan</option>
+    </select>
+   </div>
+   <button class="auth-submit grn" onclick="AUTH.register()">Daftar Sekarang →</button>
+   <div class="auth-toggle">Sudah punya akun? <a onclick="AUTH.show('login')">Masuk</a></div>
+  </div>
+
+  <!-- DAFTAR MITRA ANALIS -->
+  <div class="auth-view" id="auth-analyst">
+   <h3>Pendaftaran Mitra Analis</h3>
+   <p class="auth-sub">Kirimkan aplikasi Anda sebagai analis riset freelance Avenir</p>
+   <div class="auth-info-box">
+    Setiap riset yang diterima akan ditinjau oleh tim editorial kami untuk penetapan tarif <strong>Rp5.000–Rp15.000</strong>. Analis mitra mendapatkan <strong>bagi hasil 40%</strong> dari setiap akses riset, dibayarkan bulanan. (60% untuk Avenir mencakup platform, kurasi, marketing & pengembangan)
+   </div>
+   <div class="auth-err" id="analyst-err"></div>
+   <div class="auth-2col">
+    <div class="auth-fg"><label>NAMA DEPAN</label><input type="text" id="a-fname" placeholder="Dewi"></div>
+    <div class="auth-fg"><label>NAMA BELAKANG</label><input type="text" id="a-lname" placeholder="Kusuma, CFA"></div>
+   </div>
+   <div class="auth-fg"><label>EMAIL PROFESIONAL</label><input type="email" id="a-email" placeholder="dewi@perusahaan.com"></div>
+   <div class="auth-fg"><label>NO. HANDPHONE / WA</label><input type="tel" id="a-phone" placeholder="08xx-xxxx-xxxx"></div>
+   <div class="auth-2col">
+    <div class="auth-fg">
+     <label>SERTIFIKASI UTAMA</label>
+     <select id="a-cert">
+      <option>CFA Charterholder</option>
+      <option>CFA Level 1</option>
+      <option>CFA Level 2</option>
+      <option>WPPE</option>
+      <option>WPEE</option>
+      <option>WPMPM</option>
+      <option>Lainnya</option>
+     </select>
+    </div>
+    <div class="auth-fg">
+     <label>SEKTOR SPESIALISASI</label>
+     <select id="a-sector">
+      <option>Banking & Finance</option>
+      <option>Consumer & Retail</option>
+      <option>Energy & Mining</option>
+      <option>Technology & Telco</option>
+      <option>Healthcare & Pharma</option>
+      <option>Infrastruktur & Properti</option>
+      <option>Multi-sektor</option>
+     </select>
+    </div>
+   </div>
+   <div class="auth-fg">
+    <label>INSTITUSI / AFILIASI SAAT INI</label>
+    <input type="text" id="a-company" placeholder="Nama perusahaan atau 'Independen'">
+   </div>
+   <div class="auth-fg">
+    <label>LINK CONTOH RISET (Google Drive / Scribd / LinkedIn)</label>
+    <input type="url" id="a-portfolio" placeholder="https://...">
+   </div>
+   <button class="auth-submit gold" onclick="AUTH.submitAnalyst()">Kirim Aplikasi →</button>
+   <div class="auth-toggle" style="margin-top:12px;font-size:11px">Tim kami akan menghubungi Anda dalam <strong>5–7 hari kerja</strong></div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="auth-view" id="auth-success">
+   <div class="auth-success-icon" id="success-icon">✅</div>
+   <h3 style="text-align:center" id="success-title">Berhasil!</h3>
+   <p class="auth-sub" style="text-align:center" id="success-msg">Selamat datang di Avenir Research.</p>
+   <button class="auth-submit grn" onclick="AUTH.close()">Mulai Jelajahi Riset →</button>
+  </div>
+
+ </div>
+</div>
+<div id="page-part" class="page" style="display:block">
+<div class="pw-overlay" id="pw-part" style="display:none!important">
+ <div class="pw-box">
+  <div class="pw-eyebrow">◆ Avenir Research</div>
+  <div class="pw-lock">🔒</div>
+  <div class="pw-title">PT Cipta Perdana Lancar</div>
+  <div class="pw-sub">Riset ini hanya tersedia bagi pengguna yang telah melakukan pembayaran. Akses berlaku selamanya setelah dikonfirmasi.</div>
+  <div class="pw-price-pill">
+   <div class="pw-price-num">Rp5.000</div>
+   <div class="pw-price-lbl">Akses<br>Selamanya</div>
+  </div>
+  <ul class="pw-feats">
+   <li>Analisis fundamental mendalam multi-metode</li>
+   <li>Tabel keuangan terverifikasi dari LK resmi</li>
+   <li>Framework skenario Base / Bull / Bear</li>
+   <li>Update otomatis di LK kuartal berikutnya</li>
+  </ul>
+  <button class="pw-btn-pay" onclick="AR.openSaweria('part',5000)">Bayar via Saweria · Rp5.000</button>
+  <button class="pw-btn-back" onclick="goIndex()">← Kembali ke Daftar Riset</button>
+  <p class="pw-hint">Sudah bayar? <a onclick="AR.openConfirm('part',5000)">Masukkan kode konfirmasi</a></p>
+ </div>
+</div>
+
+
+<div class="overlay" id="ov-part" onclick="toggleDrawer('part')"></div>
+<nav class="drawer" id="dr-part">
+<div class="drawer-lbl">Navigasi</div>
+<ul class="drawer-menu">
+<li><a href="https://avenirfortuna.com" onclick="closeDrawer('part')">Home</a></li>
+<li><a href="#" onclick="goIndex();closeDrawer('part')">Semua Riset</a></li>
+<li><a href="#" onclick="window.location.href='wifi.html';closeDrawer('part')">Riset WIFI</a></li>
+<li><a href="#" onclick="window.location.href='ades.html';closeDrawer('part')">Riset ADES</a></li>
+</ul></nav>
+
+<div class="hero">
+<div class="htag"><span class="dot" style="background:#C97B1A"></span>AVENIR RESEARCH &middot; EQUITY DEEP DIVE &middot; IDX &middot; MANUFACTURING &amp; AUTOMOTIVE</div>
+<h1><span class="hl" style="color:#C97B1A">PT Cipta Perdana Lancar Tbk (PART)</span></h1>
+<p class="hsub">Produsen komponen &amp; suku cadang metal berbasis B2B ke OEM otomotif (roda 2 &amp; 4), elektronik, dan sanitasi. Didirikan 2009 di Tangerang, IPO BEI <strong>5 Juli 2024</strong> (harga perdana Rp105). Revenue FY2025 melonjak <strong>+38,2%</strong> ke Rp369,6M, laba bersih <strong>+30,0%</strong> ke Rp30,2M. Katalis baru: produksi <em>food tray</em> untuk program <strong>Makan Bergizi Gratis</strong> pemerintah. Target revenue Rp1 Triliun dicanangkan manajemen untuk 2025 &mdash; realisasi 37% dari target.</p>
+<div class="hmeta">
+<span>IDX: PART</span><span>&middot;</span><span>Sektor: Manufacturing &mdash; Komponen Otomotif &amp; Metal</span><span>&middot;</span>
+<span class="hbadge" style="background:rgba(201,123,26,.07);border-color:rgba(201,123,26,.2);color:#C97B1A">&#10003; LK 2025 (Audited 26 Mar 2026)</span>
+<span class="hbadge gold">P/E &amp; EV/EBIT Framework</span>
+<span>&#128197; Tanggal Riset: <strong>29 Maret 2026</strong></span>
+</div></div>
+
+<div class="cnt">
+<div class="box" style="background:rgba(201,123,26,.06);border-color:rgba(201,123,26,.18)">
+<p><strong style="color:#C97B1A">Ringkasan Eksekutif:</strong> PART membukukan tahun terbaik sejak berdiri: revenue Rp369,6M (+38,2% YoY), laba bersih Rp30,2M (+30,0%). Di harga Rp168, valuasi P/E 14,9x masih wajar untuk growth story ini. Namun ada dua risiko utama yang perlu dicermati: (1) kas sangat tipis Rp2,9M setelah capex agresif Rp72M, dan (2) target Rp1T jauh meleset &mdash; realisasi hanya 37%. Proyek food tray MBG menjadi kunci apakah akselerasi revenue 2026 bisa terwujud.</p>
+</div>
+<div class="sg4">
+<div class="stat"><div class="sv" style="color:#C97B1A">Rp369,6M</div><div class="sl">Revenue FY2025</div><div class="sd sup">&#9650; +38,2% YoY</div></div>
+<div class="stat"><div class="sv sup">Rp30,2M</div><div class="sl">Laba Bersih 2025</div><div class="sd sup">&#9650; +30,0% YoY</div></div>
+<div class="stat"><div class="sv">19,2%</div><div class="sl">Gross Margin</div><div class="sd rr">&#9660; dari 21,9% (2024)</div></div>
+<div class="stat"><div class="sv">8,2%</div><div class="sl">Net Margin</div><div class="sd" style="color:var(--t2)">Konsisten 8&ndash;9%</div></div>
+</div>
+<div class="sg4">
+<div class="stat"><div class="sv">14,9x</div><div class="sl">P/E @ Rp168</div><div class="sd" style="color:var(--t2)">EPS dasar Rp11,29</div></div>
+<div class="stat"><div class="sv" style="color:#C97B1A">2,49x</div><div class="sl">P/BV</div><div class="sd" style="color:var(--t2)">BVPS Rp67,41</div></div>
+<div class="stat"><div class="sv">0,82x</div><div class="sl">DER</div><div class="sd" style="color:var(--t2)">Mayoritas LT bank loan mesin</div></div>
+<div class="stat"><div class="sv rr">Rp2,9M</div><div class="sl">Kas &amp; Bank 2025</div><div class="sd rr">&#9660; Turun 95% &mdash; monitoring ketat!</div></div>
+</div>
+
+<h2 class="sec"><span class="n">1</span>Profil &amp; Model Bisnis</h2>
+<div class="box"><p><strong>PT Cipta Perdana Lancar Tbk (PART)</strong>, didirikan 5 Juni 2009 di Tangerang. Berdomisili di Jl. Prabu Siliwangi No. 5, Keroncong, Jatiuwung, Tangerang, Banten. Lahan sendiri 23.603 m&sup2;. Karyawan tetap: 205 orang (2025). Direktur Utama: <strong>Hamim</strong>. Direktur: Tjoeng Rino Saputra. Komisaris Utama: Syamsiah. Entitas induk: <strong>PT Cipta Investama Lancar</strong>. <strong>IPO BEI 5 Juli 2024</strong> @ Rp105/saham (680 juta saham + 680 juta Waran Seri I). Saham beredar per 31 Des 2025: <strong>2.742.123.779 lembar</strong>. LK diotorisasi 26 Maret 2026.</p></div>
+<div class="cg2">
+<div class="cd">
+<h4 style="color:#C97B1A">Produk &amp; Segmen Bisnis</h4>
+<p style="font-size:12.5px;color:var(--t2)">PART memproduksi komponen metal (stamping, die casting) untuk OEM secara B2B murni &mdash; tidak ada produk bermerek. Tiga segmen berdasarkan Pubex Q1 2025:</p>
+<table class="tbl" style="margin-top:8px;font-size:11.5px">
+<thead><tr><th>Segmen</th><th class="r">Rev Q1-2025</th><th class="r">Porsi</th></tr></thead>
+<tbody>
+<tr><td class="b" style="color:#C97B1A">Otomotif (roda 2 &amp; 4)</td><td class="r">Rp72,0M</td><td class="r gg">96,5%</td></tr>
+<tr><td>Elektronik</td><td class="r">Rp2,16M</td><td class="r">2,9%</td></tr>
+<tr><td>Sanitasi</td><td class="r">Rp0,46M</td><td class="r">0,6%</td></tr>
+<tr><td class="b">Total Q1-2025</td><td class="r b gg">Rp74,62M</td><td class="r g">+18,7% YoY</td></tr>
+</tbody></table>
+</div>
+<div class="cd">
+<h4 style="color:#C97B1A">Katalis Baru: Food Tray &amp; MBG</h4>
+<p style="font-size:12.5px;color:var(--t2)">Perseroan mendiversifikasi ke produksi <strong>food tray stainless</strong> untuk program <em>Makan Bergizi Gratis</em> pemerintah. Spesifikasi: tebal 0,4mm, material SUS304 (stainless lokal Morowali). Kerjasama aktif per Pubex Juni 2025.</p>
+<p style="font-size:12.5px;color:var(--t2);margin-top:8px">Pelanggan utama (dari LK 2025): <strong>PT Indocipta Hasta Perkasa, PT Kawasaki Motor Indonesia</strong> dan OEM otomotif lainnya. Dana IPO habis per 31 Maret 2025 &mdash; seluruhnya digunakan untuk Capex &amp; Opex sesuai prospektus.</p>
+<p style="font-size:12.5px;color:var(--t2);margin-top:8px"><strong>Waran Seri I:</strong> 680 juta waran @ exercise price Rp105, aktif <strong>7 Juli 2025 &ndash; 3 Juli 2026</strong>. Sebagian sudah dieksekusi (22,1 juta saham baru di 2025). Potensi dilusi jika sisanya dieksekusi masif.</p>
+</div>
+</div>
+
+<h2 class="sec"><span class="n">2</span>Laporan Keuangan FY2024&ndash;FY2025</h2>
+<div class="dg">
+<div class="dg-l" style="color:#C97B1A">Revenue &amp; Laba Bersih FY2024 vs FY2025 (Rp Miliar)</div>
+<svg viewBox="0 0 700 242" class="svg-c" xmlns="http://www.w3.org/2000/svg"><line x1="60" y1="174" x2="690" y2="174" stroke="#D8E5DC" stroke-width="1"/><line x1="60" y1="174" x2="690" y2="174" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="177" fill="#8AA090" font-size="9" text-anchor="end">0M</text><line x1="60" y1="145" x2="690" y2="145" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="148" fill="#8AA090" font-size="9" text-anchor="end">84M</text><line x1="60" y1="116" x2="690" y2="116" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="119" fill="#8AA090" font-size="9" text-anchor="end">168M</text><line x1="60" y1="86" x2="690" y2="86" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="89" fill="#8AA090" font-size="9" text-anchor="end">252M</text><line x1="60" y1="57" x2="690" y2="57" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="60" fill="#8AA090" font-size="9" text-anchor="end">336M</text><line x1="60" y1="28" x2="690" y2="28" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="31" fill="#8AA090" font-size="9" text-anchor="end">420M</text><rect x="160" y="81" width="56" height="93" rx="3" fill="#C97B1A" opacity="0.85"/><rect x="178.5" y="65.05361904761904" width="19" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="187.5" y="76" fill="#C97B1A" font-size="8.5" text-anchor="middle" font-weight="700">267</text><rect x="474" y="46" width="56" height="128" rx="3" fill="#C97B1A" opacity="0.85"/><rect x="493.5" y="29.523476190476188" width="19" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="502.5" y="41" fill="#C97B1A" font-size="8.5" text-anchor="middle" font-weight="700">370</text><rect x="220" y="166" width="56" height="8" rx="3" fill="#F5A623" opacity="0.85"/><rect x="240.5" y="149.92133333333334" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="247.5" y="161" fill="#F5A623" font-size="8.5" text-anchor="middle" font-weight="700">23</text><rect x="534" y="163" width="56" height="11" rx="3" fill="#F5A623" opacity="0.85"/><rect x="555.5" y="147.49842857142858" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="562.5" y="158" fill="#F5A623" font-size="8.5" text-anchor="middle" font-weight="700">30</text><text x="218" y="189" fill="#7A9A88" font-size="11" text-anchor="middle" font-weight="400">FY2024</text><text x="532" y="189" fill="#1B6B3A" font-size="11" text-anchor="middle" font-weight="700">FY2025*</text><rect x="60" y="229" width="11" height="8" rx="2" fill="#C97B1A" opacity="0.85"/><text x="74" y="236" fill="#C97B1A" font-size="9.5">Revenue (Rp M)</text><rect x="176" y="229" width="11" height="8" rx="2" fill="#F5A623" opacity="0.85"/><text x="190" y="236" fill="#F5A623" font-size="9.5">Laba Bersih (Rp M)</text></svg>
+<div class="dg-n">Revenue naik dari Rp267,4M ke Rp369,6M (+38,2%). Laba bersih +30,0% ke Rp30,2M. Pertumbuhan organik kuat dari ekspansi kapasitas dan penambahan pelanggan otomotif. Sumber: LK 2025 (Audited, 26 Maret 2026).</div>
+</div>
+<div class="dg">
+<div class="dg-l" style="color:#C97B1A">Laba Kotor, EBIT &amp; Laba Bersih FY2024 vs FY2025 (Rp Miliar)</div>
+<svg viewBox="0 0 700 242" class="svg-c" xmlns="http://www.w3.org/2000/svg"><line x1="60" y1="174" x2="690" y2="174" stroke="#D8E5DC" stroke-width="1"/><line x1="60" y1="174" x2="690" y2="174" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="177" fill="#8AA090" font-size="9" text-anchor="end">0M</text><line x1="60" y1="145" x2="690" y2="145" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="148" fill="#8AA090" font-size="9" text-anchor="end">16M</text><line x1="60" y1="116" x2="690" y2="116" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="119" fill="#8AA090" font-size="9" text-anchor="end">32M</text><line x1="60" y1="86" x2="690" y2="86" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="89" fill="#8AA090" font-size="9" text-anchor="end">48M</text><line x1="60" y1="57" x2="690" y2="57" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="60" fill="#8AA090" font-size="9" text-anchor="end">64M</text><line x1="60" y1="28" x2="690" y2="28" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="31" fill="#8AA090" font-size="9" text-anchor="end">80M</text><rect x="130" y="67" width="56" height="107" rx="3" fill="#C97B1A" opacity="0.85"/><rect x="150.5" y="51.18275" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="157.5" y="62" fill="#C97B1A" font-size="8.5" text-anchor="middle" font-weight="700">59</text><rect x="444" y="45" width="56" height="129" rx="3" fill="#C97B1A" opacity="0.85"/><rect x="465.5" y="28.826499999999996" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="472.5" y="40" fill="#C97B1A" font-size="8.5" text-anchor="middle" font-weight="700">71</text><rect x="190" y="117" width="56" height="57" rx="3" fill="#5CAB78" opacity="0.85"/><rect x="210.5" y="100.95049999999999" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="217.5" y="112" fill="#5CAB78" font-size="8.5" text-anchor="middle" font-weight="700">31</text><rect x="504" y="100" width="56" height="74" rx="3" fill="#5CAB78" opacity="0.85"/><rect x="525.5" y="83.86850000000001" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="532.5" y="95" fill="#5CAB78" font-size="8.5" text-anchor="middle" font-weight="700">41</text><rect x="250" y="132" width="56" height="42" rx="3" fill="#F5A623" opacity="0.85"/><rect x="270.5" y="115.58699999999999" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="277.5" y="127" fill="#F5A623" font-size="8.5" text-anchor="middle" font-weight="700">23</text><rect x="564" y="119" width="56" height="55" rx="3" fill="#F5A623" opacity="0.85"/><rect x="585.5" y="102.86675" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="592.5" y="114" fill="#F5A623" font-size="8.5" text-anchor="middle" font-weight="700">30</text><text x="218" y="189" fill="#7A9A88" font-size="11" text-anchor="middle" font-weight="400">FY2024</text><text x="532" y="189" fill="#1B6B3A" font-size="11" text-anchor="middle" font-weight="700">FY2025*</text><rect x="60" y="229" width="11" height="8" rx="2" fill="#C97B1A" opacity="0.85"/><text x="74" y="236" fill="#C97B1A" font-size="9.5">Laba Kotor (Rp M)</text><rect x="194" y="229" width="11" height="8" rx="2" fill="#5CAB78" opacity="0.85"/><text x="208" y="236" fill="#5CAB78" font-size="9.5">EBIT (Rp M)</text><rect x="292" y="229" width="11" height="8" rx="2" fill="#F5A623" opacity="0.85"/><text x="306" y="236" fill="#F5A623" font-size="9.5">Laba Bersih (Rp M)</text></svg>
+<div class="dg-n">Gross margin turun dari 21,9% ke 19,2% karena COGS naik lebih cepat (+43,1%) dari revenue (+38,2%), mencerminkan tekanan biaya bahan baku &amp; upah karyawan (+87,5% YoY ke Rp78M). EBIT margin 11,0% vs 11,7% di 2024. Net margin stabil 8,2%.</div>
+</div>
+
+<h3 class="sub">Tabel Ringkasan Keuangan (Rp Miliar, kecuali per saham)</h3>
+<div class="dg"><table class="tbl">
+<thead><tr><th>Metrik</th><th class="r">FY2024</th><th class="r">FY2025 &#9733;</th><th class="r">&#916; YoY</th></tr></thead>
+<tbody>
+<tr><td class="b">Penjualan Bersih</td><td class="r">267,38</td><td class="r b gg">369,59</td><td class="r g">+38,2%</td></tr>
+<tr><td>Beban Pokok Penjualan</td><td class="r">(208,84)</td><td class="r b">(298,81)</td><td class="r rr">+43,1%</td></tr>
+<tr><td class="b">Laba Kotor</td><td class="r">58,53</td><td class="r b gg">70,78</td><td class="r g">+20,9%</td></tr>
+<tr><td>Gross Margin</td><td class="r">21,9%</td><td class="r b">19,2%</td><td class="r rr">&minus;270 bps</td></tr>
+<tr><td>Beban Umum &amp; Administrasi</td><td class="r">(27,27)</td><td class="r b">(30,16)</td><td class="r rr">+10,6%</td></tr>
+<tr><td class="b">Laba Usaha (EBIT)</td><td class="r">31,26</td><td class="r b gg">40,62</td><td class="r g">+29,9%</td></tr>
+<tr><td>EBIT Margin</td><td class="r">11,7%</td><td class="r b">11,0%</td><td class="r rr">&minus;70 bps</td></tr>
+<tr><td>Penghasilan Keuangan</td><td class="r">0,22</td><td class="r">0,17</td><td class="r py">&minus;22%</td></tr>
+<tr><td>Penghasilan Lain-lain Bersih</td><td class="r g">9,30</td><td class="r g">9,07</td><td class="r py">&minus;2,5%</td></tr>
+<tr><td>Beban Keuangan</td><td class="r">(10,23)</td><td class="r">(11,05)</td><td class="r rr">+8,0%</td></tr>
+<tr><td>Beban Pajak</td><td class="r">(7,31)</td><td class="r">(8,60)</td><td class="r rr">+17,6%</td></tr>
+<tr><td class="b">Laba Bersih</td><td class="r">23,24</td><td class="r b gg">30,21</td><td class="r g">+30,0%</td></tr>
+<tr><td>Net Margin</td><td class="r">8,7%</td><td class="r b">8,2%</td><td class="r py">&minus;50 bps</td></tr>
+<tr><td>EPS Dasar (Rp/saham)</td><td class="r">10,71</td><td class="r b gg">11,29</td><td class="r g">+5,4%</td></tr>
+<tr><td>Total Aset</td><td class="r">300,99</td><td class="r b">335,71</td><td class="r g">+11,5%</td></tr>
+<tr><td>Aset Tetap Bersih</td><td class="r">161,16</td><td class="r b gg">218,98</td><td class="r g">+35,9%</td></tr>
+<tr><td>Total Ekuitas</td><td class="r">156,34</td><td class="r b gg">184,85</td><td class="r g">+18,2%</td></tr>
+<tr><td>Total Liabilitas</td><td class="r">144,65</td><td class="r b">150,86</td><td class="r py">+4,3%</td></tr>
+<tr><td>Utang Bank (ST + LT)</td><td class="r">(116,20)</td><td class="r b">(123,29)</td><td class="r rr">+6,1%</td></tr>
+<tr><td>Kas &amp; Bank</td><td class="r gg">55,18</td><td class="r b rr">2,93</td><td class="r rr">&minus;94,7%!</td></tr>
+<tr><td class="b">Operating Cash Flow</td><td class="r">13,90</td><td class="r b gg">15,49</td><td class="r g">+11,5%</td></tr>
+<tr><td>Capex (Perolehan Aset Tetap)</td><td class="r">(28,48)</td><td class="r b rr">(72,02)</td><td class="r rr">+152,8%!</td></tr>
+<tr><td>Dividen Dibayar</td><td class="r" style="color:var(--t3)">Nihil</td><td class="r b g">Rp4,65M</td><td class="r g">Pertama!</td></tr>
+</tbody></table>
+<div class="dg-n">&#9733; FY2025 = 31 Desember 2025. LK diotorisasi 26 Maret 2026. EPS dasar 2025 Rp11,29 vs Rp10,71 (2024) berdasarkan rata-rata tertimbang saham. Kas turun drastis karena capex Rp72M &gt; OCF Rp15,5M &mdash; selisih didanai kas IPO 2024 + pinjaman bank baru Rp33,6M. DER 0,82x seluruhnya bank loan (bunga 8&ndash;9%). Dividen perdana Rp4,65M (DPR &#8776;20% dari NI 2024) dibayar sesuai RUPS 30 Juni 2025.</div>
+</div>
+
+<div class="photo-band" style="background-image:url('https://images.pexels.com/photos/33192/pexels-photo-33192.jpeg?auto=compress&cs=tinysrgb&w=1400')">
+<div class="photo-band-overlay"></div>
+<span class="photo-band-caption">Metal Stamping & Pressing — Komponen Otomotif OEM</span>
+</div>
+<h2 class="sec"><span class="n">3</span>Paparan Publik Tahunan 2025</h2>
+<div class="box box-gold"><p><strong>Pubex Tahunan PART &mdash; 30 Juni 2025</strong>, Cyber 2 Tower Lt. 17, Jakarta Selatan. Hadir: <strong>Hamim</strong> (Direktur Utama) &amp; <strong>Tjoeng Rino Saputra</strong> (Direktur). 17 peserta.</p></div>
+<div class="cg2">
+<div class="cd">
+<h4 style="color:#C97B1A">Food Tray MBG &amp; Strategi Revenue Rp1T</h4>
+<p style="font-size:12.5px;color:var(--t2)"><strong>Q: Apakah proyek food tray MBG masih berjalan?</strong></p>
+<p style="font-size:12.5px;color:var(--t2)"><strong>A:</strong> &ldquo;Kerjasama Perseroan dengan pihak MBG masih berlangsung. Produk tray food sudah sesuai pesanan: tebal 0,4mm, material SUS304 lokal (Morowali).&rdquo;</p>
+<p style="font-size:12.5px;color:var(--t2);margin-top:8px"><strong>Q: Bagaimana mencapai target Rp1 Triliun 2025?</strong></p>
+<p style="font-size:12.5px;color:var(--t2)"><strong>A:</strong> &ldquo;Bisnis kami terus berkelanjutan, ada penawaran setiap bulan secara regular. Dengan proyek food tray, kami akan memperoleh tambahan pendapatan yang cukup besar per piece.&rdquo; <em>Realisasi: Rp369,6M = 37% dari target.</em></p>
+</div>
+<div class="cd">
+<h4 style="color:#C97B1A">Capex, IPO &amp; Dividen</h4>
+<p style="font-size:12.5px;color:var(--t2)"><strong>Q: Capex 2025 &amp; sumber dana?</strong></p>
+<p style="font-size:12.5px;color:var(--t2)"><strong>A:</strong> &ldquo;CAPEX yang dicadangkan sebesar Rp50&ndash;70 Miliar. Sumber dari <em>kas Perseroan dan pinjaman perbankan</em>.&rdquo; Realisasi capex: Rp72M (melebihi guidance).</p>
+<p style="font-size:12.5px;color:var(--t2);margin-top:8px"><strong>Q: Dana IPO &amp; dividen?</strong></p>
+<p style="font-size:12.5px;color:var(--t2)"><strong>A:</strong> &ldquo;Dana IPO habis per 31 Maret 2025 untuk Capex &amp; Opex sesuai prospektus.&rdquo; Dividen 20% dari NI 2024 = <strong>Rp4,65M</strong> total, dibayar sesuai RUPS 30 Juni 2025.</p>
+</div>
+</div>
+
+<h2 class="sec"><span class="n">4</span>Analisis Risiko</h2>
+<div class="risk"><div class="rdot rh"></div><div><div class="rt">Kas Sangat Rendah &mdash; Risiko Likuiditas</div><div class="rd">Kas hanya Rp2,93M per 31 Des 2025 (turun 94,7% dari Rp55,18M). Dengan utang jangka pendek Rp2,33M + kebutuhan modal kerja, perusahaan sangat bergantung pada kelancaran penerimaan dari pelanggan OEM dan fasilitas kredit bank. Jika revenue melambat, risiko likuiditas meningkat signifikan.</div></div></div>
+<div class="risk"><div class="rdot rh"></div><div><div class="rt">Target Rp1 Triliun Meleset Jauh &mdash; Kredibilitas Guidance</div><div class="rd">Realisasi FY2025 Rp369,6M = hanya 37% dari target Rp1T yang diumumkan manajemen. Artinya food tray MBG belum berkontribusi material, dan 10 pelanggan baru tidak secara dramatis mengungkit revenue. Investor perlu cautious terhadap forward guidance manajemen.</div></div></div>
+<div class="risk"><div class="rdot rm"></div><div><div class="rt">Dilusi Waran Seri I</div><div class="rd">Sisa &#8773;658 juta Waran Seri I masih dapat dieksekusi hingga 3 Juli 2026 @ Rp105. Jika dieksekusi penuh, saham beredar bertambah &#8773;24% dari 2,742M &rarr; &#8773;3,4M lembar. EPS akan terdilusi. Harga saham Rp168 masih di atas exercise price Rp105, insentif untuk eksekusi ada.</div></div></div>
+<div class="risk"><div class="rdot rm"></div><div><div class="rt">Margin Tertekan &amp; Konsentrasi Segmen</div><div class="rd">GPM turun 270 bps YoY karena kenaikan biaya bahan baku dan beban karyawan (+87% YoY). Biaya listrik dan upah minimum terus naik. Konsentrasi 96,5% di otomotif membuat revenue sangat sensitif terhadap kondisi industri kendaraan Indonesia.</div></div></div>
+<div class="risk"><div class="rdot rl"></div><div><div class="rt">Upside: MBG &amp; Pertumbuhan Otomotif Domestik</div><div class="rd">Program MBG pemerintah berpotensi menjadi revenue stream besar dan recurring jika kontrak terealisasi dalam skala besar. Pertumbuhan industri kendaraan roda 2 domestik yang stabil, ditambah mesin baru dari capex Rp72M, memberikan kapasitas produksi untuk melayani pelanggan lebih banyak.</div></div></div>
+
+<h2 class="sec"><span class="n">5</span>Framework Skenario 2026&ndash;2027</h2>
+<div class="sc-grid">
+<div class="sc sc-bull"><div class="sc-title">Bull Case (~25%)</div><ul>
+<li>Food tray MBG kontribusi besar</li>
+<li><strong>Revenue 2026E:</strong> Rp500&ndash;600M</li>
+<li><strong>NI Growth:</strong> +30&ndash;40%</li>
+<li>GPM recover ke 21&ndash;22%</li>
+<li>Waran tereksekusi = fresh capital</li>
+</ul><div class="sc-note">Driver: MBG ramp up + 10 new customers</div></div>
+<div class="sc sc-base"><div class="sc-title">Base Case (~50%)</div><ul>
+<li><strong>Revenue 2026E:</strong> Rp430&ndash;480M</li>
+<li><strong>NI Growth:</strong> +15&ndash;25%</li>
+<li>MBG: kontribusi moderat</li>
+<li>Capex menurun, OCF membaik</li>
+<li>Kas pulih perlahan</li>
+</ul><div class="sc-note">Driver: Organic otomotif + sebagian MBG</div></div>
+<div class="sc sc-bear"><div class="sc-title">Bear Case (~25%)</div><ul>
+<li>MBG proyek tertunda/batal</li>
+<li><strong>Revenue:</strong> +0&ndash;10%</li>
+<li>Likuiditas kas memburuk</li>
+<li>Margin berlanjut tertekan</li>
+<li>Refinancing bank diperlukan</li>
+</ul><div class="sc-note">Driver: Delay MBG + cost pressure</div></div>
+</div>
+
+<div class="photo-band" style="background-image:url('https://images.pexels.com/photos/2892618/pexels-photo-2892618.jpeg?auto=compress&cs=tinysrgb&w=1400')">
+<div class="photo-band-overlay"></div>
+<span class="photo-band-caption">Produksi Suku Cadang — Kawasaki & OEM Automotive</span>
+</div>
+<h2 class="sec"><span class="n">6</span>Framework Valuasi &mdash; P/E &amp; EV/EBIT</h2>
+<div class="box box-warn"><p>&#9888; <strong>Disclaimer:</strong> Framework analitis, <strong>bukan rekomendasi atau target harga.</strong> Keputusan investasi sepenuhnya tanggung jawab investor.</p></div>
+<div class="sg4">
+<div class="stat"><div class="sv" style="color:#C97B1A">Rp168</div><div class="sl">Harga Close 29/3/26</div><div class="sd" style="color:var(--t2)">IPO Jul 2024: Rp105</div></div>
+<div class="stat"><div class="sv">Rp461M</div><div class="sl">Market Cap</div><div class="sd" style="color:var(--t2)">2,742M saham &times; Rp168</div></div>
+<div class="stat"><div class="sv">14,9x</div><div class="sl">P/E Trailing</div><div class="sd" style="color:var(--t2)">EPS Rp11,29</div></div>
+<div class="stat"><div class="sv" style="color:#C97B1A">14,3x</div><div class="sl">EV/EBIT</div><div class="sd" style="color:var(--t2)">EV Rp581M / EBIT Rp40,6M</div></div>
+</div>
+<div class="dg">
+<div class="dg-l" style="color:#C97B1A">Tabel Sensitivitas P/E &rarr; Implied Price (EPS Dasar Rp11,29)</div>
+<div class="sens-wrap"><table class="sens-tbl">
+<thead><tr><th>Skenario NI</th><th>P/E 10x</th><th>P/E 12x</th><th>P/E 15x &#8592;Base</th><th>P/E 18x</th></tr></thead>
+<tbody><tr><td class="b">NI &minus;10% (EPS Rp10.16)</td><td class="bear-cell">Rp102</td><td class="">Rp122</td><td class="base-cell">Rp152&#9664;</td><td class="base-cell">Rp183&#9664;</td></tr>
+<tr><td class="b">NI Flat (EPS Rp11.29)</td><td class="bear-cell">Rp113</td><td class="">Rp135</td><td class="base-cell">Rp169&#9664;</td><td class="bull-cell">Rp203</td></tr>
+<tr><td class="b">NI +20% (EPS Rp13.55)</td><td class="">Rp135</td><td class="base-cell">Rp163&#9664;</td><td class="bull-cell">Rp203</td><td class="bull-cell">Rp244</td></tr>
+<tr><td class="b">NI +30% &#8592;Hist. (EPS Rp14.68)</td><td class="base-cell">Rp147&#9664;</td><td class="base-cell">Rp176&#9664;</td><td class="bull-cell">Rp220</td><td class="bull-cell">Rp264</td></tr>
+<tr><td class="b">NI +38% (EPS Rp15.58)</td><td class="base-cell">Rp156&#9664;</td><td class="base-cell">Rp187&#9664;</td><td class="bull-cell">Rp234</td><td class="bull-cell">Rp280</td></tr>
+</tbody></table></div>
+<div class="dg-n">P/E 14,9x trailing wajar untuk growth manufacturing +30% YoY. EV/EBIT 14,3x dalam range wajar vs peers komponen otomotif Asia (12&ndash;18x). Risiko utama yang menekan multiple: kas tipis, target meleset, dan potensi dilusi waran. &#9664; = mendekati harga pasar Rp168.</div>
+</div>
+
+<h2 class="sec"><span class="n">7</span>Ringkasan Framework Investasi</h2>
+<div class="dg"><table class="score-tbl">
+<thead><tr><th>Dimensi</th><th>Status</th><th>Keterangan</th></tr></thead>
+<tbody>
+<tr><td>Pertumbuhan Revenue</td><td><span class="pill pg">KUAT</span></td><td>+38,2% YoY, konsisten tumbuh sejak IPO 2024</td></tr>
+<tr><td>Profitabilitas</td><td><span class="pill py">MODERAT</span></td><td>Net margin 8,2%, GPM 19,2% &mdash; tekanan biaya karyawan &amp; bahan baku</td></tr>
+<tr><td>Posisi Kas</td><td><span class="pill pr">KETAT</span></td><td>Kas Rp2,9M &mdash; turun 95% dari IPO proceeds. Monitoring wajib setiap kuartal</td></tr>
+<tr><td>Leverage</td><td><span class="pill py">MODERAT</span></td><td>DER 0,82x, bank loan LT Rp121M @ 8&ndash;9%. Masih manageable jika revenue tumbuh</td></tr>
+<tr><td>Capex &amp; Aset Tetap</td><td><span class="pill pg">AGRESIF</span></td><td>Capex Rp72M di 2025 &mdash; ekspansi mesin baru, aset tetap +35,9% YoY</td></tr>
+<tr><td>Food Tray MBG</td><td><span class="pill py">PENDING</span></td><td>Kerjasama aktif, spek sesuai, tapi belum berkontribusi material di FY2025</td></tr>
+<tr><td>Target Rp1 Triliun</td><td><span class="pill pr">MISSED</span></td><td>Realisasi 37% dari target &mdash; perlu cautious terhadap forward guidance manajemen</td></tr>
+<tr><td>Waran Seri I</td><td><span class="pill py">MONITOR</span></td><td>Aktif s.d. Juli 2026 @Rp105. Potensi dilusi &#8773;24% jika seluruhnya dieksekusi</td></tr>
+<tr><td>Dividen</td><td><span class="pill pg">POSITIF</span></td><td>Dividen perdana Rp4,65M (DPR 20% dari NI 2024) &mdash; sinyal komitmen ke pemegang saham</td></tr>
+<tr><td>Track Record</td><td><span class="pill py">BARU IPO</span></td><td>Listing Juli 2024 &mdash; hanya 1 LK audited post-IPO tersedia. Riwayat masih singkat</td></tr>
+</tbody></table></div>
+</div>
+
+</div>
+<div class="footer-spacer" style="clear:both;height:0;width:100%"></div>
+<footer style="display:block!important;visibility:visible!important;background:#0f172a;color:#94a3b8;padding:48px 24px 24px;margin-top:80px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-bottom:32px">
+      <div>
+        <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;color:#fff;margin-bottom:12px;letter-spacing:.02em">Avenir Research</div>
+        <p style="font-size:13px;line-height:1.7;color:#94a3b8;margin:0">
+          Riset ekuitas independen oleh PT Avenir Fortuna Corporindo. Berbasis laporan keuangan audited.
+        </p>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#cbd5e1;text-transform:uppercase;margin-bottom:14px">Riset</div>
+        <a href="katalog.html" style="display:block;font-size:13px;color:#94a3b8;text-decoration:none;margin-bottom:8px">Katalog Riset</a>
+        <a href="news.html" style="display:block;font-size:13px;color:#94a3b8;text-decoration:none;margin-bottom:8px">Market News</a>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#cbd5e1;text-transform:uppercase;margin-bottom:14px">Perusahaan</div>
+        <a href="tentang.html" style="display:block;font-size:13px;color:#94a3b8;text-decoration:none;margin-bottom:8px">Tentang Avenir</a>
+        <a href="mitra.html" style="display:block;font-size:13px;color:#94a3b8;text-decoration:none;margin-bottom:8px">Mitra Terverifikasi</a>
+        <a href="pengguna.html" style="display:block;font-size:13px;color:#94a3b8;text-decoration:none;margin-bottom:8px">Panduan Pengguna</a>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#cbd5e1;text-transform:uppercase;margin-bottom:14px">Kontak</div>
+        <a href="https://avenirfortuna.com" target="_blank" style="display:block;font-size:13px;color:#94a3b8;text-decoration:none;margin-bottom:8px">avenirfortuna.com</a>
+        <p style="font-size:12px;color:#64748b;line-height:1.6;margin:8px 0 0">PT Avenir Fortuna Corporindo<br>IDX Tower, Jakarta</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #1e293b;padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div style="font-size:12px;color:#64748b">© 2026 PT Avenir Fortuna Corporindo. Semua hak dilindungi.</div>
+      <div style="font-size:11px;color:#64748b;font-style:italic">Riset bersifat informatif & edukatif — bukan rekomendasi investasi.</div>
+    </div>
+  </div>
+</footer>
+<script>
+function showPage(id){
+  var m={'home':'index.html', 'index': 'katalog.html', 'news': 'news.html', 'news-pdb-q1-2026': 'news-pdb-q1-2026.html', 'news-windfall-tax-nikel': 'news-windfall-tax-nikel.html', 'news-tpia-force-majeure': 'news-tpia-force-majeure.html', 'ptro': 'ptro.html', 'cmry': 'cmry.html', 'avia': 'avia.html', 'mrvl': 'mrvl.html', 'nisp': 'nisp.html', 'bbri': 'bbri.html', 'asgr': 'asgr.html', 'gfs': 'gfs.html', 'pyfa': 'pyfa.html', 'dmas': 'dmas.html', 'dewa': 'dewa.html', 'ades': 'ades.html', 'wifi': 'wifi.html', 'part': 'part.html', 'smar': 'smar.html', 'crm': 'crm.html', 'tentang': 'tentang.html', 'mitra': 'mitra.html', 'pengguna': 'pengguna.html'};
+  if(m[id]) window.location.href=m[id];
+}
+function showNewsArticle(id){showPage('news-'+id);}
+function showNewsList(){showPage('news');}
+</script>
+<script>
+const FREE_RESEARCH = ['smar','mrvl','crm','ptro','cmry','avia','nisp','bbri','asgr','dewa','dmas','ades','wifi','part'];
+
+const pages=['home','index','news','news-pdb-q1-2026','news-windfall-tax-nikel','news-tpia-force-majeure','ptro','cmry','avia','mrvl','nisp','bbri','asgr','dewa','dmas','ades','wifi','part','smar','crm','tentang','mitra','pengguna'];
+
+function showPage(id){
+ // Tutup dropdown menu kalau terbuka
+ const _drop = document.getElementById('nav-drop');
+ const _btn  = document.querySelector('.nav-auth-main-btn');
+ if (_drop) _drop.classList.remove('open');
+ if (_btn)  _btn.classList.remove('open');
+ // Pastikan paywall hidden saat sudah login
+ const _pw = document.getElementById('pw-' + id);
+ if (_pw) _pw.style.display = 'none';
+
+ // Validasi page ID
+ if(!pages.includes(id)) id='home';
+ 
+ // Toggle visibility
+ pages.forEach(p=>{
+  const el=document.getElementById('page-'+p);
+  if(el) el.classList.toggle('active', p===id);
+ });
+ 
+ // Update URL hash tanpa trigger reload
+ // const newHash = removed (no hash routing);
+ // hash check removed
+ 
+ // Scroll ke atas
+ if(typeof updateMineFilter==='function'&&document.getElementById('filter-mine')) updateMineFilter();
+  // Show/hide nav & footer: hidden di home, visible di semua page lain
+  const navEl    = document.querySelector('.nav');
+  const footerEl = document.querySelector('footer');
+  if (navEl)    navEl.style.display    = (id === 'home') ? 'none' : 'flex';
+  if (footerEl) footerEl.style.display = 'block'; /* AVENIR: always show footer */
+  window.scrollTo(0,0);
+}
+
+window.addEventListener('popstate', function(e){
+ const id = e.state?.page || 'home'; // no hash routing
+ showPage(id);
+});
+
+// AVENIR INIT: multi-page architecture - ensure page visible
+(function initPage(){
+  var pageId = 'part';
+  var el = document.getElementById('page-' + pageId);
+  if (el) {
+    el.style.display = 'block';
+    // JANGAN add 'active' class — itu trigger CSS .active{display:flex!important} yang break layout
+  }
+  // Show nav & footer
+  var nav = document.querySelector('.nav');
+  var footer = document.querySelector('footer');
+  if (nav) nav.style.display = (pageId === 'home') ? 'none' : 'flex';
+  if (footer) footer.style.setProperty('display', 'block', 'important');
+})();;
+
+function goIndex(){showPage('index');}
+
+function filterCards(cat, btn){
+ document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');
+
+ const unlocked = JSON.parse(localStorage.getItem('ar_unlocked') || '[]');
+
+ const free = (typeof FREE_RESEARCH !== 'undefined') ? FREE_RESEARCH : ['smar','mrvl','crm'];
+    const myTickers = [...new Set([...unlocked, ...free])];
+ document.querySelectorAll('.card').forEach(c=>{
+  const tags = (c.dataset.tags || c.dataset.cat || '').toLowerCase();
+  // Cari ticker dari onclick tombol
+  const btn = c.querySelector('button[id^="btn-"]');
+  const ticker = btn ? btn.id.replace('btn-','') : '';
+  let show;
+  if (cat === 'all') show = true;
+  else if (cat === 'mine') show = myTickers.includes(ticker);
+  else show = (tags === cat || tags.includes(cat));
+  c.style.display = show ? '' : 'none';
+ });
+}
+
+function updateMineFilter() {
+
+  const free = (typeof FREE_RESEARCH !== 'undefined') ? FREE_RESEARCH : ['smar','mrvl','crm'];
+  const unlocked = JSON.parse(localStorage.getItem('ar_unlocked') || '[]');
+  const myTickers = [...new Set([...unlocked, ...free])];
+  const myCount = myTickers.length;
+  const filterMine = document.getElementById('filter-mine');
+  const countEl = document.getElementById('filter-mine-count');
+  // Selalu tampil karena ada free research
+  if (filterMine) filterMine.style.display = '';
+  if (countEl) countEl.textContent = '(' + myCount + ')';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  updateMineFilter();
+});
+
+function toggleDrawer(id){
+ const dr=document.getElementById('dr-'+id);
+ const ov=document.getElementById('ov-'+id);
+ const btn=document.getElementById('btn-'+id);
+ if(dr){dr.classList.toggle('open');}
+ if(ov){ov.classList.toggle('open');}
+ if(btn){btn.classList.toggle('open');}
+}
+
+function closeDrawer(id){
+ const dr=document.getElementById('dr-'+id);
+ const ov=document.getElementById('ov-'+id);
+ const btn=document.getElementById('btn-'+id);
+ if(dr){dr.classList.remove('open');}
+ if(ov){ov.classList.remove('open');}
+ if(btn){btn.classList.remove('open');}
+}
+
+/* ── News navigation ── */
+;
+
+const AR = (() => {
+ // Helpers
+ const fmt = n => "Rp " + n.toLocaleString("id-ID");
+ const getUnlocked = () => JSON.parse(localStorage.getItem("ar_unlocked") || "[]");
+ const addUnlock = (ticker) => {
+  const ul = getUnlocked();
+  if (!ul.includes(ticker)) { ul.push(ticker); localStorage.setItem("ar_unlocked", JSON.stringify(ul)); }
+ };
+ const isUnlocked = ticker => getUnlocked().includes(ticker);
+
+ let activeTicker = null;
+
+ function init() {
+  updateAllButtons();
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+ }
+
+ function updateAllButtons() {
+
+  const FREE_RESEARCH = ['smar','mrvl','crm','ptro','cmry','avia','nisp','bbri','asgr','dewa','dmas','ades','wifi','part'];
+  FREE_RESEARCH.forEach(ticker => {
+   const btn = document.getElementById("btn-" + ticker);
+   const pw = document.getElementById("pw-" + ticker);
+   if (!btn) return;
+
+   if (FREE_RESEARCH.includes(ticker)) {
+    // Free research: pw-overlay selalu tersembunyi
+    // Login enforcement dilakukan oleh showPage guard
+    if (pw) pw.style.display = 'none';
+    const isLoggedIn = typeof AUTH !== 'undefined' && AUTH.currentUser;
+    btn.style.background = 'var(--grn)';
+    btn.style.color = '#fff';
+    if (isLoggedIn) {
+      btn.innerHTML = 'Baca Riset →';
+      btn.onclick = () => { window.location.href = ticker + '.html'; };
+    } else {
+      btn.innerHTML = 'Baca Riset →';
+      btn.onclick = () => { window.location.href = ticker + '.html'; };
+    }
+    } else {
+    // Semua riset sementara free — login only
+    if (pw) pw.style.display = 'none';
+    btn.style.background = 'var(--grn)';
+    btn.style.color = '#fff';
+    const isLoggedIn = typeof AUTH !== 'undefined' && AUTH.currentUser;
+    if (isLoggedIn) {
+      btn.innerHTML = 'Baca Riset →';
+      btn.onclick = () => { window.location.href = ticker + '.html'; };
+    } else {
+      btn.innerHTML = 'Baca Riset →';
+      btn.onclick = () => { window.location.href = ticker + '.html'; };
+    }
+   }
+  });
+  updateChip();
+  if (typeof updateMineFilter === 'function') updateMineFilter();
+ }
+
+ function updateChip() {
+  const ul = getUnlocked();
+  const chip = document.getElementById("nav-chip");
+  if (!chip) return;
+  if (ul.length > 0) {
+   chip.style.display = "inline-flex";
+   document.getElementById("chip-init").textContent = ul.length;
+   document.getElementById("chip-name").textContent = ul.length + " riset";
+  } else {
+   chip.style.display = "none";
+  }
+ }
+
+ function showUnlocked() {
+  const ul = getUnlocked();
+  if (ul.length === 0) { alert("Anda belum memiliki riset."); return; }
+  const names = ul.map(t => "• " + (RESEARCH[t] ? RESEARCH[t].name : t)).join("\n");
+  alert("Riset yang sudah Anda buka:\n\n" + names);
+ }
+
+ function tap(ticker) {
+  // SMAR = free, langsung buka
+  if (ticker === 'smar' || isUnlocked(ticker)) { showPage(ticker); return; }
+
+  showPage(ticker);
+ }
+
+ function openConfirm(ticker, price) {
+  activeTicker = ticker;
+  const info = RESEARCH[ticker];
+  // Set modal content
+  document.getElementById("ms-price").textContent = fmt(price);
+  document.getElementById("ms-name").textContent = info ? info.name : ticker.toUpperCase();
+
+  const msg = encodeURIComponent("Avenir Research - " + ticker.toUpperCase());
+  document.getElementById("saw-link").href =
+   "https://saweria.co/" + SAWERIA_USER + "?amount=" + price + "&message=" + msg;
+  // Reset UI
+  document.getElementById("ar-code").value = "";
+  document.getElementById("ar-err").style.display = "none";
+  document.getElementById("ar-step1").style.display = "block";
+  document.getElementById("ar-step2").style.display = "none";
+  // Open modal
+  document.getElementById("ar-overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+ }
+
+ function openSaweria(ticker, price) {
+  openConfirm(ticker, price);
+
+  setTimeout(() => { document.getElementById("saw-link").click(); }, 400);
+ }
+
+ function verify() {
+  const code = (document.getElementById("ar-code").value || "").trim();
+  const errEl = document.getElementById("ar-err");
+  errEl.style.display = "none";
+
+  if (!code) {
+   errEl.textContent = "Harap masukkan Donation ID dari email Saweria Anda.";
+   errEl.style.display = "block";
+   return;
+  }
+  if (code.length < 5) {
+   errEl.textContent = "Donation ID terlalu pendek. Periksa kembali email Saweria Anda.";
+   errEl.style.display = "block";
+   return;
+  }
+
+  // Unlock semua item (single atau batch)
+  const toUnlock = window._batchTickers && window._batchTickers.length > 0
+   ? window._batchTickers : [activeTicker];
+  toUnlock.forEach(t => {
+    addUnlock(t);
+    // Sync ke Supabase kalau user sudah login
+    if (typeof AUTH !== 'undefined' && AUTH.currentUser) AUTH.unlock(t);
+  });
+  window._batchTickers = null;
+  if (window.CART) { CART.updateCartBtns(); CART.renderBadge(); }
+  updateAllButtons();
+  // Show success
+  document.getElementById("ar-step1").style.display = "none";
+  document.getElementById("ar-step2").style.display = "block";
+ }
+
+ function enter() {
+  close();
+  if (activeTicker) { showPage(activeTicker); activeTicker = null; }
+ }
+
+ function close() {
+  const overlay = document.getElementById('auth-overlay');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
+ }
+
+ document.addEventListener("DOMContentLoaded", init);
+ // Expose updateAllButtons globally supaya AUTH.logout bisa reset state
+window.updateAllButtons = updateAllButtons;
+return { tap, openSaweria, openConfirm, verify, enter, close, showUnlocked, updateAllButtons };
+})();
+</script>
+<script>
+/* ═══ SUPABASE AUTH MODULE v2 ═══ */
+const AUTH = {
+  currentUser: null,
+
+  async init() {
+    const { data: { session } } = await _sb.auth.getSession();
+    if (session?.user) {
+      AUTH.currentUser = session.user;
+      AUTH.refreshUI();
+    }
+    _sb.auth.onAuthStateChange(async (event, session) => {
+      AUTH.currentUser = session?.user || null;
+      AUTH.refreshUI();
+    });
+  },
+
+  // Update semua UI setelah login/logout
+  async refreshUI() {
+    const user = AUTH.currentUser;
+
+    // Update nav
+    document.querySelectorAll('[data-auth="guest"]').forEach(el => el.style.display = user ? 'none' : '');
+    document.querySelectorAll('[data-auth="user"]').forEach(el => el.style.display = user ? '' : 'none');
+    if (user) {
+      const nama = user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
+      const nameItem = document.getElementById('nav-user-name-item');
+      if (nameItem) nameItem.textContent = '👤 ' + nama;
+    }
+
+    // Load unlocked dari Supabase
+    if (user) {
+      const { data } = await _sb.from('unlocked_research').select('ticker').eq('user_id', user.id);
+      if (data) localStorage.setItem('ar_unlocked', JSON.stringify(data.map(r => r.ticker)));
+    } else {
+      localStorage.removeItem('ar_unlocked');
+    }
+
+    // Update tombol semua riset
+    if (typeof updateAllButtons === 'function') updateAllButtons();
+    if (typeof updateMineFilter === 'function') updateMineFilter();
+  },
+
+  // Update nav (alias untuk kompatibilitas)
+  updateNav() {
+    const user = AUTH.currentUser;
+    document.querySelectorAll('[data-auth="guest"]').forEach(el => el.style.display = user ? 'none' : '');
+    document.querySelectorAll('[data-auth="user"]').forEach(el => el.style.display = user ? '' : 'none');
+    if (user) {
+      const nama = user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
+      const nameItem = document.getElementById('nav-user-name-item');
+      if (nameItem) nameItem.textContent = '👤 ' + nama;
+    }
+  },
+
+  // Buka modal
+  open(view) {
+    const ov = document.getElementById('auth-overlay');
+    if (!ov) return;
+    ov.style.display = '';
+    ov.classList.add('open');
+    AUTH.show(view || 'login');
+  },
+
+  // Tutup modal
+  close() {
+    const ov = document.getElementById('auth-overlay');
+    if (ov) {
+      ov.classList.remove('open');
+      // Tunggu animasi selesai baru hide
+      setTimeout(() => { if (!ov.classList.contains('open')) ov.style.display = 'none'; }, 200);
+    }
+  },
+
+  closeOutside(e) { if (e.target?.id === 'auth-overlay') AUTH.close(); },
+
+  show(viewName) {
+    document.querySelectorAll('.auth-view').forEach(v => v.classList.remove('active'));
+    const target = document.getElementById('auth-' + viewName);
+    if (target) target.classList.add('active');
+  },
+
+  err(elId, msg, color) {
+    const el = document.getElementById(elId);
+    if (el) {
+      el.textContent = msg;
+      el.style.display = msg ? 'block' : 'none';
+      el.style.color = color || '#e53e3e';
+    }
+  },
+
+  // Register
+  async register() {
+    const fn    = document.getElementById('r-fname')?.value.trim();
+    const ln    = document.getElementById('r-lname')?.value.trim();
+    const email = document.getElementById('r-email')?.value.trim();
+    const pass  = document.getElementById('r-pass')?.value;
+    const profil= document.getElementById('r-profile')?.value;
+
+    AUTH.err('reg-err', '');
+    if (!fn || !ln || !email || !pass) return AUTH.err('reg-err', 'Semua field wajib diisi.');
+    if (pass.length < 8) return AUTH.err('reg-err', 'Password minimal 8 karakter.');
+
+    AUTH.err('reg-err', 'Mendaftarkan akun...', 'var(--grn)');
+
+    const { data, error } = await _sb.auth.signUp({
+      email, password: pass,
+      options: {
+        emailRedirectTo: window.location.origin + window.location.pathname,
+        data: { nama_depan: fn, nama_belakang: ln, profil_investor: profil }
+      }
+    });
+
+    if (error) return AUTH.err('reg-err', 'Error: ' + error.message);
+
+    if (data.user) {
+      await _sb.from('profiles').upsert({
+        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil
+      });
+    }
+
+    AUTH.show('success');
+    document.getElementById('success-title').textContent = 'Pendaftaran Berhasil!';
+    document.getElementById('success-msg').textContent =
+      'Cek inbox ' + email + ' untuk konfirmasi akun.';
+  },
+
+  // Login
+  async login() {
+    const email = document.getElementById('l-email')?.value.trim();
+    const pass  = document.getElementById('l-pass')?.value;
+
+    AUTH.err('login-err', '');
+    if (!email || !pass) return AUTH.err('login-err', 'Email dan password wajib diisi.');
+
+    AUTH.err('login-err', 'Masuk...', 'var(--grn)');
+
+    const { data, error } = await _sb.auth.signInWithPassword({ email, password: pass });
+
+    if (error) {
+      const msg = error.message.includes('Email not confirmed')
+        ? 'Email belum dikonfirmasi. Cek inbox/spam.'
+        : error.message.includes('invalid_credentials') || error.message.includes('Invalid login')
+        ? 'Email atau password salah.'
+        : 'Error: ' + error.message;
+      return AUTH.err('login-err', msg);
+    }
+
+    // Login berhasil - tutup modal
+    AUTH.currentUser = data.user;
+    AUTH.close();
+    AUTH.refreshUI();
+  },
+
+  // Logout
+  async logout() {
+    await _sb.auth.signOut();
+    AUTH.currentUser = null;
+    localStorage.removeItem('ar_unlocked');
+    if (typeof NAV !== 'undefined') NAV.closeDrop();
+    AUTH.refreshUI();
+  },
+
+  // Mitra Analis
+  async submitAnalyst() {
+    const fn      = document.getElementById('a-fname')?.value.trim();
+    const ln      = document.getElementById('a-lname')?.value.trim();
+    const email   = document.getElementById('a-email')?.value.trim();
+    const phone   = document.getElementById('a-phone')?.value.trim();
+    const cert    = document.getElementById('a-cert')?.value;
+    const sector  = document.getElementById('a-sector')?.value;
+    const company = document.getElementById('a-company')?.value.trim();
+    const porto   = document.getElementById('a-portfolio')?.value.trim();
+
+    AUTH.err('analyst-err', '');
+    if (!fn || !ln || !email || !phone) return AUTH.err('analyst-err', 'Nama, email, dan WA wajib diisi.');
+
+    const { error } = await _sb.from('analyst_applications').insert({
+      nama_depan: fn, nama_belakang: ln, email, phone,
+      sertifikasi: cert, sektor: sector, institusi: company, portfolio: porto, status: 'pending'
+    });
+
+    if (error) return AUTH.err('analyst-err', 'Gagal: ' + error.message);
+
+    AUTH.show('success');
+    document.getElementById('success-title').textContent = 'Aplikasi Terkirim!';
+    document.getElementById('success-msg').textContent =
+      'Tim Avenir akan menghubungi Anda di ' + email + ' dalam 5–7 hari kerja.';
+  },
+
+  async unlock(ticker) {
+    if (!AUTH.currentUser) return;
+    await _sb.from('unlocked_research').upsert(
+      { user_id: AUTH.currentUser.id, ticker },
+      { onConflict: 'user_id,ticker' }
+    );
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => AUTH.init());
+</script>
+<script>
+/* ═══ CART SYSTEM ═══ */
+const CART = (() => {
+ const SAWERIA = "Avenir";
+ const fmt = n => "Rp " + n.toLocaleString("id-ID");
+
+ let items = JSON.parse(sessionStorage.getItem("ar_cart") || "[]");
+
+ function save() { sessionStorage.setItem("ar_cart", JSON.stringify(items)); }
+ function isInCart(ticker) { return items.some(i => i.ticker === ticker); }
+ function getTotal() { return items.reduce((s, i) => s + i.price, 0); }
+
+ function add(ticker, price, name) {
+  if (isInCart(ticker)) { open(); return; }
+  items.push({ ticker, price, name });
+  save();
+  renderBadge();
+  renderItems();
+  updateCartBtns();
+  open();
+ }
+
+ function remove(ticker) {
+  items = items.filter(i => i.ticker !== ticker);
+  save();
+  renderBadge();
+  renderItems();
+  updateCartBtns();
+ }
+
+ function renderBadge() {
+  const badge = document.getElementById("cart-badge");
+  if (!badge) return;
+  if (items.length > 0) {
+   badge.style.display = "flex";
+   badge.textContent = items.length;
+  } else {
+   badge.style.display = "none";
+  }
+ }
+
+ function renderItems() {
+  const el = document.getElementById("cart-items");
+  const footer = document.getElementById("cart-footer");
+  const totalEl = document.getElementById("cart-total");
+  if (!el) return;
+
+  if (items.length === 0) {
+   el.innerHTML = `<div class="cart-empty">
+    <div class="cart-empty-icon">🛒</div>
+    <div style="font-size:15px;font-weight:600;color:var(--t)">Keranjang kosong</div>
+    <div style="font-size:13px;color:var(--t3)">Tambahkan riset dari halaman katalog</div>
+    <button onclick="CART.close();showPage('index')" style="margin-top:8px;padding:9px 22px;border-radius:50px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600">Lihat Katalog Riset</button>
+   </div>`;
+   if (footer) footer.classList.add("empty");
+   return;
+  }
+
+  el.innerHTML = items.map(item => `
+   <div class="cart-item">
+    <div class="cart-item-ticker">${item.ticker.toUpperCase()}</div>
+    <div class="cart-item-info">
+     <div class="cart-item-name">${item.name}</div>
+     <div class="cart-item-price">${fmt(item.price)}</div>
+    </div>
+    <button class="cart-item-remove" onclick="CART.remove('${item.ticker}')" title="Hapus dari keranjang">✕</button>
+   </div>`).join("");
+
+  if (footer) { footer.classList.remove("empty"); }
+  if (totalEl) totalEl.textContent = fmt(getTotal());
+  const cntEl = document.getElementById("cart-count");
+  if (cntEl) cntEl.textContent = "(" + items.length + " riset)";
+ }
+
+ function updateCartBtns() {
+  document.querySelectorAll(".cta-add-cart").forEach(btn => {
+   const ticker = btn.dataset.ticker;
+   if (!ticker) return;
+   const inCart = isInCart(ticker);
+   btn.className = "cta-add-cart" + (inCart ? " in-cart" : "");
+   btn.textContent = inCart ? "✓ Di Keranjang" : "+ Keranjang";
+  });
+ }
+
+ function open() {
+  renderItems();
+  document.getElementById("cart-overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+ }
+
+ function close() {
+  document.getElementById("cart-overlay").classList.remove("open");
+  document.body.style.overflow = "";
+ }
+
+ function closeOutside(e) {
+  if (e.target === document.getElementById("cart-overlay")) close();
+ }
+
+ function checkout() {
+  if (items.length === 0) return;
+  const total = getTotal();
+  const tickers = items.map(i => i.ticker.toUpperCase()).join("+");
+  const msg = encodeURIComponent("Avenir Research - " + tickers + " (" + items.length + " riset)");
+  const url = "https://saweria.co/" + SAWERIA + "?amount=" + total + "&message=" + msg;
+  window.open(url, "_blank");
+
+  setTimeout(() => {
+   if (items.length === 1) {
+    AR.openConfirm(items[0].ticker, items[0].price);
+   } else {
+
+    const tickerList = items.map(i => i.ticker).slice();
+    showBatchConfirm(tickerList, total);
+   }
+   close();
+  }, 600);
+ }
+
+ function showBatchConfirm(tickers, total) {
+
+  const first = tickers[0];
+  AR.openConfirm(first, total);
+  // Override modal text for batch
+  const priceEl = document.getElementById("ms-price");
+  const nameEl = document.getElementById("ms-name");
+  if (priceEl) priceEl.textContent = "Rp " + total.toLocaleString("id-ID") + " (total " + tickers.length + " riset)";
+  if (nameEl) nameEl.textContent = tickers.map(t => t.toUpperCase()).join(", ");
+  // On verify success, unlock all items
+  window._batchTickers = tickers;
+ }
+
+ function init() {
+  renderBadge();
+  updateCartBtns();
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+ }
+
+ document.addEventListener("DOMContentLoaded", init);
+ return { add, remove, open, close, closeOutside, checkout, updateCartBtns, renderBadge };
+})();
+
+/* ═══ NAV DROPDOWN ═══ */
+const NAV = (() => {
+ function toggleDrop() {
+  const drop = document.getElementById("nav-drop");
+  const btn = document.querySelector(".nav-auth-main-btn");
+  if (!drop) return;
+  const isOpen = drop.classList.toggle("open");
+  if (btn) btn.classList.toggle("open", isOpen);
+ }
+ function closeDrop() {
+  const drop = document.getElementById("nav-drop");
+  const btn = document.querySelector(".nav-auth-main-btn");
+  if (drop) drop.classList.remove("open");
+  if (btn) btn.classList.remove("open");
+ }
+ // Close on outside click
+ document.addEventListener("click", e => {
+  const wrap = document.querySelector(".nav-auth-drop-wrap");
+  if (wrap && !wrap.contains(e.target)) closeDrop();
+ });
+ return { toggleDrop, closeDrop };
+})();
+
+/* showPage override removed - infinite recursion bug */
+</script>
+<script>
+(function(){
+  var LOGO_B64 = 'data:image/png;base64,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';
+  var imgs = document.querySelectorAll('img[data-avlogo]');
+  for(var i=0;i<imgs.length;i++){ imgs[i].src = LOGO_B64; }
+})();
+</script>
+<script>
+document.addEventListener('click', function(e) {
+  const balloon = document.getElementById('saweria-balloon');
+  const tooltip = document.getElementById('saw-tooltip');
+  if (balloon && tooltip && !balloon.contains(e.target)) {
+    tooltip.style.display = 'none';
+  }
+});
+</script>
+<script>
+/* ══ Diagnostic: untuk debug issue login. Cek tab Console (F12) ══ */
+(function(){
+  // Catch semua error
+  window.addEventListener('error', function(e){
+    console.error('[DIAG] Window error:', e.message, 'at', e.filename + ':' + e.lineno);
+  });
+  window.addEventListener('unhandledrejection', function(e){
+    console.error('[DIAG] Unhandled rejection:', e.reason);
+  });
+  
+  // Wrap AUTH.login dengan diagnostic
+  document.addEventListener('DOMContentLoaded', function(){
+    if (typeof AUTH === 'undefined') {
+      console.error('[DIAG] AUTH module tidak terdefinisi! Script gagal load.');
+      return;
+    }
+    if (typeof _sb === 'undefined') {
+      console.error('[DIAG] _sb (Supabase client) tidak terdefinisi!');
+      return;
+    }
+    console.log('[DIAG] AUTH ready, _sb ready, modules loaded');
+    
+    // Wrap login untuk diagnostic
+    var origLogin = AUTH.login.bind(AUTH);
+    AUTH.login = async function(){
+      console.log('[DIAG] AUTH.login() called');
+      var emailEl = document.getElementById('l-email');
+      var passEl = document.getElementById('l-pass');
+      console.log('[DIAG] email field:', emailEl ? 'found, value=' + emailEl.value : 'NOT FOUND');
+      console.log('[DIAG] password field:', passEl ? 'found, length=' + passEl.value.length : 'NOT FOUND');
+      
+      try {
+        // Test basic connectivity ke Supabase BEFORE login
+        console.log('[DIAG] Testing Supabase connectivity...');
+        var testStart = Date.now();
+        var testFetch = await fetch('https://wkcqnqtwuxzcjagitkmk.supabase.co/auth/v1/health', {
+          method: 'GET',
+          headers: {'apikey': 'sb_publishable_YYtylX5tqzI0XdyaSRLfgQ_VV6OrQPgQ_YIXP2zSM'}
+        }).catch(function(e){ return null; });
+        console.log('[DIAG] Connectivity test:', testFetch ? 'OK (' + (Date.now()-testStart) + 'ms, status ' + testFetch.status + ')' : 'FAILED');
+        
+        // Set 15-sec timeout via Promise.race
+        var loginP = origLogin();
+        var timeoutP = new Promise(function(_, reject){
+          setTimeout(function(){ reject(new Error('TIMEOUT 15 detik — login tidak respons')); }, 15000);
+        });
+        await Promise.race([loginP, timeoutP]);
+      } catch(e) {
+        console.error('[DIAG] Login error caught:', e);
+        var errEl = document.getElementById('login-err');
+        if (errEl) {
+          errEl.textContent = e.message || 'Error: ' + e;
+          errEl.style.color = '#dc2626';
+        }
+      }
+    };
+  });
+})();
+</script>
+<div id="saweria-balloon" style="
+  position:fixed; bottom:24px; right:24px; z-index:90;
+  display:flex; flex-direction:column; align-items:flex-end; gap:8px;
+">
+  <!-- Tooltip — muncul saat diklik -->
+  <div id="saw-tooltip" style="
+    display:none;
+    background:#fff; color:#1a1a1a; font-size:13px; font-weight:500;
+    padding:12px 16px; border-radius:12px; max-width:200px; text-align:center;
+    box-shadow:0 8px 32px rgba(0,0,0,.15); line-height:1.6;
+    border:1px solid #f0f0f0;
+  ">
+    Suka riset Avenir?<br>Support kami via Saweria!<br>
+    <a href="https://saweria.co/Avenir" target="_blank" style="
+      display:inline-block;margin-top:8px;
+      background:#F97316;color:#fff;
+      padding:6px 14px;border-radius:20px;
+      text-decoration:none;font-size:12px;font-weight:700;
+    ">Donasi Sekarang →</a>
+  </div>
+
+  <!-- Tombol bulat logo Saweria -->
+  <button onclick="
+    const t = document.getElementById('saw-tooltip');
+    t.style.display = t.style.display === 'none' ? 'block' : 'none';
+  " style="
+    width:48px; height:48px; border-radius:50%;
+    background:#fff; border:none; cursor:pointer; padding:0;
+    box-shadow:0 4px 16px rgba(0,0,0,.18);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .2s, box-shadow .2s;
+  "
+  onmouseover="this.style.transform='scale(1.08)';this.style.boxShadow='0 6px 24px rgba(0,0,0,.24)'"
+  onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 16px rgba(0,0,0,.18)'"
+  title="Support Avenir via Saweria">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="#e53e3e">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+  </button>
+</div>
+<script>
+/* ═══ OVERRIDE: showPage HARUS navigate URL (multi-page architecture) ═══ */
+window.showPage = function(id){
+  var m = {"home": "index.html", "index": "katalog.html", "news": "news.html", "news-pdb-q1-2026": "news-pdb-q1-2026.html", "news-windfall-tax-nikel": "news-windfall-tax-nikel.html", "news-tpia-force-majeure": "news-tpia-force-majeure.html", "ptro": "ptro.html", "cmry": "cmry.html", "avia": "avia.html", "mrvl": "mrvl.html", "nisp": "nisp.html", "bbri": "bbri.html", "asgr": "asgr.html", "dmas": "dmas.html", "dewa": "dewa.html", "ades": "ades.html", "wifi": "wifi.html", "part": "part.html", "smar": "smar.html", "crm": "crm.html", "tentang": "tentang.html", "mitra": "mitra.html", "pengguna": "pengguna.html"};
+  if (m[id]) {
+    window.location.href = m[id];
+  }
+};
+window.showNewsArticle = function(id){ window.showPage('news-' + id); };
+window.showNewsList = function(){ window.showPage('news'); };
+</script>
+
+<script>
+/* AVENIR: Force footer visible setelah semua init script jalan */
+(function(){
+  function forceFooter(){
+    document.querySelectorAll('body > footer').forEach(function(f){
+      f.style.setProperty('display', 'block', 'important');
+      f.style.setProperty('visibility', 'visible', 'important');
+    });
+  }
+  // Run beberapa kali untuk pastikan tidak di-override
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', forceFooter);
+  } else {
+    forceFooter();
+  }
+  setTimeout(forceFooter, 100);
+  setTimeout(forceFooter, 500);
+  setTimeout(forceFooter, 1500);
+})();
+</script>
+
+</body>
+</html>
