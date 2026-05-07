@@ -2894,6 +2894,113 @@ body > nav, body > .nav-global { flex-shrink: 0; }
 body > .page { flex: 1 0 auto; }
 body > .footer-spacer { flex: 0 0 auto; }
 body > footer { flex-shrink: 0; margin-top: auto; }
+
+/* ── Guest Paywall Lock ── */
+.guest-lock-wrap { position: relative; min-height: 600px; }
+.guest-lock-wrap.is-guest .guest-lock-content { 
+  filter: blur(6px); 
+  pointer-events: none; 
+  user-select: none;
+  max-height: 700px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+}
+.guest-lock-overlay { display: none; }
+.guest-lock-wrap.is-guest .guest-lock-overlay { 
+  display: flex; 
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #FFFFFF 0%, #FBFAF6 100%);
+  border: 1px solid var(--bd, #DDE7E2);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.15);
+  padding: 36px 40px;
+  max-width: 460px;
+  width: calc(100% - 40px);
+  flex-direction: column;
+  text-align: center;
+  z-index: 10;
+}
+.gl-icon { 
+  width: 56px; height: 56px; 
+  background: var(--grn-gl, rgba(27,107,58,.07));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 26px;
+}
+.gl-title { 
+  font-family: 'Cormorant Garamond', Georgia, serif; 
+  font-size: 24px; 
+  font-weight: 600; 
+  color: var(--t, #18211D);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+.gl-sub { 
+  font-size: 14px; 
+  line-height: 1.6; 
+  color: var(--t2, #4A6355);
+  margin: 0 0 20px;
+}
+.gl-price { 
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; 
+  color: var(--grn-d, #114523);
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+.gl-price strong { font-size: 18px; }
+.gl-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.gl-btn-primary { 
+  background: var(--grn-d, #114523); 
+  color: #fff; 
+  border: none; 
+  padding: 12px 22px; 
+  font-size: 13px; 
+  font-weight: 700; 
+  letter-spacing: .04em; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  text-transform: uppercase;
+  transition: all .2s;
+}
+.gl-btn-primary:hover { background: var(--grn, #1B6B3A); }
+.gl-btn-secondary { 
+  background: transparent; 
+  color: var(--grn-d, #114523); 
+  border: 1px solid var(--grn-d, #114523); 
+  padding: 12px 22px; 
+  font-size: 13px; 
+  font-weight: 700; 
+  letter-spacing: .04em; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  text-transform: uppercase;
+  transition: all .2s;
+}
+.gl-btn-secondary:hover { background: var(--grn-gl, rgba(27,107,58,.07)); }
+.gl-link { 
+  font-size: 12px; 
+  color: var(--t3, #8EA899); 
+  margin-top: 14px; 
+  line-height: 1.5;
+}
+.gl-link a { color: var(--grn, #1B6B3A); text-decoration: none; font-weight: 600; }
+@media (max-width: 600px) {
+  .guest-lock-overlay { padding: 28px 22px; }
+  .gl-title { font-size: 20px; }
+}
+
+
+.auth-trial-banner { display: flex; gap: 10px; align-items: center; background: var(--grn-gl, rgba(27,107,58,.07)); border: 1px solid rgba(27,107,58,.2); border-radius: 8px; padding: 10px 14px; margin: 10px 0 18px; }
+.auth-trial-icon { font-size: 22px; line-height: 1; }
+.auth-trial-text { font-size: 13px; line-height: 1.45; color: var(--t); }
+.auth-trial-text strong { color: var(--grn-d); font-size: 13.5px; }
+
 </style>
 </head>
 <body>
@@ -3003,7 +3110,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <!-- REGISTER -->
   <div class="auth-view" id="auth-register">
    <h3>Buat Akun</h3>
-   <p class="auth-sub">Daftar gratis untuk mulai mengakses riset premium</p>
+   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 7 hari — tanpa kartu kredit, tanpa komitmen.</p>
+   <div class="auth-trial-banner">
+    <div class="auth-trial-icon">🎁</div>
+    <div class="auth-trial-text"><strong>7 Hari Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
+   </div>
    <div class="auth-err" id="reg-err"></div>
    <div class="auth-2col">
     <div class="auth-fg"><label>NAMA DEPAN</label><input type="text" id="r-fname" placeholder="Budi"></div>
@@ -3087,6 +3198,9 @@ body > footer { flex-shrink: 0; margin-top: auto; }
  </div>
 </div>
 <div id="page-artikel" class="page" style="display:block">
+<div class="guest-lock-wrap">
+<div class="guest-lock-content">
+
 <style>
 .artikel-page { max-width:1100px; margin:0 auto; padding:48px 24px 80px; }
 .artikel-page-header { margin-bottom:40px; padding-bottom:24px; border-bottom:1px solid #e5e7eb; }
@@ -3162,6 +3276,20 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   </div>
 </div>
 
+
+</div>
+<div class="guest-lock-overlay" data-auth="guest">
+  <div class="gl-icon">🔒</div>
+  <div class="gl-title">Daftar Gratis untuk Mulai Akses</div>
+  <div class="gl-sub">Daftar sekarang dan dapatkan <strong>7 hari uji coba gratis</strong> ke seluruh corporate history dan industry deep dives Avenir Research.</div>
+  <div class="gl-price">Setelah trial: mulai <strong>Rp 69.000</strong> / bulan</div>
+  <div class="gl-actions">
+    <button class="gl-btn-primary" onclick="AUTH.open('register')">Mulai Trial 7 Hari</button>
+    <button class="gl-btn-secondary" onclick="AUTH.open('login')">Sudah Punya Akun</button>
+  </div>
+  <div class="gl-link">Lihat detail paket di <a href="index.html#pricing">homepage</a></div>
+</div>
+</div>
 </div>
 <div class="footer-spacer" style="clear:both;height:0;width:100%"></div>
 <footer style="display:block!important;visibility:visible!important;background:#0f172a;color:#94a3b8;padding:48px 24px 24px;margin-top:80px">
@@ -3487,17 +3615,91 @@ return { tap, openSaweria, openConfirm, verify, enter, close, showUnlocked, upda
 /* ═══ SUPABASE AUTH MODULE v2 ═══ */
 const AUTH = {
   currentUser: null,
+  profile: null,
+
 
   async init() {
     const { data: { session } } = await _sb.auth.getSession();
     if (session?.user) {
       AUTH.currentUser = session.user;
+      await AUTH.loadProfile();
       AUTH.refreshUI();
     }
     _sb.auth.onAuthStateChange(async (event, session) => {
       AUTH.currentUser = session?.user || null;
+      if (AUTH.currentUser) await AUTH.loadProfile();
+      else AUTH.profile = null;
       AUTH.refreshUI();
     });
+  },
+
+  // Load profile data including trial/subscription dates
+  async loadProfile() {
+    if (!AUTH.currentUser) { AUTH.profile = null; return; }
+    const { data, error } = await _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
+    AUTH.profile = data || null;
+  },
+
+
+
+  // ─── Subscription Status ──
+  // Return true jika user punya akses aktif (trial 7 hari ATAU paid subscription)
+  isSubscriptionActive() {
+    if (!AUTH.currentUser) return false;
+    
+    const now = new Date();
+    const profile = AUTH.profile || {};
+    
+    // 1. Paid subscription
+    if (profile.subscription_until) {
+      const until = new Date(profile.subscription_until);
+      if (now < until) return true;
+    }
+    
+    // 2. 7-day trial — fallback ke user.created_at
+    const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
+    if (trialStartRaw) {
+      const trialStart = new Date(trialStartRaw);
+      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      if (now < trialEnd) return true;
+    }
+    
+    return false;
+  },
+
+  // Return status string: 'guest' | 'trial' | 'active' | 'expired_trial' | 'expired_paid'
+  getSubscriptionStatus() {
+    if (!AUTH.currentUser) return 'guest';
+    
+    const now = new Date();
+    const profile = AUTH.profile || {};
+    
+    // 1. Paid subscription check
+    if (profile.subscription_until) {
+      const until = new Date(profile.subscription_until);
+      if (now < until) return 'active';
+      return 'expired_paid';
+    }
+    
+    // 2. Trial check — fallback ke user.created_at jika kolom trial_started_at belum ada di DB
+    const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
+    if (trialStartRaw) {
+      const trialStart = new Date(trialStartRaw);
+      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      if (now < trialEnd) return 'trial';
+      return 'expired_trial';
+    }
+    
+    return 'expired_trial';
+  },
+
+  // Return remaining trial days (number, can be negative)
+  getTrialDaysRemaining() {
+    if (!AUTH.profile?.trial_started_at) return null;
+    const trialStart = new Date(AUTH.profile.trial_started_at);
+    const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const now = new Date();
+    return Math.ceil((trialEnd - now) / (24 * 60 * 60 * 1000));
   },
 
   // Update semua UI setelah login/logout
@@ -3600,7 +3802,8 @@ const AUTH = {
 
     if (data.user) {
       await _sb.from('profiles').upsert({
-        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil
+        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
+        trial_started_at: new Date().toISOString()
       });
     }
 
@@ -3633,8 +3836,10 @@ const AUTH = {
 
     // Login berhasil - tutup modal
     AUTH.currentUser = data.user;
+    await AUTH.loadProfile();
     AUTH.close();
     AUTH.refreshUI();
+    if (typeof window._applyLock === 'function') window._applyLock();
   },
 
   // Logout
@@ -3681,6 +3886,10 @@ const AUTH = {
     );
   }
 };
+
+// Expose to window so other scripts (e.g. paywall lock) can access
+window.AUTH = AUTH;
+window._sb = _sb;
 
 document.addEventListener('DOMContentLoaded', () => AUTH.init());
 </script>
@@ -4000,5 +4209,102 @@ window.showNewsList = function(){ window.showPage('news'); };
 })();
 </script>
 
+<script>
+(function() {
+  function getStatus() {
+    if (!window.AUTH) return 'guest';
+    if (typeof AUTH.getSubscriptionStatus === 'function') return AUTH.getSubscriptionStatus();
+    return AUTH.currentUser ? 'active' : 'guest';
+  }
+  
+  function updateOverlayContent() {
+    const status = getStatus();
+    const overlay = document.querySelector('.guest-lock-overlay');
+    if (!overlay) return;
+    
+    const titleEl = overlay.querySelector('.gl-title');
+    const subEl = overlay.querySelector('.gl-sub');
+    const priceEl = overlay.querySelector('.gl-price');
+    const actionsEl = overlay.querySelector('.gl-actions');
+    
+    if (!titleEl || !subEl || !actionsEl) return;
+    
+    if (status === 'expired_trial') {
+      titleEl.textContent = 'Masa Uji Coba Gratis Telah Berakhir';
+      subEl.textContent = '7 hari uji coba gratis Anda sudah habis. Berlangganan sekarang untuk lanjut akses semua riset dan analisis.';
+      if (priceEl) priceEl.style.display = '';
+      actionsEl.innerHTML = '<button class="gl-btn-primary" onclick="window.location.href=\'index.html#pricing\'">Lihat Paket Langganan</button>';
+    } else if (status === 'expired_paid') {
+      titleEl.textContent = 'Langganan Anda Telah Berakhir';
+      subEl.textContent = 'Periode langganan Anda sudah selesai. Perpanjang sekarang untuk lanjutkan akses tanpa kehilangan riwayat.';
+      if (priceEl) priceEl.style.display = '';
+      actionsEl.innerHTML = '<button class="gl-btn-primary" onclick="window.location.href=\'index.html#pricing\'">Perpanjang Langganan</button>';
+    }
+  }
+  
+  function applyLock() {
+    const status = getStatus();
+    const isLocked = (status === 'guest' || status === 'expired_trial' || status === 'expired_paid');
+    
+    document.querySelectorAll('.guest-lock-wrap').forEach(el => {
+      if (isLocked) el.classList.add('is-guest');
+      else el.classList.remove('is-guest');
+    });
+    
+    if (isLocked) updateOverlayContent();
+  }
+  
+  // Expose globally so login()/register() can call directly
+  window._applyLock = applyLock;
+  
+  // Initial: assume locked (guest)
+  applyLock();
+  document.addEventListener('DOMContentLoaded', applyLock);
+  
+  // Listen to Supabase auth state change directly (most reliable)
+  function hookAuth() {
+    if (window._sb && window._sb.auth) {
+      window._sb.auth.onAuthStateChange(async (event, session) => {
+        if (session?.user && window.AUTH) {
+          AUTH.currentUser = session.user;
+          if (typeof AUTH.loadProfile === 'function') {
+            await AUTH.loadProfile();
+          }
+        } else if (window.AUTH) {
+          AUTH.currentUser = null;
+          AUTH.profile = null;
+        }
+        applyLock();
+      });
+      return true;
+    }
+    return false;
+  }
+  
+  // Try to hook immediately, retry if _sb not ready yet
+  if (!hookAuth()) {
+    let attempts = 0;
+    const interval = setInterval(() => {
+      if (hookAuth() || ++attempts > 20) clearInterval(interval);
+    }, 200);
+  }
+  
+  // Also hook AUTH.refreshUI as fallback
+  setTimeout(() => {
+    if (window.AUTH && typeof window.AUTH.refreshUI === 'function') {
+      const orig = window.AUTH.refreshUI;
+      window.AUTH.refreshUI = async function() {
+        const r = await orig.apply(this, arguments);
+        applyLock();
+        return r;
+      };
+    }
+    applyLock();
+  }, 500);
+  
+  setTimeout(applyLock, 1500);
+  setTimeout(applyLock, 3000);
+})();
+</script>
 </body>
 </html>

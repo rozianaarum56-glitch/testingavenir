@@ -2894,6 +2894,62 @@ body > nav, body > .nav-global { flex-shrink: 0; }
 body > .page { flex: 1 0 auto; }
 body > .footer-spacer { flex: 0 0 auto; }
 body > footer { flex-shrink: 0; margin-top: auto; }
+
+
+/* Plan & Pricing Section — 4 Tiers */
+.home-plan { max-width: 1200px; margin: 0 auto; padding: 80px 24px; }
+.hp-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--grn); text-align: center; margin-bottom: 12px; text-transform: uppercase; }
+.hp-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(30px, 5vw, 46px); font-weight: 600; line-height: 1.1; color: var(--t); text-align: center; margin: 0 0 14px; }
+.hp-title .hl { color: var(--grn); }
+.hp-sub { font-size: 15px; line-height: 1.7; color: var(--t2); text-align: center; max-width: 740px; margin: 0 auto 48px; }
+
+.hp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 40px; }
+.hp-tier { background: #FFFFFF; border: 1px solid var(--bd); border-radius: 14px; padding: 28px 22px 24px; text-align: center; position: relative; transition: all .3s; display: flex; flex-direction: column; }
+.hp-tier:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--grn); }
+.hp-tier-featured { background: linear-gradient(180deg, #FAFAF6 0%, #F2F8F4 100%); border: 2px solid var(--grn); transform: scale(1.03); box-shadow: var(--shadow-md); }
+.hp-tier-featured:hover { transform: scale(1.04) translateY(-3px); }
+
+.hp-tier-badge { display: inline-block; background: var(--bg3); color: var(--t2); font-size: 9px; font-weight: 700; letter-spacing: .12em; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.hp-tier-badge-green { background: var(--grn-d); color: #fff; }
+.hp-tier-badge-gold { background: var(--gold); color: #fff; }
+.hp-tier-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; font-weight: 600; color: var(--t); margin: 12px 0 14px; }
+.hp-tier-price { display: flex; align-items: baseline; justify-content: center; gap: 4px; }
+.hp-tier-currency { font-size: 14px; color: var(--t2); font-weight: 600; }
+.hp-tier-amount { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 700; color: var(--grn-d); letter-spacing: -.02em; line-height: 1; }
+.hp-tier-period { font-size: 12px; color: var(--t2); margin-top: 4px; }
+.hp-tier-eq { font-size: 11px; color: var(--t3); font-family: 'JetBrains Mono', monospace; margin: 8px 0 18px; min-height: 14px; }
+.hp-tier-btn { background: transparent; color: var(--grn-d); border: 1px solid var(--grn-d); padding: 10px 16px; font-size: 12px; font-weight: 700; letter-spacing: .05em; border-radius: 8px; cursor: pointer; text-transform: uppercase; transition: all .2s; margin-top: auto; width: 100%; }
+.hp-tier-btn:hover { background: var(--grn-gl); }
+.hp-tier-btn-primary { background: var(--grn-d); color: #fff; border-color: var(--grn-d); }
+.hp-tier-btn-primary:hover { background: var(--grn); }
+.hp-tier-foot { font-size: 10.5px; color: var(--t3); margin-top: 10px; line-height: 1.4; }
+
+.hp-bottom { background: linear-gradient(135deg, #FFFFFF 0%, #FBFAF6 100%); border: 1px solid var(--bd); border-radius: 14px; padding: 28px 32px; }
+.hp-features-block { margin-bottom: 24px; }
+.hp-feat-title { font-size: 12px; font-weight: 700; letter-spacing: .08em; color: var(--t2); text-transform: uppercase; margin-bottom: 14px; }
+.hp-feat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 24px; }
+.hp-feat { font-size: 13.5px; line-height: 1.6; color: var(--t); display: flex; gap: 8px; align-items: flex-start; }
+.hp-feat-tick { color: var(--grn); font-weight: 700; flex-shrink: 0; font-size: 14px; }
+.hp-note-block { padding-top: 22px; border-top: 1px solid var(--bd); font-size: 12px; line-height: 1.6; color: var(--t2); }
+.hp-note-tag { display: inline-block; background: var(--bg3); color: var(--t2); font-size: 9px; font-weight: 700; letter-spacing: .1em; padding: 2px 7px; border-radius: 3px; margin-right: 8px; vertical-align: 1px; text-transform: uppercase; }
+
+@media (max-width: 980px) {
+  .hp-grid { grid-template-columns: repeat(2, 1fr); }
+  .hp-tier-featured { transform: none; }
+  .hp-tier-featured:hover { transform: translateY(-3px); }
+}
+@media (max-width: 540px) {
+  .hp-grid { grid-template-columns: 1fr; }
+  .hp-feat-grid { grid-template-columns: 1fr; }
+  .hp-bottom { padding: 22px 18px; }
+  .hp-tier-amount { font-size: 28px; }
+}
+
+.auth-trial-banner { display: flex; gap: 10px; align-items: center; background: var(--grn-gl, rgba(27,107,58,.07)); border: 1px solid rgba(27,107,58,.2); border-radius: 8px; padding: 10px 14px; margin: 10px 0 18px; }
+.auth-trial-icon { font-size: 22px; line-height: 1; }
+.auth-trial-text { font-size: 13px; line-height: 1.45; color: var(--t); }
+.auth-trial-text strong { color: var(--grn-d); font-size: 13.5px; }
+
 </style>
 </head>
 <body>
@@ -3003,7 +3059,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <!-- REGISTER -->
   <div class="auth-view" id="auth-register">
    <h3>Buat Akun</h3>
-   <p class="auth-sub">Daftar gratis untuk mulai mengakses riset premium</p>
+   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 7 hari — tanpa kartu kredit, tanpa komitmen.</p>
+   <div class="auth-trial-banner">
+    <div class="auth-trial-icon">🎁</div>
+    <div class="auth-trial-text"><strong>7 Hari Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
+   </div>
    <div class="auth-err" id="reg-err"></div>
    <div class="auth-2col">
     <div class="auth-fg"><label>NAMA DEPAN</label><input type="text" id="r-fname" placeholder="Budi"></div>
@@ -3345,6 +3405,89 @@ body > footer { flex-shrink: 0; margin-top: auto; }
  </div>
 </section>
 
+<!-- Plan & Pricing - Subscription Tiers -->
+<section class="home-plan" id="pricing">
+ <div class="hp-eyebrow">◆ LANGGANAN</div>
+ <h2 class="hp-title">Pilih Periode yang <span class="hl">Paling Hemat</span> untuk Anda</h2>
+ <p class="hp-sub">Setiap akun baru otomatis mendapat akses gratis selama 7 hari. Setelah itu, lanjutkan dengan langganan bulanan, kuartalan, semester, atau tahunan. Bisa berhenti kapan saja — tidak ada lock-in period.</p>
+
+ <div class="hp-grid">
+  <!-- BULANAN -->
+  <div class="hp-tier" data-period="1">
+   <div class="hp-tier-name">Bulanan</div>
+   <div class="hp-tier-price">
+    <span class="hp-tier-currency">Rp</span>
+    <span class="hp-tier-amount">69.000</span>
+   </div>
+   <div class="hp-tier-period">/ bulan</div>
+   <div class="hp-tier-eq">&nbsp;</div>
+   <button class="hp-tier-btn" onclick="AUTH.open('register')">Pilih Bulanan</button>
+   <div class="hp-tier-foot">Fleksibel · Bisa berhenti kapan saja</div>
+  </div>
+
+  <!-- 3 BULAN -->
+  <div class="hp-tier" data-period="3">
+   <div class="hp-tier-badge">POPULER</div>
+   <div class="hp-tier-name">3 Bulan</div>
+   <div class="hp-tier-price">
+    <span class="hp-tier-currency">Rp</span>
+    <span class="hp-tier-amount">189.000</span>
+   </div>
+   <div class="hp-tier-period">/ 3 bulan</div>
+   <div class="hp-tier-eq">≈ Rp 63.000 / bulan</div>
+   <button class="hp-tier-btn" onclick="AUTH.open('register')">Pilih 3 Bulan</button>
+   <div class="hp-tier-foot">Hemat Rp 18.000 vs bulanan</div>
+  </div>
+
+  <!-- 6 BULAN -->
+  <div class="hp-tier hp-tier-featured" data-period="6">
+   <div class="hp-tier-badge hp-tier-badge-green">NILAI TERBAIK</div>
+   <div class="hp-tier-name">6 Bulan</div>
+   <div class="hp-tier-price">
+    <span class="hp-tier-currency">Rp</span>
+    <span class="hp-tier-amount">339.000</span>
+   </div>
+   <div class="hp-tier-period">/ 6 bulan</div>
+   <div class="hp-tier-eq">≈ Rp 56.500 / bulan</div>
+   <button class="hp-tier-btn hp-tier-btn-primary" onclick="AUTH.open('register')">Pilih 6 Bulan</button>
+   <div class="hp-tier-foot">Hemat Rp 75.000 · Diskon 18%</div>
+  </div>
+
+  <!-- 1 TAHUN -->
+  <div class="hp-tier" data-period="12">
+   <div class="hp-tier-badge hp-tier-badge-gold">PALING HEMAT</div>
+   <div class="hp-tier-name">1 Tahun</div>
+   <div class="hp-tier-price">
+    <span class="hp-tier-currency">Rp</span>
+    <span class="hp-tier-amount">599.000</span>
+   </div>
+   <div class="hp-tier-period">/ tahun</div>
+   <div class="hp-tier-eq">≈ Rp 49.917 / bulan</div>
+   <button class="hp-tier-btn" onclick="AUTH.open('register')">Pilih Tahunan</button>
+   <div class="hp-tier-foot">Hemat Rp 229.000 · Diskon 28%</div>
+  </div>
+ </div>
+
+ <!-- Common features list -->
+ <div class="hp-bottom">
+  <div class="hp-features-block">
+   <div class="hp-feat-title">Semua paket termasuk:</div>
+   <div class="hp-feat-grid">
+    <div class="hp-feat"><span class="hp-feat-tick">✓</span> Akses penuh ke seluruh katalog riset ekuitas</div>
+    <div class="hp-feat"><span class="hp-feat-tick">✓</span> Market news harian dari tim editorial</div>
+    <div class="hp-feat"><span class="hp-feat-tick">✓</span> Artikel corporate history &amp; industry deep dives</div>
+    <div class="hp-feat"><span class="hp-feat-tick">✓</span> Update otomatis setiap rilis LK kuartal</div>
+    <div class="hp-feat"><span class="hp-feat-tick">✓</span> Notifikasi prioritas via email</div>
+    <div class="hp-feat"><span class="hp-feat-tick">✓</span> 7 hari uji coba gratis untuk akun baru</div>
+   </div>
+  </div>
+
+  <div class="hp-note-block">
+   <span class="hp-note-tag">CATATAN</span>
+   Avenir Research saat ini berada pada fase peluncuran awal. Pelanggan yang bergabung di periode ini mendapat harga perkenalan dan kepastian harga tetap (<em>grandfathered</em>) untuk siklus berlangganan berikutnya.
+  </div>
+ </div>
+</section>
 <!-- Final CTA -->
 <section class="home-cta">
  <div class="hct-box">
@@ -3681,17 +3824,91 @@ return { tap, openSaweria, openConfirm, verify, enter, close, showUnlocked, upda
 /* ═══ SUPABASE AUTH MODULE v2 ═══ */
 const AUTH = {
   currentUser: null,
+  profile: null,
+
 
   async init() {
     const { data: { session } } = await _sb.auth.getSession();
     if (session?.user) {
       AUTH.currentUser = session.user;
+      await AUTH.loadProfile();
       AUTH.refreshUI();
     }
     _sb.auth.onAuthStateChange(async (event, session) => {
       AUTH.currentUser = session?.user || null;
+      if (AUTH.currentUser) await AUTH.loadProfile();
+      else AUTH.profile = null;
       AUTH.refreshUI();
     });
+  },
+
+  // Load profile data including trial/subscription dates
+  async loadProfile() {
+    if (!AUTH.currentUser) { AUTH.profile = null; return; }
+    const { data, error } = await _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
+    AUTH.profile = data || null;
+  },
+
+
+
+  // ─── Subscription Status ──
+  // Return true jika user punya akses aktif (trial 7 hari ATAU paid subscription)
+  isSubscriptionActive() {
+    if (!AUTH.currentUser) return false;
+    
+    const now = new Date();
+    const profile = AUTH.profile || {};
+    
+    // 1. Paid subscription
+    if (profile.subscription_until) {
+      const until = new Date(profile.subscription_until);
+      if (now < until) return true;
+    }
+    
+    // 2. 7-day trial — fallback ke user.created_at
+    const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
+    if (trialStartRaw) {
+      const trialStart = new Date(trialStartRaw);
+      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      if (now < trialEnd) return true;
+    }
+    
+    return false;
+  },
+
+  // Return status string: 'guest' | 'trial' | 'active' | 'expired_trial' | 'expired_paid'
+  getSubscriptionStatus() {
+    if (!AUTH.currentUser) return 'guest';
+    
+    const now = new Date();
+    const profile = AUTH.profile || {};
+    
+    // 1. Paid subscription check
+    if (profile.subscription_until) {
+      const until = new Date(profile.subscription_until);
+      if (now < until) return 'active';
+      return 'expired_paid';
+    }
+    
+    // 2. Trial check — fallback ke user.created_at jika kolom trial_started_at belum ada di DB
+    const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
+    if (trialStartRaw) {
+      const trialStart = new Date(trialStartRaw);
+      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      if (now < trialEnd) return 'trial';
+      return 'expired_trial';
+    }
+    
+    return 'expired_trial';
+  },
+
+  // Return remaining trial days (number, can be negative)
+  getTrialDaysRemaining() {
+    if (!AUTH.profile?.trial_started_at) return null;
+    const trialStart = new Date(AUTH.profile.trial_started_at);
+    const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const now = new Date();
+    return Math.ceil((trialEnd - now) / (24 * 60 * 60 * 1000));
   },
 
   // Update semua UI setelah login/logout
@@ -3794,7 +4011,8 @@ const AUTH = {
 
     if (data.user) {
       await _sb.from('profiles').upsert({
-        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil
+        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
+        trial_started_at: new Date().toISOString()
       });
     }
 
@@ -3827,8 +4045,10 @@ const AUTH = {
 
     // Login berhasil - tutup modal
     AUTH.currentUser = data.user;
+    await AUTH.loadProfile();
     AUTH.close();
     AUTH.refreshUI();
+    if (typeof window._applyLock === 'function') window._applyLock();
   },
 
   // Logout
@@ -3875,6 +4095,10 @@ const AUTH = {
     );
   }
 };
+
+// Expose to window so other scripts (e.g. paywall lock) can access
+window.AUTH = AUTH;
+window._sb = _sb;
 
 document.addEventListener('DOMContentLoaded', () => AUTH.init());
 </script>

@@ -2899,6 +2899,12 @@ body > nav, body > .nav-global { flex-shrink: 0; }
 body > .page { flex: 1 0 auto; }
 body > .footer-spacer { flex: 0 0 auto; }
 body > footer { flex-shrink: 0; margin-top: auto; }
+
+.auth-trial-banner { display: flex; gap: 10px; align-items: center; background: var(--grn-gl, rgba(27,107,58,.07)); border: 1px solid rgba(27,107,58,.2); border-radius: 8px; padding: 10px 14px; margin: 10px 0 18px; }
+.auth-trial-icon { font-size: 22px; line-height: 1; }
+.auth-trial-text { font-size: 13px; line-height: 1.45; color: var(--t); }
+.auth-trial-text strong { color: var(--grn-d); font-size: 13.5px; }
+
 </style>
 </head>
 <body>
@@ -3008,7 +3014,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <!-- REGISTER -->
   <div class="auth-view" id="auth-register">
    <h3>Buat Akun</h3>
-   <p class="auth-sub">Daftar gratis untuk mulai mengakses riset premium</p>
+   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 7 hari — tanpa kartu kredit, tanpa komitmen.</p>
+   <div class="auth-trial-banner">
+    <div class="auth-trial-icon">🎁</div>
+    <div class="auth-trial-text"><strong>7 Hari Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
+   </div>
    <div class="auth-err" id="reg-err"></div>
    <div class="auth-2col">
     <div class="auth-fg"><label>NAMA DEPAN</label><input type="text" id="r-fname" placeholder="Budi"></div>
@@ -3934,17 +3944,91 @@ return { tap, openSaweria, openConfirm, verify, enter, close, showUnlocked, upda
 /* ═══ SUPABASE AUTH MODULE v2 ═══ */
 const AUTH = {
   currentUser: null,
+  profile: null,
+
 
   async init() {
     const { data: { session } } = await _sb.auth.getSession();
     if (session?.user) {
       AUTH.currentUser = session.user;
+      await AUTH.loadProfile();
       AUTH.refreshUI();
     }
     _sb.auth.onAuthStateChange(async (event, session) => {
       AUTH.currentUser = session?.user || null;
+      if (AUTH.currentUser) await AUTH.loadProfile();
+      else AUTH.profile = null;
       AUTH.refreshUI();
     });
+  },
+
+  // Load profile data including trial/subscription dates
+  async loadProfile() {
+    if (!AUTH.currentUser) { AUTH.profile = null; return; }
+    const { data, error } = await _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
+    AUTH.profile = data || null;
+  },
+
+
+
+  // ─── Subscription Status ──
+  // Return true jika user punya akses aktif (trial 7 hari ATAU paid subscription)
+  isSubscriptionActive() {
+    if (!AUTH.currentUser) return false;
+    
+    const now = new Date();
+    const profile = AUTH.profile || {};
+    
+    // 1. Paid subscription
+    if (profile.subscription_until) {
+      const until = new Date(profile.subscription_until);
+      if (now < until) return true;
+    }
+    
+    // 2. 7-day trial — fallback ke user.created_at
+    const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
+    if (trialStartRaw) {
+      const trialStart = new Date(trialStartRaw);
+      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      if (now < trialEnd) return true;
+    }
+    
+    return false;
+  },
+
+  // Return status string: 'guest' | 'trial' | 'active' | 'expired_trial' | 'expired_paid'
+  getSubscriptionStatus() {
+    if (!AUTH.currentUser) return 'guest';
+    
+    const now = new Date();
+    const profile = AUTH.profile || {};
+    
+    // 1. Paid subscription check
+    if (profile.subscription_until) {
+      const until = new Date(profile.subscription_until);
+      if (now < until) return 'active';
+      return 'expired_paid';
+    }
+    
+    // 2. Trial check — fallback ke user.created_at jika kolom trial_started_at belum ada di DB
+    const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
+    if (trialStartRaw) {
+      const trialStart = new Date(trialStartRaw);
+      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      if (now < trialEnd) return 'trial';
+      return 'expired_trial';
+    }
+    
+    return 'expired_trial';
+  },
+
+  // Return remaining trial days (number, can be negative)
+  getTrialDaysRemaining() {
+    if (!AUTH.profile?.trial_started_at) return null;
+    const trialStart = new Date(AUTH.profile.trial_started_at);
+    const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const now = new Date();
+    return Math.ceil((trialEnd - now) / (24 * 60 * 60 * 1000));
   },
 
   // Update semua UI setelah login/logout
@@ -4047,7 +4131,8 @@ const AUTH = {
 
     if (data.user) {
       await _sb.from('profiles').upsert({
-        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil
+        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
+        trial_started_at: new Date().toISOString()
       });
     }
 
@@ -4080,8 +4165,10 @@ const AUTH = {
 
     // Login berhasil - tutup modal
     AUTH.currentUser = data.user;
+    await AUTH.loadProfile();
     AUTH.close();
     AUTH.refreshUI();
+    if (typeof window._applyLock === 'function') window._applyLock();
   },
 
   // Logout
@@ -4128,6 +4215,10 @@ const AUTH = {
     );
   }
 };
+
+// Expose to window so other scripts (e.g. paywall lock) can access
+window.AUTH = AUTH;
+window._sb = _sb;
 
 document.addEventListener('DOMContentLoaded', () => AUTH.init());
 </script>
