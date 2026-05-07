@@ -2886,6 +2886,15 @@ body > footer {
   z-index: 10 !important;
 }
 </style>
+<style>
+/* Sticky footer pattern - footer always at bottom of viewport */
+html, body { min-height: 100vh; }
+body { display: flex; flex-direction: column; }
+body > nav, body > .nav-global { flex-shrink: 0; }
+body > .page { flex: 1 0 auto; }
+body > .footer-spacer { flex: 0 0 auto; }
+body > footer { flex-shrink: 0; margin-top: auto; }
+</style>
 </head>
 <body>
 <nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
