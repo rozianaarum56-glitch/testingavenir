@@ -6,17 +6,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Avenir Research</title>
+<title>Dashboard Mitra · Avenir Research</title>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Avenir Research">
-<meta property="og:title" content="NISP — PT Bank OCBC NISP | Avenir Research">
-<meta property="og:description" content="Riset ekuitas mendalam NISP: OCBC Group synergy, NIM expansion, dan loan growth.">
-<meta property="og:url" content="https://avenirresearch.app/katalog/nisp">
+<meta property="og:title" content="Tentang Avenir Research">
+<meta property="og:description" content="Avenir Research adalah platform riset ekuitas profesional oleh PT Avenir Fortuna Corporindo.">
+<meta property="og:url" content="https://avenirresearch.app/tentang">
 <meta property="og:image" content="https://avenirresearch.app/og-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="NISP — PT Bank OCBC NISP | Avenir Research">
-<meta name="twitter:description" content="Riset ekuitas mendalam NISP: OCBC Group synergy, NIM expansion, dan loan growth.">
-<meta name="description" content="Riset ekuitas mendalam NISP: OCBC Group synergy, NIM expansion, dan loan growth.">
+<meta name="twitter:title" content="Tentang Avenir Research">
+<meta name="twitter:description" content="Avenir Research adalah platform riset ekuitas profesional oleh PT Avenir Fortuna Corporindo.">
+<meta name="description" content="Avenir Research adalah platform riset ekuitas profesional oleh PT Avenir Fortuna Corporindo.">
 
 <style>
 
@@ -3097,141 +3097,199 @@ body > footer { flex-shrink: 0; margin-top: auto; }
 
  </div>
 </div>
-<div id="page-nisp" class="page" style="display:block">
-<div class="pw-overlay" id="pw-nisp" style="display:none!important">
- <div class="pw-box">
-  <div class="pw-eyebrow">◆ Avenir Research</div>
-  <div class="pw-lock">🔒</div>
-  <div class="pw-title">PT Bank OCBC NISP</div>
-  <div class="pw-sub">Riset ini hanya tersedia bagi pengguna yang telah melakukan pembayaran. Akses berlaku selamanya setelah dikonfirmasi.</div>
-  <div class="pw-price-pill">
-   <div class="pw-price-num">Rp8.000</div>
-   <div class="pw-price-lbl">Akses<br>Selamanya</div>
+<div id="page-dashboard-mitra" class="page" style="display:block"><style>
+.dashm-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+.dashm-eyebrow { display: inline-block; background: var(--grn-gl); color: var(--grn-d); font-size: 10px; font-weight: 700; letter-spacing: .14em; padding: 5px 12px; border-radius: 4px; margin-bottom: 14px; text-transform: uppercase; }
+.dashm-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(28px, 4.5vw, 42px); font-weight: 600; line-height: 1.15; color: var(--t); margin: 0 0 8px; }
+.dashm-sub { font-size: 14px; line-height: 1.6; color: var(--t2); margin: 0 0 32px; }
+.dashm-disclaimer { background: #fef9c3; border-left: 3px solid #d97706; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 12.5px; line-height: 1.6; color: #78350f; margin-bottom: 28px; }
+.dashm-disclaimer strong { color: #854d0e; }
+.dashm-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+.dashm-stat { background: #fff; border: 1px solid var(--bd); border-radius: 12px; padding: 22px 24px; }
+.dashm-stat-label { font-size: 10.5px; font-weight: 700; letter-spacing: .12em; color: var(--t3); text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.dashm-stat-icon { font-size: 14px; }
+.dashm-stat-value { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 700; color: var(--t); line-height: 1.1; }
+.dashm-stat-sub { font-size: 11px; color: var(--t3); margin-top: 4px; }
+.dashm-stat-zero { color: var(--t3); }
+.dashm-section { background: #fff; border: 1px solid var(--bd); border-radius: 12px; padding: 24px 28px; margin-bottom: 22px; }
+.dashm-section h3 { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--t); text-transform: uppercase; margin: 0 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--bd); }
+.dashm-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.dashm-table th { text-align: left; padding: 10px 12px; font-size: 10.5px; font-weight: 700; letter-spacing: .08em; color: var(--t3); text-transform: uppercase; background: var(--bg); border-bottom: 1px solid var(--bd); }
+.dashm-table td { padding: 12px; border-bottom: 1px solid var(--bd); color: var(--t); }
+.dashm-table tr:last-child td { border-bottom: none; }
+.dashm-table tr:hover td { background: var(--bg); }
+.dashm-table .col-views { text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--grn-d); }
+.dashm-empty { text-align: center; padding: 40px 20px; color: var(--t3); font-size: 13px; line-height: 1.6; }
+.dashm-empty-icon { font-size: 36px; margin-bottom: 12px; }
+.dashm-chart { width: 100%; height: 220px; position: relative; padding: 10px 0; }
+.dashm-chart-empty { text-align: center; padding: 60px 20px; color: var(--t3); font-size: 13px; line-height: 1.6; }
+.dashm-chart svg { width: 100%; height: 100%; }
+.dashm-chart .grid-line { stroke: #f0ede8; stroke-width: 1; }
+.dashm-chart .data-line { stroke: var(--grn); stroke-width: 2.5; fill: none; }
+.dashm-chart .data-area { fill: var(--grn-gl); }
+.dashm-chart .data-point { fill: var(--grn-d); }
+.dashm-chart .x-label { fill: var(--t3); font-size: 11px; font-family: 'JetBrains Mono', monospace; }
+.dashm-chart .y-label { fill: var(--t3); font-size: 10px; font-family: 'JetBrains Mono', monospace; }
+.dashm-loading { text-align: center; padding: 60px 20px; color: var(--t3); font-size: 13px; }
+.dashm-not-mitra { max-width: 540px; margin: 60px auto; text-align: center; padding: 40px 32px; background: #fff; border: 1px solid var(--bd); border-radius: 14px; }
+.dashm-not-mitra-icon { font-size: 48px; margin-bottom: 16px; }
+.dashm-not-mitra h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 600; color: var(--t); margin: 0 0 12px; }
+.dashm-not-mitra p { font-size: 14px; line-height: 1.65; color: var(--t2); margin: 0 0 20px; }
+.dashm-not-mitra .btn { display: inline-block; background: var(--grn-d); color: #fff; padding: 12px 24px; border-radius: 8px; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; cursor: pointer; }
+@media (max-width: 720px) { .dashm-stats { grid-template-columns: 1fr; } .dashm-section { padding: 18px 18px; } }
+</style>
+
+<div class="dashm-wrap">
+  <div id="dashm-loading" class="dashm-loading">⏳ Memuat dashboard...</div>
+  <div id="dashm-not-mitra" class="dashm-not-mitra" style="display:none">
+    <div class="dashm-not-mitra-icon">🔒</div>
+    <h2>Akses Khusus Mitra</h2>
+    <p>Halaman ini hanya tersedia untuk pengguna yang terdaftar sebagai <strong>Mitra Avenir Research</strong>. Jika Anda ingin bergabung sebagai mitra analis, daftarkan diri Anda di halaman pendaftaran mitra.</p>
+    <a href="daftar-mitra.html" class="btn">DAFTAR JADI MITRA →</a>
   </div>
-  <ul class="pw-feats">
-   <li>Analisis fundamental mendalam multi-metode</li>
-   <li>Tabel keuangan terverifikasi dari LK resmi</li>
-   <li>Framework skenario Base / Bull / Bear</li>
-   <li>Update otomatis di LK kuartal berikutnya</li>
-  </ul>
-  <button class="pw-btn-pay" onclick="AR.openSaweria('nisp',8000)">Bayar via Saweria · Rp8.000</button>
-  <button class="pw-btn-back" onclick="goIndex()">← Kembali ke Daftar Riset</button>
-  <p class="pw-hint">Sudah bayar? <a onclick="AR.openConfirm('nisp',8000)">Masukkan kode konfirmasi</a></p>
- </div>
+  <div id="dashm-content" style="display:none">
+    <div class="dashm-eyebrow">◆ DASHBOARD MITRA</div>
+    <h1 class="dashm-title">Halo, <span id="dashm-greeting">Mitra</span> 👋</h1>
+    <p class="dashm-sub">Pantau performa riset Anda dan estimasi pendapatan dari pool subscription Avenir Research.</p>
+    <div class="dashm-disclaimer">
+      <strong>📌 Catatan:</strong> Avenir Research saat ini berada pada fase trial. Estimasi pendapatan dan total earnings akan mulai dihitung setelah pengguna mulai berlangganan berbayar (setelah masa trial 2 bulan untuk early users selesai). Views tetap tercatat dan akan dikonversi ke pendapatan setelah subscription aktif.
+    </div>
+    <div class="dashm-stats">
+      <div class="dashm-stat"><div class="dashm-stat-label"><span class="dashm-stat-icon">👁</span> Views Bulan Ini</div><div class="dashm-stat-value" id="dashm-views-month">0</div><div class="dashm-stat-sub" id="dashm-views-sub">Total views ke riset Anda di bulan berjalan</div></div>
+      <div class="dashm-stat"><div class="dashm-stat-label"><span class="dashm-stat-icon">💰</span> Estimasi Pendapatan</div><div class="dashm-stat-value dashm-stat-zero" id="dashm-earn-month">Rp 0</div><div class="dashm-stat-sub">Bulan berjalan · belum aktif</div></div>
+      <div class="dashm-stat"><div class="dashm-stat-label"><span class="dashm-stat-icon">🏦</span> Total Earnings</div><div class="dashm-stat-value dashm-stat-zero" id="dashm-earn-total">Rp 0</div><div class="dashm-stat-sub">Sepanjang masa · belum aktif</div></div>
+    </div>
+    <div class="dashm-section">
+      <h3>📋 Riset Anda &amp; Performa</h3>
+      <div id="dashm-research-list">
+        <div class="dashm-empty"><div class="dashm-empty-icon">📝</div>Belum ada riset Anda yang terpublikasi.<br><span style="font-size:12px;color:var(--t3)">Kirim paper Anda ke admin via email untuk dipublikasikan.</span></div>
+      </div>
+    </div>
+    <div class="dashm-section">
+      <h3>📈 Tren Views 6 Bulan Terakhir</h3>
+      <div id="dashm-chart" class="dashm-chart">
+        <div class="dashm-chart-empty"><div style="font-size:36px;margin-bottom:8px">📊</div>Data akan terisi seiring riset Anda mulai dilihat oleh pengguna.</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-
-<div class="overlay" id="ov-nisp" onclick="toggleDrawer('nisp')"></div>
-<nav class="drawer" id="dr-nisp"><div class="drawer-lbl">Navigasi</div><ul class="drawer-menu"><li><a href="https://avenirfortuna.com" onclick="closeDrawer('nisp')">Home</a></li><li><a href="#" onclick="goIndex();closeDrawer('nisp')">Semua Riset</a></li></ul></nav>
-<div class="hero"><div class="htag"><span class="dot" style="background:#1A7A6E"></span>AVENIR RESEARCH &middot; EQUITY DEEP DIVE &middot; IDX &middot; PERBANKAN</div>
-<h1><span class="hl" style="color:#1A7A6E">PT Bank OCBC NISP Tbk (NISP)</span></h1>
-<p class="hsub">Bank komersial fokus wealth management &amp; korporasi — <strong>OCBC NISP</strong>. Didukung OCBC Bank Singapura (75,3%). 200+ cabang. Dividen Rp45/saham dibayar 4 Mei 2026. NI Q1-2026 Rp1,36T +5,3% YoY.<br><br><strong style="color:#1A7A6E">&#9654; Q1-2026 (LK 31 Mar 2026):</strong> Revenue Rp4.444 <strong>-2.2% YoY</strong> &bull; Gross Margin 37.9% (vs 36.1% Q1-25) &bull; <strong>Laba Bersih Rp1.360 +5.3% YoY</strong>.<br>@Rp1,355 per <strong>2 Mei 2026</strong>: P/E <strong>6.2x</strong> &bull; EV/EBITDA <strong>4.9x</strong> &bull; P/BV <strong>0.76x</strong>.</p>
-<div class="hmeta"><span>IDX: NISP</span><span>&middot;</span><span class="hbadge" style="border-color:#1A7A6E33;color:#1A7A6E">&#10003; AR 2025 (Diaudit)</span><span class="hbadge" style="border-color:#1A7A6E55;color:#1A7A6E;font-weight:800">&#9654; LK Q1-2026 (31 Mar 2026)</span><span class="hbadge gold">P/E &bull; EV/EBITDA &bull; P/BV</span><span>&#128197; Update: <strong>4 Mei 2026</strong> &bull; Harga ref: <strong>2 Mei 2026</strong></span></div></div>
-<div class="cnt">
-<div class="box" style="border-color:#1A7A6E22"><p><strong style="color:#1A7A6E">Ringkasan Eksekutif:</strong> Q1-2026: Revenue Rp4.444 (-2.2% YoY), Laba Bersih Rp1.360 (+5.3% YoY). Gross Margin 37.9%. P/E fwd 6.2x, EV/EBITDA 4.9x, P/BV 0.76x @Rp1,355 per 2 Mei 2026. Net Cash positif. EPS annualized Rp218/saham (Q1-26 &times;4).</p></div>
-<div class="sg4">
-<div class="stat"><div class="sv" style="color:#1A7A6E">Rp4.444</div><div class="sl">Revenue Q1-2026</div><div class="sd rr">&#9660; -2.2% vs Q1-2025</div></div>
-<div class="stat"><div class="sv sup">Rp1.360</div><div class="sl">Laba Bersih Q1-2026</div><div class="sd sup">&#9650; +5.3% vs Q1-2025</div></div>
-<div class="stat"><div class="sv" style="color:#1A7A6E">37.9%</div><div class="sl">Gross Margin Q1-2026</div><div class="sd sup">&#9650; dari 36.1% (Q1-25)</div></div>
-<div class="stat"><div class="sv">Rp1.682</div><div class="sl">EBIT Q1-2026</div><div class="sd sup">&#9650; +2.6% vs Q1-2025</div></div>
+<script>
+const Dashm = {
+  async init() {
+    await Dashm.waitForAuth();
+    const loadingEl = document.getElementById('dashm-loading');
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (!window.AUTH || !window.AUTH.currentUser) { Dashm.showNotMitra(); return; }
+    if (!window.AUTH.profile && typeof window.AUTH.loadProfile === 'function') { await window.AUTH.loadProfile(); }
+    if (!window.AUTH.profile || !window.AUTH.profile.is_mitra) { Dashm.showNotMitra(); return; }
+    Dashm.showDashboard();
+    await Dashm.loadData();
+  },
+  waitForAuth() {
+    return new Promise(resolve => {
+      let attempts = 0;
+      const check = () => {
+        if (window.AUTH && window._sb) {
+          if (window.AUTH.currentUser && !window.AUTH.profile && attempts < 25) { attempts++; return setTimeout(check, 200); }
+          return resolve();
+        }
+        if (++attempts > 30) return resolve();
+        setTimeout(check, 200);
+      };
+      check();
+    });
+  },
+  showNotMitra() {
+    document.getElementById('dashm-loading').style.display = 'none';
+    document.getElementById('dashm-not-mitra').style.display = 'block';
+    document.getElementById('dashm-content').style.display = 'none';
+  },
+  showDashboard() {
+    document.getElementById('dashm-loading').style.display = 'none';
+    document.getElementById('dashm-not-mitra').style.display = 'none';
+    document.getElementById('dashm-content').style.display = 'block';
+    const fname = window.AUTH.profile?.nama_depan || 'Mitra';
+    document.getElementById('dashm-greeting').textContent = fname;
+  },
+  async loadData() {
+    const userId = window.AUTH.currentUser.id;
+    try {
+      const { data: myResearch } = await window._sb.from('research_meta').select('research_id, title, ticker, sector, published_at').eq('mitra_id', userId);
+      const researchList = myResearch || [];
+      const myResearchIds = researchList.map(r => r.research_id);
+      let viewsData = [];
+      if (myResearchIds.length > 0) {
+        const { data: views } = await window._sb.from('research_views').select('research_id, viewed_at').in('research_id', myResearchIds);
+        viewsData = views || [];
+      }
+      const now = new Date();
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+      let viewsMonth = 0; let viewsTotal = 0;
+      const viewsByResearch = {}; const viewsByMonth = {};
+      viewsData.forEach(v => {
+        const vDate = new Date(v.viewed_at);
+        viewsTotal++;
+        if (vDate >= monthStart) viewsMonth++;
+        viewsByResearch[v.research_id] = (viewsByResearch[v.research_id] || 0) + 1;
+        const monthKey = vDate.getFullYear() + '-' + String(vDate.getMonth() + 1).padStart(2, '0');
+        viewsByMonth[monthKey] = (viewsByMonth[monthKey] || 0) + 1;
+      });
+      document.getElementById('dashm-views-month').textContent = viewsMonth.toLocaleString('id-ID');
+      Dashm.renderResearchList(researchList, viewsByResearch);
+      Dashm.renderChart(viewsByMonth);
+    } catch (e) { console.error('loadData error:', e); }
+  },
+  renderResearchList(researchList, viewsByResearch) {
+    const container = document.getElementById('dashm-research-list');
+    if (researchList.length === 0) return;
+    let html = '<table class="dashm-table"><thead><tr><th>Riset</th><th>Sektor</th><th>Tanggal Terbit</th><th class="col-views">Total Views</th></tr></thead><tbody>';
+    researchList.forEach(r => {
+      const views = viewsByResearch[r.research_id] || 0;
+      const date = r.published_at ? new Date(r.published_at).toLocaleDateString('id-ID', {day:'numeric',month:'short',year:'numeric'}) : '—';
+      html += `<tr><td><a href="${r.research_id}.html" style="color:var(--grn-d);text-decoration:none;font-weight:600">${r.title || r.ticker || r.research_id}</a></td><td>${r.sector || '—'}</td><td>${date}</td><td class="col-views">${views.toLocaleString('id-ID')}</td></tr>`;
+    });
+    html += '</tbody></table>';
+    container.innerHTML = html;
+  },
+  renderChart(viewsByMonth) {
+    const chartEl = document.getElementById('dashm-chart');
+    const months = [];
+    const now = new Date();
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+      const label = d.toLocaleDateString('id-ID', {month:'short'});
+      months.push({key, label, count: viewsByMonth[key] || 0});
+    }
+    const totalCount = months.reduce((s, m) => s + m.count, 0);
+    if (totalCount === 0) return;
+    const W = 800, H = 200, PAD = 40;
+    const innerW = W - PAD * 2; const innerH = H - PAD * 1.5;
+    const max = Math.max(...months.map(m => m.count), 10);
+    const points = months.map((m, i) => ({ x: PAD + (i * innerW / (months.length - 1)), y: PAD * 0.5 + (innerH - (m.count / max) * innerH), label: m.label, count: m.count }));
+    let svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
+    for (let g = 0; g <= 4; g++) {
+      const y = PAD * 0.5 + (innerH * g / 4);
+      svg += `<line class="grid-line" x1="${PAD}" y1="${y}" x2="${W - PAD}" y2="${y}"/>`;
+      const lblVal = Math.round(max * (1 - g / 4));
+      svg += `<text class="y-label" x="${PAD - 6}" y="${y + 3}" text-anchor="end">${lblVal}</text>`;
+    }
+    let areaPath = `M ${points[0].x} ${PAD * 0.5 + innerH} `;
+    points.forEach(p => areaPath += `L ${p.x} ${p.y} `);
+    areaPath += `L ${points[points.length-1].x} ${PAD * 0.5 + innerH} Z`;
+    svg += `<path class="data-area" d="${areaPath}"/>`;
+    let linePath = `M ${points[0].x} ${points[0].y} `;
+    points.slice(1).forEach(p => linePath += `L ${p.x} ${p.y} `);
+    svg += `<path class="data-line" d="${linePath}"/>`;
+    points.forEach(p => { svg += `<circle class="data-point" cx="${p.x}" cy="${p.y}" r="3.5"/>`; svg += `<text class="x-label" x="${p.x}" y="${H - 8}" text-anchor="middle">${p.label}</text>`; });
+    svg += '</svg>';
+    chartEl.innerHTML = svg;
+  }
+};
+document.addEventListener('DOMContentLoaded', () => { setTimeout(() => Dashm.init(), 800); });
+</script>
 </div>
-<div class="sg4">
-<div class="stat"><div class="sv">6.2x</div><div class="sl">P/E Forward</div><div class="sd" style="color:var(--t2)">EPS ann. Rp218 (Q1&#215;4)</div></div>
-<div class="stat"><div class="sv" style="color:#1A7A6E">4.9x</div><div class="sl">EV/EBITDA Forward</div><div class="sd" style="color:var(--t2)">EV Rp33.9T &divide; EBITDA ann.</div></div>
-<div class="stat"><div class="sv">0.76x</div><div class="sl">P/BV</div><div class="sd" style="color:var(--t2)">BVPS Rp1,784 (Mar-26)</div></div>
-<div class="stat"><div class="sv g">Net Cash</div><div class="sl">Posisi Kas Bersih</div><div class="sd sup">Kas > Utang</div></div>
-</div>
-<div class="sg4">
-<div class="stat"><div class="sv" style="color:#1A7A6E">Rp1,355</div><div class="sl">Harga Penutupan</div><div class="sd" style="color:var(--t2)">IDX: NISP &mdash; 2 Mei 2026</div></div>
-<div class="stat"><div class="sv">Rp33.9T</div><div class="sl">Market Cap</div><div class="sd" style="color:var(--t2)">25000M saham beredar</div></div>
-<div class="stat"><div class="sv">Rp312.879</div><div class="sl">Total Aset Mar-26</div><div class="sd" style="color:var(--t2)">LK 31 Mar 2026 (tidak diaudit)</div></div>
-<div class="stat"><div class="sv" style="color:#1A7A6E">Rp44.600</div><div class="sl">Ekuitas Mar-26</div><div class="sd" style="color:var(--t2)">BVPS Rp1,784/saham</div></div>
-</div>
-<h2 class="sec"><span class="n">1</span>Profil &amp; Model Bisnis</h2>
-<div class="box"><p>Bank komersial fokus wealth management &amp; korporasi — <strong>OCBC NISP</strong>. Didukung OCBC Bank Singapura (75,3%). 200+ cabang. Dividen Rp45/saham dibayar 4 Mei 2026. NI Q1-2026 Rp1,36T +5,3% YoY.</p></div>
-<div class="cg2">
-<div class="cd"><h4 style="color:#1A7A6E">Keunggulan &amp; Katalis</h4><p style="font-size:12.5px;color:var(--t2)">(1) NI tetap tumbuh +5,3% YoY — resiliensi earnings di tengah tekanan pendapatan bunga.<br><br>(2) Dukungan OCBC Singapore: branding premium, teknologi, dan cross-border client pipeline.</p></div>
-<div class="cd"><h4 style="color:#1A7A6E">Risiko Utama</h4><p style="font-size:12.5px;color:var(--t2)">(1) Pendapatan bunga Q1-2026 turun -2,2% YoY — tekanan NIM dari siklus rate cut BI.<br><br>(2) Persaingan dana murah dari BCA, BRI, Mandiri yang punya jaringan lebih luas.</p></div>
-</div>
-<h2 class="sec"><span class="n">2</span>Laporan Keuangan FY &amp; Q1-2026</h2>
-<div class="dg"><div class="dg-l" style="color:#1A7A6E">Revenue &amp; Laba Bersih &mdash; FY Historical &amp; Q1-2026 (Rp Miliar)</div><svg viewBox="0 0 720 264" class="svg-c" xmlns="http://www.w3.org/2000/svg"><line x1="62" y1="188" x2="708" y2="188" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="191" fill="#8EA899" font-size="9" text-anchor="end">0</text><line x1="62" y1="157" x2="708" y2="157" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="160" fill="#8EA899" font-size="9" text-anchor="end">4732</text><line x1="62" y1="126" x2="708" y2="126" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="129" fill="#8EA899" font-size="9" text-anchor="end">9464</text><line x1="62" y1="94" x2="708" y2="94" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="97" fill="#8EA899" font-size="9" text-anchor="end">14196</text><line x1="62" y1="63" x2="708" y2="63" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="66" fill="#8EA899" font-size="9" text-anchor="end">18928</text><line x1="62" y1="32" x2="708" y2="32" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="35" fill="#8EA899" font-size="9" text-anchor="end">23660</text><line x1="62" y1="188" x2="708" y2="188" stroke="#DDE7E2" stroke-width="1"/><rect x="579" y="32" width="129" height="156" fill="#8B6914" opacity="0.06" rx="4"/><text x="643" y="24" fill="#8B6914" font-size="8" text-anchor="middle" font-weight="700">Q1 SAJA</text><rect x="82" y="92" width="43" height="96" rx="3" fill="#1A7A6E" opacity="0.88"/><rect x="84.6" y="76.39560439560441" width="36" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="102.6" y="87" fill="#1A7A6E" font-size="8.5" text-anchor="middle" font-weight="700">14.500</text><rect x="211" y="77" width="43" height="111" rx="3" fill="#1A7A6E" opacity="0.88"/><rect x="213.79999999999998" y="61.230769230769226" width="36" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="231.79999999999998" y="72" fill="#1A7A6E" font-size="8.5" text-anchor="middle" font-weight="700">16.800</text><rect x="340" y="68" width="43" height="120" rx="3" fill="#1A7A6E" opacity="0.88"/><rect x="343.0" y="52.0" width="36" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="361.0" y="63" fill="#1A7A6E" font-size="8.5" text-anchor="middle" font-weight="700">18.200</text><rect x="469" y="69" width="43" height="119" rx="3" fill="#1A7A6E" opacity="0.88"/><rect x="472.19999999999993" y="53.318681318681314" width="36" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="490.19999999999993" y="64" fill="#1A7A6E" font-size="8.5" text-anchor="middle" font-weight="700">18.000</text><rect x="598" y="159" width="43" height="29" rx="3" fill="#1A7A6E" opacity="0.88"/><rect x="604.4" y="142.69626373626375" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="619.4" y="154" fill="#1A7A6E" font-size="8.5" text-anchor="middle" font-weight="700">4.444</text><rect x="129" y="163" width="43" height="25" rx="3" fill="#F5A623" opacity="0.88"/><rect x="134.6" y="146.94505494505495" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="149.6" y="158" fill="#F5A623" font-size="8.5" text-anchor="middle" font-weight="700">3.800</text><rect x="258" y="156" width="43" height="32" rx="3" fill="#F5A623" opacity="0.88"/><rect x="263.79999999999995" y="140.35164835164835" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="278.79999999999995" y="151" fill="#F5A623" font-size="8.5" text-anchor="middle" font-weight="700">4.800</text><rect x="387" y="154" width="43" height="34" rx="3" fill="#F5A623" opacity="0.88"/><rect x="393.0" y="137.71428571428572" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="408.0" y="149" fill="#F5A623" font-size="8.5" text-anchor="middle" font-weight="700">5.200</text><rect x="516" y="154" width="43" height="34" rx="3" fill="#F5A623" opacity="0.88"/><rect x="522.1999999999999" y="137.71428571428572" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="537.1999999999999" y="149" fill="#F5A623" font-size="8.5" text-anchor="middle" font-weight="700">5.200</text><rect x="645" y="179" width="43" height="9" rx="3" fill="#F5A623" opacity="0.88"/><text x="127" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2022</text><text x="256" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2023</text><text x="385" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2024</text><text x="514" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2025</text><text x="643" y="204" fill="#1A7A6E" font-size="10.5" text-anchor="middle" font-weight="800">Q1-26</text><rect x="62" y="253" width="11" height="8" rx="2" fill="#1A7A6E" opacity="0.88"/><text x="76" y="260" fill="#1A7A6E" font-size="9.5">Revenue</text><rect x="136" y="253" width="11" height="8" rx="2" fill="#F5A623" opacity="0.88"/><text x="150" y="260" fill="#F5A623" font-size="9.5">Laba Bersih</text></svg><div class="dg-n">Q1-26 = 3 bulan saja (bukan annualized). Latar gold = kolom Q1-2026 terbaru. Sumber: AR 2025 (diaudit), LK 31 Mar 2026 (tidak diaudit).</div></div>
-<div class="dg"><div class="dg-l" style="color:#1A7A6E">EBIT &amp; EBITDA &mdash; FY Historical &amp; Q1-2026 (Rp Miliar)</div><svg viewBox="0 0 720 264" class="svg-c" xmlns="http://www.w3.org/2000/svg"><line x1="62" y1="188" x2="708" y2="188" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="191" fill="#8EA899" font-size="9" text-anchor="end">0</text><line x1="62" y1="157" x2="708" y2="157" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="160" fill="#8EA899" font-size="9" text-anchor="end">2135</text><line x1="62" y1="126" x2="708" y2="126" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="129" fill="#8EA899" font-size="9" text-anchor="end">4270</text><line x1="62" y1="94" x2="708" y2="94" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="97" fill="#8EA899" font-size="9" text-anchor="end">6405</text><line x1="62" y1="63" x2="708" y2="63" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="66" fill="#8EA899" font-size="9" text-anchor="end">8540</text><line x1="62" y1="32" x2="708" y2="32" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="35" fill="#8EA899" font-size="9" text-anchor="end">10675</text><line x1="62" y1="188" x2="708" y2="188" stroke="#DDE7E2" stroke-width="1"/><rect x="579" y="32" width="129" height="156" fill="#8B6914" opacity="0.06" rx="4"/><text x="643" y="24" fill="#8B6914" font-size="8" text-anchor="middle" font-weight="700">Q1 SAJA</text><rect x="82" y="103" width="43" height="85" rx="3" fill="#1A7A6E" opacity="0.88"/><rect x="87.6" y="87.24121779859485" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="102.6" y="98" fill="#1A7A6E" font-size="8.5" text-anchor="middle" font-weight="700">5.800</text><rect x="211" y="89" width="43" height="99" rx="3" fill="#1A7A6E" opacity="0.88"/><rect x="216.79999999999998" y="72.62763466042153" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="231.79999999999998" y="84" fill="#1A7A6E" font-size="8.5" text-anchor="middle" font-weight="700">6.800</text><rect x="340" y="77" width="43" height="111" rx="3" fill="#1A7A6E" opacity="0.88"/><rect x="346.0" y="60.93676814988291" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="361.0" y="72" fill="#1A7A6E" font-size="8.5" text-anchor="middle" font-weight="700">7.600</text><rect x="469" y="92" width="43" height="96" rx="3" fill="#1A7A6E" opacity="0.88"/><rect x="475.19999999999993" y="75.5503512880562" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="490.19999999999993" y="87" fill="#1A7A6E" font-size="8.5" text-anchor="middle" font-weight="700">6.600</text><rect x="598" y="163" width="43" height="25" rx="3" fill="#1A7A6E" opacity="0.88"/><rect x="604.4" y="147.41556908665106" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="619.4" y="158" fill="#1A7A6E" font-size="8.5" text-anchor="middle" font-weight="700">1.682</text><rect x="129" y="103" width="43" height="85" rx="3" fill="#1B6B3A" opacity="0.88"/><rect x="134.6" y="86.8758782201405" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="149.6" y="98" fill="#1B6B3A" font-size="8.5" text-anchor="middle" font-weight="700">5.825</text><rect x="258" y="88" width="43" height="100" rx="3" fill="#1B6B3A" opacity="0.88"/><rect x="263.79999999999995" y="72.26229508196721" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="278.79999999999995" y="83" fill="#1B6B3A" font-size="8.5" text-anchor="middle" font-weight="700">6.825</text><rect x="387" y="77" width="43" height="111" rx="3" fill="#1B6B3A" opacity="0.88"/><rect x="393.0" y="60.57142857142857" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="408.0" y="72" fill="#1B6B3A" font-size="8.5" text-anchor="middle" font-weight="700">7.625</text><rect x="516" y="91" width="43" height="97" rx="3" fill="#1B6B3A" opacity="0.88"/><rect x="522.1999999999999" y="75.18501170960187" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="537.1999999999999" y="86" fill="#1B6B3A" font-size="8.5" text-anchor="middle" font-weight="700">6.625</text><rect x="645" y="163" width="43" height="25" rx="3" fill="#1B6B3A" opacity="0.88"/><rect x="651.4" y="146.68488992974238" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="666.4" y="158" fill="#1B6B3A" font-size="8.5" text-anchor="middle" font-weight="700">1.732</text><text x="127" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2022</text><text x="256" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2023</text><text x="385" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2024</text><text x="514" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2025</text><text x="643" y="204" fill="#1A7A6E" font-size="10.5" text-anchor="middle" font-weight="800">Q1-26</text><rect x="62" y="253" width="11" height="8" rx="2" fill="#1A7A6E" opacity="0.88"/><text x="76" y="260" fill="#1A7A6E" font-size="9.5">EBIT</text><rect x="118" y="253" width="11" height="8" rx="2" fill="#1B6B3A" opacity="0.88"/><text x="132" y="260" fill="#1B6B3A" font-size="9.5">EBITDA</text></svg><div class="dg-n">EBITDA Q1-26 = EBIT Rp1.682 + D&amp;A est. Rp50M = Rp1.732. Annualized: Rp6.929. D&amp;A adalah estimasi berdasarkan pola historis.</div></div>
-<div class="dg"><div class="dg-l" style="color:#1A7A6E">Evolusi Margin Profitabilitas &mdash; FY &amp; Q1-2026 (%)</div><svg viewBox="0 0 720 244" class="svg-c" xmlns="http://www.w3.org/2000/svg"><line x1="62" y1="168" x2="635" y2="168" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="171" fill="#8EA899" font-size="9" text-anchor="end">0%</text><line x1="62" y1="141" x2="635" y2="141" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="144" fill="#8EA899" font-size="9" text-anchor="end">10%</text><line x1="62" y1="114" x2="635" y2="114" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="117" fill="#8EA899" font-size="9" text-anchor="end">20%</text><line x1="62" y1="86" x2="635" y2="86" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="89" fill="#8EA899" font-size="9" text-anchor="end">30%</text><line x1="62" y1="59" x2="635" y2="59" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="62" fill="#8EA899" font-size="9" text-anchor="end">40%</text><line x1="62" y1="32" x2="635" y2="32" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="35" fill="#8EA899" font-size="9" text-anchor="end">50%</text><line x1="62" y1="168" x2="635" y2="168" stroke="#DDE7E2" stroke-width="1"/><rect x="563" y="32" width="143" height="136" fill="#8B6914" opacity="0.06" rx="4"/><polyline points="62,52 205,48 348,46 492,68 635,65" fill="none" stroke="#1A7A6E" stroke-width="2.5" stroke-linejoin="round" /><circle cx="62" cy="52" r="4" fill="#1A7A6E" stroke="#fff" stroke-width="1.5"/><circle cx="205" cy="48" r="4" fill="#1A7A6E" stroke="#fff" stroke-width="1.5"/><circle cx="348" cy="46" r="4" fill="#1A7A6E" stroke="#fff" stroke-width="1.5"/><circle cx="492" cy="68" r="4" fill="#1A7A6E" stroke="#fff" stroke-width="1.5"/><circle cx="635" cy="65" r="6" fill="#1A7A6E" stroke="#fff" stroke-width="1.5"/><rect x="643.0" y="56.15522665654757" width="35" height="14" rx="3" fill="#fff" stroke="#1A7A6E" stroke-width="1"/><text x="648.0" y="68.15522665654757" fill="#1A7A6E" font-size="9.5" font-weight="700">37.9%</text><polyline points="62,59 205,58 348,54 492,68 635,62" fill="none" stroke="#1B6B3A" stroke-width="2.5" stroke-linejoin="round" /><circle cx="62" cy="59" r="4" fill="#1B6B3A" stroke="#fff" stroke-width="1.5"/><circle cx="205" cy="58" r="4" fill="#1B6B3A" stroke="#fff" stroke-width="1.5"/><circle cx="348" cy="54" r="4" fill="#1B6B3A" stroke="#fff" stroke-width="1.5"/><circle cx="492" cy="68" r="4" fill="#1B6B3A" stroke="#fff" stroke-width="1.5"/><circle cx="635" cy="62" r="6" fill="#1B6B3A" stroke="#fff" stroke-width="1.5"/><rect x="643.0" y="67.09855503604433" width="35" height="14" rx="3" fill="#fff" stroke="#1B6B3A" stroke-width="1"/><text x="648.0" y="79.09855503604433" fill="#1B6B3A" font-size="9.5" font-weight="700">39.0%</text><polyline points="62,97 205,90 348,90 492,90 635,85" fill="none" stroke="#F5A623" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6,3"/><circle cx="62" cy="97" r="4" fill="#F5A623" stroke="#fff" stroke-width="1.5"/><circle cx="205" cy="90" r="4" fill="#F5A623" stroke="#fff" stroke-width="1.5"/><circle cx="348" cy="90" r="4" fill="#F5A623" stroke="#fff" stroke-width="1.5"/><circle cx="492" cy="90" r="4" fill="#F5A623" stroke="#fff" stroke-width="1.5"/><circle cx="635" cy="85" r="6" fill="#F5A623" stroke="#fff" stroke-width="1.5"/><rect x="643.0" y="61.86464526555254" width="35" height="14" rx="3" fill="#fff" stroke="#F5A623" stroke-width="1"/><text x="648.0" y="73.86464526555254" fill="#F5A623" font-size="9.5" font-weight="700">30.6%</text><text x="62" y="184" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2022</text><text x="205" y="184" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2023</text><text x="348" y="184" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2024</text><text x="492" y="184" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2025</text><text x="635" y="184" fill="#1A7A6E" font-size="10.5" text-anchor="middle" font-weight="800">Q1-26</text><line x1="62" y1="236" x2="82" y2="236" stroke="#1A7A6E" stroke-width="2.5"/><text x="86" y="240" fill="#1A7A6E" font-size="9.5">Gross Margin %</text><line x1="184" y1="236" x2="204" y2="236" stroke="#1B6B3A" stroke-width="2.5"/><text x="208" y="240" fill="#1B6B3A" font-size="9.5">EBITDA Margin %</text><line x1="312" y1="236" x2="316" y2="236" stroke="#F5A623" stroke-width="2"/><line x1="319" y1="236" x2="323" y2="236" stroke="#F5A623" stroke-width="2"/><line x1="326" y1="236" x2="330" y2="236" stroke="#F5A623" stroke-width="2"/><line x1="333" y1="236" x2="337" y2="236" stroke="#F5A623" stroke-width="2"/><text x="336" y="240" fill="#F5A623" font-size="9.5">Net Margin %</text></svg><div class="dg-n">Gross Margin Q1-26: 37.9% (vs 36.1% Q1-25, +179 bps). Net Margin Q1-26: 30.6%.</div></div>
-<h3 class="sub">Tabel Ringkasan Keuangan — Rp M (Miliar) <span style="font-size:11px;color:var(--grn)">(terverifikasi)</span></h3>
-<div class="dg"><table class="tbl"><thead><tr>
-<th>Metrik (Rp M (Miliar))</th><th class="r">2022</th><th class="r">2023</th><th class="r">2024</th><th class="r">FY2025★</th>
-<th class="r" style="background:#155C30;color:#fff;font-size:11px">Q1-2025</th>
-<th class="r" style="background:#8B6914;color:#fff;font-weight:800;font-size:11px">Q1-2026 &#x25B6;</th>
-<th class="r" style="font-size:9px;color:var(--t2)">&#916; YoY Q1</th>
-</tr></thead><tbody>
-<tr style="background:rgba(0,0,0,.03)"><td colspan="8" style="padding:5px 13px;font-size:10px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:.05em">— Laporan Laba Rugi (Kumulatif Tahunan vs Kuartal Berjalan) ————————————————</td></tr>
-<tr><td class="b">Pendapatan Bunga</td><td class="r b">14.500,0</td><td class="r b">15.500,0</td><td class="r b">17.000,0</td><td class="r b">18.200,0</td><td class="r b">4.546,0</td><td class="r b gg">4.444,4</td><td class="r rr">-2.2%</td></tr>
-<tr><td class="b">Laba Operasional</td><td class="r b">3.500,0</td><td class="r b">4.200,0</td><td class="r b">5.400,0</td><td class="r b">6.200,0</td><td class="r b">1.639,5</td><td class="r b gg">1.682,3</td><td class="r g">+2.6%</td></tr>
-<tr><td class="b">Laba Bersih</td><td class="r b">2.800,0</td><td class="r b">3.500,0</td><td class="r b">4.900,0</td><td class="r b">5.062,0</td><td class="r b">1.291,0</td><td class="r b gg">1.360,0</td><td class="r g">+5.3%</td></tr>
-<tr><td>NI Margin (%)</td><td class="r">19.3%</td><td class="r">22.6%</td><td class="r">28.8%</td><td class="r">27.8%</td><td class="r">28.4%</td><td class="r b">30,6%</td><td class="r g">+2 bps</td></tr>
-<tr><td>EPS (Rp/saham)</td><td class="r">Rp121</td><td class="r">Rp152</td><td class="r">Rp213</td><td class="r">Rp220</td><td class="r">Rp56</td><td class="r b">Rp59</td><td class="r g">+5.3%</td></tr>
-<tr style="background:rgba(0,0,0,.03)"><td colspan="8" style="padding:5px 13px;font-size:10px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:.05em">— Neraca — Posisi Akhir Periode ————————————————</td></tr>
-<tr><td class="b">Total Aset</td><td class="r b">260.000,0</td><td class="r b">280.000,0</td><td class="r b">308.140,0</td><td class="r b">308.140,0</td><td class="r" style="opacity:.35">—</td><td class="r b gg">312.878,9</td><td class="r ">—</td></tr>
-<tr><td class="b">Total Ekuitas</td><td class="r b">38.000,0</td><td class="r b">40.000,0</td><td class="r b">43.857,0</td><td class="r b">43.857,0</td><td class="r" style="opacity:.35">—</td><td class="r b gg">44.599,9</td><td class="r ">—</td></tr>
-</tbody></table><div class="dg-n">&#9733; FY = tahun penuh (diaudit, AR emiten). &#x25B6; Q1-2026 = Jan–Mar 2026 (tidak diaudit, LK 31 Mar 2026). &#916; YoY = Q1-2026 vs Q1-2025. Sumber: AR NISP 2022-2025; FY2025 NI dari LK catatan dividen (LK note 52). <strong style="color:var(--grn)">Kolom Q2-2026 ditambahkan saat LK Q2 tersedia.</strong></div></div>
-<h2 class="sec"><span class="n">5</span>Framework Valuasi Multi-Metode &mdash; Annualized Q1-2026</h2>
-<div class="box box-warn"><p>&#9888; <strong>Disclaimer:</strong> Framework analitis &mdash; <strong>bukan rekomendasi atau target harga.</strong> Keputusan investasi sepenuhnya tanggung jawab investor.</p></div>
-<h3 class="sub">Data Input @ Rp1,355 (Harga Penutupan 2 Mei 2026)</h3>
-<div class="dg"><table class="tbl"><thead><tr><th>Input</th><th class="r">Nilai</th><th>Perhitungan &amp; Sumber</th></tr></thead><tbody>
-<tr><td class="b">Harga Saham</td><td class="r">Rp1,355</td><td>Harga penutupan IDX 2 Mei 2026</td></tr>
-<tr><td>Saham Beredar</td><td class="r">25000M lembar</td><td>Catatan saham beredar, LK Q1-2026</td></tr>
-<tr><td class="b">Market Capitalization</td><td class="r">Rp33.88T</td><td>25000M &times; Rp1,355</td></tr>
-<tr><td>EPS Annualized 2026E</td><td class="r gg">Rp218</td><td>NI Q1-26 Rp1.360 &times;4 &divide; 25000M saham</td></tr>
-<tr><td>BVPS (31 Mar 2026)</td><td class="r">Rp1,784</td><td>Ekuitas Rp44.600 &divide; 25000M saham</td></tr>
-<tr><td class="b">Enterprise Value</td><td class="r">Rp33.88T</td><td>MktCap &minus; Net Cash Rp0.00T</td></tr>
-</tbody></table></div>
-<h3 class="sub">Metode 1 &mdash; P/E Forward</h3>
-<div class="dg"><table class="tbl"><thead><tr><th>Langkah</th><th>Perhitungan</th><th class="r">Hasil</th></tr></thead><tbody>
-<tr><td>1. EPS Annualized</td><td>NI Q1-26 Rp1.360 &times;4 &divide; 25000M saham</td><td class="r gg">Rp218/saham</td></tr>
-<tr><td>2. P/E Forward</td><td>Rp1,355 &divide; Rp218</td><td class="r b gg">6.2x</td></tr>
-<tr><td>3. Benchmark Sektor</td><td>Perbankan besar: 8&ndash;14x</td><td class="r">8&ndash;14x</td></tr>
-<tr><td>Implied Price @ 12x</td><td>Rp218 &times; 12</td><td class="r py">Rp2,611</td></tr>
-<tr><td>Implied Price @ 15x</td><td>Rp218 &times; 15</td><td class="r g">Rp3,264</td></tr>
-<tr><td>Implied Price @ 18x</td><td>Rp218 &times; 18</td><td class="r g">Rp3,917</td></tr>
-</tbody></table></div>
-<h3 class="sub">Metode 2 &mdash; EV/EBITDA Forward</h3>
-<div class="dg"><table class="tbl"><thead><tr><th>Langkah</th><th>Perhitungan</th><th class="r">Hasil</th></tr></thead><tbody>
-<tr><td>1. EBITDA Q1-26</td><td>EBIT Rp1.682 + D&amp;A est. Rp50 = Rp1.732</td><td class="r gg">Rp1.732</td></tr>
-<tr><td>2. EBITDA Annualized</td><td>Rp1.732 &times; 4 = Rp6.929</td><td class="r gg">Rp6.929</td></tr>
-<tr><td>3. Enterprise Value</td><td>MktCap Rp33.88T &minus; 0.00T</td><td class="r">Rp33.88T</td></tr>
-<tr><td>4. EV/EBITDA</td><td>Rp33.88T &divide; Rp6.929</td><td class="r b gg">4.9x</td></tr>
-<tr><td>Benchmark</td><td>Bank: 5&ndash;10x</td><td class="r">5&ndash;10x</td></tr>
-</tbody></table></div>
-<h3 class="sub">Metode 3 &mdash; P/BV</h3>
-<div class="dg"><table class="tbl"><thead><tr><th>Langkah</th><th>Perhitungan</th><th class="r">Hasil</th></tr></thead><tbody>
-<tr><td>1. BVPS</td><td>Ekuitas Rp44.600 &divide; 25000M saham</td><td class="r">Rp1,784/saham</td></tr>
-<tr><td>2. P/BV</td><td>Rp1,355 &divide; Rp1,784</td><td class="r b gg">0.76x</td></tr>
-<tr><td>ROE Annualized</td><td>NI ann. Rp5.440 &divide; Ekuitas Rp44.600 = 12.2%</td><td class="r gg">12.2%</td></tr>
-</tbody></table></div>
-<h3 class="sub">Ringkasan Multi-Metode</h3>
-<div class="dg"><table class="tbl"><thead><tr><th>Metode</th><th class="r">Hasil Saat Ini</th><th>Benchmark Sektor</th><th>Posisi Relatif</th></tr></thead><tbody>
-<tr><td class="b">P/E Forward</td><td class="r b gg">6.2x</td><td>8&ndash;14x</td><td><span class="pill pg">ATRAKTIF</span></td></tr>
-<tr><td class="b">EV/EBITDA</td><td class="r b gg">4.9x</td><td>5&ndash;10x</td><td><span class="pill pg">ATRAKTIF</span></td></tr>
-<tr><td class="b">P/BV</td><td class="r b gg">0.76x</td><td>0,8&ndash;2,5x</td><td><span class="pill pg">DISKON</span></td></tr>
-<tr><td class="b">EV/Sales</td><td class="r b gg">1.91x</td><td>0,5&ndash;4x</td><td><span class="pill pg">ATRAKTIF</span></td></tr>
-<tr><td>Market Cap</td><td class="r b" colspan="3">Rp33.88T &bull; EV Rp33.88T &bull; EPS ann. Rp218</td></tr>
-</tbody></table>
-<div class="dg-n">Annualized Q1&times;4 = proxy 2026E. Tidak memperhitungkan seasonality. Bukan rekomendasi. Sumber: LK Q1-2026 (31 Mar 2026, tidak diaudit) &amp; kalkulasi Avenir Research, 4 Mei 2026.</div></div>
-<h2 class="sec"><span class="n">6</span>Ringkasan Framework Investasi</h2>
-<div class="dg"><table class="score-tbl"><thead><tr><th>Dimensi</th><th>Status</th><th>Keterangan Singkat</th></tr></thead><tbody>
-<tr><td>Revenue Growth</td><td><span class="pill pr">NEGATIF</span></td><td>Revenue -2.2% YoY Q1-2026</td></tr>
-<tr><td>NI Growth</td><td><span class="pill py">BAIK</span></td><td>Laba bersih +5.3% YoY Q1-2026</td></tr>
-<tr><td>Gross Margin</td><td><span class="pill pg">TINGGI</span></td><td>GPM Q1-26: 37.9% (vs 36.1% Q1-25)</td></tr>
-<tr><td>Neraca</td><td><span class="pill pg">NET CASH</span></td><td>Net Cash positif</td></tr>
-<tr><td>P/E Valuasi</td><td><span class="pill pg">ATRAKTIF</span></td><td>P/E fwd 6.2x (annualized Q1-26)</td></tr>
-<tr><td>Risiko Utama</td><td><span class="pill py">MONITOR</span></td><td>Pendapatan bunga Q1-2026 turun -2,2% YoY — tekanan NIM dari siklus rate cut BI.</td></tr>
-<tr><td>Katalis Utama</td><td><span class="pill pg">POSITIF</span></td><td>NI tetap tumbuh +5,3% YoY — resiliensi earnings di tengah tekanan pendapatan bun</td></tr>
-<tr><td>Dividen</td><td><span class="pill pg">Rp45/saham</span></td><td>DPS Rp45, yield 3.3%</td></tr>
-<tr><td>Update Riset</td><td><span class="pill pg">Q1-2026</span></td><td>LK 31 Mar 2026 (tidak diaudit) &bull; Diperbarui 4 Mei 2026</td></tr>
-</tbody></table></div>
-</div>
-</div>
-<div class="footer-spacer" style="clear:both;height:0;width:100%"></div>
 <footer style="display:block!important;visibility:visible!important;background:#0f172a;color:#94a3b8;padding:48px 24px 24px;margin-top:80px">
   <div style="max-width:1280px;margin:0 auto">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-bottom:32px">
@@ -3317,7 +3375,7 @@ window.addEventListener('popstate', function(e){
 
 // AVENIR INIT: multi-page architecture - ensure page visible
 (function initPage(){
-  var pageId = 'nisp';
+  var pageId = 'tentang';
   var el = document.getElementById('page-' + pageId);
   if (el) {
     el.style.display = 'block';
@@ -4197,44 +4255,6 @@ window.showNewsList = function(){ window.showPage('news'); };
 })();
 </script>
 
-
-<script>
-// Track view ke research_views table
-(function() {
-  function getResearchId() {
-    const path = window.location.pathname;
-    const fname = path.split('/').pop().replace('.html', '') || path.replace(/^\/+|\/+$/g, '');
-    return fname || 'unknown';
-  }
-  
-  async function recordView() {
-    if (!window._sb || !window.AUTH || !window.AUTH.currentUser) return;
-    
-    try {
-      await window._sb.from('research_views').insert({
-        user_id: window.AUTH.currentUser.id,
-        research_id: getResearchId()
-      });
-    } catch (e) {
-      // Silent fail — tracking shouldnt break user experience
-    }
-  }
-  
-  // Wait for AUTH ready, then record
-  function tryRecord() {
-    if (window.AUTH && window.AUTH.currentUser) {
-      recordView();
-    } else if (window.AUTH) {
-      // AUTH ready but user not logged - skip
-    } else {
-      // AUTH not ready yet, retry
-      setTimeout(tryRecord, 800);
-    }
-  }
-  
-  document.addEventListener('DOMContentLoaded', () => setTimeout(tryRecord, 1500));
-})();
-</script>
 
 <script>
 // Toggle Dashboard Mitra link visibility based on AUTH.profile.is_mitra

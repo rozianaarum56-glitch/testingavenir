@@ -9,14 +9,14 @@
 <title>Avenir Research</title>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Avenir Research">
-<meta property="og:title" content="Mitra — Avenir Research">
-<meta property="og:description" content="Program kemitraan dan kolaborasi Avenir Research.">
-<meta property="og:url" content="https://avenirresearch.app/mitra">
+<meta property="og:title" content="Tentang Avenir Research">
+<meta property="og:description" content="Avenir Research adalah platform riset ekuitas profesional oleh PT Avenir Fortuna Corporindo.">
+<meta property="og:url" content="https://avenirresearch.app/tentang">
 <meta property="og:image" content="https://avenirresearch.app/og-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mitra — Avenir Research">
-<meta name="twitter:description" content="Program kemitraan dan kolaborasi Avenir Research.">
-<meta name="description" content="Program kemitraan dan kolaborasi Avenir Research.">
+<meta name="twitter:title" content="Tentang Avenir Research">
+<meta name="twitter:description" content="Avenir Research adalah platform riset ekuitas profesional oleh PT Avenir Fortuna Corporindo.">
+<meta name="description" content="Avenir Research adalah platform riset ekuitas profesional oleh PT Avenir Fortuna Corporindo.">
 
 <style>
 
@@ -2915,6 +2915,7 @@ body > footer { flex-shrink: 0; margin-top: auto; }
       <a href="news.html" class="nav-link">News</a>
       <a href="tentang.html" class="nav-link">Tentang</a>
       <a href="mitra.html" class="nav-link">Mitra</a>
+      <a href="dashboard-mitra.html" class="nav-link nav-link-mitra-only" style="display:none">Dashboard Mitra</a>
     </div>
     <div class="nav-right-desktop" style="display:flex;gap:6px;align-items:center;flex-shrink:0">
       <button onclick="CART.open()" class="nav-icon-btn" title="Keranjang">
@@ -3009,10 +3010,10 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <!-- REGISTER -->
   <div class="auth-view" id="auth-register">
    <h3>Buat Akun</h3>
-   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 7 hari — tanpa kartu kredit, tanpa komitmen.</p>
+   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 2 bulan — tanpa kartu kredit, tanpa komitmen.</p>
    <div class="auth-trial-banner">
     <div class="auth-trial-icon">🎁</div>
-    <div class="auth-trial-text"><strong>7 Hari Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
+    <div class="auth-trial-text"><strong>2 Bulan Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
    </div>
    <div class="auth-err" id="reg-err"></div>
    <div class="auth-2col">
@@ -3039,7 +3040,7 @@ body > footer { flex-shrink: 0; margin-top: auto; }
    <h3>Pendaftaran Mitra Analis</h3>
    <p class="auth-sub">Kirimkan aplikasi Anda sebagai analis riset freelance Avenir</p>
    <div class="auth-info-box">
-    Setiap riset yang diterima akan ditinjau oleh tim editorial kami.<strong></strong>. Analis mitra mendapatkan <strong>bagi hasil 40% tergantung jumlah views</strong> dari setiap akses riset, dibayarkan bulanan. (60% untuk Avenir mencakup platform, kurasi, marketing & pengembangan)
+    Setiap riset yang diterima akan ditinjau oleh tim editorial kami untuk penetapan tarif <strong>Rp5.000–Rp15.000</strong>. Analis mitra mendapatkan <strong>bagi hasil 40%</strong> dari setiap akses riset, dibayarkan bulanan. (60% untuk Avenir mencakup platform, kurasi, marketing & pengembangan)
    </div>
    <div class="auth-err" id="analyst-err"></div>
    <div class="auth-2col">
@@ -3097,66 +3098,125 @@ body > footer { flex-shrink: 0; margin-top: auto; }
  </div>
 </div>
 <div id="page-mitra" class="page" style="display:block">
-<div class="info-page">
- <div class="ip-eyebrow">◆ Program Mitra Analis</div>
- <h1>Monetisasi Keahlian <span class="hl">Analisis</span> Anda</h1>
- <p class="ip-lead">Bergabunglah sebagai Mitra Analis Avenir Research. Kerjakan riset sesuai jadwal Anda, publikasikan ke ribuan pengguna aktif, dan dapatkan bagi hasil yang transparan setiap bulan.</p>
-
- <div class="ip-rev-box">
-  <div class="ip-rev-num gold">40%</div>
-  <div class="ip-rev-text"><strong>Bagi Hasil untuk Analis Mitra</strong><p>Dari setiap akses riset yang terjual, <strong>40%</strong> masuk ke Analis dan <strong>60%</strong> ke Avenir untuk biaya platform, kurasi editorial, marketing, dan pengembangan. Dibayarkan setiap bulan via transfer bank, terlacak dan transparan.</p></div>
- </div>
-
- <h3 style="font-size:18px;font-weight:700;margin-bottom:20px;color:var(--t)">Cara Bergabung</h3>
- <div class="ip-steps">
-  <div class="ip-step">
-   <div class="ip-step-num">1</div>
-   <div class="ip-step-body">
-    <h4>Daftar & Verifikasi</h4>
-    <p>Submit form pendaftaran dengan sertifikasi (CFA, WPPE, WPEE, atau setara) dan portofolio riset contoh. Tim editorial kami akan mereview dalam 5–7 hari kerja.</p>
-   </div>
+<style>
+.mt-wrap { max-width: 980px; margin: 0 auto; padding: 60px 24px 80px; }
+.mt-hero { text-align: center; margin-bottom: 56px; }
+.mt-hero-eyebrow { display: inline-block; background: var(--grn-gl); color: var(--grn-d); font-size: 11px; font-weight: 700; letter-spacing: .14em; padding: 6px 14px; border-radius: 4px; margin-bottom: 18px; text-transform: uppercase; }
+.mt-hero h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(32px, 5vw, 50px); font-weight: 600; line-height: 1.1; color: var(--t); margin: 0 0 18px; }
+.mt-hero h1 .hl { color: var(--grn); }
+.mt-hero p { font-size: 16px; line-height: 1.7; color: var(--t2); max-width: 700px; margin: 0 auto; }
+.mt-formula { background: linear-gradient(135deg, #fff 0%, #f9fbfa 100%); border: 2px solid var(--grn); border-radius: 14px; padding: 28px 32px; margin-bottom: 48px; box-shadow: var(--shadow-md); }
+.mt-formula-h { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--grn-d); text-transform: uppercase; margin-bottom: 14px; }
+.mt-formula-eq { font-family: 'JetBrains Mono', monospace; font-size: 14px; line-height: 1.9; color: var(--t); padding: 16px 18px; background: var(--grn-gl); border-radius: 8px; margin-bottom: 16px; }
+.mt-formula-eq strong { color: var(--grn-d); font-weight: 700; }
+.mt-formula-explain { font-size: 13.5px; line-height: 1.65; color: var(--t2); }
+.mt-section-h { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--t2); text-transform: uppercase; margin: 0 0 22px; text-align: center; }
+.mt-section-h:before, .mt-section-h:after { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--bd); vertical-align: middle; margin: 0 12px; }
+.mt-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 56px; }
+.mt-step { background: #fff; border: 1px solid var(--bd); border-radius: 12px; padding: 22px 20px; }
+.mt-step-num { display: inline-block; background: var(--t); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; width: 28px; height: 28px; border-radius: 6px; text-align: center; line-height: 28px; margin-bottom: 12px; }
+.mt-step h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; font-weight: 600; color: var(--t); margin: 0 0 8px; line-height: 1.3; }
+.mt-step p { font-size: 13px; line-height: 1.6; color: var(--t2); margin: 0; }
+.mt-example { background: #fff; border: 1px solid var(--bd); border-radius: 14px; padding: 32px 36px; margin-bottom: 48px; }
+.mt-example h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 600; color: var(--t); margin: 0 0 20px; }
+.mt-example p { font-size: 13.5px; line-height: 1.65; color: var(--t2); margin: 0 0 18px; }
+.mt-example p strong { color: var(--t); font-weight: 600; }
+.mt-table-wrap { overflow-x: auto; }
+.mt-example-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 540px; }
+.mt-example-table th { text-align: left; padding: 10px 12px; background: var(--bg); border-bottom: 1px solid var(--bd); font-size: 10.5px; font-weight: 700; letter-spacing: .06em; color: var(--t2); text-transform: uppercase; }
+.mt-example-table td { padding: 10px 12px; border-bottom: 1px solid var(--bd); }
+.mt-example-table .mt-internal td { color: var(--t3); font-style: italic; }
+.mt-example-table .mt-pct { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--grn-d); text-align: right; }
+.mt-example-table .mt-money { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--grn-d); text-align: right; }
+.mt-internal .mt-pct, .mt-internal .mt-money { color: var(--t3); }
+.mt-example-note { font-size: 12px; color: var(--t3); line-height: 1.6; margin-top: 14px; padding: 12px 14px; background: var(--bg); border-radius: 6px; }
+.mt-example-note strong { color: var(--t); }
+.mt-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 56px; }
+.mt-feat { background: #fff; border: 1px solid var(--bd); border-radius: 12px; padding: 22px 20px; }
+.mt-feat-icon { font-size: 24px; margin-bottom: 10px; }
+.mt-feat h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; font-weight: 600; color: var(--t); margin: 0 0 6px; }
+.mt-feat p { font-size: 12.5px; line-height: 1.6; color: var(--t2); margin: 0; }
+.mt-cta-box { text-align: center; padding: 48px 32px; background: linear-gradient(135deg, #18211D 0%, #2d3a33 100%); border-radius: 16px; margin-bottom: 32px; }
+.mt-cta-box h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(26px, 4vw, 36px); font-weight: 600; color: #fff; margin: 0 0 12px; }
+.mt-cta-box p { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,.75); margin: 0 0 24px; max-width: 540px; margin-left: auto; margin-right: auto; }
+.mt-cta-btn { display: inline-block; background: var(--grn); color: #fff; padding: 14px 32px; border-radius: 10px; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; transition: all .2s; box-shadow: 0 4px 14px rgba(27,107,58,.4); }
+.mt-cta-btn:hover { background: var(--grn-l); transform: translateY(-2px); }
+.mt-faq { background: #fff; border: 1px solid var(--bd); border-radius: 14px; padding: 32px 36px; }
+.mt-faq h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 600; color: var(--t); margin: 0 0 18px; }
+.mt-q { padding: 14px 0; border-bottom: 1px solid var(--bd); }
+.mt-q:last-child { border-bottom: none; }
+.mt-q-h { font-size: 14px; font-weight: 700; color: var(--t); margin: 0 0 6px; }
+.mt-q-a { font-size: 13.5px; line-height: 1.65; color: var(--t2); margin: 0; }
+.mt-q-a strong { color: var(--t); font-weight: 600; }
+@media (max-width: 720px) {
+  .mt-steps, .mt-features { grid-template-columns: 1fr 1fr; }
+  .mt-formula, .mt-example, .mt-faq { padding: 22px 22px; }
+  .mt-formula-eq { font-size: 12px; }
+}
+@media (max-width: 480px) {
+  .mt-steps, .mt-features { grid-template-columns: 1fr; }
+}
+</style>
+<div class="mt-wrap">
+  <div class="mt-hero">
+    <div class="mt-hero-eyebrow">◆ PROGRAM MITRA ANALIS</div>
+    <h1>Tulis Riset, Bagi <span class="hl">40% Revenue</span> dari Subscription</h1>
+    <p>Bergabunglah sebagai Mitra Analis Avenir Research. Submit riset Anda, dan dapatkan bagi hasil bulanan dari pool subscription — dibagi proporsional berdasarkan jumlah views ke setiap riset.</p>
   </div>
-  <div class="ip-step">
-   <div class="ip-step-num">2</div>
-   <div class="ip-step-body">
-    <h4>Tulis & Submit Riset</h4>
-    <p>Gunakan template standar Avenir Research. Submit riset Anda untuk review editorial singkat sebelum dipublikasikan ke seluruh pengguna platform.</p>
-   </div>
+  <div class="mt-formula">
+    <div class="mt-formula-h">💰 Model Bagi Hasil</div>
+    <div class="mt-formula-eq">
+      <strong>Pool Mitra</strong> = 40% × Total Revenue Subscription Bulanan<br>
+      <strong>Bagian Mitra X</strong> = (Views Riset X ÷ Total Views Semua Riset) × Pool Mitra
+    </div>
+    <p class="mt-formula-explain">Setiap akhir bulan, 40% dari total subscription revenue dialokasikan ke pool mitra. Pool tersebut dibagi <strong>proporsional</strong> berdasarkan jumlah views ke setiap riset di bulan tersebut. Riset internal Avenir juga ikut "kompetisi views" — semakin banyak riset Anda dibaca dibanding semua riset lain, semakin besar bagian Anda. Pembayaran via transfer bank tiap awal bulan berikutnya.</p>
   </div>
-  <div class="ip-step">
-   <div class="ip-step-num">3</div>
-   <div class="ip-step-body">
-    <h4>Penetapan Tarif</h4>
-    <p>Tim internal Avenir menetapkan tarif riset Anda antara <strong>Rp5.000–Rp15.000</strong> berdasarkan kedalaman analisis, sektor, dan kompleksitas.</p>
-   </div>
+  <div class="mt-section-h">CARA BERGABUNG &amp; WORKFLOW</div>
+  <div class="mt-steps">
+    <div class="mt-step"><div class="mt-step-num">01</div><h3>Daftar &amp; Verifikasi</h3><p>Submit form pendaftaran lengkap dengan sertifikasi (CFA, WPPE, WPEE, atau setara) dan link portfolio. Tim editorial review dalam 5–7 hari kerja.</p></div>
+    <div class="mt-step"><div class="mt-step-num">02</div><h3>Tulis &amp; Submit</h3><p>Tulis riset menggunakan template Avenir Research. Kirim file (Word/PDF) via email ke admin: <strong>mitra@avenirfortuna.com</strong></p></div>
+    <div class="mt-step"><div class="mt-step-num">03</div><h3>Review Editorial</h3><p>Tim editorial Avenir review metodologi, data, dan format. Mitra revisi sesuai feedback. Setelah approved, riset dijadwalkan deploy.</p></div>
+    <div class="mt-step"><div class="mt-step-num">04</div><h3>Avenir Deploy</h3><p>Tim Avenir HTML-kan riset dan publikasikan ke website dengan byline mitra. Anda track performa di dashboard mitra.</p></div>
   </div>
-  <div class="ip-step">
-   <div class="ip-step-num">4</div>
-   <div class="ip-step-body">
-    <h4>Terima Bagi Hasil</h4>
-    <p>Setiap bulan Anda menerima laporan transparan: jumlah akses, total revenue, dan 40% bagian Anda — ditransfer langsung ke rekening bank.</p>
-   </div>
+  <div class="mt-example">
+    <h2>📊 Contoh Perhitungan Pendapatan Bulanan</h2>
+    <p>Asumsi: <strong>100 subscriber bulanan</strong> × Rp 69.000 = <strong>Rp 6.900.000</strong> total revenue → Pool mitra (40%) = <strong>Rp 2.760.000</strong>. Total views semua riset di bulan tersebut: <strong>1.000 views</strong>.</p>
+    <div class="mt-table-wrap">
+    <table class="mt-example-table">
+      <thead><tr><th>Riset</th><th>Penulis</th><th>Views</th><th class="mt-pct">%</th><th class="mt-money">Bagian</th></tr></thead>
+      <tbody>
+        <tr><td>BBCA Q1 Review</td><td>Budi (Mitra)</td><td>200</td><td class="mt-pct">20%</td><td class="mt-money">Rp 552.000</td></tr>
+        <tr><td>UNVR Margin Outlook</td><td>Andi (Mitra)</td><td>100</td><td class="mt-pct">10%</td><td class="mt-money">Rp 276.000</td></tr>
+        <tr><td>ASII Diversification</td><td>Citra (Mitra)</td><td>50</td><td class="mt-pct">5%</td><td class="mt-money">Rp 138.000</td></tr>
+        <tr class="mt-internal"><td>ADRO Investment Thesis</td><td>Tim Avenir (internal)</td><td>400</td><td class="mt-pct">40%</td><td class="mt-money">Rp 1.104.000</td></tr>
+        <tr class="mt-internal"><td>BBRI Q4 Update</td><td>Tim Avenir (internal)</td><td>250</td><td class="mt-pct">25%</td><td class="mt-money">Rp 690.000</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="mt-example-note">Catatan: Riset internal Avenir ikut perhitungan views, tapi bagian-nya dialokasikan untuk operasional platform (kurasi editorial, infrastruktur, marketing). Total mitra di contoh ini menerima <strong>Rp 966.000</strong> (35%) dari total pool, dengan distribusi sesuai proporsi views masing-masing.</p>
   </div>
- </div>
-
- <div class="ip-grid">
-  <div class="ip-card">
-   <div class="ic-icon">🗓️</div>
-   <h3>Freelance & Fleksibel</h3>
-   <p>Tidak ada kewajiban jumlah riset per bulan. Tidak ada eksklusivitas. Kerjakan kapan Anda bisa dan mau.</p>
+  <div class="mt-section-h">KENAPA JADI MITRA AVENIR?</div>
+  <div class="mt-features">
+    <div class="mt-feat"><div class="mt-feat-icon">📈</div><h3>Skala Audience</h3><p>Riset Anda dibaca oleh komunitas analis dan investor serius yang berlangganan platform.</p></div>
+    <div class="mt-feat"><div class="mt-feat-icon">🎯</div><h3>Fokus Analisis</h3><p>Anda fokus tulis riset bagus. Tim Avenir handle deploy, editing, hosting, dan retention.</p></div>
+    <div class="mt-feat"><div class="mt-feat-icon">📊</div><h3>Dashboard Real-time</h3><p>Pantau views per riset, estimasi pendapatan bulanan, dan tren performa di dashboard mitra.</p></div>
+    <div class="mt-feat"><div class="mt-feat-icon">🤝</div><h3>Editorial Support</h3><p>Tim editor kasih feedback metodologi dan format. Riset Anda jadi lebih tajam.</p></div>
+    <div class="mt-feat"><div class="mt-feat-icon">🏷️</div><h3>Byline &amp; Brand</h3><p>Setiap riset Anda tampil dengan nama, foto, dan bio Anda. Bangun personal brand.</p></div>
+    <div class="mt-feat"><div class="mt-feat-icon">⚖️</div><h3>Transparan &amp; Fair</h3><p>Formula publik. Setiap views terlacak. Pembayaran rutin dengan rincian lengkap.</p></div>
   </div>
-  <div class="ip-card">
-   <div class="ic-icon">🏅</div>
-   <h3>Branding "Avenir Partner"</h3>
-   <p>Profil Anda tampil di platform sebagai Mitra Analis Avenir yang terverifikasi — meningkatkan kredibilitas profesional Anda.</p>
+  <div class="mt-cta-box">
+    <h2>Siap Bergabung sebagai Mitra?</h2>
+    <p>Daftarkan diri Anda hari ini. Tim editorial akan review aplikasi dan menghubungi Anda dalam 5-7 hari kerja.</p>
+    <a href="daftar-mitra.html" class="mt-cta-btn">Daftar Sekarang →</a>
   </div>
- </div>
-
- <div class="ip-cta-box">
-  <h3>Siap Bergabung?</h3>
-  <p>Kirimkan aplikasi Anda sekarang. Tim kami akan menghubungi dalam 5–7 hari kerja.</p>
-  <button class="ip-cta-btn gold-btn" onclick="AUTH.open('analyst')">Daftar sebagai Mitra Analis →</button>
- </div>
+  <div class="mt-faq">
+    <h2>❓ Pertanyaan Umum</h2>
+    <div class="mt-q"><h3 class="mt-q-h">Apakah ada minimum jumlah riset per bulan?</h3><p class="mt-q-a">Tidak ada minimum. Anda bebas tulis berapapun. Tapi makin banyak riset (dengan kualitas konsisten), makin besar potensi views Anda.</p></div>
+    <div class="mt-q"><h3 class="mt-q-h">Bagaimana jika subscription belum aktif (masih fase trial)?</h3><p class="mt-q-a">Saat ini Avenir Research dalam fase peluncuran awal dengan trial 2 bulan untuk semua user. Pembayaran ke mitra dimulai setelah subscription berbayar aktif. Selama trial, views tetap tercatat dan akan dikonversi pendapatan setelah subscription jalan.</p></div>
+    <div class="mt-q"><h3 class="mt-q-h">Apakah saya bisa repost riset di blog/LinkedIn pribadi?</h3><p class="mt-q-a">Riset eksklusif untuk Avenir Research selama 30 hari. Setelah itu, Anda boleh repost dengan attribusi "Pertama dipublikasikan di Avenir Research".</p></div>
+    <div class="mt-q"><h3 class="mt-q-h">Bagaimana cara saya track penghasilan saya?</h3><p class="mt-q-a">Setelah disetujui jadi mitra, Anda otomatis dapat akses ke <strong>Dashboard Mitra</strong> di menu nav. Di sana Anda bisa lihat real-time: total views bulan ini, estimasi pendapatan, dan tren views.</p></div>
+    <div class="mt-q"><h3 class="mt-q-h">Apakah ada training atau onboarding?</h3><p class="mt-q-a">Setelah disetujui, Anda akan dapat akses ke template riset standar Avenir, editorial guidelines (30+ checklist), dan onboarding session 1-on-1 dengan tim editor.</p></div>
+  </div>
 </div>
 </div>
 <div class="footer-spacer" style="clear:both;height:0;width:100%"></div>
@@ -3245,7 +3305,7 @@ window.addEventListener('popstate', function(e){
 
 // AVENIR INIT: multi-page architecture - ensure page visible
 (function initPage(){
-  var pageId = 'mitra';
+  var pageId = 'tentang';
   var el = document.getElementById('page-' + pageId);
   if (el) {
     el.style.display = 'block';
@@ -3504,8 +3564,21 @@ const AUTH = {
   // Load profile data including trial/subscription dates
   async loadProfile() {
     if (!AUTH.currentUser) { AUTH.profile = null; return; }
-    const { data, error } = await _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
-    AUTH.profile = data || null;
+    try {
+      // Race against timeout (5 detik max) supaya tidak nge-block UI
+      const profilePromise = _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
+      const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Profile load timeout')), 5000));
+      const { data, error } = await Promise.race([profilePromise, timeoutPromise]);
+      if (error) {
+        console.warn('Profile load error:', error.message);
+        AUTH.profile = null;
+        return;
+      }
+      AUTH.profile = data || null;
+    } catch (e) {
+      console.warn('Profile load failed:', e.message);
+      AUTH.profile = null;
+    }
   },
 
 
@@ -3528,7 +3601,7 @@ const AUTH = {
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
       if (now < trialEnd) return true;
     }
     
@@ -3553,7 +3626,7 @@ const AUTH = {
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
       if (now < trialEnd) return 'trial';
       return 'expired_trial';
     }
@@ -3565,7 +3638,7 @@ const AUTH = {
   getTrialDaysRemaining() {
     if (!AUTH.profile?.trial_started_at) return null;
     const trialStart = new Date(AUTH.profile.trial_started_at);
-    const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
     const now = new Date();
     return Math.ceil((trialEnd - now) / (24 * 60 * 60 * 1000));
   },
@@ -3574,19 +3647,40 @@ const AUTH = {
   async refreshUI() {
     const user = AUTH.currentUser;
 
-    // Update nav
-    document.querySelectorAll('[data-auth="guest"]').forEach(el => el.style.display = user ? 'none' : '');
-    document.querySelectorAll('[data-auth="user"]').forEach(el => el.style.display = user ? '' : 'none');
+    // Update nav: switch guest <-> user views (force override inline styles)
+    document.querySelectorAll('[data-auth="guest"]').forEach(el => {
+      el.style.setProperty('display', user ? 'none' : '', 'important');
+      if (!user) el.style.removeProperty('display');
+    });
+    document.querySelectorAll('[data-auth="user"]').forEach(el => {
+      if (user) {
+        // Khusus user-menu-wrap pakai inline-block agar dropdown wrap-nya proper
+        const isWrap = el.id === 'user-menu-wrap';
+        el.style.setProperty('display', isWrap ? 'inline-block' : '', 'important');
+      } else {
+        el.style.setProperty('display', 'none', 'important');
+      }
+    });
+    
     if (user) {
-      const nama = user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
+      const nama = AUTH.profile?.nama_depan || user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
       const nameItem = document.getElementById('nav-user-name-item');
-      if (nameItem) nameItem.textContent = '👤 ' + nama;
+      if (nameItem) {
+        nameItem.innerHTML = '👤 <span id="nav-user-name">' + nama + '</span>';
+      }
+      // Also update span#nav-user-name kalau ada
+      const nameSpan = document.getElementById('nav-user-name');
+      if (nameSpan) nameSpan.textContent = nama;
     }
 
-    // Load unlocked dari Supabase
+    // Load unlocked dari Supabase (defensive)
     if (user) {
-      const { data } = await _sb.from('unlocked_research').select('ticker').eq('user_id', user.id);
-      if (data) localStorage.setItem('ar_unlocked', JSON.stringify(data.map(r => r.ticker)));
+      try {
+        const { data } = await _sb.from('unlocked_research').select('ticker').eq('user_id', user.id);
+        if (data) localStorage.setItem('ar_unlocked', JSON.stringify(data.map(r => r.ticker)));
+      } catch (e) {
+        // Silent fail, gak blok UI
+      }
     } else {
       localStorage.removeItem('ar_unlocked');
     }
@@ -3669,10 +3763,17 @@ const AUTH = {
     if (error) return AUTH.err('reg-err', 'Error: ' + error.message);
 
     if (data.user) {
-      await _sb.from('profiles').upsert({
-        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
-        trial_started_at: new Date().toISOString()
-      });
+      try {
+        // Race: upsert vs 4s timeout — biar gak hang kalau RLS blokir
+        const upsertPromise = _sb.from('profiles').upsert({
+          id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
+          trial_started_at: new Date().toISOString()
+        });
+        const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('upsert timeout')), 4000));
+        await Promise.race([upsertPromise, timeout]);
+      } catch (e) {
+        console.warn('Profile upsert failed (non-critical):', e.message);
+      }
     }
 
     AUTH.show('success');
@@ -3702,12 +3803,19 @@ const AUTH = {
       return AUTH.err('login-err', msg);
     }
 
-    // Login berhasil - tutup modal
+    // Login berhasil - tutup modal segera
     AUTH.currentUser = data.user;
-    await AUTH.loadProfile();
     AUTH.close();
-    AUTH.refreshUI();
-    if (typeof window._applyLock === 'function') window._applyLock();
+    
+    // Load profile + refresh UI (async, non-blocking)
+    AUTH.loadProfile().then(() => {
+      AUTH.refreshUI();
+      if (typeof window._applyLock === 'function') window._applyLock();
+    }).catch(e => {
+      console.warn('Post-login profile load failed:', e.message);
+      AUTH.refreshUI();
+      if (typeof window._applyLock === 'function') window._applyLock();
+    });
   },
 
   // Logout
@@ -4074,6 +4182,45 @@ window.showNewsList = function(){ window.showPage('news'); };
   setTimeout(forceFooter, 100);
   setTimeout(forceFooter, 500);
   setTimeout(forceFooter, 1500);
+})();
+</script>
+
+
+<script>
+// Toggle Dashboard Mitra link visibility based on AUTH.profile.is_mitra
+(function() {
+  function updateMitraNav() {
+    const links = document.querySelectorAll('.nav-link-mitra-only');
+    const isMitra = !!(window.AUTH && window.AUTH.profile && window.AUTH.profile.is_mitra);
+    links.forEach(el => {
+      el.style.display = isMitra ? '' : 'none';
+    });
+  }
+  
+  // Initial check
+  setTimeout(updateMitraNav, 1000);
+  setTimeout(updateMitraNav, 2500);
+  
+  // Hook ke onAuthStateChange via _sb
+  function hookAuth() {
+    if (window._sb && window._sb.auth) {
+      window._sb.auth.onAuthStateChange(async () => {
+        if (window.AUTH && typeof window.AUTH.loadProfile === 'function') {
+          await window.AUTH.loadProfile();
+        }
+        updateMitraNav();
+      });
+      return true;
+    }
+    return false;
+  }
+  
+  if (!hookAuth()) {
+    let attempts = 0;
+    const interval = setInterval(() => {
+      if (hookAuth() || ++attempts > 20) clearInterval(interval);
+    }, 200);
+  }
 })();
 </script>
 

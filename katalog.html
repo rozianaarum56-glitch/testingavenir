@@ -2939,6 +2939,42 @@ body > footer { flex-shrink: 0; margin-top: auto; }
 .auth-trial-text { font-size: 13px; line-height: 1.45; color: var(--t); }
 .auth-trial-text strong { color: var(--grn-d); font-size: 13.5px; }
 
+
+/* View counter di card katalog */
+.card-views { 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 4px; 
+  font-size: 11px; 
+  color: var(--t3, #8EA899); 
+  font-family: 'JetBrains Mono', monospace; 
+  margin-right: 8px;
+  font-weight: 500;
+}
+.card-views.is-new { color: var(--grn, #1B6B3A); font-weight: 700; }
+.card-date-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+/* Card author/byline */
+.card-author { 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 5px; 
+  font-size: 11px; 
+  font-weight: 600; 
+  letter-spacing: .04em;
+  padding: 3px 8px; 
+  border-radius: 4px;
+  margin-right: 6px;
+}
+.card-author.is-internal { 
+  background: var(--grn-gl, rgba(27,107,58,.07)); 
+  color: var(--grn-d, #114523); 
+}
+.card-author.is-mitra { 
+  background: #fef3c7; 
+  color: #854d0e; 
+}
+.card-author-icon { font-size: 10px; }
 </style>
 </head>
 <body>
@@ -2954,6 +2990,7 @@ body > footer { flex-shrink: 0; margin-top: auto; }
       <a href="news.html" class="nav-link">News</a>
       <a href="tentang.html" class="nav-link">Tentang</a>
       <a href="mitra.html" class="nav-link">Mitra</a>
+      <a href="dashboard-mitra.html" class="nav-link nav-link-mitra-only" style="display:none">Dashboard Mitra</a>
     </div>
     <div class="nav-right-desktop" style="display:flex;gap:6px;align-items:center;flex-shrink:0">
       <button onclick="CART.open()" class="nav-icon-btn" title="Keranjang">
@@ -3186,7 +3223,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag tb">P/BV 0,76x</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025 &amp; AR 2021&ndash;2025</span><button class="cta-unlock" id="btn-smar" style="background:var(--grn);box-shadow:0 4px 12px rgba(27,107,58,.25)" onclick="window.location.href='smar.html'" data-price="10000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="smar"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="smar">⏳</span>
+    <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025 &amp; AR 2021&ndash;2025</span>
+  </div><button class="cta-unlock" id="btn-smar" style="background:var(--grn);box-shadow:0 4px 12px rgba(27,107,58,.25)" onclick="window.location.href='smar.html'" data-price="10000">Baca Riset →</button>
   <div style="text-align:center;font-size:11px;color:var(--grn);font-weight:700;padding:6px 0;letter-spacing:.04em">✓ Akses Gratis · Tanpa Pembayaran</div>
  </div>
 </div>
@@ -3213,7 +3254,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag tg">Optical 1.6T</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 18 Mar 2026 &middot; FY2026</span><button class="cta-unlock" id="btn-mrvl" onclick="window.location.href='mrvl.html'" style="background:var(--grn)!important">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="mrvl"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="mrvl">⏳</span>
+    <span class="card-date">&#128197; 18 Mar 2026 &middot; FY2026</span>
+  </div><button class="cta-unlock" id="btn-mrvl" onclick="window.location.href='mrvl.html'" style="background:var(--grn)!important">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-mrvl" style="display:none" data-ticker="mrvl">✓ Akses Gratis</button>
  </div>
 </div>
@@ -3239,7 +3284,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag tg">$63B FY30</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 4 Mei 2026 &middot; FY2026</span><button class="cta-unlock" id="btn-crm" onclick="window.location.href='crm.html'" style="background:var(--grn)!important">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="crm"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="crm">⏳</span>
+    <span class="card-date">&#128197; 4 Mei 2026 &middot; FY2026</span>
+  </div><button class="cta-unlock" id="btn-crm" onclick="window.location.href='crm.html'" style="background:var(--grn)!important">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-crm" style="display:none" data-ticker="crm">&#10003; Akses Gratis</button>
  </div>
 </div>
@@ -3262,7 +3311,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
  <div class="cdiv"></div>
  <div class="card-tags"><span class="tag tg">Backlog Rekor</span><span class="tag tb">EPC Ekspansi</span><span class="tag ty">FCFE DCF</span><span class="tag tr">High Leverage</span></div>
  <div class="card-ft">
-  <span class="card-date">📅 18 Mar 2026 · AR 2022–2025</span><button class="cta-unlock" id="btn-ptro" onclick="window.location.href='ptro.html'" data-price="12000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="ptro"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="ptro">⏳</span>
+    <span class="card-date">📅 18 Mar 2026 · AR 2022–2025</span>
+  </div><button class="cta-unlock" id="btn-ptro" onclick="window.location.href='ptro.html'" data-price="12000">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-ptro" onclick="CART.add('ptro',12000,'PT Petrosea Tbk')" data-ticker="ptro" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3284,7 +3337,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
  <div class="cdiv"></div>
  <div class="card-tags"><span class="tag tg">Net Margin 18,9%</span><span class="tag tg">DER 0,29x</span><span class="tag ty">FCFE DCF</span><span class="tag tt">Miss Cimory</span></div>
  <div class="card-ft">
-  <span class="card-date">📅 18 Mar 2026 · AR 2022–2025</span><button class="cta-unlock" id="btn-cmry" onclick="window.location.href='cmry.html'" data-price="10000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="cmry"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="cmry">⏳</span>
+    <span class="card-date">📅 18 Mar 2026 · AR 2022–2025</span>
+  </div><button class="cta-unlock" id="btn-cmry" onclick="window.location.href='cmry.html'" data-price="10000">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-cmry" onclick="CART.add('cmry',10000,'PT Cisarua Mountain Dairy')" data-ticker="cmry" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3306,7 +3363,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
  <div class="cdiv"></div>
  <div class="card-tags"><span class="tag tg">Market Leader</span><span class="tag tg">DER 0,16x</span><span class="tag ty">FCFE DCF</span><span class="tag tr">Watch: Margin Trade</span></div>
  <div class="card-ft">
-  <span class="card-date">📅 18 Mar 2026 · AR 2022–2025</span><button class="cta-unlock" id="btn-avia" onclick="window.location.href='avia.html'" data-price="10000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="avia"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="avia">⏳</span>
+    <span class="card-date">📅 18 Mar 2026 · AR 2022–2025</span>
+  </div><button class="cta-unlock" id="btn-avia" onclick="window.location.href='avia.html'" data-price="10000">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-avia" onclick="CART.add('avia',10000,'PT Aviasi Pariwisata Indonesia')" data-ticker="avia" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3334,7 +3395,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag tb">OCBC Group</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + Pubex</span><button class="cta-unlock" id="btn-nisp" onclick="window.location.href='nisp.html'" data-price="8000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="nisp"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="nisp">⏳</span>
+    <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + Pubex</span>
+  </div><button class="cta-unlock" id="btn-nisp" onclick="window.location.href='nisp.html'" data-price="8000">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-nisp" onclick="CART.add('nisp',8000,'PT Bank OCBC NISP')" data-ticker="nisp" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3361,7 +3426,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag tb">Holding Ultra Mikro</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025</span><button class="cta-unlock" id="btn-bbri" onclick="window.location.href='bbri.html'" data-price="10000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="bbri"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="bbri">⏳</span>
+    <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025</span>
+  </div><button class="cta-unlock" id="btn-bbri" onclick="window.location.href='bbri.html'" data-price="10000">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-bbri" onclick="CART.add('bbri',10000,'PT Bank Rakyat Indonesia')" data-ticker="bbri" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3389,7 +3458,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag tb">Rejuve 60,45%</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 7 Mei 2026 &middot; LK Audited FY2025 (E&amp;Y)</span><button class="cta-unlock" id="btn-pyfa" onclick="window.location.href='pyfa.html'" data-price="10000">Baca Riset &rarr;</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="pyfa"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="pyfa">⏳</span>
+    <span class="card-date">&#128197; 7 Mei 2026 &middot; LK Audited FY2025 (E&amp;Y)</span>
+  </div><button class="cta-unlock" id="btn-pyfa" onclick="window.location.href='pyfa.html'" data-price="10000">Baca Riset &rarr;</button>
   <button class="cta-add-cart" id="cart-btn-pyfa" onclick="CART.add('pyfa',10000,'PT Pyridam Farma Tbk')" data-ticker="pyfa" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3417,7 +3490,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag tb">Mubadala-backed</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 6 Mei 2026 &middot; Earnings Decks FY21-Q1 2026</span><button class="cta-unlock" id="btn-gfs" onclick="window.location.href='gfs.html'" data-price="10000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="gfs"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="gfs">⏳</span>
+    <span class="card-date">&#128197; 6 Mei 2026 &middot; Earnings Decks FY21-Q1 2026</span>
+  </div><button class="cta-unlock" id="btn-gfs" onclick="window.location.href='gfs.html'" data-price="10000">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-gfs" onclick="CART.add('gfs',10000,'GlobalFoundries Inc.')" data-ticker="gfs" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3445,7 +3522,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag tb">Sojitz JV</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025 + Pubex</span><button class="cta-unlock" id="btn-dmas" onclick="window.location.href='dmas.html'" data-price="8000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="dmas"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="dmas">⏳</span>
+    <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025 + Pubex</span>
+  </div><button class="cta-unlock" id="btn-dmas" onclick="window.location.href='dmas.html'" data-price="8000">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-dmas" onclick="CART.add('dmas',8000,'PT Puradelta Lestari')" data-ticker="dmas" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3473,7 +3554,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag tb">Astra Group</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025</span><button class="cta-unlock" id="btn-asgr" onclick="window.location.href='asgr.html'" data-price="7000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="asgr"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="asgr">⏳</span>
+    <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025</span>
+  </div><button class="cta-unlock" id="btn-asgr" onclick="window.location.href='asgr.html'" data-price="7000">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-asgr" onclick="CART.add('asgr',7000,'PT Astra Graphia')" data-ticker="asgr" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3499,7 +3584,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag tg">Fleet Expand</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025</span><button class="cta-unlock" id="btn-dewa" onclick="window.location.href='dewa.html'" data-price="8000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="dewa"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="dewa">⏳</span>
+    <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025</span>
+  </div><button class="cta-unlock" id="btn-dewa" onclick="window.location.href='dewa.html'" data-price="8000">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-dewa" onclick="CART.add('dewa',8000,'PT Darma Henwa')" data-ticker="dewa" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3526,7 +3615,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag ty">Free Float 8%</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025</span><button class="cta-unlock" id="btn-ades" onclick="window.location.href='ades.html'" data-price="8000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="ades"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="ades">⏳</span>
+    <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025</span>
+  </div><button class="cta-unlock" id="btn-ades" onclick="window.location.href='ades.html'" data-price="8000">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-ades" onclick="CART.add('ades',8000,'PT Akasha Wira International')" data-ticker="ades" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3553,7 +3646,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag tb">Infrastructure Play</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025</span><button class="cta-unlock" id="btn-wifi" onclick="window.location.href='wifi.html'" data-price="12000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="wifi"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="wifi">⏳</span>
+    <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025</span>
+  </div><button class="cta-unlock" id="btn-wifi" onclick="window.location.href='wifi.html'" data-price="12000">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-wifi" onclick="CART.add('wifi',12000,'PT Solusi Sinergi Digital')" data-ticker="wifi" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3579,7 +3676,11 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <span class="tag tb">New IPO</span>
  </div>
  <div class="card-ft">
-  <span class="card-date">&#128197; 29 Mar 2026 &middot; LK 2025</span><button class="cta-unlock" id="btn-part" onclick="window.location.href='part.html'" data-price="5000">Baca Riset →</button>
+  <div class="card-date-row">
+    <span class="card-author is-internal" data-rid="part"><span class="card-author-icon">●</span> Tim Avenir</span>
+    <span class="card-views" data-rid="part">⏳</span>
+    <span class="card-date">&#128197; 29 Mar 2026 &middot; LK 2025</span>
+  </div><button class="cta-unlock" id="btn-part" onclick="window.location.href='part.html'" data-price="5000">Baca Riset →</button>
   <button class="cta-add-cart" id="cart-btn-part" onclick="CART.add('part',5000,'PT Cipta Perdana Lancar')" data-ticker="part" style="display:none">+ Keranjang</button>
  </div>
 </div>
@@ -3946,8 +4047,21 @@ const AUTH = {
   // Load profile data including trial/subscription dates
   async loadProfile() {
     if (!AUTH.currentUser) { AUTH.profile = null; return; }
-    const { data, error } = await _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
-    AUTH.profile = data || null;
+    try {
+      // Race against timeout (5 detik max) supaya tidak nge-block UI
+      const profilePromise = _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
+      const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Profile load timeout')), 5000));
+      const { data, error } = await Promise.race([profilePromise, timeoutPromise]);
+      if (error) {
+        console.warn('Profile load error:', error.message);
+        AUTH.profile = null;
+        return;
+      }
+      AUTH.profile = data || null;
+    } catch (e) {
+      console.warn('Profile load failed:', e.message);
+      AUTH.profile = null;
+    }
   },
 
 
@@ -4016,19 +4130,40 @@ const AUTH = {
   async refreshUI() {
     const user = AUTH.currentUser;
 
-    // Update nav
-    document.querySelectorAll('[data-auth="guest"]').forEach(el => el.style.display = user ? 'none' : '');
-    document.querySelectorAll('[data-auth="user"]').forEach(el => el.style.display = user ? '' : 'none');
+    // Update nav: switch guest <-> user views (force override inline styles)
+    document.querySelectorAll('[data-auth="guest"]').forEach(el => {
+      el.style.setProperty('display', user ? 'none' : '', 'important');
+      if (!user) el.style.removeProperty('display');
+    });
+    document.querySelectorAll('[data-auth="user"]').forEach(el => {
+      if (user) {
+        // Khusus user-menu-wrap pakai inline-block agar dropdown wrap-nya proper
+        const isWrap = el.id === 'user-menu-wrap';
+        el.style.setProperty('display', isWrap ? 'inline-block' : '', 'important');
+      } else {
+        el.style.setProperty('display', 'none', 'important');
+      }
+    });
+    
     if (user) {
-      const nama = user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
+      const nama = AUTH.profile?.nama_depan || user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
       const nameItem = document.getElementById('nav-user-name-item');
-      if (nameItem) nameItem.textContent = '👤 ' + nama;
+      if (nameItem) {
+        nameItem.innerHTML = '👤 <span id="nav-user-name">' + nama + '</span>';
+      }
+      // Also update span#nav-user-name kalau ada
+      const nameSpan = document.getElementById('nav-user-name');
+      if (nameSpan) nameSpan.textContent = nama;
     }
 
-    // Load unlocked dari Supabase
+    // Load unlocked dari Supabase (defensive)
     if (user) {
-      const { data } = await _sb.from('unlocked_research').select('ticker').eq('user_id', user.id);
-      if (data) localStorage.setItem('ar_unlocked', JSON.stringify(data.map(r => r.ticker)));
+      try {
+        const { data } = await _sb.from('unlocked_research').select('ticker').eq('user_id', user.id);
+        if (data) localStorage.setItem('ar_unlocked', JSON.stringify(data.map(r => r.ticker)));
+      } catch (e) {
+        // Silent fail, gak blok UI
+      }
     } else {
       localStorage.removeItem('ar_unlocked');
     }
@@ -4111,10 +4246,17 @@ const AUTH = {
     if (error) return AUTH.err('reg-err', 'Error: ' + error.message);
 
     if (data.user) {
-      await _sb.from('profiles').upsert({
-        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
-        trial_started_at: new Date().toISOString()
-      });
+      try {
+        // Race: upsert vs 4s timeout — biar gak hang kalau RLS blokir
+        const upsertPromise = _sb.from('profiles').upsert({
+          id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
+          trial_started_at: new Date().toISOString()
+        });
+        const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('upsert timeout')), 4000));
+        await Promise.race([upsertPromise, timeout]);
+      } catch (e) {
+        console.warn('Profile upsert failed (non-critical):', e.message);
+      }
     }
 
     AUTH.show('success');
@@ -4144,12 +4286,19 @@ const AUTH = {
       return AUTH.err('login-err', msg);
     }
 
-    // Login berhasil - tutup modal
+    // Login berhasil - tutup modal segera
     AUTH.currentUser = data.user;
-    await AUTH.loadProfile();
     AUTH.close();
-    AUTH.refreshUI();
-    if (typeof window._applyLock === 'function') window._applyLock();
+    
+    // Load profile + refresh UI (async, non-blocking)
+    AUTH.loadProfile().then(() => {
+      AUTH.refreshUI();
+      if (typeof window._applyLock === 'function') window._applyLock();
+    }).catch(e => {
+      console.warn('Post-login profile load failed:', e.message);
+      AUTH.refreshUI();
+      if (typeof window._applyLock === 'function') window._applyLock();
+    });
   },
 
   // Logout
@@ -4655,5 +4804,141 @@ window.showNewsList = function(){ window.showPage('news'); };
   setTimeout(applyLock, 3000);
 })();
 </script>
+
+<script>
+// Fetch view counts dan update card counters
+(function() {
+  async function loadViewCounts() {
+    if (!window._sb) {
+      setTimeout(loadViewCounts, 1000);
+      return;
+    }
+    
+    try {
+      // Get all research_id yang ditampilkan
+      const counterEls = document.querySelectorAll('.card-views');
+      const ids = Array.from(counterEls).map(el => el.dataset.rid).filter(Boolean);
+      if (!ids.length) return;
+      
+      // Query 1: count views per research_id
+      const { data, error } = await window._sb
+        .from('research_views')
+        .select('research_id')
+        .in('research_id', ids);
+      
+      // Query 2: research_meta untuk lookup mitra info (parallel)
+      const { data: metaData } = await window._sb
+        .from('research_meta')
+        .select('research_id, type, mitra_id')
+        .in('research_id', ids);
+      
+      // Update author bylines berdasarkan metadata
+      const metaMap = {};
+      (metaData || []).forEach(m => { metaMap[m.research_id] = m; });
+      
+      // Lookup mitra names jika ada
+      const mitraIds = (metaData || []).filter(m => m.type === 'mitra' && m.mitra_id).map(m => m.mitra_id);
+      let mitraNames = {};
+      if (mitraIds.length > 0) {
+        const { data: profiles } = await window._sb
+          .from('profiles')
+          .select('id, nama_depan, nama_belakang')
+          .in('id', mitraIds);
+        (profiles || []).forEach(p => {
+          mitraNames[p.id] = (p.nama_depan || '') + ' ' + (p.nama_belakang || '').charAt(0) + '.';
+        });
+      }
+      
+      // Update author element per card
+      document.querySelectorAll('.card-author').forEach(el => {
+        const rid = el.dataset.rid;
+        const meta = metaMap[rid];
+        if (meta && meta.type === 'mitra' && meta.mitra_id) {
+          const mitraName = mitraNames[meta.mitra_id] || 'Mitra Avenir';
+          el.classList.remove('is-internal');
+          el.classList.add('is-mitra');
+          el.innerHTML = '<span class="card-author-icon">●</span> ' + mitraName + ' · Mitra';
+        }
+        // Default already set to "Tim Avenir" — no change needed
+      });
+      
+      if (error) {
+        console.warn('View count query failed:', error);
+        counterEls.forEach(el => {
+          el.classList.add('is-new');
+          el.textContent = '🆕 Riset Baru';
+        });
+        return;
+      }
+      
+      // Aggregate: count per research_id
+      const counts = {};
+      (data || []).forEach(row => {
+        counts[row.research_id] = (counts[row.research_id] || 0) + 1;
+      });
+      
+      // Update DOM
+      counterEls.forEach(el => {
+        const rid = el.dataset.rid;
+        const count = counts[rid] || 0;
+        if (count < 10) {
+          el.classList.add('is-new');
+          el.textContent = '🆕 Riset Baru';
+        } else {
+          el.classList.remove('is-new');
+          // Format: 1.2K untuk >1000
+          let display;
+          if (count >= 1000) display = (count / 1000).toFixed(1) + 'K';
+          else display = count.toString();
+          el.textContent = '👁 ' + display + ' views';
+        }
+      });
+    } catch (e) {
+      console.warn('Load view counts error:', e);
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => setTimeout(loadViewCounts, 1500));
+})();
+</script>
+
+<script>
+// Toggle Dashboard Mitra link visibility based on AUTH.profile.is_mitra
+(function() {
+  function updateMitraNav() {
+    const links = document.querySelectorAll('.nav-link-mitra-only');
+    const isMitra = !!(window.AUTH && window.AUTH.profile && window.AUTH.profile.is_mitra);
+    links.forEach(el => {
+      el.style.display = isMitra ? '' : 'none';
+    });
+  }
+  
+  // Initial check
+  setTimeout(updateMitraNav, 1000);
+  setTimeout(updateMitraNav, 2500);
+  
+  // Hook ke onAuthStateChange via _sb
+  function hookAuth() {
+    if (window._sb && window._sb.auth) {
+      window._sb.auth.onAuthStateChange(async () => {
+        if (window.AUTH && typeof window.AUTH.loadProfile === 'function') {
+          await window.AUTH.loadProfile();
+        }
+        updateMitraNav();
+      });
+      return true;
+    }
+    return false;
+  }
+  
+  if (!hookAuth()) {
+    let attempts = 0;
+    const interval = setInterval(() => {
+      if (hookAuth() || ++attempts > 20) clearInterval(interval);
+    }, 200);
+  }
+})();
+</script>
+
 </body>
 </html>

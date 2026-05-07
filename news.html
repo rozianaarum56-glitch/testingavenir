@@ -2895,104 +2895,26 @@ body > .page { flex: 1 0 auto; }
 body > .footer-spacer { flex: 0 0 auto; }
 body > footer { flex-shrink: 0; margin-top: auto; }
 
-/* ── Guest Paywall Lock ── */
-.guest-lock-wrap { position: relative; min-height: 600px; }
-.guest-lock-wrap.is-guest .guest-lock-content { 
-  filter: blur(6px); 
-  pointer-events: none; 
-  user-select: none;
-  max-height: 700px;
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
-}
-.guest-lock-overlay { display: none; }
-.guest-lock-wrap.is-guest .guest-lock-overlay { 
-  display: flex; 
-  position: absolute; 
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%);
-  background: linear-gradient(135deg, #FFFFFF 0%, #FBFAF6 100%);
-  border: 1px solid var(--bd, #DDE7E2);
-  border-radius: 16px;
-  box-shadow: 0 12px 40px rgba(0,0,0,.15);
-  padding: 36px 40px;
-  max-width: 460px;
-  width: calc(100% - 40px);
-  flex-direction: column;
-  text-align: center;
-  z-index: 10;
-}
-.gl-icon { 
-  width: 56px; height: 56px; 
-  background: var(--grn-gl, rgba(27,107,58,.07));
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 16px;
-  font-size: 26px;
-}
-.gl-title { 
-  font-family: 'Cormorant Garamond', Georgia, serif; 
-  font-size: 24px; 
-  font-weight: 600; 
-  color: var(--t, #18211D);
-  margin: 0 0 8px;
-  line-height: 1.2;
-}
-.gl-sub { 
-  font-size: 14px; 
-  line-height: 1.6; 
-  color: var(--t2, #4A6355);
-  margin: 0 0 20px;
-}
-.gl-price { 
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px; 
-  color: var(--grn-d, #114523);
-  margin-bottom: 18px;
-  font-weight: 600;
-}
-.gl-price strong { font-size: 18px; }
-.gl-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-.gl-btn-primary { 
-  background: var(--grn-d, #114523); 
-  color: #fff; 
-  border: none; 
-  padding: 12px 22px; 
-  font-size: 13px; 
-  font-weight: 700; 
-  letter-spacing: .04em; 
-  border-radius: 8px; 
-  cursor: pointer; 
-  text-transform: uppercase;
-  transition: all .2s;
-}
-.gl-btn-primary:hover { background: var(--grn, #1B6B3A); }
-.gl-btn-secondary { 
-  background: transparent; 
-  color: var(--grn-d, #114523); 
-  border: 1px solid var(--grn-d, #114523); 
-  padding: 12px 22px; 
-  font-size: 13px; 
-  font-weight: 700; 
-  letter-spacing: .04em; 
-  border-radius: 8px; 
-  cursor: pointer; 
-  text-transform: uppercase;
-  transition: all .2s;
-}
-.gl-btn-secondary:hover { background: var(--grn-gl, rgba(27,107,58,.07)); }
-.gl-link { 
-  font-size: 12px; 
-  color: var(--t3, #8EA899); 
-  margin-top: 14px; 
-  line-height: 1.5;
-}
-.gl-link a { color: var(--grn, #1B6B3A); text-decoration: none; font-weight: 600; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 600px) {
-  .guest-lock-overlay { padding: 28px 22px; }
-  .gl-title { font-size: 20px; }
+  
+  
 }
 
 
@@ -3016,6 +2938,7 @@ body > footer { flex-shrink: 0; margin-top: auto; }
       <a href="news.html" class="nav-link">News</a>
       <a href="tentang.html" class="nav-link">Tentang</a>
       <a href="mitra.html" class="nav-link">Mitra</a>
+      <a href="dashboard-mitra.html" class="nav-link nav-link-mitra-only" style="display:none">Dashboard Mitra</a>
     </div>
     <div class="nav-right-desktop" style="display:flex;gap:6px;align-items:center;flex-shrink:0">
       <button onclick="CART.open()" class="nav-icon-btn" title="Keranjang">
@@ -3198,8 +3121,8 @@ body > footer { flex-shrink: 0; margin-top: auto; }
  </div>
 </div>
 <div id="page-news" class="page" style="display:block">
-<div class="guest-lock-wrap">
-<div class="guest-lock-content">
+<div class="news-content-wrap">
+<div class="news-content-inner">
 
 <!-- News list view -->
 <div id="news-list-view">
@@ -3281,17 +3204,7 @@ body > footer { flex-shrink: 0; margin-top: auto; }
 <!-- Article views -->
 
 </div>
-<div class="guest-lock-overlay" data-auth="guest">
-  <div class="gl-icon">🔒</div>
-  <div class="gl-title">Daftar Gratis untuk Mulai Akses</div>
-  <div class="gl-sub">Daftar sekarang dan dapatkan <strong>2 bulan uji coba gratis</strong> ke seluruh market news dan analisis editorial Avenir Research.</div>
-  <div class="gl-price">Setelah trial: mulai <strong>Rp 69.000</strong> / bulan</div>
-  <div class="gl-actions">
-    <button class="gl-btn-primary" onclick="AUTH.open('register')">Mulai Trial 2 Bulan</button>
-    <button class="gl-btn-secondary" onclick="AUTH.open('login')">Sudah Punya Akun</button>
-  </div>
-  <div class="gl-link">Lihat detail paket di <a href="index.html#pricing">homepage</a></div>
-</div>
+
 </div>
 </div>
 <div class="footer-spacer" style="clear:both;height:0;width:100%"></div>
@@ -3639,8 +3552,21 @@ const AUTH = {
   // Load profile data including trial/subscription dates
   async loadProfile() {
     if (!AUTH.currentUser) { AUTH.profile = null; return; }
-    const { data, error } = await _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
-    AUTH.profile = data || null;
+    try {
+      // Race against timeout (5 detik max) supaya tidak nge-block UI
+      const profilePromise = _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
+      const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Profile load timeout')), 5000));
+      const { data, error } = await Promise.race([profilePromise, timeoutPromise]);
+      if (error) {
+        console.warn('Profile load error:', error.message);
+        AUTH.profile = null;
+        return;
+      }
+      AUTH.profile = data || null;
+    } catch (e) {
+      console.warn('Profile load failed:', e.message);
+      AUTH.profile = null;
+    }
   },
 
 
@@ -3709,19 +3635,40 @@ const AUTH = {
   async refreshUI() {
     const user = AUTH.currentUser;
 
-    // Update nav
-    document.querySelectorAll('[data-auth="guest"]').forEach(el => el.style.display = user ? 'none' : '');
-    document.querySelectorAll('[data-auth="user"]').forEach(el => el.style.display = user ? '' : 'none');
+    // Update nav: switch guest <-> user views (force override inline styles)
+    document.querySelectorAll('[data-auth="guest"]').forEach(el => {
+      el.style.setProperty('display', user ? 'none' : '', 'important');
+      if (!user) el.style.removeProperty('display');
+    });
+    document.querySelectorAll('[data-auth="user"]').forEach(el => {
+      if (user) {
+        // Khusus user-menu-wrap pakai inline-block agar dropdown wrap-nya proper
+        const isWrap = el.id === 'user-menu-wrap';
+        el.style.setProperty('display', isWrap ? 'inline-block' : '', 'important');
+      } else {
+        el.style.setProperty('display', 'none', 'important');
+      }
+    });
+    
     if (user) {
-      const nama = user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
+      const nama = AUTH.profile?.nama_depan || user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
       const nameItem = document.getElementById('nav-user-name-item');
-      if (nameItem) nameItem.textContent = '👤 ' + nama;
+      if (nameItem) {
+        nameItem.innerHTML = '👤 <span id="nav-user-name">' + nama + '</span>';
+      }
+      // Also update span#nav-user-name kalau ada
+      const nameSpan = document.getElementById('nav-user-name');
+      if (nameSpan) nameSpan.textContent = nama;
     }
 
-    // Load unlocked dari Supabase
+    // Load unlocked dari Supabase (defensive)
     if (user) {
-      const { data } = await _sb.from('unlocked_research').select('ticker').eq('user_id', user.id);
-      if (data) localStorage.setItem('ar_unlocked', JSON.stringify(data.map(r => r.ticker)));
+      try {
+        const { data } = await _sb.from('unlocked_research').select('ticker').eq('user_id', user.id);
+        if (data) localStorage.setItem('ar_unlocked', JSON.stringify(data.map(r => r.ticker)));
+      } catch (e) {
+        // Silent fail, gak blok UI
+      }
     } else {
       localStorage.removeItem('ar_unlocked');
     }
@@ -3804,10 +3751,17 @@ const AUTH = {
     if (error) return AUTH.err('reg-err', 'Error: ' + error.message);
 
     if (data.user) {
-      await _sb.from('profiles').upsert({
-        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
-        trial_started_at: new Date().toISOString()
-      });
+      try {
+        // Race: upsert vs 4s timeout — biar gak hang kalau RLS blokir
+        const upsertPromise = _sb.from('profiles').upsert({
+          id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
+          trial_started_at: new Date().toISOString()
+        });
+        const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('upsert timeout')), 4000));
+        await Promise.race([upsertPromise, timeout]);
+      } catch (e) {
+        console.warn('Profile upsert failed (non-critical):', e.message);
+      }
     }
 
     AUTH.show('success');
@@ -3837,12 +3791,19 @@ const AUTH = {
       return AUTH.err('login-err', msg);
     }
 
-    // Login berhasil - tutup modal
+    // Login berhasil - tutup modal segera
     AUTH.currentUser = data.user;
-    await AUTH.loadProfile();
     AUTH.close();
-    AUTH.refreshUI();
-    if (typeof window._applyLock === 'function') window._applyLock();
+    
+    // Load profile + refresh UI (async, non-blocking)
+    AUTH.loadProfile().then(() => {
+      AUTH.refreshUI();
+      if (typeof window._applyLock === 'function') window._applyLock();
+    }).catch(e => {
+      console.warn('Post-login profile load failed:', e.message);
+      AUTH.refreshUI();
+      if (typeof window._applyLock === 'function') window._applyLock();
+    });
   },
 
   // Logout
@@ -4212,102 +4173,45 @@ window.showNewsList = function(){ window.showPage('news'); };
 })();
 </script>
 
+
+
 <script>
+// Toggle Dashboard Mitra link visibility based on AUTH.profile.is_mitra
 (function() {
-  function getStatus() {
-    if (!window.AUTH) return 'guest';
-    if (typeof AUTH.getSubscriptionStatus === 'function') return AUTH.getSubscriptionStatus();
-    return AUTH.currentUser ? 'active' : 'guest';
-  }
-  
-  function updateOverlayContent() {
-    const status = getStatus();
-    const overlay = document.querySelector('.guest-lock-overlay');
-    if (!overlay) return;
-    
-    const titleEl = overlay.querySelector('.gl-title');
-    const subEl = overlay.querySelector('.gl-sub');
-    const priceEl = overlay.querySelector('.gl-price');
-    const actionsEl = overlay.querySelector('.gl-actions');
-    
-    if (!titleEl || !subEl || !actionsEl) return;
-    
-    if (status === 'expired_trial') {
-      titleEl.textContent = 'Masa Uji Coba Gratis Telah Berakhir';
-      subEl.textContent = 'Masa uji coba 2 bulan Anda sudah habis. Berlangganan sekarang untuk lanjut akses semua riset dan analisis.';
-      if (priceEl) priceEl.style.display = '';
-      actionsEl.innerHTML = '<button class="gl-btn-primary" onclick="window.location.href=\'index.html#pricing\'">Lihat Paket Langganan</button>';
-    } else if (status === 'expired_paid') {
-      titleEl.textContent = 'Langganan Anda Telah Berakhir';
-      subEl.textContent = 'Periode langganan Anda sudah selesai. Perpanjang sekarang untuk lanjutkan akses tanpa kehilangan riwayat.';
-      if (priceEl) priceEl.style.display = '';
-      actionsEl.innerHTML = '<button class="gl-btn-primary" onclick="window.location.href=\'index.html#pricing\'">Perpanjang Langganan</button>';
-    }
-  }
-  
-  function applyLock() {
-    const status = getStatus();
-    const isLocked = (status === 'guest' || status === 'expired_trial' || status === 'expired_paid');
-    
-    document.querySelectorAll('.guest-lock-wrap').forEach(el => {
-      if (isLocked) el.classList.add('is-guest');
-      else el.classList.remove('is-guest');
+  function updateMitraNav() {
+    const links = document.querySelectorAll('.nav-link-mitra-only');
+    const isMitra = !!(window.AUTH && window.AUTH.profile && window.AUTH.profile.is_mitra);
+    links.forEach(el => {
+      el.style.display = isMitra ? '' : 'none';
     });
-    
-    if (isLocked) updateOverlayContent();
   }
   
-  // Expose globally so login()/register() can call directly
-  window._applyLock = applyLock;
+  // Initial check
+  setTimeout(updateMitraNav, 1000);
+  setTimeout(updateMitraNav, 2500);
   
-  // Initial: assume locked (guest)
-  applyLock();
-  document.addEventListener('DOMContentLoaded', applyLock);
-  
-  // Listen to Supabase auth state change directly (most reliable)
+  // Hook ke onAuthStateChange via _sb
   function hookAuth() {
     if (window._sb && window._sb.auth) {
-      window._sb.auth.onAuthStateChange(async (event, session) => {
-        if (session?.user && window.AUTH) {
-          AUTH.currentUser = session.user;
-          if (typeof AUTH.loadProfile === 'function') {
-            await AUTH.loadProfile();
-          }
-        } else if (window.AUTH) {
-          AUTH.currentUser = null;
-          AUTH.profile = null;
+      window._sb.auth.onAuthStateChange(async () => {
+        if (window.AUTH && typeof window.AUTH.loadProfile === 'function') {
+          await window.AUTH.loadProfile();
         }
-        applyLock();
+        updateMitraNav();
       });
       return true;
     }
     return false;
   }
   
-  // Try to hook immediately, retry if _sb not ready yet
   if (!hookAuth()) {
     let attempts = 0;
     const interval = setInterval(() => {
       if (hookAuth() || ++attempts > 20) clearInterval(interval);
     }, 200);
   }
-  
-  // Also hook AUTH.refreshUI as fallback
-  setTimeout(() => {
-    if (window.AUTH && typeof window.AUTH.refreshUI === 'function') {
-      const orig = window.AUTH.refreshUI;
-      window.AUTH.refreshUI = async function() {
-        const r = await orig.apply(this, arguments);
-        applyLock();
-        return r;
-      };
-    }
-    applyLock();
-  }, 500);
-  
-  setTimeout(applyLock, 1500);
-  setTimeout(applyLock, 3000);
 })();
 </script>
+
 </body>
 </html>

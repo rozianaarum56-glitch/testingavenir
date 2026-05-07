@@ -2915,6 +2915,7 @@ body > footer { flex-shrink: 0; margin-top: auto; }
       <a href="news.html" class="nav-link">News</a>
       <a href="tentang.html" class="nav-link">Tentang</a>
       <a href="mitra.html" class="nav-link">Mitra</a>
+      <a href="dashboard-mitra.html" class="nav-link nav-link-mitra-only" style="display:none">Dashboard Mitra</a>
     </div>
     <div class="nav-right-desktop" style="display:flex;gap:6px;align-items:center;flex-shrink:0">
       <button onclick="CART.open()" class="nav-icon-btn" title="Keranjang">
@@ -3009,10 +3010,10 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <!-- REGISTER -->
   <div class="auth-view" id="auth-register">
    <h3>Buat Akun</h3>
-   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 7 hari — tanpa kartu kredit, tanpa komitmen.</p>
+   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 2 bulan — tanpa kartu kredit, tanpa komitmen.</p>
    <div class="auth-trial-banner">
     <div class="auth-trial-icon">🎁</div>
-    <div class="auth-trial-text"><strong>7 Hari Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
+    <div class="auth-trial-text"><strong>2 Bulan Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
    </div>
    <div class="auth-err" id="reg-err"></div>
    <div class="auth-2col">
@@ -4122,8 +4123,21 @@ const AUTH = {
   // Load profile data including trial/subscription dates
   async loadProfile() {
     if (!AUTH.currentUser) { AUTH.profile = null; return; }
-    const { data, error } = await _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
-    AUTH.profile = data || null;
+    try {
+      // Race against timeout (5 detik max) supaya tidak nge-block UI
+      const profilePromise = _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
+      const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Profile load timeout')), 5000));
+      const { data, error } = await Promise.race([profilePromise, timeoutPromise]);
+      if (error) {
+        console.warn('Profile load error:', error.message);
+        AUTH.profile = null;
+        return;
+      }
+      AUTH.profile = data || null;
+    } catch (e) {
+      console.warn('Profile load failed:', e.message);
+      AUTH.profile = null;
+    }
   },
 
 
@@ -4146,7 +4160,7 @@ const AUTH = {
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
       if (now < trialEnd) return true;
     }
     
@@ -4171,7 +4185,7 @@ const AUTH = {
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
       if (now < trialEnd) return 'trial';
       return 'expired_trial';
     }
@@ -4183,7 +4197,7 @@ const AUTH = {
   getTrialDaysRemaining() {
     if (!AUTH.profile?.trial_started_at) return null;
     const trialStart = new Date(AUTH.profile.trial_started_at);
-    const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
     const now = new Date();
     return Math.ceil((trialEnd - now) / (24 * 60 * 60 * 1000));
   },
@@ -4192,19 +4206,40 @@ const AUTH = {
   async refreshUI() {
     const user = AUTH.currentUser;
 
-    // Update nav
-    document.querySelectorAll('[data-auth="guest"]').forEach(el => el.style.display = user ? 'none' : '');
-    document.querySelectorAll('[data-auth="user"]').forEach(el => el.style.display = user ? '' : 'none');
+    // Update nav: switch guest <-> user views (force override inline styles)
+    document.querySelectorAll('[data-auth="guest"]').forEach(el => {
+      el.style.setProperty('display', user ? 'none' : '', 'important');
+      if (!user) el.style.removeProperty('display');
+    });
+    document.querySelectorAll('[data-auth="user"]').forEach(el => {
+      if (user) {
+        // Khusus user-menu-wrap pakai inline-block agar dropdown wrap-nya proper
+        const isWrap = el.id === 'user-menu-wrap';
+        el.style.setProperty('display', isWrap ? 'inline-block' : '', 'important');
+      } else {
+        el.style.setProperty('display', 'none', 'important');
+      }
+    });
+    
     if (user) {
-      const nama = user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
+      const nama = AUTH.profile?.nama_depan || user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
       const nameItem = document.getElementById('nav-user-name-item');
-      if (nameItem) nameItem.textContent = '👤 ' + nama;
+      if (nameItem) {
+        nameItem.innerHTML = '👤 <span id="nav-user-name">' + nama + '</span>';
+      }
+      // Also update span#nav-user-name kalau ada
+      const nameSpan = document.getElementById('nav-user-name');
+      if (nameSpan) nameSpan.textContent = nama;
     }
 
-    // Load unlocked dari Supabase
+    // Load unlocked dari Supabase (defensive)
     if (user) {
-      const { data } = await _sb.from('unlocked_research').select('ticker').eq('user_id', user.id);
-      if (data) localStorage.setItem('ar_unlocked', JSON.stringify(data.map(r => r.ticker)));
+      try {
+        const { data } = await _sb.from('unlocked_research').select('ticker').eq('user_id', user.id);
+        if (data) localStorage.setItem('ar_unlocked', JSON.stringify(data.map(r => r.ticker)));
+      } catch (e) {
+        // Silent fail, gak blok UI
+      }
     } else {
       localStorage.removeItem('ar_unlocked');
     }
@@ -4287,10 +4322,17 @@ const AUTH = {
     if (error) return AUTH.err('reg-err', 'Error: ' + error.message);
 
     if (data.user) {
-      await _sb.from('profiles').upsert({
-        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
-        trial_started_at: new Date().toISOString()
-      });
+      try {
+        // Race: upsert vs 4s timeout — biar gak hang kalau RLS blokir
+        const upsertPromise = _sb.from('profiles').upsert({
+          id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
+          trial_started_at: new Date().toISOString()
+        });
+        const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('upsert timeout')), 4000));
+        await Promise.race([upsertPromise, timeout]);
+      } catch (e) {
+        console.warn('Profile upsert failed (non-critical):', e.message);
+      }
     }
 
     AUTH.show('success');
@@ -4320,12 +4362,19 @@ const AUTH = {
       return AUTH.err('login-err', msg);
     }
 
-    // Login berhasil - tutup modal
+    // Login berhasil - tutup modal segera
     AUTH.currentUser = data.user;
-    await AUTH.loadProfile();
     AUTH.close();
-    AUTH.refreshUI();
-    if (typeof window._applyLock === 'function') window._applyLock();
+    
+    // Load profile + refresh UI (async, non-blocking)
+    AUTH.loadProfile().then(() => {
+      AUTH.refreshUI();
+      if (typeof window._applyLock === 'function') window._applyLock();
+    }).catch(e => {
+      console.warn('Post-login profile load failed:', e.message);
+      AUTH.refreshUI();
+      if (typeof window._applyLock === 'function') window._applyLock();
+    });
   },
 
   // Logout
@@ -4692,6 +4741,83 @@ window.showNewsList = function(){ window.showPage('news'); };
   setTimeout(forceFooter, 100);
   setTimeout(forceFooter, 500);
   setTimeout(forceFooter, 1500);
+})();
+</script>
+
+
+<script>
+// Track view ke research_views table
+(function() {
+  function getResearchId() {
+    const path = window.location.pathname;
+    const fname = path.split('/').pop().replace('.html', '') || path.replace(/^\/+|\/+$/g, '');
+    return fname || 'unknown';
+  }
+  
+  async function recordView() {
+    if (!window._sb || !window.AUTH || !window.AUTH.currentUser) return;
+    
+    try {
+      await window._sb.from('research_views').insert({
+        user_id: window.AUTH.currentUser.id,
+        research_id: getResearchId()
+      });
+    } catch (e) {
+      // Silent fail — tracking shouldnt break user experience
+    }
+  }
+  
+  // Wait for AUTH ready, then record
+  function tryRecord() {
+    if (window.AUTH && window.AUTH.currentUser) {
+      recordView();
+    } else if (window.AUTH) {
+      // AUTH ready but user not logged - skip
+    } else {
+      // AUTH not ready yet, retry
+      setTimeout(tryRecord, 800);
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => setTimeout(tryRecord, 1500));
+})();
+</script>
+
+<script>
+// Toggle Dashboard Mitra link visibility based on AUTH.profile.is_mitra
+(function() {
+  function updateMitraNav() {
+    const links = document.querySelectorAll('.nav-link-mitra-only');
+    const isMitra = !!(window.AUTH && window.AUTH.profile && window.AUTH.profile.is_mitra);
+    links.forEach(el => {
+      el.style.display = isMitra ? '' : 'none';
+    });
+  }
+  
+  // Initial check
+  setTimeout(updateMitraNav, 1000);
+  setTimeout(updateMitraNav, 2500);
+  
+  // Hook ke onAuthStateChange via _sb
+  function hookAuth() {
+    if (window._sb && window._sb.auth) {
+      window._sb.auth.onAuthStateChange(async () => {
+        if (window.AUTH && typeof window.AUTH.loadProfile === 'function') {
+          await window.AUTH.loadProfile();
+        }
+        updateMitraNav();
+      });
+      return true;
+    }
+    return false;
+  }
+  
+  if (!hookAuth()) {
+    let attempts = 0;
+    const interval = setInterval(() => {
+      if (hookAuth() || ++attempts > 20) clearInterval(interval);
+    }, 200);
+  }
 })();
 </script>
 
