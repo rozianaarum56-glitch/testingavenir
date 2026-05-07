@@ -3110,10 +3110,10 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <!-- REGISTER -->
   <div class="auth-view" id="auth-register">
    <h3>Buat Akun</h3>
-   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 7 hari — tanpa kartu kredit, tanpa komitmen.</p>
+   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 2 bulan — tanpa kartu kredit, tanpa komitmen.</p>
    <div class="auth-trial-banner">
     <div class="auth-trial-icon">🎁</div>
-    <div class="auth-trial-text"><strong>7 Hari Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
+    <div class="auth-trial-text"><strong>2 Bulan Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
    </div>
    <div class="auth-err" id="reg-err"></div>
    <div class="auth-2col">
@@ -3284,10 +3284,10 @@ body > footer { flex-shrink: 0; margin-top: auto; }
 <div class="guest-lock-overlay" data-auth="guest">
   <div class="gl-icon">🔒</div>
   <div class="gl-title">Daftar Gratis untuk Mulai Akses</div>
-  <div class="gl-sub">Daftar sekarang dan dapatkan <strong>7 hari uji coba gratis</strong> ke seluruh market news dan analisis editorial Avenir Research.</div>
+  <div class="gl-sub">Daftar sekarang dan dapatkan <strong>2 bulan uji coba gratis</strong> ke seluruh market news dan analisis editorial Avenir Research.</div>
   <div class="gl-price">Setelah trial: mulai <strong>Rp 69.000</strong> / bulan</div>
   <div class="gl-actions">
-    <button class="gl-btn-primary" onclick="AUTH.open('register')">Mulai Trial 7 Hari</button>
+    <button class="gl-btn-primary" onclick="AUTH.open('register')">Mulai Trial 2 Bulan</button>
     <button class="gl-btn-secondary" onclick="AUTH.open('login')">Sudah Punya Akun</button>
   </div>
   <div class="gl-link">Lihat detail paket di <a href="index.html#pricing">homepage</a></div>
@@ -3663,7 +3663,7 @@ const AUTH = {
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
       if (now < trialEnd) return true;
     }
     
@@ -3688,7 +3688,7 @@ const AUTH = {
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
       if (now < trialEnd) return 'trial';
       return 'expired_trial';
     }
@@ -3700,7 +3700,7 @@ const AUTH = {
   getTrialDaysRemaining() {
     if (!AUTH.profile?.trial_started_at) return null;
     const trialStart = new Date(AUTH.profile.trial_started_at);
-    const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
     const now = new Date();
     return Math.ceil((trialEnd - now) / (24 * 60 * 60 * 1000));
   },
@@ -4234,7 +4234,7 @@ window.showNewsList = function(){ window.showPage('news'); };
     
     if (status === 'expired_trial') {
       titleEl.textContent = 'Masa Uji Coba Gratis Telah Berakhir';
-      subEl.textContent = '7 hari uji coba gratis Anda sudah habis. Berlangganan sekarang untuk lanjut akses semua riset dan analisis.';
+      subEl.textContent = 'Masa uji coba 2 bulan Anda sudah habis. Berlangganan sekarang untuk lanjut akses semua riset dan analisis.';
       if (priceEl) priceEl.style.display = '';
       actionsEl.innerHTML = '<button class="gl-btn-primary" onclick="window.location.href=\'index.html#pricing\'">Lihat Paket Langganan</button>';
     } else if (status === 'expired_paid') {
