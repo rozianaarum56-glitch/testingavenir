@@ -2896,15 +2896,17 @@ body > .footer-spacer { flex: 0 0 auto; }
 body > footer { flex-shrink: 0; margin-top: auto; }
 
 
-/* Plan & Pricing Section — 4 Tiers */
+
+
+/* Plan & Pricing — 4 Tiers w/ Free Trial Banner */
 .home-plan { max-width: 1200px; margin: 0 auto; padding: 80px 24px; }
 .hp-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--grn); text-align: center; margin-bottom: 12px; text-transform: uppercase; }
 .hp-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(30px, 5vw, 46px); font-weight: 600; line-height: 1.1; color: var(--t); text-align: center; margin: 0 0 14px; }
 .hp-title .hl { color: var(--grn); }
-.hp-sub { font-size: 15px; line-height: 1.7; color: var(--t2); text-align: center; max-width: 740px; margin: 0 auto 48px; }
+.hp-sub { font-size: 15px; line-height: 1.7; color: var(--t2); text-align: center; max-width: 760px; margin: 0 auto 48px; }
 
 .hp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 40px; }
-.hp-tier { background: #FFFFFF; border: 1px solid var(--bd); border-radius: 14px; padding: 28px 22px 24px; text-align: center; position: relative; transition: all .3s; display: flex; flex-direction: column; }
+.hp-tier { background: #FFFFFF; border: 1px solid var(--bd); border-radius: 14px; padding: 20px 22px 24px; text-align: center; position: relative; transition: all .3s; display: flex; flex-direction: column; }
 .hp-tier:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--grn); }
 .hp-tier-featured { background: linear-gradient(180deg, #FAFAF6 0%, #F2F8F4 100%); border: 2px solid var(--grn); transform: scale(1.03); box-shadow: var(--shadow-md); }
 .hp-tier-featured:hover { transform: scale(1.04) translateY(-3px); }
@@ -2912,13 +2914,16 @@ body > footer { flex-shrink: 0; margin-top: auto; }
 .hp-tier-badge { display: inline-block; background: var(--bg3); color: var(--t2); font-size: 9px; font-weight: 700; letter-spacing: .12em; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
 .hp-tier-badge-green { background: var(--grn-d); color: #fff; }
 .hp-tier-badge-gold { background: var(--gold); color: #fff; }
-.hp-tier-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; font-weight: 600; color: var(--t); margin: 12px 0 14px; }
-.hp-tier-price { display: flex; align-items: baseline; justify-content: center; gap: 4px; }
+
+.hp-tier-trial { display: inline-block; background: var(--grn-gl); color: var(--grn-d); font-size: 9.5px; font-weight: 700; letter-spacing: .14em; padding: 5px 10px; border-radius: 4px; text-transform: uppercase; margin-bottom: 10px; }
+.hp-tier-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; font-weight: 600; color: var(--t); margin: 4px 0 12px; }
+.hp-tier-price { display: flex; align-items: baseline; justify-content: center; gap: 4px; opacity: .55; }
 .hp-tier-currency { font-size: 14px; color: var(--t2); font-weight: 600; }
-.hp-tier-amount { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 700; color: var(--grn-d); letter-spacing: -.02em; line-height: 1; }
-.hp-tier-period { font-size: 12px; color: var(--t2); margin-top: 4px; }
-.hp-tier-eq { font-size: 11px; color: var(--t3); font-family: 'JetBrains Mono', monospace; margin: 8px 0 18px; min-height: 14px; }
-.hp-tier-btn { background: transparent; color: var(--grn-d); border: 1px solid var(--grn-d); padding: 10px 16px; font-size: 12px; font-weight: 700; letter-spacing: .05em; border-radius: 8px; cursor: pointer; text-transform: uppercase; transition: all .2s; margin-top: auto; width: 100%; }
+.hp-tier-amount { font-family: 'JetBrains Mono', monospace; font-size: 30px; font-weight: 700; color: var(--t2); letter-spacing: -.02em; line-height: 1; }
+.hp-tier-strike { position: relative; text-decoration: line-through; text-decoration-color: var(--red, #B83232); text-decoration-thickness: 2px; }
+.hp-tier-period { font-size: 12px; color: var(--t3); margin-top: 4px; opacity: .55; }
+.hp-tier-eq { font-size: 11px; color: var(--t3); font-family: 'JetBrains Mono', monospace; margin: 8px 0 18px; min-height: 14px; opacity: .55; }
+.hp-tier-btn { background: transparent; color: var(--grn-d); border: 1px solid var(--grn-d); padding: 10px 14px; font-size: 12px; font-weight: 700; letter-spacing: .04em; border-radius: 8px; cursor: pointer; text-transform: uppercase; transition: all .2s; margin-top: auto; width: 100%; }
 .hp-tier-btn:hover { background: var(--grn-gl); }
 .hp-tier-btn-primary { background: var(--grn-d); color: #fff; border-color: var(--grn-d); }
 .hp-tier-btn-primary:hover { background: var(--grn); }
@@ -2942,13 +2947,37 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   .hp-grid { grid-template-columns: 1fr; }
   .hp-feat-grid { grid-template-columns: 1fr; }
   .hp-bottom { padding: 22px 18px; }
-  .hp-tier-amount { font-size: 28px; }
+  .hp-tier-amount { font-size: 26px; }
 }
+/* Featured Trial Card */
 
-.auth-trial-banner { display: flex; gap: 10px; align-items: center; background: var(--grn-gl, rgba(27,107,58,.07)); border: 1px solid rgba(27,107,58,.2); border-radius: 8px; padding: 10px 14px; margin: 10px 0 18px; }
-.auth-trial-icon { font-size: 22px; line-height: 1; }
-.auth-trial-text { font-size: 13px; line-height: 1.45; color: var(--t); }
-.auth-trial-text strong { color: var(--grn-d); font-size: 13.5px; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Future plans preview */
+
+
+
+
+
+
+
+
+
+
+.hp-note-tag { display: inline-block; background: var(--bg3); color: var(--t2); font-size: 9px; font-weight: 700; letter-spacing: .1em; padding: 2px 7px; border-radius: 3px; margin-right: 8px; vertical-align: 1px; text-transform: uppercase; }
+
+
 
 </style>
 </head>
@@ -3059,10 +3088,10 @@ body > footer { flex-shrink: 0; margin-top: auto; }
   <!-- REGISTER -->
   <div class="auth-view" id="auth-register">
    <h3>Buat Akun</h3>
-   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 7 hari — tanpa kartu kredit, tanpa komitmen.</p>
+   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 2 bulan — tanpa kartu kredit, tanpa komitmen.</p>
    <div class="auth-trial-banner">
     <div class="auth-trial-icon">🎁</div>
-    <div class="auth-trial-text"><strong>7 Hari Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
+    <div class="auth-trial-text"><strong>2 Bulan Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
    </div>
    <div class="auth-err" id="reg-err"></div>
    <div class="auth-2col">
@@ -3405,65 +3434,69 @@ body > footer { flex-shrink: 0; margin-top: auto; }
  </div>
 </section>
 
-<!-- Plan & Pricing - Subscription Tiers -->
+<!-- Plan & Pricing - 4 Tiers with Free Trial Banner -->
 <section class="home-plan" id="pricing">
  <div class="hp-eyebrow">◆ LANGGANAN</div>
- <h2 class="hp-title">Pilih Periode yang <span class="hl">Paling Hemat</span> untuk Anda</h2>
- <p class="hp-sub">Setiap akun baru otomatis mendapat akses gratis selama 7 hari. Setelah itu, lanjutkan dengan langganan bulanan, kuartalan, semester, atau tahunan. Bisa berhenti kapan saja — tidak ada lock-in period.</p>
+ <h2 class="hp-title">Akses Penuh <span class="hl">Gratis 2 Bulan</span> — Semua Paket</h2>
+ <p class="hp-sub">Avenir Research saat ini berada pada fase peluncuran awal. Setiap akun baru otomatis mendapat akses penuh selama 2 bulan, tanpa biaya. Harga di bawah adalah indikasi paket berlangganan yang akan tersedia setelah masa trial selesai.</p>
 
  <div class="hp-grid">
   <!-- BULANAN -->
   <div class="hp-tier" data-period="1">
+   <div class="hp-tier-trial">FREE TRIAL · 2 BULAN</div>
    <div class="hp-tier-name">Bulanan</div>
    <div class="hp-tier-price">
     <span class="hp-tier-currency">Rp</span>
-    <span class="hp-tier-amount">69.000</span>
+    <span class="hp-tier-amount hp-tier-strike">69.000</span>
    </div>
    <div class="hp-tier-period">/ bulan</div>
    <div class="hp-tier-eq">&nbsp;</div>
-   <button class="hp-tier-btn" onclick="AUTH.open('register')">Pilih Bulanan</button>
+   <button class="hp-tier-btn" onclick="AUTH.open('register')">Daftar &amp; Coba Gratis</button>
    <div class="hp-tier-foot">Fleksibel · Bisa berhenti kapan saja</div>
   </div>
 
   <!-- 3 BULAN -->
   <div class="hp-tier" data-period="3">
    <div class="hp-tier-badge">POPULER</div>
+   <div class="hp-tier-trial">FREE TRIAL · 2 BULAN</div>
    <div class="hp-tier-name">3 Bulan</div>
    <div class="hp-tier-price">
     <span class="hp-tier-currency">Rp</span>
-    <span class="hp-tier-amount">189.000</span>
+    <span class="hp-tier-amount hp-tier-strike">189.000</span>
    </div>
    <div class="hp-tier-period">/ 3 bulan</div>
    <div class="hp-tier-eq">≈ Rp 63.000 / bulan</div>
-   <button class="hp-tier-btn" onclick="AUTH.open('register')">Pilih 3 Bulan</button>
+   <button class="hp-tier-btn" onclick="AUTH.open('register')">Daftar &amp; Coba Gratis</button>
    <div class="hp-tier-foot">Hemat Rp 18.000 vs bulanan</div>
   </div>
 
   <!-- 6 BULAN -->
   <div class="hp-tier hp-tier-featured" data-period="6">
    <div class="hp-tier-badge hp-tier-badge-green">NILAI TERBAIK</div>
+   <div class="hp-tier-trial">FREE TRIAL · 2 BULAN</div>
    <div class="hp-tier-name">6 Bulan</div>
    <div class="hp-tier-price">
     <span class="hp-tier-currency">Rp</span>
-    <span class="hp-tier-amount">339.000</span>
+    <span class="hp-tier-amount hp-tier-strike">339.000</span>
    </div>
    <div class="hp-tier-period">/ 6 bulan</div>
    <div class="hp-tier-eq">≈ Rp 56.500 / bulan</div>
-   <button class="hp-tier-btn hp-tier-btn-primary" onclick="AUTH.open('register')">Pilih 6 Bulan</button>
+   <button class="hp-tier-btn hp-tier-btn-primary" onclick="AUTH.open('register')">Daftar &amp; Coba Gratis</button>
    <div class="hp-tier-foot">Hemat Rp 75.000 · Diskon 18%</div>
   </div>
 
   <!-- 1 TAHUN -->
   <div class="hp-tier" data-period="12">
    <div class="hp-tier-badge hp-tier-badge-gold">PALING HEMAT</div>
+   <div class="hp-tier-trial">FREE TRIAL · 2 BULAN</div>
    <div class="hp-tier-name">1 Tahun</div>
    <div class="hp-tier-price">
     <span class="hp-tier-currency">Rp</span>
-    <span class="hp-tier-amount">599.000</span>
+    <span class="hp-tier-amount hp-tier-strike">599.000</span>
    </div>
    <div class="hp-tier-period">/ tahun</div>
    <div class="hp-tier-eq">≈ Rp 49.917 / bulan</div>
-   <button class="hp-tier-btn" onclick="AUTH.open('register')">Pilih Tahunan</button>
+   <button class="hp-tier-btn" onclick="AUTH.open('register')">Daftar &amp; Coba Gratis</button>
    <div class="hp-tier-foot">Hemat Rp 229.000 · Diskon 28%</div>
   </div>
  </div>
@@ -3478,13 +3511,13 @@ body > footer { flex-shrink: 0; margin-top: auto; }
     <div class="hp-feat"><span class="hp-feat-tick">✓</span> Artikel corporate history &amp; industry deep dives</div>
     <div class="hp-feat"><span class="hp-feat-tick">✓</span> Update otomatis setiap rilis LK kuartal</div>
     <div class="hp-feat"><span class="hp-feat-tick">✓</span> Notifikasi prioritas via email</div>
-    <div class="hp-feat"><span class="hp-feat-tick">✓</span> 7 hari uji coba gratis untuk akun baru</div>
+    <div class="hp-feat"><span class="hp-feat-tick">✓</span> 2 bulan uji coba gratis untuk akun baru</div>
    </div>
   </div>
 
   <div class="hp-note-block">
    <span class="hp-note-tag">CATATAN</span>
-   Avenir Research saat ini berada pada fase peluncuran awal. Pelanggan yang bergabung di periode ini mendapat harga perkenalan dan kepastian harga tetap (<em>grandfathered</em>) untuk siklus berlangganan berikutnya.
+   Harga yang dicoret di atas adalah <em>indikasi</em> paket berlangganan yang akan diaktifkan setelah masa trial 2 bulan selesai. Pengguna yang bergabung di periode peluncuran ini mendapat <strong>kepastian harga grandfathered</strong> — Anda akan mendapat email pemberitahuan sebelum masa trial berakhir, tidak ada tagihan otomatis.
   </div>
  </div>
 </section>
@@ -3869,7 +3902,7 @@ const AUTH = {
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
       if (now < trialEnd) return true;
     }
     
@@ -3894,7 +3927,7 @@ const AUTH = {
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
       if (now < trialEnd) return 'trial';
       return 'expired_trial';
     }
@@ -3906,7 +3939,7 @@ const AUTH = {
   getTrialDaysRemaining() {
     if (!AUTH.profile?.trial_started_at) return null;
     const trialStart = new Date(AUTH.profile.trial_started_at);
-    const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
     const now = new Date();
     return Math.ceil((trialEnd - now) / (24 * 60 * 60 * 1000));
   },
