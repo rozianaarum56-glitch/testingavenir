@@ -3105,6 +3105,15 @@ body.auth-state-user .mobile-drawer > div[data-auth="user"],
 body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
   display: block !important;
 }
+
+/* ── Anti-flash overlay: hide guest-lock-overlay sampai AUTH benar-benar resolved ── */
+/* applyLock akan add .is-guest setelah AUTH resolve */
+body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .guest-lock-overlay,
+body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .guest-lock-content {
+  /* Force hidden state during pending */
+  opacity: 0;
+  pointer-events: none;
+}
 </style>
 </head>
 <body>
@@ -3223,7 +3232,7 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
   }
   }
 </style>
-<div class="auth-overlay" id="auth-overlay" onclick="AUTH.closeOutside(event)">
+<div class="auth-overlay" id="auth-overlay" style="display:none" onclick="AUTH.closeOutside(event)">
  <div class="auth-box">
   <button class="auth-close" onclick="AUTH.close()">✕</button>
 
@@ -3755,7 +3764,10 @@ const AR = (() => {
 
  function close() {
   const overlay = document.getElementById('auth-overlay');
-  if (overlay) overlay.classList.remove('open');
+  if (overlay) {
+    overlay.classList.remove('open');
+    overlay.style.display = 'none';
+  }
   document.body.style.overflow = '';
  }
 
@@ -3941,6 +3953,9 @@ const AUTH = {
     // Update tombol semua riset
     if (typeof updateAllButtons === 'function') updateAllButtons();
     if (typeof updateMineFilter === 'function') updateMineFilter();
+    
+    // Apply lock state (untuk halaman yang ada paywall)
+    if (typeof window._applyLock === 'function') window._applyLock();
   },
 
   // Update nav (alias untuk kompatibilitas)
@@ -3959,7 +3974,7 @@ const AUTH = {
   open(view) {
     const ov = document.getElementById('auth-overlay');
     if (!ov) return;
-    ov.style.display = '';
+    ov.style.display = 'flex';
     ov.classList.add('open');
     AUTH.show(view || 'login');
   },
@@ -4478,7 +4493,8 @@ window.showNewsList = function(){ window.showPage('news'); };
 <script>
 (function() {
   function getStatus() {
-    if (!window.AUTH) return 'guest';
+    // Kalau AUTH belum ready (page baru load), return 'pending' supaya tidak flash overlay
+    if (!window.AUTH) return 'pending';
     if (typeof AUTH.getSubscriptionStatus === 'function') return AUTH.getSubscriptionStatus();
     return AUTH.currentUser ? 'active' : 'guest';
   }
@@ -4515,6 +4531,16 @@ window.showNewsList = function(){ window.showPage('news'); };
   
   function applyLock() {
     const status = getStatus();
+    
+    // Kalau AUTH belum ready, jangan apply lock dulu (anti-flash)
+    if (status === 'pending') {
+      // Tetap remove is-guest kalau ada residu — biar tidak flash
+      document.querySelectorAll('.guest-lock-wrap').forEach(el => {
+        el.classList.remove('is-guest');
+      });
+      return;
+    }
+    
     const isLocked = (status === 'guest' || status === 'expired_trial' || status === 'expired_paid' || status === 'mitra_only');
     
     document.querySelectorAll('.guest-lock-wrap').forEach(el => {
@@ -4528,9 +4554,8 @@ window.showNewsList = function(){ window.showPage('news'); };
   // Expose globally so login()/register() can call directly
   window._applyLock = applyLock;
   
-  // Initial: assume locked (guest)
-  applyLock();
-  document.addEventListener('DOMContentLoaded', applyLock);
+  // JANGAN apply lock initial — tunggu AUTH ready dulu (anti-flash)
+  // applyLock akan dipanggil dari AUTH.init() / onAuthStateChange
   
   // Listen to Supabase auth state change directly (most reliable)
   function hookAuth() {

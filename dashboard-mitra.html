@@ -3122,7 +3122,7 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
   }
   }
 </style>
-<div class="auth-overlay" id="auth-overlay" onclick="AUTH.closeOutside(event)">
+<div class="auth-overlay" id="auth-overlay" style="display:none" onclick="AUTH.closeOutside(event)">
  <div class="auth-box">
   <button class="auth-close" onclick="AUTH.close()">✕</button>
 
@@ -3305,8 +3305,7 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
     <h1 class="dashm-title">Halo, <span id="dashm-greeting">Mitra</span> 👋</h1>
     <p class="dashm-sub">Pantau performa riset Anda dan estimasi pendapatan dari pool subscription Avenir Research.</p>
     <div class="dashm-disclaimer">
-      <strong>👁️ Preview Mode:</strong> Halaman ini menampilkan tampilan dashboard mitra dengan data contoh untuk preview layout. Saat sistem aktif penuh, data yang ditampilkan akan diambil real-time dari database — sesuai performa riset Anda. Estimasi pendapatan akan mulai dihitung setelah pengguna mulai berlangganan berbayar (selesainya masa trial 2 bulan).
-    </div>
+      <strong>📌 Catatan:</strong> Avenir Research saat ini berada pada fase trial. Estimasi pendapatan dan total earnings akan mulai dihitung setelah pengguna mulai berlangganan berbayar (setelah masa trial 2 bulan untuk early users selesai). Views tetap tercatat dan akan dikonversi ke pendapatan setelah subscription aktif.</div>
     <div class="dashm-stats">
       <div class="dashm-stat"><div class="dashm-stat-label"><span class="dashm-stat-icon">👁</span> Views Bulan Ini</div><div class="dashm-stat-value" id="dashm-views-month">0</div><div class="dashm-stat-sub" id="dashm-views-sub">Total views ke riset Anda di bulan berjalan</div></div>
       <div class="dashm-stat"><div class="dashm-stat-label"><span class="dashm-stat-icon">💰</span> Estimasi Pendapatan</div><div class="dashm-stat-value dashm-stat-zero" id="dashm-earn-month">Rp 0</div><div class="dashm-stat-sub">Bulan berjalan · belum aktif</div></div>
@@ -3330,38 +3329,36 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
 <script>
 const Dashm = {
   async init() {
+    // Tunggu AUTH ready
+    await Dashm.waitForAuth();
+    
+    // Hide loading
     const loadingEl = document.getElementById('dashm-loading');
     if (loadingEl) loadingEl.style.display = 'none';
+    
+    // Cek apakah user logged in
+    if (!window.AUTH || !window.AUTH.currentUser) {
+      Dashm.showNotMitra();
+      return;
+    }
+    
+    // Pastikan profile loaded
+    if (!window.AUTH.profile && typeof window.AUTH.loadProfile === 'function') {
+      try { await window.AUTH.loadProfile(); } catch (e) { /* silent */ }
+    }
+    
+    // Cek apakah user is_mitra
+    if (!window.AUTH.profile || window.AUTH.profile.is_mitra !== true) {
+      Dashm.showNotMitra();
+      return;
+    }
+    
+    // Show dashboard, load data real dari Supabase
     Dashm.showDashboard();
-    Dashm.loadPreviewData();
+    await Dashm.loadData();
   },
   
-  loadPreviewData() {
-    const greetEl = document.getElementById('dashm-greeting');
-    if (greetEl) greetEl.textContent = 'Roziana';
-    
-    document.getElementById('dashm-views-month').textContent = '847';
-    
-    const previewResearch = [
-      { research_id: 'BBCA', title: 'BBCA Q1 2026 Performance Review', sector: 'Banking', published_at: '2026-04-15', views: 412 },
-      { research_id: 'UNVR', title: 'UNVR Margin Outlook 2026 — Restructuring Impact', sector: 'Consumer', published_at: '2026-03-20', views: 285 },
-      { research_id: 'ASII', title: 'ASII Diversification Strategy & EV Pivot', sector: 'Otomotif', published_at: '2026-02-08', views: 150 },
-    ];
-    
-    const viewsByResearch = {};
-    previewResearch.forEach(r => viewsByResearch[r.research_id] = r.views);
-    Dashm.renderResearchList(previewResearch, viewsByResearch);
-    
-    const now = new Date();
-    const viewsByMonth = {};
-    const sampleCounts = [45, 78, 152, 210, 380, 847];
-    for (let i = 5; i >= 0; i--) {
-      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
-      viewsByMonth[key] = sampleCounts[5 - i];
-    }
-    Dashm.renderChart(viewsByMonth);
-  },
+  
   waitForAuth() {
     return new Promise(resolve => {
       let attempts = 0;
@@ -3390,19 +3387,42 @@ const Dashm = {
   },
   async loadData() {
     const userId = window.AUTH.currentUser.id;
+    
+    // Reset stats ke 0 dulu (bersih, gak ada residu dummy)
+    document.getElementById('dashm-views-month').textContent = '0';
+    document.getElementById('dashm-earn-month').textContent = 'Rp 0';
+    document.getElementById('dashm-earn-total').textContent = 'Rp 0';
+    
     try {
-      const { data: myResearch } = await window._sb.from('research_meta').select('research_id, title, ticker, sector, published_at').eq('mitra_id', userId);
+      // Query research_meta per mitra ini
+      const { data: myResearch, error: rmErr } = await window._sb
+        .from('research_meta')
+        .select('research_id, title, ticker, sector, published_at')
+        .eq('mitra_id', userId);
+      
+      if (rmErr) console.warn('research_meta error:', rmErr);
       const researchList = myResearch || [];
       const myResearchIds = researchList.map(r => r.research_id);
+      
+      // Query views untuk research mitra ini
       let viewsData = [];
       if (myResearchIds.length > 0) {
-        const { data: views } = await window._sb.from('research_views').select('research_id, viewed_at').in('research_id', myResearchIds);
+        const { data: views, error: vErr } = await window._sb
+          .from('research_views')
+          .select('research_id, viewed_at')
+          .in('research_id', myResearchIds);
+        if (vErr) console.warn('research_views error:', vErr);
         viewsData = views || [];
       }
+      
+      // Aggregate
       const now = new Date();
       const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-      let viewsMonth = 0; let viewsTotal = 0;
-      const viewsByResearch = {}; const viewsByMonth = {};
+      let viewsMonth = 0;
+      let viewsTotal = 0;
+      const viewsByResearch = {};
+      const viewsByMonth = {};
+      
       viewsData.forEach(v => {
         const vDate = new Date(v.viewed_at);
         viewsTotal++;
@@ -3411,10 +3431,17 @@ const Dashm = {
         const monthKey = vDate.getFullYear() + '-' + String(vDate.getMonth() + 1).padStart(2, '0');
         viewsByMonth[monthKey] = (viewsByMonth[monthKey] || 0) + 1;
       });
+      
+      // Update stats card
       document.getElementById('dashm-views-month').textContent = viewsMonth.toLocaleString('id-ID');
+      
+      // Render research list & chart
       Dashm.renderResearchList(researchList, viewsByResearch);
       Dashm.renderChart(viewsByMonth);
-    } catch (e) { console.error('loadData error:', e); }
+      
+    } catch (e) {
+      console.error('loadData error:', e);
+    }
   },
   renderResearchList(researchList, viewsByResearch) {
     const container = document.getElementById('dashm-research-list');
@@ -3775,7 +3802,10 @@ const AR = (() => {
 
  function close() {
   const overlay = document.getElementById('auth-overlay');
-  if (overlay) overlay.classList.remove('open');
+  if (overlay) {
+    overlay.classList.remove('open');
+    overlay.style.display = 'none';
+  }
   document.body.style.overflow = '';
  }
 
@@ -3961,6 +3991,9 @@ const AUTH = {
     // Update tombol semua riset
     if (typeof updateAllButtons === 'function') updateAllButtons();
     if (typeof updateMineFilter === 'function') updateMineFilter();
+    
+    // Apply lock state (untuk halaman yang ada paywall)
+    if (typeof window._applyLock === 'function') window._applyLock();
   },
 
   // Update nav (alias untuk kompatibilitas)
@@ -3979,7 +4012,7 @@ const AUTH = {
   open(view) {
     const ov = document.getElementById('auth-overlay');
     if (!ov) return;
-    ov.style.display = '';
+    ov.style.display = 'flex';
     ov.classList.add('open');
     AUTH.show(view || 'login');
   },

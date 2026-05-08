@@ -3122,7 +3122,7 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
   }
   }
 </style>
-<div class="auth-overlay" id="auth-overlay" onclick="AUTH.closeOutside(event)">
+<div class="auth-overlay" id="auth-overlay" style="display:none" onclick="AUTH.closeOutside(event)">
  <div class="auth-box">
   <button class="auth-close" onclick="AUTH.close()">✕</button>
 
@@ -3433,6 +3433,49 @@ const MitraReg = {
             data: { nama_depan: fn, nama_belakang: ln, profil_investor: 'Mitra Analis', no_hp: hp }
           }
         });
+        
+        // OPSI C: Kalau email sudah terdaftar, coba sign in dengan password yang user input
+        // Kalau berhasil → upgrade akun ke mitra (UPDATE profile)
+        if (error && (error.message.toLowerCase().includes('already registered') || error.message.toLowerCase().includes('user already') || error.message.toLowerCase().includes('already been'))) {
+          MitraReg.err('Email sudah terdaftar — mencoba login...', 'success');
+          
+          const { data: signInData, error: signInError } = await window._sb.auth.signInWithPassword({ email, password: pass });
+          
+          if (signInError) {
+            document.getElementById('mitra-submit-btn').disabled = false;
+            return MitraReg.err('Email <strong>' + email + '</strong> sudah terdaftar. Password yang Anda masukkan tidak cocok.<br><br>Silakan <a onclick="AUTH.open(\'login\');return false;" style="color:var(--grn);font-weight:700;cursor:pointer;text-decoration:underline">login dengan password yang benar</a>, lalu refresh halaman ini untuk upgrade ke Mitra.');
+          }
+          
+          // Sign-in berhasil — upgrade akun ke mitra
+          MitraReg.err('Login berhasil — sedang mengupgrade akun...', 'success');
+          
+          try {
+            const userId = signInData.user.id;
+            const updatePromise = window._sb.from('profiles').update({
+              no_hp: hp,
+              sertifikasi: sert,
+              bio: bio,
+              spesialisasi: spes,
+              link_portfolio: portfolio,
+              is_mitra: false  // pending review
+            }).eq('id', userId);
+            const t = new Promise((_, rej) => setTimeout(() => rej(new Error('update timeout')), 5000));
+            const { error: updateErr } = await Promise.race([updatePromise, t]);
+            
+            if (updateErr) {
+              document.getElementById('mitra-submit-btn').disabled = false;
+              return MitraReg.err('Login berhasil tapi update profil gagal: ' + updateErr.message);
+            }
+            
+            MitraReg.err('Aplikasi mitra berhasil dikirim! Akun <strong>' + email + '</strong> sudah ter-upgrade. Tim editorial akan review aplikasi Anda dalam 5-7 hari kerja. Anda tetap punya akses sebagai pengguna.', 'success');
+            document.querySelectorAll('.dm-form-card input, .dm-form-card textarea, .dm-form-card select').forEach(el => el.disabled = true);
+            document.getElementById('mitra-submit-btn').textContent = 'AKUN TERUPGRADE ✓';
+            return;
+          } catch (upgradeErr) {
+            document.getElementById('mitra-submit-btn').disabled = false;
+            return MitraReg.err('Error upgrade: ' + upgradeErr.message);
+          }
+        }
         
         if (error) {
           document.getElementById('mitra-submit-btn').disabled = false;
@@ -3790,7 +3833,10 @@ const AR = (() => {
 
  function close() {
   const overlay = document.getElementById('auth-overlay');
-  if (overlay) overlay.classList.remove('open');
+  if (overlay) {
+    overlay.classList.remove('open');
+    overlay.style.display = 'none';
+  }
   document.body.style.overflow = '';
  }
 
@@ -3976,6 +4022,9 @@ const AUTH = {
     // Update tombol semua riset
     if (typeof updateAllButtons === 'function') updateAllButtons();
     if (typeof updateMineFilter === 'function') updateMineFilter();
+    
+    // Apply lock state (untuk halaman yang ada paywall)
+    if (typeof window._applyLock === 'function') window._applyLock();
   },
 
   // Update nav (alias untuk kompatibilitas)
@@ -3994,7 +4043,7 @@ const AUTH = {
   open(view) {
     const ov = document.getElementById('auth-overlay');
     if (!ov) return;
-    ov.style.display = '';
+    ov.style.display = 'flex';
     ov.classList.add('open');
     AUTH.show(view || 'login');
   },

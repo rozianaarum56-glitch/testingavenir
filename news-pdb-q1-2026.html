@@ -3122,7 +3122,7 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
   }
   }
 </style>
-<div class="auth-overlay" id="auth-overlay" onclick="AUTH.closeOutside(event)">
+<div class="auth-overlay" id="auth-overlay" style="display:none" onclick="AUTH.closeOutside(event)">
  <div class="auth-box">
   <button class="auth-close" onclick="AUTH.close()">✕</button>
 
@@ -3657,7 +3657,10 @@ const AR = (() => {
 
  function close() {
   const overlay = document.getElementById('auth-overlay');
-  if (overlay) overlay.classList.remove('open');
+  if (overlay) {
+    overlay.classList.remove('open');
+    overlay.style.display = 'none';
+  }
   document.body.style.overflow = '';
  }
 
@@ -3843,6 +3846,9 @@ const AUTH = {
     // Update tombol semua riset
     if (typeof updateAllButtons === 'function') updateAllButtons();
     if (typeof updateMineFilter === 'function') updateMineFilter();
+    
+    // Apply lock state (untuk halaman yang ada paywall)
+    if (typeof window._applyLock === 'function') window._applyLock();
   },
 
   // Update nav (alias untuk kompatibilitas)
@@ -3861,7 +3867,7 @@ const AUTH = {
   open(view) {
     const ov = document.getElementById('auth-overlay');
     if (!ov) return;
-    ov.style.display = '';
+    ov.style.display = 'flex';
     ov.classList.add('open');
     AUTH.show(view || 'login');
   },
