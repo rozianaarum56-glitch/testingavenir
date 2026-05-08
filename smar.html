@@ -2964,6 +2964,46 @@ body .nav-mobile-auth, body.auth-state-guest .nav-mobile-auth, body.auth-state-u
     margin-right: auto;
   }
 }
+
+/* Hide mobile auth chip — user indicator cukup ada di dalam hamburger drawer */
+.nav-mobile-auth { display: none !important; }
+@media (max-width: 820px) {
+  .nav-mobile-auth { display: none !important; }
+  body.auth-state-user .nav-mobile-auth,
+  body.auth-state-guest .nav-mobile-auth { display: none !important; }
+}
+
+/* ── FINAL OVERRIDE: hide nav-mobile-auth chip selalu di semua viewport ── */
+body.auth-state-user .nav-mobile-auth[data-auth="user"],
+body.auth-state-guest .nav-mobile-auth[data-auth="guest"],
+body.auth-state-user .nav-mobile-auth,
+body.auth-state-guest .nav-mobile-auth,
+.nav-mobile-auth,
+.nav-mobile-login {
+  display: none !important;
+}
+@media (max-width: 820px) {
+  body.auth-state-user .nav-mobile-auth[data-auth="user"],
+  body.auth-state-guest .nav-mobile-auth[data-auth="guest"],
+  .nav-mobile-auth,
+  .nav-mobile-login {
+    display: none !important;
+  }
+}
+
+/* Preserve .mob-link display:block walaupun ada display:revert dari auth-state rules */
+.mob-link[data-auth="user"],
+.mob-link[data-auth="guest"],
+body.auth-state-user .mob-link[data-auth="user"],
+body.auth-state-guest .mob-link[data-auth="guest"] {
+  display: block !important;
+}
+.mobile-drawer > div[data-auth="user"],
+.mobile-drawer > div[data-auth="guest"],
+body.auth-state-user .mobile-drawer > div[data-auth="user"],
+body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
+  display: block !important;
+}
 </style>
 </head>
 <body>
@@ -3027,10 +3067,18 @@ body .nav-mobile-auth, body.auth-state-guest .nav-mobile-auth, body.auth-state-u
     <a href="tentang.html" class="mob-link">Tentang Avenir</a>
     <a href="mitra.html" class="mob-link">Mitra Terverifikasi</a>
     <div class="mob-divider"></div>
+    
+    <!-- Guest state -->
     <button data-auth="guest" onclick="AUTH.open('login');document.getElementById('mobile-drawer').classList.remove('open')" class="mob-link mob-btn-style">Sign In</button>
     <button data-auth="guest" onclick="AUTH.open('register');document.getElementById('mobile-drawer').classList.remove('open')" class="mob-link mob-btn-primary-style">Daftar Gratis</button>
+    
+    <!-- User logged-in state -->
+    <div data-auth="user" style="display:none;padding:8px 16px;font-size:12px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.06em">
+      👤 <span id="mob-drawer-name">Akun</span>
+    </div>
     <a data-auth="user" style="display:none" href="pengguna.html" class="mob-link">Akun Saya</a>
-    <button data-auth="user" style="display:none" onclick="AUTH.logout()" class="mob-link mob-btn-logout-style">Keluar →</button>
+    <a data-auth="user" href="dashboard-mitra.html" class="mob-link nav-link-mitra-only" style="display:none">📊 Dashboard Mitra</a>
+    <button data-auth="user" style="display:none" onclick="AUTH.logout();document.getElementById('mobile-drawer').classList.remove('open')" class="mob-link mob-btn-logout-style">Keluar →</button>
   </div>
 </nav>
 <style>
@@ -4108,6 +4156,9 @@ const AUTH = {
       // Update mobile chip name
       const mobName = document.getElementById('mob-user-name');
       if (mobName) mobName.textContent = nama;
+      // Update mobile drawer name
+      const mobDrawerName = document.getElementById('mob-drawer-name');
+      if (mobDrawerName) mobDrawerName.textContent = nama;
       // Also update span#nav-user-name kalau ada
       const nameSpan = document.getElementById('nav-user-name');
       if (nameSpan) nameSpan.textContent = nama;
