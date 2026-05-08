@@ -3090,8 +3090,23 @@ body .nav-mobile-auth, body.auth-state-guest .nav-mobile-auth, body.auth-state-u
    <button class="auth-submit" style="background:transparent;border:1px solid var(--bd);color:var(--t2);font-weight:600;padding:11px;border-radius:50px;width:100%;cursor:pointer;font-family:inherit" onclick="AUTH.show('register')">Daftar Gratis</button>
    <div style="border-top:1px solid var(--bd);margin:20px 0 14px"></div>
    <div style="text-align:center;font-size:11.5px;color:var(--t3);margin-bottom:10px;letter-spacing:.04em">ANDA ANALIS PROFESIONAL?</div>
-   <a href="daftar-mitra.html" style="display:block;text-align:center;background:#fef9c3;color:#854d0e;border:1px solid #fde68a;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase">DAFTAR SEBAGAI MITRA ANALIS →</a>
+   <button class="auth-submit" style="background:#854d0e;color:#fff;border:1px solid #854d0e;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;width:100%;cursor:pointer;font-family:inherit;margin-bottom:8px" onclick="AUTH.show('login-mitra')">LOGIN SEBAGAI MITRA →</button>
+   <a href="daftar-mitra.html" style="display:block;text-align:center;background:#fef9c3;color:#854d0e;border:1px solid #fde68a;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase">DAFTAR SEBAGAI MITRA →</a>
   </div>
+
+  <!-- LOGIN MITRA -->
+  <div class="auth-view" id="auth-login-mitra">
+   <h3 style="color:#854d0e">🟡 Masuk sebagai Mitra</h3>
+   <p class="auth-sub">Login khusus untuk Mitra Analis Avenir Research yang sudah terdaftar.</p>
+   <div class="auth-err" id="login-mitra-err"></div>
+   <div class="auth-fg"><label>EMAIL MITRA</label><input type="email" id="lm-email" placeholder="email@anda.com" autocomplete="email"></div>
+   <div class="auth-fg"><label>PASSWORD</label><input type="password" id="lm-pass" placeholder="••••••••" autocomplete="current-password"></div>
+   <button class="auth-submit" style="background:#854d0e;color:#fff;border:none;padding:12px;border-radius:50px;width:100%;cursor:pointer;font-family:inherit;font-weight:700;letter-spacing:.04em;text-transform:uppercase" onclick="AUTH.loginMitra()">MASUK SEBAGAI MITRA →</button>
+   <div class="auth-sep">Belum jadi Mitra?</div>
+   <a href="daftar-mitra.html" style="display:block;text-align:center;background:#fef9c3;color:#854d0e;border:1px solid #fde68a;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase">DAFTAR SEBAGAI MITRA →</a>
+   <div class="auth-toggle">Mau login sebagai pengguna? <a onclick="AUTH.show('login')">Login Pengguna</a></div>
+  </div>
+
 
   <!-- REGISTER -->
   <div class="auth-view" id="auth-register">
@@ -3121,7 +3136,8 @@ body .nav-mobile-auth, body.auth-state-guest .nav-mobile-auth, body.auth-state-u
    <div class="auth-toggle">Sudah punya akun? <a onclick="AUTH.show('login')">Masuk</a></div>
    <div style="border-top:1px solid var(--bd);margin:20px 0 14px"></div>
    <div style="text-align:center;font-size:11.5px;color:var(--t3);margin-bottom:10px;letter-spacing:.04em">ANDA ANALIS PROFESIONAL?</div>
-   <a href="daftar-mitra.html" style="display:block;text-align:center;background:#fef9c3;color:#854d0e;border:1px solid #fde68a;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase">DAFTAR SEBAGAI MITRA ANALIS →</a>
+   <button class="auth-submit" style="background:#854d0e;color:#fff;border:1px solid #854d0e;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;width:100%;cursor:pointer;font-family:inherit;margin-bottom:8px" onclick="AUTH.show('login-mitra')">LOGIN SEBAGAI MITRA →</button>
+   <a href="daftar-mitra.html" style="display:block;text-align:center;background:#fef9c3;color:#854d0e;border:1px solid #fde68a;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase">DAFTAR SEBAGAI MITRA →</a>
   </div>
 
   <!-- DAFTAR MITRA ANALIS -->
@@ -3692,13 +3708,16 @@ const AUTH = {
     const now = new Date();
     const profile = AUTH.profile || {};
     
+    // 0. C1 strict: mitra-only (is_user=false) tidak punya akses subscriber
+    if (profile.is_user === false) return false;
+    
     // 1. Paid subscription
     if (profile.subscription_until) {
       const until = new Date(profile.subscription_until);
       if (now < until) return true;
     }
     
-    // 2. 7-day trial — fallback ke user.created_at
+    // 2. 60-day trial — fallback ke user.created_at
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
@@ -3715,6 +3734,9 @@ const AUTH = {
     
     const now = new Date();
     const profile = AUTH.profile || {};
+    
+    // 0. C1 strict: kalau is_user explicit FALSE → mitra-only (tidak akses katalog/artikel)
+    if (profile.is_user === false) return 'mitra_only';
     
     // 1. Paid subscription check
     if (profile.subscription_until) {
@@ -3918,6 +3940,43 @@ const AUTH = {
   },
 
   // Logout
+  async loginMitra() {
+    const email = document.getElementById('lm-email')?.value.trim();
+    const pass = document.getElementById('lm-pass')?.value;
+    AUTH.err('login-mitra-err', '');
+    if (!email || !pass) return AUTH.err('login-mitra-err', 'Email dan password wajib diisi.');
+    
+    AUTH.err('login-mitra-err', 'Memverifikasi...', 'var(--grn)');
+    
+    const { data, error } = await _sb.auth.signInWithPassword({ email, password: pass });
+    if (error) return AUTH.err('login-mitra-err', 'Error: ' + error.message);
+    
+    AUTH.currentUser = data.user;
+    
+    try {
+      const profilePromise = _sb.from('profiles').select('*').eq('id', data.user.id).maybeSingle();
+      const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 5000));
+      const { data: profileData } = await Promise.race([profilePromise, timeoutPromise]);
+      AUTH.profile = profileData || null;
+      
+      if (!AUTH.profile || AUTH.profile.is_mitra !== true) {
+        await _sb.auth.signOut();
+        AUTH.currentUser = null;
+        AUTH.profile = null;
+        AUTH.err('login-mitra-err', 
+          'Akun ini bukan Mitra. <a onclick="AUTH.show(\'login\')" style="color:var(--grn);font-weight:700;cursor:pointer;text-decoration:underline">Login sebagai Pengguna →</a>');
+        return;
+      }
+      
+      AUTH.close();
+      AUTH.refreshUI();
+      window.location.href = 'dashboard-mitra.html';
+      
+    } catch (e) {
+      AUTH.err('login-mitra-err', 'Error verifikasi: ' + e.message);
+    }
+  },
+
   async logout() {
     await _sb.auth.signOut();
     AUTH.currentUser = null;
