@@ -2988,6 +2988,282 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="user"],
 html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   display: none !important;
 }
+
+/* ── DAFTAR MITRA TERVERIFIKASI ── */
+.mt-verified-section {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, #f9fafb 0%, #f0fdf4 100%);
+  border-top: 1px solid rgba(27, 107, 58, 0.1);
+  border-bottom: 1px solid rgba(27, 107, 58, 0.1);
+}
+.mt-verified-inner { max-width: 1100px; margin: 0 auto; }
+.mt-verified-header { text-align: center; margin-bottom: 48px; }
+.mt-verified-eyebrow {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #1B6B3A;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  padding: 6px 14px;
+  background: rgba(27, 107, 58, 0.1);
+  border-radius: 50px;
+}
+.mt-verified-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 38px;
+  font-weight: 600;
+  color: #14532d;
+  margin: 0 0 12px;
+  line-height: 1.2;
+}
+.mt-verified-sub {
+  font-size: 16px;
+  color: #6b7280;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.mt-verified-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+.mt-mitra-card {
+  background: #fff;
+  border: 1px solid rgba(27, 107, 58, 0.12);
+  border-radius: 12px;
+  padding: 24px 20px;
+  text-align: center;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.mt-mitra-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(27, 107, 58, 0.12);
+  border-color: rgba(27, 107, 58, 0.3);
+}
+.mt-mitra-photo {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  object-fit: cover;
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: block;
+}
+.mt-mitra-photo-fallback {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  background: linear-gradient(135deg, #1B6B3A 0%, #5B8C3E 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 32px;
+  font-weight: 600;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.mt-mitra-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #14532d;
+  margin: 0 0 6px;
+}
+.mt-mitra-cert {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #1B6B3A;
+  background: rgba(27, 107, 58, 0.1);
+  padding: 4px 10px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.mt-mitra-spes {
+  font-size: 12.5px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+.mt-mitra-spes-tag {
+  display: inline-block;
+  font-size: 11px;
+  color: #4b5563;
+  background: #f3f4f6;
+  padding: 3px 9px;
+  border-radius: 4px;
+  margin: 2px 3px;
+}
+.mt-mitra-verified-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #1B6B3A;
+  background: #d1fae5;
+  padding: 3px 8px;
+  border-radius: 50px;
+  letter-spacing: 0.05em;
+}
+.mt-verified-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #9ca3af;
+  font-size: 15px;
+  font-style: italic;
+}
+.mt-verified-loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: #9ca3af;
+  font-size: 14px;
+}
+@media (max-width: 720px) {
+  .mt-verified-section { padding: 56px 16px; }
+  .mt-verified-title { font-size: 28px; }
+  .mt-verified-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+  .mt-mitra-card { padding: 20px 16px; }
+}
+
+/* ── Mitra Terverifikasi Section ── */
+.mt-verified-section {
+  padding: 80px 24px;
+  background: linear-gradient(180deg, #fafaf7 0%, #ffffff 100%);
+}
+.mt-verified-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.mt-verified-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.mt-verified-eyebrow {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--grn, #1B6B3A);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding: 6px 14px;
+  background: rgba(27, 107, 58, 0.08);
+  border-radius: 50px;
+}
+.mt-verified-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 42px;
+  font-weight: 600;
+  color: #14532d;
+  margin: 0 0 14px;
+  line-height: 1.2;
+}
+.mt-verified-sub {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #6b7280;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.mt-verified-loading,
+.mt-verified-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: #6b7280;
+  font-size: 15px;
+}
+.mt-verified-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+.mt-verified-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 28px 22px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.mt-verified-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(27, 107, 58, 0.12);
+  border-color: var(--grn, #1B6B3A);
+}
+.mt-verified-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1B6B3A 0%, #5B8C3E 100%);
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 600;
+  overflow: hidden;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.mt-verified-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mt-verified-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #14532d;
+  margin: 0 0 6px;
+  line-height: 1.25;
+}
+.mt-verified-cert {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--grn, #1B6B3A);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  padding: 4px 10px;
+  background: rgba(27, 107, 58, 0.08);
+  border-radius: 6px;
+  display: inline-block;
+}
+.mt-verified-spec {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+.mt-verified-spec-tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  background: #f3f4f6;
+  color: #4b5563;
+  border-radius: 50px;
+  font-weight: 500;
+}
+@media (max-width: 720px) {
+  .mt-verified-section { padding: 56px 20px; }
+  .mt-verified-title { font-size: 32px; }
+  .mt-verified-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+}
 </style>
 </head>
 <body>
@@ -3296,7 +3572,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 <div class="mt-wrap">
   <div class="mt-hero">
     <div class="mt-hero-eyebrow">◆ PROGRAM MITRA ANALIS</div>
-    <h1>Tulis Riset, Dapatkan bagi hasil <span class="hl">40% Revenue</span> dari Subscription</h1>
+    <h1>Tulis Riset, Bagi <span class="hl">40% Revenue</span> dari Subscription</h1>
     <p>Bergabunglah sebagai Mitra Analis Avenir Research. Submit riset Anda, dan dapatkan bagi hasil bulanan dari pool subscription — dibagi proporsional berdasarkan jumlah views ke setiap riset.</p>
   </div>
   <div class="mt-formula">
@@ -3340,7 +3616,22 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
     <div class="mt-feat"><div class="mt-feat-icon">🏷️</div><h3>Byline &amp; Brand</h3><p>Setiap riset Anda tampil dengan nama, foto, dan bio Anda. Bangun personal brand.</p></div>
     <div class="mt-feat"><div class="mt-feat-icon">⚖️</div><h3>Transparan &amp; Fair</h3><p>Formula publik. Setiap views terlacak. Pembayaran rutin dengan rincian lengkap.</p></div>
   </div>
-  <div class="mt-cta-box">
+  
+<!-- DAFTAR MITRA TERVERIFIKASI -->
+<section class="mt-verified-section">
+  <div class="mt-verified-inner">
+    <div class="mt-verified-header">
+      <span class="mt-verified-eyebrow">✓ Mitra Terverifikasi</span>
+      <h2 class="mt-verified-title">Tim Analis Avenir Research</h2>
+      <p class="mt-verified-sub">Para analis profesional yang sudah lolos verifikasi tim editorial dan aktif menulis riset di Avenir Research.</p>
+    </div>
+    <div id="mt-verified-loading" class="mt-verified-loading">⏳ Memuat daftar mitra...</div>
+    <div id="mt-verified-grid" class="mt-verified-grid" style="display:none"></div>
+    <div id="mt-verified-empty" class="mt-verified-empty" style="display:none">Belum ada mitra terverifikasi yang ditampilkan. Jadilah yang pertama bergabung sebagai mitra Avenir Research!</div>
+  </div>
+</section>
+
+<div class="mt-cta-box">
     <h2>Siap Bergabung sebagai Mitra?</h2>
     <p>Daftarkan diri Anda hari ini. Tim editorial akan review aplikasi dan menghubungi Anda dalam 5-7 hari kerja.</p>
     <a href="daftar-mitra.html" class="mt-cta-btn">Daftar Sekarang →</a>
@@ -4014,6 +4305,170 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
   }
   
   trySetup();
+})();
+</script>
+
+
+<script>
+/* ═══ FETCH & RENDER DAFTAR MITRA TERVERIFIKASI ═══ */
+(async function loadVerifiedMitra() {
+  const loadingEl = document.getElementById('mt-verified-loading');
+  const gridEl = document.getElementById('mt-verified-grid');
+  const emptyEl = document.getElementById('mt-verified-empty');
+  
+  if (!loadingEl || !gridEl || !emptyEl) return;
+  
+  // Wait for _sb to be ready
+  let tries = 0;
+  while (typeof window._sb === 'undefined' && tries < 30) {
+    await new Promise(r => setTimeout(r, 100));
+    tries++;
+  }
+  if (typeof window._sb === 'undefined') {
+    loadingEl.textContent = 'Tidak dapat memuat — koneksi Supabase tidak tersedia.';
+    return;
+  }
+  
+  try {
+    // Fetch dari view public_mitra_list (HANYA field non-sensitif)
+    const { data, error } = await window._sb
+      .from('public_mitra_list')
+      .select('id, nama_depan, nama_belakang, sertifikasi, spesialisasi, foto_url')
+      .order('nama_depan', { ascending: true });
+    
+    if (error) {
+      console.warn('Fetch mitra error:', error);
+      loadingEl.textContent = 'Tidak dapat memuat daftar mitra saat ini.';
+      return;
+    }
+    
+    loadingEl.style.display = 'none';
+    
+    if (!data || data.length === 0) {
+      emptyEl.style.display = 'block';
+      return;
+    }
+    
+    // Render mitra cards
+    const cards = data.map(m => {
+      const namaLengkap = (m.nama_depan || '') + ' ' + (m.nama_belakang || '');
+      const initial = (m.nama_depan?.[0] || '?').toUpperCase();
+      
+      // Photo: kalau ada foto_url, tampilkan image; kalau tidak, fallback initial
+      const photoHtml = m.foto_url 
+        ? `<img class="mt-mitra-photo" src="${m.foto_url}" alt="${namaLengkap.trim()}" onerror="this.outerHTML='<div class=&quot;mt-mitra-photo-fallback&quot;>${initial}</div>'">` 
+        : `<div class="mt-mitra-photo-fallback">${initial}</div>`;
+      
+      // Spesialisasi tags
+      const spesHtml = (m.spesialisasi && m.spesialisasi.length > 0)
+        ? m.spesialisasi.slice(0, 4).map(s => `<span class="mt-mitra-spes-tag">${s}</span>`).join('')
+        : '<span style="font-size:11px;color:#9ca3af;font-style:italic">Multi-sektor</span>';
+      
+      return `
+        <div class="mt-mitra-card">
+          <div class="mt-mitra-verified-badge">✓ Verified</div>
+          ${photoHtml}
+          <div class="mt-mitra-name">${namaLengkap.trim() || 'Mitra Anonim'}</div>
+          ${m.sertifikasi ? `<div class="mt-mitra-cert">${m.sertifikasi}</div>` : ''}
+          <div class="mt-mitra-spes">${spesHtml}</div>
+        </div>
+      `;
+    }).join('');
+    
+    gridEl.innerHTML = cards;
+    gridEl.style.display = 'grid';
+    
+  } catch (e) {
+    console.warn('Mitra list error:', e);
+    loadingEl.textContent = 'Terjadi kesalahan memuat daftar mitra.';
+  }
+})();
+</script>
+
+<script>
+/* ═══ MITRA TERVERIFIKASI: Fetch & Render ═══ */
+(async function() {
+  const loadingEl = document.getElementById('mt-verified-loading');
+  const gridEl = document.getElementById('mt-verified-grid');
+  const emptyEl = document.getElementById('mt-verified-empty');
+  
+  if (!loadingEl || !gridEl || !emptyEl) return; // not on this page
+  
+  // Wait for _sb (Supabase client) to be ready
+  let attempts = 0;
+  while (typeof window._sb === 'undefined' && attempts < 30) {
+    await new Promise(r => setTimeout(r, 100));
+    attempts++;
+  }
+  if (typeof window._sb === 'undefined') {
+    loadingEl.textContent = '⚠️ Tidak dapat memuat daftar mitra saat ini.';
+    return;
+  }
+  
+  try {
+    const { data, error } = await window._sb
+      .from('profiles')
+      .select('nama_depan, nama_belakang, sertifikasi, spesialisasi, foto_url')
+      .eq('is_mitra', true)
+      .order('nama_depan', { ascending: true });
+    
+    if (error) {
+      console.warn('Mitra fetch error:', error);
+      loadingEl.style.display = 'none';
+      emptyEl.style.display = 'block';
+      emptyEl.textContent = 'Belum ada mitra terverifikasi yang ditampilkan. Jadilah yang pertama bergabung sebagai mitra Avenir Research!';
+      return;
+    }
+    
+    loadingEl.style.display = 'none';
+    
+    if (!data || data.length === 0) {
+      emptyEl.style.display = 'block';
+      return;
+    }
+    
+    // Render cards
+    const cards = data.map(m => {
+      const namaFull = (m.nama_depan || '') + (m.nama_belakang ? ' ' + m.nama_belakang : '');
+      const initial = (m.nama_depan || '?').charAt(0).toUpperCase();
+      const cert = m.sertifikasi || '—';
+      const specs = Array.isArray(m.spesialisasi) ? m.spesialisasi : [];
+      
+      const photoHTML = m.foto_url
+        ? `<img src="${escapeHtml(m.foto_url)}" alt="${escapeHtml(namaFull)}" onerror="this.style.display='none';this.parentElement.textContent='${initial}'">`
+        : initial;
+      
+      const specHTML = specs.length > 0
+        ? `<div class="mt-verified-spec">${specs.map(s => `<span class="mt-verified-spec-tag">${escapeHtml(s)}</span>`).join('')}</div>`
+        : '';
+      
+      return `
+        <div class="mt-verified-card">
+          <div class="mt-verified-photo">${photoHTML}</div>
+          <h3 class="mt-verified-name">${escapeHtml(namaFull)}</h3>
+          <div class="mt-verified-cert">${escapeHtml(cert)}</div>
+          ${specHTML}
+        </div>
+      `;
+    });
+    
+    gridEl.innerHTML = cards.join('');
+    gridEl.style.display = 'grid';
+  } catch (e) {
+    console.warn('Mitra render error:', e);
+    loadingEl.style.display = 'none';
+    emptyEl.style.display = 'block';
+  }
+  
+  function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
 })();
 </script>
 
