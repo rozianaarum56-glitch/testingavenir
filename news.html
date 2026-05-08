@@ -2935,6 +2935,64 @@ body.auth-state-user .mobile-drawer > div[data-auth="user"],
 body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
   display: block !important;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   AUTH STATE — FINAL OVERRIDE (highest priority)
+   Memastikan logout langsung clean tanpa residu UI logged-in
+   ══════════════════════════════════════════════════════════════ */
+
+/* GUEST STATE: hide everything user-only, show guest-only */
+html body.auth-state-guest [data-auth="user"] {
+  display: none !important;
+}
+html body.auth-state-guest [data-auth="guest"]:not(.nav-mobile-auth):not(.nav-mobile-login) {
+  display: revert !important;
+}
+html body.auth-state-guest [data-auth="guest"].nav-btn-secondary,
+html body.auth-state-guest [data-auth="guest"].nav-btn-primary,
+html body.auth-state-guest [data-auth="guest"].nav-btn-login,
+html body.auth-state-guest [data-auth="guest"].nav-btn-register {
+  display: inline-block !important;
+}
+html body.auth-state-guest .mob-link[data-auth="guest"] {
+  display: block !important;
+}
+
+/* USER STATE: hide everything guest-only, show user-only */
+html body.auth-state-user [data-auth="guest"] {
+  display: none !important;
+}
+html body.auth-state-user [data-auth="user"]:not(.nav-mobile-auth) {
+  display: revert !important;
+}
+html body.auth-state-user [data-auth="user"]#user-menu-wrap {
+  display: inline-block !important;
+}
+html body.auth-state-user .nav-btn-user[data-auth="user"] {
+  display: inline-flex !important;
+}
+html body.auth-state-user .mob-link[data-auth="user"] {
+  display: block !important;
+}
+html body.auth-state-user .mobile-drawer > div[data-auth="user"] {
+  display: block !important;
+}
+
+/* MOBILE CHIP: ALWAYS HIDDEN regardless of state — pakai hamburger drawer */
+html .nav-mobile-auth,
+html .nav-mobile-login,
+html body.auth-state-user .nav-mobile-auth,
+html body.auth-state-user .nav-mobile-login,
+html body.auth-state-guest .nav-mobile-auth,
+html body.auth-state-guest .nav-mobile-login {
+  display: none !important;
+}
+
+/* PENDING STATE: body belum punya auth-state-* class — hide all auth elements */
+html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="user"],
+html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
+  display: none !important;
+}
 </style>
 </head>
 <body>
@@ -3193,6 +3251,21 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
     <p style="color:var(--t2);font-size:15px;margin-top:8px">Analisis makroekonomi dan market update dari tim Avenir Research. Bebas diakses untuk semua.</p>
   </div>
   <div class="news-grid">
+    <!-- Article: Hantavirus & Saham Kesehatan -->
+    <div class="news-card" onclick="window.location.href='news-hantavirus-saham-kesehatan.html'">
+      <div class="news-card-body">
+        <div class="news-card-cat">Pandemi · Sektor Kesehatan · IDX</div>
+        <div class="news-card-title">Hantavirus Sampai Indonesia: 23 Kasus, 3 Kematian — Saham Sektor Kesehatan Naik di Tengah IHSG Tertekan</div>
+        <div class="news-card-excerpt">Kementerian Kesehatan RI mengonfirmasi 23 kasus dan 3 kematian akibat hantavirus di sembilan provinsi sejak 2024, sementara wabah viral MV Hondius (kapal pesiar Belanda) di Atlantik Selatan menambah kewaspadaan global dengan strain Andes yang langka. Pasar saham merespons dengan reli sektor Kesehatan +0.29% di tengah IHSG yang dominan terkoreksi. MEDS melonjak +27.59%, HALO +19.75%, KAEF +16.67%. Tim Avenir memaparkan kronologi lengkap, perbedaan strain Andes vs Asian, sindrom klinis HFRS vs HPS, dan analisis pasar.</div>
+        <div class="news-card-meta">
+          <span class="news-card-date">8 Mei 2026, 14:30 WIB</span>
+          <span>·</span>
+          <span>Tim Avenir Research</span>
+          <span>·</span>
+          <span class="news-card-free">Akses Gratis</span>
+        </div>
+      </div>
+    </div>
     <!-- Article: COCO Akuisisi SMA -->
     <div class="news-card" onclick="window.location.href='news-coco-akuisisi-sma.html'">
       <div class="news-card-body">
@@ -3200,7 +3273,7 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
         <div class="news-card-title">Wahana Interfood (COCO) Teken CSPA Akuisisi 99,99% Saham PT Sari Murni Abadi (SMA) — Ekspansi Cacao Regional</div>
         <div class="news-card-excerpt">PT Wahana Interfood Nusantara Tbk (COCO) menandatangani Conditional Share Purchase Agreement dengan Metaside Global Holding Pte Ltd asal Singapura untuk akuisisi maksimal 99,99% saham SMA. Transaksi bertujuan ekspansi distribusi cacao ke Indonesia dan Vietnam, sinergi pengembangan produk, serta perluasan ke industri Ingredients dan FMCG. Penyelesaian masih bergantung pada pemenuhan condition precedent dan prosedur transaksi material POJK 17/2020.</div>
         <div class="news-card-meta">
-          <span class="news-card-date">7 Mei 2026, 09:01 WIB</span>
+          <span class="news-card-date">8 Mei 2026, 11:15 WIB</span>
           <span>·</span>
           <span>Tim Avenir Research</span>
           <span>·</span>
@@ -3209,6 +3282,7 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
       </div>
     </div>
 
+
     <!-- Article 3: TPIA Force Majeure -->
     <div class="news-card" onclick="window.location.href='news-ctth-pubex-insidental-mei2026.html'">
       <div class="news-card-body">
@@ -3216,7 +3290,7 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
         <div class="news-card-title">Citatah (CTTH) di Persimpangan: Suspensi BEI, Rugi Melebar Dua Kali Lipat, dan Taruhan US$18 Juta di Industri Quicklime</div>
         <div class="news-card-excerpt">PT Citatah Tbk menggelar Public Expose Insidental 5 Mei 2026 setelah BEI menjatuhkan suspensi cooling down. Manajemen mempertahankan target penjualan Rp 140 miliar meski Q1 baru terealisasi 12 persen, sembari mempersiapkan JV quicklime dengan Chememan Thailand bernilai US$18 juta yang dirancang tanpa kas keluar.</div>
         <div class="news-card-meta">
-          <span class="news-card-date">6 Mei 2026, 09:30 WIB</span>
+          <span class="news-card-date">8 Mei 2026, 09:45 WIB</span>
           <span>·</span>
           <span>Tim Avenir Research</span>
           <span>·</span>
@@ -3231,7 +3305,7 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
         <div class="news-card-title">Chandra Asri (TPIA) Cabut Status Force Majeure — Pasokan Polymer dan Monomer Kembali Aman</div>
         <div class="news-card-excerpt">TPIA resmi mencabut status force majeure setelah berhasil mengamankan bahan baku alternatif dari pasar internasional, termasuk Amerika Serikat, serta mengoptimalkan fasilitas kilang di Singapura. Langkah ini ditempuh di tengah gangguan rantai pasok akibat ketegangan geopolitik di Selat Hormuz.</div>
         <div class="news-card-meta">
-          <span class="news-card-date">5 Mei 2026, 17:25 WIB</span>
+          <span class="news-card-date">7 Mei 2026, 16:20 WIB</span>
           <span>·</span>
           <span>Tim Avenir Research</span>
           <span>·</span>
@@ -3247,7 +3321,7 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
         <div class="news-card-title">Purbaya Konfirmasi Windfall Tax dan Bea Keluar Nikel — Saham Sektor Tambang Tertekan</div>
         <div class="news-card-excerpt">Menteri Keuangan memastikan pemerintah akan memberlakukan windfall tax dan bea keluar untuk nikel dan batu bara sebagai tambal sulam subsidi APBN. Tarif belum ditetapkan, namun pasar langsung merespons negatif. ICON anjlok 13,90%, MBMA melemah 8,89%, NCKL dan ANTM masing-masing turun sekitar 2,9%. Hanya DKFT yang bergerak di zona hijau +0,60%.</div>
         <div class="news-card-meta">
-          <span class="news-card-date">5 Mei 2026, 17:10 WIB</span>
+          <span class="news-card-date">7 Mei 2026, 14:00 WIB</span>
           <span>·</span>
           <span>Tim Avenir Research</span>
           <span>·</span>
@@ -3263,7 +3337,7 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
         <div class="news-card-title">PDB Indonesia Q1-2026 Tumbuh 5,61% YoY — Terkuat Sejak Q3 2022, Tapi Ada yang Perlu Diwaspadai</div>
         <div class="news-card-excerpt">PDB Q1-2026 tumbuh 5,61 persen — melampaui konsensus dan tertinggi sejak Q3 2022. Namun belanja pemerintah yang melonjak 21,81 persen dan konsumsi musiman mendominasi pertumbuhan, sementara ekspor nyaris stagnan di 0,90 persen dan manufaktur justru melambat.</div>
         <div class="news-card-meta">
-          <span class="news-card-date">5 Mei 2026, 17:00 WIB</span>
+          <span class="news-card-date">7 Mei 2026, 10:30 WIB</span>
           <span>·</span>
           <span>Tim Avenir Research</span>
           <span>·</span>
@@ -3447,10 +3521,8 @@ const AUTH = {
   async refreshUI() {
     const user = AUTH.currentUser;
 
-    // Update nav: pakai class di body — paling reliable, override inline style via CSS !important
     document.body.classList.toggle('auth-state-user', !!user);
     document.body.classList.toggle('auth-state-guest', !user);
-    // Hapus inline display dari elements (CSS !important akan handle)
     document.querySelectorAll('[data-auth="guest"], [data-auth="user"]').forEach(el => {
       if (el.style.display === 'none' && !el.dataset.preserveStyle) {
         el.style.removeProperty('display');
@@ -3460,38 +3532,64 @@ const AUTH = {
     if (user) {
       const nama = AUTH.profile?.nama_depan || user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
       const nameItem = document.getElementById('nav-user-name-item');
-      if (nameItem) {
-        nameItem.innerHTML = '👤 <span id="nav-user-name">' + nama + '</span>';
-      }
-      // Update mobile chip name
+      if (nameItem) nameItem.innerHTML = '👤 <span id="nav-user-name">' + nama + '</span>';
       const mobName = document.getElementById('mob-user-name');
       if (mobName) mobName.textContent = nama;
-      // Update mobile drawer name
       const mobDrawerName = document.getElementById('mob-drawer-name');
       if (mobDrawerName) mobDrawerName.textContent = nama;
-      // Also update span#nav-user-name kalau ada
       const nameSpan = document.getElementById('nav-user-name');
       if (nameSpan) nameSpan.textContent = nama;
+    } else {
+      const nameItem = document.getElementById('nav-user-name-item');
+      if (nameItem) nameItem.innerHTML = '👤 <span id="nav-user-name">Akun</span>';
+      const mobName = document.getElementById('mob-user-name');
+      if (mobName) mobName.textContent = '';
+      const mobDrawerName = document.getElementById('mob-drawer-name');
+      if (mobDrawerName) mobDrawerName.textContent = 'Akun';
+      const nameSpan = document.getElementById('nav-user-name');
+      if (nameSpan) nameSpan.textContent = 'Akun';
+      const accGreeting = document.getElementById('acc-greeting');
+      if (accGreeting) accGreeting.textContent = 'Pengguna';
+      const dashmGreeting = document.getElementById('dashm-greeting');
+      if (dashmGreeting) dashmGreeting.textContent = 'Mitra';
+      if (typeof NAV !== 'undefined' && NAV.closeDrop) NAV.closeDrop();
+      const mobileDrawer = document.getElementById('mobile-drawer');
+      if (mobileDrawer) mobileDrawer.classList.remove('open');
     }
 
-    // Load unlocked dari Supabase (defensive)
     if (user) {
       try {
         const { data } = await _sb.from('unlocked_research').select('ticker').eq('user_id', user.id);
         if (data) localStorage.setItem('ar_unlocked', JSON.stringify(data.map(r => r.ticker)));
-      } catch (e) {
-        // Silent fail, gak blok UI
-      }
+      } catch (e) { /* silent */ }
     } else {
       localStorage.removeItem('ar_unlocked');
     }
 
-    // Update tombol semua riset
     if (typeof updateAllButtons === 'function') updateAllButtons();
     if (typeof updateMineFilter === 'function') updateMineFilter();
     
-    // Apply lock state (untuk halaman yang ada paywall)
     if (typeof window._applyLock === 'function') window._applyLock();
+    
+    if (typeof Dashm !== 'undefined') {
+      if (!user && typeof Dashm.showNotMitra === 'function') {
+        Dashm.showNotMitra();
+      } else if (user && typeof Dashm.init === 'function') {
+        Dashm.init();
+      }
+    }
+    if (typeof AccPage !== 'undefined') {
+      if (!user) {
+        const accLoading = document.getElementById('acc-loading');
+        const accNotLogged = document.getElementById('acc-not-loggedin');
+        const accContent = document.getElementById('acc-content');
+        if (accLoading) accLoading.style.display = 'none';
+        if (accContent) accContent.style.display = 'none';
+        if (accNotLogged) accNotLogged.style.display = 'block';
+      } else if (typeof AccPage.init === 'function') {
+        AccPage.init();
+      }
+    }
   },
 
   // Update nav (alias untuk kompatibilitas)
@@ -3660,12 +3758,87 @@ const AUTH = {
     }
   },
 
+  // Helper: aggressive cleanup of residue UI elements after logout
+  cleanupAfterLogout() {
+    // 1. Force body class — instant, no setTimeout
+    document.body.classList.remove('auth-state-user');
+    document.body.classList.add('auth-state-guest');
+    
+    // 2. Reset semua user-displayed elements
+    const els = {
+      'nav-user-name': 'Akun',
+      'nav-user-name-item': null, // special
+      'mob-user-name': '',
+      'mob-drawer-name': 'Akun',
+      'acc-greeting': 'Pengguna',
+      'dashm-greeting': 'Mitra'
+    };
+    Object.keys(els).forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (id === 'nav-user-name-item') {
+        el.innerHTML = '👤 <span id="nav-user-name">Akun</span>';
+      } else {
+        el.textContent = els[id];
+      }
+    });
+    
+    // 3. Hapus inline style.display dari semua [data-auth] elements
+    // CSS override final akan handle visibility via body class
+    document.querySelectorAll('[data-auth="user"], [data-auth="guest"]').forEach(el => {
+      el.style.removeProperty('display');
+    });
+    
+    // 4. Close menus & drawers
+    if (typeof NAV !== 'undefined' && NAV.closeDrop) NAV.closeDrop();
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    if (mobileDrawer) mobileDrawer.classList.remove('open');
+    
+    // 5. Close auth modal kalau terbuka
+    const overlay = document.getElementById('auth-overlay');
+    if (overlay) {
+      overlay.classList.remove('open');
+      overlay.style.display = 'none';
+    }
+    
+    // 6. Page-specific reset
+    const accLoading = document.getElementById('acc-loading');
+    const accNotLogged = document.getElementById('acc-not-loggedin');
+    const accContent = document.getElementById('acc-content');
+    if (accLoading) accLoading.style.display = 'none';
+    if (accContent) accContent.style.display = 'none';
+    if (accNotLogged) accNotLogged.style.display = 'block';
+    
+    const dashmLoading = document.getElementById('dashm-loading');
+    const dashmNotMitra = document.getElementById('dashm-not-mitra');
+    const dashmContent = document.getElementById('dashm-content');
+    if (dashmLoading) dashmLoading.style.display = 'none';
+    if (dashmContent) dashmContent.style.display = 'none';
+    if (dashmNotMitra) dashmNotMitra.style.display = 'block';
+  },
+
   async logout() {
-    await _sb.auth.signOut();
+    // 1. Sign out from Supabase (ignore errors)
+    try { await _sb.auth.signOut(); } catch (e) { console.warn('signOut:', e); }
+    
+    // 2. Clear ALL AUTH state immediately
     AUTH.currentUser = null;
-    localStorage.removeItem('ar_unlocked');
-    if (typeof NAV !== 'undefined') NAV.closeDrop();
-    AUTH.refreshUI();
+    AUTH.profile = null;
+    
+    // 3. Clear localStorage related to user session
+    try {
+      localStorage.removeItem('ar_unlocked');
+      // Defensive: clear Supabase auth tokens
+      Object.keys(localStorage).forEach(k => {
+        if (k.startsWith('sb-') && k.includes('-auth-token')) localStorage.removeItem(k);
+      });
+    } catch (e) { /* silent */ }
+    
+    // 4. INSTANT UI cleanup (sebelum refreshUI async) — anti-delay/residue
+    if (typeof AUTH.cleanupAfterLogout === 'function') AUTH.cleanupAfterLogout();
+    
+    // 5. Refresh UI (will set body class via refreshUI logic juga)
+    await AUTH.refreshUI();
   },
 
   // Mitra Analis
