@@ -2930,6 +2930,64 @@ body.auth-state-user .mobile-drawer > div[data-auth="user"],
 body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
   display: block !important;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   AUTH STATE — FINAL OVERRIDE (highest priority)
+   Memastikan logout langsung clean tanpa residu UI logged-in
+   ══════════════════════════════════════════════════════════════ */
+
+/* GUEST STATE: hide everything user-only, show guest-only */
+html body.auth-state-guest [data-auth="user"] {
+  display: none !important;
+}
+html body.auth-state-guest [data-auth="guest"]:not(.nav-mobile-auth):not(.nav-mobile-login) {
+  display: revert !important;
+}
+html body.auth-state-guest [data-auth="guest"].nav-btn-secondary,
+html body.auth-state-guest [data-auth="guest"].nav-btn-primary,
+html body.auth-state-guest [data-auth="guest"].nav-btn-login,
+html body.auth-state-guest [data-auth="guest"].nav-btn-register {
+  display: inline-block !important;
+}
+html body.auth-state-guest .mob-link[data-auth="guest"] {
+  display: block !important;
+}
+
+/* USER STATE: hide everything guest-only, show user-only */
+html body.auth-state-user [data-auth="guest"] {
+  display: none !important;
+}
+html body.auth-state-user [data-auth="user"]:not(.nav-mobile-auth) {
+  display: revert !important;
+}
+html body.auth-state-user [data-auth="user"]#user-menu-wrap {
+  display: inline-block !important;
+}
+html body.auth-state-user .nav-btn-user[data-auth="user"] {
+  display: inline-flex !important;
+}
+html body.auth-state-user .mob-link[data-auth="user"] {
+  display: block !important;
+}
+html body.auth-state-user .mobile-drawer > div[data-auth="user"] {
+  display: block !important;
+}
+
+/* MOBILE CHIP: ALWAYS HIDDEN regardless of state — pakai hamburger drawer */
+html .nav-mobile-auth,
+html .nav-mobile-login,
+html body.auth-state-user .nav-mobile-auth,
+html body.auth-state-user .nav-mobile-login,
+html body.auth-state-guest .nav-mobile-auth,
+html body.auth-state-guest .nav-mobile-login {
+  display: none !important;
+}
+
+/* PENDING STATE: body belum punya auth-state-* class — hide all auth elements */
+html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="user"],
+html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
+  display: none !important;
+}
 </style>
 </head>
 <body>
@@ -3287,74 +3345,28 @@ body.auth-state-guest .mobile-drawer > div[data-auth="guest"] {
 const MitraReg = {
   err(msg, type) {
     const el = document.getElementById('mitra-err');
-    if (!el) return;
-    el.innerHTML = msg;
+    el.textContent = msg;
     el.className = 'dm-err is-' + (type || 'error');
-    // Auto-scroll ke message agar user bisa lihat
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
   },
   async submit() {
     const isLoggedIn = !!(window.AUTH && window.AUTH.currentUser);
-    const submitBtn = document.getElementById('mitra-submit-btn');
     
-    // Common fields
     const hp = document.getElementById('m-hp').value.trim();
     const sert = document.getElementById('m-sertifikasi').value;
     const bio = document.getElementById('m-bio').value.trim();
     const portfolio = document.getElementById('m-portfolio').value.trim();
     const spes = Array.from(document.querySelectorAll('input[name="spesialisasi"]:checked')).map(c => c.value);
     
-    // Validation
     if (!hp) return MitraReg.err('Nomor HP/WhatsApp wajib diisi.');
     if (!sert) return MitraReg.err('Pilih sertifikasi Anda.');
-    if (!bio) return MitraReg.err('Bio singkat (min. 30 karakter) wajib diisi.');
-    if (bio.length < 30) return MitraReg.err('Bio terlalu singkat — minimal 30 karakter.');
+    if (!bio) return MitraReg.err('Bio singkat wajib diisi.');
     if (!portfolio) return MitraReg.err('Link portfolio wajib diisi.');
-    if (spes.length === 0) return MitraReg.err('Pilih minimal 1 spesialisasi sektor.');
     if (spes.length > 3) return MitraReg.err('Pilih maksimal 3 spesialisasi sektor.');
     
-    submitBtn.disabled = true;
-    const originalBtnText = submitBtn.textContent;
-    
-    // Helper: show success card (replace form)
-    const showSuccess = (email, isUpgrade) => {
-      // Hide form
-      document.querySelectorAll('.dm-form-card').forEach(el => {
-        if (el.id !== 'dm-success-card') el.style.display = 'none';
-      });
-      // Show success card
-      const successCard = document.getElementById('dm-success-card');
-      if (successCard) {
-        successCard.style.display = 'block';
-        // Update message
-        const msgEl = document.getElementById('dm-success-message');
-        if (msgEl) {
-          msgEl.innerHTML = isUpgrade
-            ? 'Aplikasi upgrade akun Anda menjadi <strong>Mitra Analis</strong> berhasil tersimpan. Akun Anda saat ini <strong>tetap aktif sebagai pengguna</strong> sambil menunggu review.'
-            : 'Akun mitra Anda dengan email <strong>' + email + '</strong> berhasil dibuat. Cek inbox email Anda untuk konfirmasi alamat email terlebih dahulu sebelum tim review aplikasi.';
-        }
-        // Update HP display
-        const hpEl = document.getElementById('dm-success-hp');
-        if (hpEl) hpEl.textContent = hp;
-        // Generate tracking ID
-        const trackId = 'AVR-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
-        const trackEl = document.getElementById('dm-tracking-id');
-        if (trackEl) trackEl.textContent = trackId;
-        
-        // Smooth scroll to success card
-        successCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    };
-    
-    // Helper: reset button on error
-    const resetBtn = () => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalBtnText;
-    };
+    document.getElementById('mitra-submit-btn').disabled = true;
     
     if (isLoggedIn) {
-      // ────────── PATH A: User existing — UPGRADE akun ──────────
-      submitBtn.textContent = 'MENGUPDATE...';
+      // PATH A: User existing — upgrade akun (UPDATE profile only)
       MitraReg.err('Mengupdate profil mitra...', 'success');
       
       try {
@@ -3365,123 +3377,123 @@ const MitraReg = {
           bio: bio,
           spesialisasi: spes,
           link_portfolio: portfolio,
-          is_mitra: false  // pending review
+          is_mitra: false
         }).eq('id', userId);
-        
-        // Timeout 8 detik (cukup untuk slow connections)
-        const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('Server timeout — coba lagi atau cek koneksi internet Anda.')), 8000));
+        const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 5000));
         const { error } = await Promise.race([updatePromise, timeout]);
         
         if (error) {
-          resetBtn();
-          // Spesifik untuk RLS error
-          if (error.message && error.message.toLowerCase().includes('row-level security')) {
-            return MitraReg.err('⚠️ Kesalahan konfigurasi server (RLS policy). Mohon hubungi admin Avenir Research.');
-          }
+          document.getElementById('mitra-submit-btn').disabled = false;
           return MitraReg.err('Error: ' + error.message);
         }
         
-        // SUCCESS: show success card
-        showSuccess(window.AUTH.currentUser.email, true);
+        MitraReg.err('Aplikasi mitra berhasil dikirim! Tim editorial akan review aplikasi Anda dalam 5-7 hari kerja. Anda tetap bisa akses sebagai pengguna seperti biasa.', 'success');
+        document.querySelectorAll('.dm-form-card input, .dm-form-card textarea, .dm-form-card select').forEach(el => el.disabled = true);
+        document.getElementById('mitra-submit-btn').textContent = 'APLIKASI DIKIRIM ✓';
       } catch (e) {
-        resetBtn();
+        document.getElementById('mitra-submit-btn').disabled = false;
         MitraReg.err('Error: ' + (e.message || 'Terjadi kesalahan, coba lagi.'));
       }
-      return;
-    }
-    
-    // ────────── PATH B: Guest — bikin akun mitra-only ──────────
-    const fn = document.getElementById('m-fname').value.trim();
-    const ln = document.getElementById('m-lname').value.trim();
-    const email = document.getElementById('m-email').value.trim();
-    const pass = document.getElementById('m-pass').value;
-    
-    if (!fn || !ln) { resetBtn(); return MitraReg.err('Nama depan dan nama belakang wajib diisi.'); }
-    if (!email || !email.includes('@')) { resetBtn(); return MitraReg.err('Email tidak valid.'); }
-    if (!pass || pass.length < 8) { resetBtn(); return MitraReg.err('Password minimal 8 karakter.'); }
-    
-    submitBtn.textContent = 'MENDAFTARKAN...';
-    MitraReg.err('Mendaftarkan akun mitra...', 'success');
-    
-    try {
-      // 1. signUp (timeout 8 detik)
-      const signUpPromise = window._sb.auth.signUp({
-        email,
-        password: pass,
-        options: {
-          emailRedirectTo: window.location.origin + '/daftar-mitra.html',
-          data: { nama_depan: fn, nama_belakang: ln, profil_investor: 'Mitra Analis', no_hp: hp }
-        }
-      });
-      const signUpTimeout = new Promise((_, rej) => setTimeout(() => rej(new Error('Server timeout — coba lagi.')), 8000));
-      const { data, error } = await Promise.race([signUpPromise, signUpTimeout]);
+    } else {
+      // PATH B: Guest — bikin akun baru sebagai mitra-only (is_user=false)
+      const fn = document.getElementById('m-fname').value.trim();
+      const ln = document.getElementById('m-lname').value.trim();
+      const email = document.getElementById('m-email').value.trim();
+      const pass = document.getElementById('m-pass').value;
       
-      // OPSI C: email sudah terdaftar → coba auto sign-in
-      if (error && (error.message.toLowerCase().includes('already registered') || error.message.toLowerCase().includes('user already') || error.message.toLowerCase().includes('already been'))) {
-        submitBtn.textContent = 'LOGIN & UPGRADE...';
-        MitraReg.err('Email sudah terdaftar — mencoba login & upgrade...', 'success');
+      if (!fn || !ln) { document.getElementById('mitra-submit-btn').disabled = false; return MitraReg.err('Nama depan dan nama belakang wajib diisi.'); }
+      if (!email) { document.getElementById('mitra-submit-btn').disabled = false; return MitraReg.err('Email wajib diisi.'); }
+      if (!pass || pass.length < 8) { document.getElementById('mitra-submit-btn').disabled = false; return MitraReg.err('Password minimal 8 karakter.'); }
+      
+      MitraReg.err('Mendaftarkan akun mitra...', 'success');
+      
+      try {
+        const { data, error } = await window._sb.auth.signUp({
+          email,
+          password: pass,
+          options: {
+            emailRedirectTo: window.location.origin + '/daftar-mitra.html',
+            data: { nama_depan: fn, nama_belakang: ln, profil_investor: 'Mitra Analis', no_hp: hp }
+          }
+        });
         
-        const { data: signInData, error: signInError } = await window._sb.auth.signInWithPassword({ email, password: pass });
-        
-        if (signInError) {
-          resetBtn();
-          return MitraReg.err('Email <strong>' + email + '</strong> sudah terdaftar dengan password berbeda.<br><br>Silakan <a onclick="AUTH.open(\'login\');return false;" style="color:var(--grn);font-weight:700;cursor:pointer;text-decoration:underline">login dulu</a>, lalu refresh halaman ini untuk upgrade ke Mitra.');
-        }
-        
-        // Login sukses → upgrade
-        try {
-          const userId = signInData.user.id;
-          const updatePromise = window._sb.from('profiles').update({
-            no_hp: hp, sertifikasi: sert, bio: bio,
-            spesialisasi: spes, link_portfolio: portfolio,
-            is_mitra: false
-          }).eq('id', userId);
-          const t = new Promise((_, rej) => setTimeout(() => rej(new Error('Update timeout')), 8000));
-          const { error: updateErr } = await Promise.race([updatePromise, t]);
+        // OPSI C: Kalau email sudah terdaftar, coba sign in dengan password yang user input
+        // Kalau berhasil → upgrade akun ke mitra (UPDATE profile)
+        if (error && (error.message.toLowerCase().includes('already registered') || error.message.toLowerCase().includes('user already') || error.message.toLowerCase().includes('already been'))) {
+          MitraReg.err('Email sudah terdaftar — mencoba login...', 'success');
           
-          if (updateErr) {
-            resetBtn();
-            return MitraReg.err('Login berhasil tapi update profil gagal: ' + updateErr.message);
+          const { data: signInData, error: signInError } = await window._sb.auth.signInWithPassword({ email, password: pass });
+          
+          if (signInError) {
+            document.getElementById('mitra-submit-btn').disabled = false;
+            return MitraReg.err('Email <strong>' + email + '</strong> sudah terdaftar. Password yang Anda masukkan tidak cocok.<br><br>Silakan <a onclick="AUTH.open(\'login\');return false;" style="color:var(--grn);font-weight:700;cursor:pointer;text-decoration:underline">login dengan password yang benar</a>, lalu refresh halaman ini untuk upgrade ke Mitra.');
           }
           
-          showSuccess(email, true);
-          return;
-        } catch (upgradeErr) {
-          resetBtn();
-          return MitraReg.err('Error upgrade: ' + upgradeErr.message);
+          // Sign-in berhasil — upgrade akun ke mitra
+          MitraReg.err('Login berhasil — sedang mengupgrade akun...', 'success');
+          
+          try {
+            const userId = signInData.user.id;
+            const updatePromise = window._sb.from('profiles').update({
+              no_hp: hp,
+              sertifikasi: sert,
+              bio: bio,
+              spesialisasi: spes,
+              link_portfolio: portfolio,
+              is_mitra: false  // pending review
+            }).eq('id', userId);
+            const t = new Promise((_, rej) => setTimeout(() => rej(new Error('update timeout')), 5000));
+            const { error: updateErr } = await Promise.race([updatePromise, t]);
+            
+            if (updateErr) {
+              document.getElementById('mitra-submit-btn').disabled = false;
+              return MitraReg.err('Login berhasil tapi update profil gagal: ' + updateErr.message);
+            }
+            
+            MitraReg.err('Aplikasi mitra berhasil dikirim! Akun <strong>' + email + '</strong> sudah ter-upgrade. Tim editorial akan review aplikasi Anda dalam 5-7 hari kerja. Anda tetap punya akses sebagai pengguna.', 'success');
+            document.querySelectorAll('.dm-form-card input, .dm-form-card textarea, .dm-form-card select').forEach(el => el.disabled = true);
+            document.getElementById('mitra-submit-btn').textContent = 'AKUN TERUPGRADE ✓';
+            return;
+          } catch (upgradeErr) {
+            document.getElementById('mitra-submit-btn').disabled = false;
+            return MitraReg.err('Error upgrade: ' + upgradeErr.message);
+          }
         }
-      }
-      
-      if (error) {
-        resetBtn();
-        return MitraReg.err('Error: ' + error.message);
-      }
-      
-      // 2. Insert profile (timeout 6 detik, non-blocking jika error)
-      if (data.user) {
-        try {
-          const upsertPromise = window._sb.from('profiles').upsert({
-            id: data.user.id,
-            nama_depan: fn, nama_belakang: ln,
-            profil_investor: 'Mitra Analis',
-            no_hp: hp, sertifikasi: sert, bio: bio,
-            spesialisasi: spes, link_portfolio: portfolio,
-            is_user: false,    // mitra-only
-            is_mitra: false    // pending review
-          });
-          const t = new Promise((_, rej) => setTimeout(() => rej(new Error('upsert timeout')), 6000));
-          await Promise.race([upsertPromise, t]);
-        } catch (e) {
-          console.warn('Profile upsert failed (non-critical):', e.message);
-          // Continue ke success — profile akan di-upsert next login
+        
+        if (error) {
+          document.getElementById('mitra-submit-btn').disabled = false;
+          return MitraReg.err('Error: ' + error.message);
         }
+        
+        if (data.user) {
+          try {
+            const upsertPromise = window._sb.from('profiles').upsert({
+              id: data.user.id,
+              nama_depan: fn,
+              nama_belakang: ln,
+              profil_investor: 'Mitra Analis',
+              no_hp: hp,
+              sertifikasi: sert,
+              bio: bio,
+              spesialisasi: spes,
+              link_portfolio: portfolio,
+              is_user: false,  // mitra-only
+              is_mitra: false  // pending review
+            });
+            const t = new Promise((_, rej) => setTimeout(() => rej(new Error('upsert timeout')), 4000));
+            await Promise.race([upsertPromise, t]);
+          } catch (e) {
+            console.warn('Profile upsert failed (non-critical):', e.message);
+          }
+        }
+        
+        MitraReg.err('Pendaftaran berhasil! Cek email ' + email + ' untuk konfirmasi. Tim editorial akan review aplikasi Anda dalam 5-7 hari kerja.', 'success');
+        document.querySelectorAll('.dm-form-card input, .dm-form-card textarea, .dm-form-card select').forEach(el => el.disabled = true);
+        document.getElementById('mitra-submit-btn').textContent = 'PENDAFTARAN DIKIRIM ✓';
+      } catch (e) {
+        document.getElementById('mitra-submit-btn').disabled = false;
+        MitraReg.err('Error: ' + (e.message || 'Terjadi kesalahan, coba lagi.'));
       }
-      
-      showSuccess(email, false);
-      
-    } catch (e) {
-      resetBtn();
-      MitraReg.err('Error: ' + (e.message || 'Terjadi kesalahan, coba lagi.'));
     }
   }
 };
@@ -3495,31 +3507,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 </div>
-
-  <!-- Success state — replace form on successful submit -->
-  <div id="dm-success-card" class="dm-form-card" style="display:none;text-align:center;padding:48px 32px;max-width:760px;margin:0 auto">
-    <div style="font-size:64px;margin-bottom:16px">✅</div>
-    <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;color:#15803d;margin:0 0 12px;font-weight:600">Aplikasi Berhasil Dikirim!</h2>
-    <p id="dm-success-message" style="font-size:15px;line-height:1.7;color:var(--t);margin-bottom:28px;max-width:560px;margin-left:auto;margin-right:auto">Aplikasi mitra Anda telah tersimpan di sistem.</p>
-    
-    <div style="background:#fef9c3;border-left:4px solid #d97706;padding:18px 22px;border-radius:0 10px 10px 0;text-align:left;max-width:560px;margin:0 auto 24px;font-size:13.5px;line-height:1.7;color:#78350f">
-      <strong style="display:block;margin-bottom:8px;color:#854d0e">📋 Proses Review Mitra:</strong>
-      <ol style="margin:0;padding-left:20px">
-        <li style="margin-bottom:6px">Tim editorial Avenir Research akan <strong>verifikasi data &amp; kredensial</strong> Anda dalam <strong>3-5 hari kerja</strong>.</li>
-        <li style="margin-bottom:6px">Anda akan dihubungi via <strong>email atau WhatsApp</strong> ke nomor <strong id="dm-success-hp">-</strong> untuk wawancara singkat.</li>
-        <li style="margin-bottom:6px">Setelah disetujui, akun Anda akan otomatis di-upgrade — link <strong>Dashboard Mitra</strong> akan muncul di navbar.</li>
-        <li>Bila ditolak, akun Anda <strong>tetap aktif sebagai pengguna biasa</strong> tanpa kehilangan akses katalog.</li>
-      </ol>
-    </div>
-    
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="index.html" style="background:var(--grn,#1B6B3A);color:#fff;text-decoration:none;padding:13px 28px;border-radius:50px;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;display:inline-block">Kembali ke Beranda</a>
-      <a href="katalog.html" style="background:transparent;color:var(--grn,#1B6B3A);border:1.5px solid var(--grn,#1B6B3A);text-decoration:none;padding:13px 28px;border-radius:50px;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;display:inline-block">Jelajahi Katalog Riset →</a>
-    </div>
-    
-    <p style="font-size:12px;color:var(--t2);margin-top:24px">Tracking ID aplikasi Anda: <code id="dm-tracking-id" style="background:#f3f4f6;padding:3px 8px;border-radius:4px;font-family:monospace">-</code></p>
-  </div>
-
 <footer style="display:block!important;visibility:visible!important;background:#0f172a;color:#94a3b8;padding:48px 24px 24px;margin-top:80px">
   <div style="max-width:1280px;margin:0 auto">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-bottom:32px">
@@ -3684,10 +3671,8 @@ const AUTH = {
   async refreshUI() {
     const user = AUTH.currentUser;
 
-    // Update nav: pakai class di body — paling reliable, override inline style via CSS !important
     document.body.classList.toggle('auth-state-user', !!user);
     document.body.classList.toggle('auth-state-guest', !user);
-    // Hapus inline display dari elements (CSS !important akan handle)
     document.querySelectorAll('[data-auth="guest"], [data-auth="user"]').forEach(el => {
       if (el.style.display === 'none' && !el.dataset.preserveStyle) {
         el.style.removeProperty('display');
@@ -3697,38 +3682,64 @@ const AUTH = {
     if (user) {
       const nama = AUTH.profile?.nama_depan || user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
       const nameItem = document.getElementById('nav-user-name-item');
-      if (nameItem) {
-        nameItem.innerHTML = '👤 <span id="nav-user-name">' + nama + '</span>';
-      }
-      // Update mobile chip name
+      if (nameItem) nameItem.innerHTML = '👤 <span id="nav-user-name">' + nama + '</span>';
       const mobName = document.getElementById('mob-user-name');
       if (mobName) mobName.textContent = nama;
-      // Update mobile drawer name
       const mobDrawerName = document.getElementById('mob-drawer-name');
       if (mobDrawerName) mobDrawerName.textContent = nama;
-      // Also update span#nav-user-name kalau ada
       const nameSpan = document.getElementById('nav-user-name');
       if (nameSpan) nameSpan.textContent = nama;
+    } else {
+      const nameItem = document.getElementById('nav-user-name-item');
+      if (nameItem) nameItem.innerHTML = '👤 <span id="nav-user-name">Akun</span>';
+      const mobName = document.getElementById('mob-user-name');
+      if (mobName) mobName.textContent = '';
+      const mobDrawerName = document.getElementById('mob-drawer-name');
+      if (mobDrawerName) mobDrawerName.textContent = 'Akun';
+      const nameSpan = document.getElementById('nav-user-name');
+      if (nameSpan) nameSpan.textContent = 'Akun';
+      const accGreeting = document.getElementById('acc-greeting');
+      if (accGreeting) accGreeting.textContent = 'Pengguna';
+      const dashmGreeting = document.getElementById('dashm-greeting');
+      if (dashmGreeting) dashmGreeting.textContent = 'Mitra';
+      if (typeof NAV !== 'undefined' && NAV.closeDrop) NAV.closeDrop();
+      const mobileDrawer = document.getElementById('mobile-drawer');
+      if (mobileDrawer) mobileDrawer.classList.remove('open');
     }
 
-    // Load unlocked dari Supabase (defensive)
     if (user) {
       try {
         const { data } = await _sb.from('unlocked_research').select('ticker').eq('user_id', user.id);
         if (data) localStorage.setItem('ar_unlocked', JSON.stringify(data.map(r => r.ticker)));
-      } catch (e) {
-        // Silent fail, gak blok UI
-      }
+      } catch (e) { /* silent */ }
     } else {
       localStorage.removeItem('ar_unlocked');
     }
 
-    // Update tombol semua riset
     if (typeof updateAllButtons === 'function') updateAllButtons();
     if (typeof updateMineFilter === 'function') updateMineFilter();
     
-    // Apply lock state (untuk halaman yang ada paywall)
     if (typeof window._applyLock === 'function') window._applyLock();
+    
+    if (typeof Dashm !== 'undefined') {
+      if (!user && typeof Dashm.showNotMitra === 'function') {
+        Dashm.showNotMitra();
+      } else if (user && typeof Dashm.init === 'function') {
+        Dashm.init();
+      }
+    }
+    if (typeof AccPage !== 'undefined') {
+      if (!user) {
+        const accLoading = document.getElementById('acc-loading');
+        const accNotLogged = document.getElementById('acc-not-loggedin');
+        const accContent = document.getElementById('acc-content');
+        if (accLoading) accLoading.style.display = 'none';
+        if (accContent) accContent.style.display = 'none';
+        if (accNotLogged) accNotLogged.style.display = 'block';
+      } else if (typeof AccPage.init === 'function') {
+        AccPage.init();
+      }
+    }
   },
 
   // Update nav (alias untuk kompatibilitas)
@@ -3897,12 +3908,87 @@ const AUTH = {
     }
   },
 
+  // Helper: aggressive cleanup of residue UI elements after logout
+  cleanupAfterLogout() {
+    // 1. Force body class — instant, no setTimeout
+    document.body.classList.remove('auth-state-user');
+    document.body.classList.add('auth-state-guest');
+    
+    // 2. Reset semua user-displayed elements
+    const els = {
+      'nav-user-name': 'Akun',
+      'nav-user-name-item': null, // special
+      'mob-user-name': '',
+      'mob-drawer-name': 'Akun',
+      'acc-greeting': 'Pengguna',
+      'dashm-greeting': 'Mitra'
+    };
+    Object.keys(els).forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (id === 'nav-user-name-item') {
+        el.innerHTML = '👤 <span id="nav-user-name">Akun</span>';
+      } else {
+        el.textContent = els[id];
+      }
+    });
+    
+    // 3. Hapus inline style.display dari semua [data-auth] elements
+    // CSS override final akan handle visibility via body class
+    document.querySelectorAll('[data-auth="user"], [data-auth="guest"]').forEach(el => {
+      el.style.removeProperty('display');
+    });
+    
+    // 4. Close menus & drawers
+    if (typeof NAV !== 'undefined' && NAV.closeDrop) NAV.closeDrop();
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    if (mobileDrawer) mobileDrawer.classList.remove('open');
+    
+    // 5. Close auth modal kalau terbuka
+    const overlay = document.getElementById('auth-overlay');
+    if (overlay) {
+      overlay.classList.remove('open');
+      overlay.style.display = 'none';
+    }
+    
+    // 6. Page-specific reset
+    const accLoading = document.getElementById('acc-loading');
+    const accNotLogged = document.getElementById('acc-not-loggedin');
+    const accContent = document.getElementById('acc-content');
+    if (accLoading) accLoading.style.display = 'none';
+    if (accContent) accContent.style.display = 'none';
+    if (accNotLogged) accNotLogged.style.display = 'block';
+    
+    const dashmLoading = document.getElementById('dashm-loading');
+    const dashmNotMitra = document.getElementById('dashm-not-mitra');
+    const dashmContent = document.getElementById('dashm-content');
+    if (dashmLoading) dashmLoading.style.display = 'none';
+    if (dashmContent) dashmContent.style.display = 'none';
+    if (dashmNotMitra) dashmNotMitra.style.display = 'block';
+  },
+
   async logout() {
-    await _sb.auth.signOut();
+    // 1. Sign out from Supabase (ignore errors)
+    try { await _sb.auth.signOut(); } catch (e) { console.warn('signOut:', e); }
+    
+    // 2. Clear ALL AUTH state immediately
     AUTH.currentUser = null;
-    localStorage.removeItem('ar_unlocked');
-    if (typeof NAV !== 'undefined') NAV.closeDrop();
-    AUTH.refreshUI();
+    AUTH.profile = null;
+    
+    // 3. Clear localStorage related to user session
+    try {
+      localStorage.removeItem('ar_unlocked');
+      // Defensive: clear Supabase auth tokens
+      Object.keys(localStorage).forEach(k => {
+        if (k.startsWith('sb-') && k.includes('-auth-token')) localStorage.removeItem(k);
+      });
+    } catch (e) { /* silent */ }
+    
+    // 4. INSTANT UI cleanup (sebelum refreshUI async) — anti-delay/residue
+    if (typeof AUTH.cleanupAfterLogout === 'function') AUTH.cleanupAfterLogout();
+    
+    // 5. Refresh UI (will set body class via refreshUI logic juga)
+    await AUTH.refreshUI();
   },
 
   // Mitra Analis
