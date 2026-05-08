@@ -3308,9 +3308,62 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   .admin-card-actions { flex-direction: column; align-items: stretch; }
   .admin-btn { width: 100%; justify-content: center; }
 }
+
+/* ═══ SKELETON LOADER ═══ */
+.admin-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.skel-card {
+  height: 220px;
+  background: linear-gradient(90deg, #f3f4f6 0%, #e5e7eb 50%, #f3f4f6 100%);
+  background-size: 200% 100%;
+  animation: skel-shimmer 1.5s infinite;
+  border-radius: 12px;
+}
+@keyframes skel-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.admin-checking-wrap {
+  text-align: center;
+  padding: 80px 20px;
+}
+.admin-checking-icon {
+  font-size: 56px;
+  margin-bottom: 18px;
+  display: inline-block;
+  animation: admin-pulse 1.5s infinite;
+}
+@keyframes admin-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.95); }
+}
+.admin-checking-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #14532d;
+  margin: 0 0 6px;
+}
+.admin-checking-status {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ═══ ANTI-FLASH: Initial pending state hide BOTH Sign In and User chip ═══ */
+body.auth-pending [data-auth="user"],
+body.auth-pending [data-auth="guest"] {
+  display: none !important;
+}
+body.auth-pending .nav-mobile-auth,
+body.auth-pending .nav-mobile-login {
+  display: none !important;
+}
 </style>
 </head>
-<body>
+<body class="auth-pending">
 <nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
   <div style="max-width:1280px;margin:0 auto;padding:0 18px;display:flex;align-items:center;height:54px;gap:18px;position:relative">
     <a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0">
@@ -3573,8 +3626,10 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
     </div>
     
     <!-- Loading state -->
-    <div id="admin-checking" class="admin-loading">
-      ⏳ Verifikasi akses admin...
+    <div id="admin-checking" class="admin-checking-wrap">
+      <div class="admin-checking-icon">🛡️</div>
+      <div class="admin-checking-title">Memuat Admin Console</div>
+      <div class="admin-checking-status" id="admin-checking-status">Mengecek session...</div>
     </div>
     
     <!-- Admin content -->
@@ -3603,28 +3658,28 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
       <!-- PANE: Pending -->
       <div id="admin-pane-pending" class="admin-pane active">
         <div id="admin-pending-list" class="admin-list">
-          <div class="admin-loading">⏳ Memuat data...</div>
+          <div class="admin-skeleton"><div class="skel-card"></div><div class="skel-card"></div></div>
         </div>
       </div>
       
       <!-- PANE: Mitra Aktif -->
       <div id="admin-pane-mitra" class="admin-pane">
         <div id="admin-mitra-list" class="admin-list">
-          <div class="admin-loading">⏳ Memuat data...</div>
+          <div class="admin-skeleton"><div class="skel-card"></div><div class="skel-card"></div></div>
         </div>
       </div>
       
       <!-- PANE: User Subscriber -->
       <div id="admin-pane-user" class="admin-pane">
         <div id="admin-user-list" class="admin-list">
-          <div class="admin-loading">⏳ Memuat data...</div>
+          <div class="admin-skeleton"><div class="skel-card"></div><div class="skel-card"></div></div>
         </div>
       </div>
       
       <!-- PANE: Statistik -->
       <div id="admin-pane-stats" class="admin-pane">
         <div id="admin-stats-content">
-          <div class="admin-loading">⏳ Memuat statistik...</div>
+          <div class="admin-skeleton"><div class="skel-card"></div></div>
         </div>
       </div>
     </div>
@@ -3819,6 +3874,9 @@ const AUTH = {
 
   // Update semua UI setelah login/logout
   async refreshUI() {
+    // Remove pending class once AUTH has resolved (state determined)
+    document.body.classList.remove('auth-pending');
+
     const user = AUTH.currentUser;
 
     document.body.classList.toggle('auth-state-user', !!user);
@@ -4283,64 +4341,76 @@ const Admin = {
   isReady: false,
   
   async init() {
-    // Wait for AUTH to resolve
-    let attempts = 0;
-    while ((!window.AUTH || typeof window.AUTH.refreshUI !== 'function') && attempts < 30) {
-      await new Promise(r => setTimeout(r, 100));
-      attempts++;
-    }
-    
-    // Wait sedikit untuk AUTH selesai check session
-    await new Promise(r => setTimeout(r, 500));
-    
     const checkingEl = document.getElementById('admin-checking');
     const loginEl = document.getElementById('admin-login-required');
     const notAdminEl = document.getElementById('admin-not-admin');
     const contentEl = document.getElementById('admin-content');
+    const statusEl = document.getElementById('admin-checking-status');
+    const setStatus = msg => { if (statusEl) statusEl.textContent = msg; };
     
-    // 1. Check kalau user logged in
-    if (!window.AUTH || !window.AUTH.currentUser) {
+    // RESET semua state UI dulu — penting saat re-init (misal setelah login)
+    if (checkingEl) checkingEl.style.display = 'block';
+    if (loginEl) loginEl.style.display = 'none';
+    if (notAdminEl) notAdminEl.style.display = 'none';
+    if (contentEl) contentEl.style.display = 'none';
+    setStatus('Mengecek session...');
+    
+    let user = null;
+    let profile = null;
+    
+    // ━━━ AUTHORITATIVE: Get session langsung dari Supabase ━━━
+    setStatus('Mengecek login...');
+    try {
+      const { data } = await window._sb.auth.getSession();
+      user = data?.session?.user;
+      if (user && window.AUTH) window.AUTH.currentUser = user;
+    } catch (e) { console.warn('Session check failed:', e); }
+    
+    if (!user) {
       checkingEl.style.display = 'none';
       loginEl.style.display = 'block';
-      notAdminEl.style.display = 'none';
-      contentEl.style.display = 'none';
       return;
     }
     
-    // 2. Check kalau profile loaded
-    if (!window.AUTH.profile) {
+    // Profile fetch — cache atau fresh
+    profile = window.AUTH?.profile;
+    if (!profile || profile.id !== user.id) {
+      setStatus('Memuat profil...');
       try {
-        await window.AUTH.loadProfile();
-      } catch (e) { console.warn('Profile load:', e); }
+        const profilePromise = window._sb.from('profiles').select('*').eq('id', user.id).maybeSingle();
+        const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 3000));
+        const result = await Promise.race([profilePromise, timeout]);
+        if (result?.data) {
+          profile = result.data;
+          if (window.AUTH) window.AUTH.profile = profile;
+        }
+      } catch (e) { console.warn('Profile fetch failed:', e); }
     }
     
-    // 3. Check kalau is_admin = true
-    const isAdmin = !!(window.AUTH.profile && window.AUTH.profile.is_admin);
+    const isAdmin = !!(profile && profile.is_admin);
     
     if (!isAdmin) {
       checkingEl.style.display = 'none';
-      loginEl.style.display = 'none';
-      contentEl.style.display = 'none';
       notAdminEl.style.display = 'block';
       const emailEl = document.getElementById('admin-not-admin-email');
-      if (emailEl) emailEl.textContent = window.AUTH.currentUser.email || '-';
+      if (emailEl) emailEl.textContent = user.email || '-';
       return;
     }
     
-    // 4. Show admin content
+    // ━━━ SHOW CONTENT ━━━
     checkingEl.style.display = 'none';
     loginEl.style.display = 'none';
     notAdminEl.style.display = 'none';
     contentEl.style.display = 'block';
     
-    // Set name
-    const nama = (window.AUTH.profile.nama_depan || window.AUTH.currentUser.email.split('@')[0]);
+    const nama = (profile.nama_depan || user.email.split('@')[0]);
     document.getElementById('admin-name').textContent = nama;
-    
     Admin.isReady = true;
     
-    // Load all data
-    await Admin.loadAll();
+    Admin.loadPending();
+    setTimeout(() => Admin.loadMitra(), 100);
+    setTimeout(() => Admin.loadUser(), 200);
+    setTimeout(() => Admin.loadStats(), 300);
   },
   
   async loadAll() {
@@ -4932,5 +5002,25 @@ if (document.readyState === 'loading') {
 }
 </script>
 
+
+<script>
+// ━━━ AUTH STATE LISTENER khusus untuk halaman /admin ━━━
+(function() {
+  function attachListener() {
+    if (typeof window._sb === 'undefined' || !window._sb.auth) {
+      setTimeout(attachListener, 200);
+      return;
+    }
+    window._sb.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' || event === 'SIGNED_OUT' || event === 'TOKEN_REFRESHED') {
+        if (window.Admin && typeof window.Admin.init === 'function') {
+          setTimeout(() => window.Admin.init(), 150);
+        }
+      }
+    });
+  }
+  attachListener();
+})();
+</script>
 </body>
 </html>
