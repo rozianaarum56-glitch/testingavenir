@@ -3335,6 +3335,35 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
     <div class="dm-fg"><label>Bio Singkat *</label><textarea id="m-bio" maxlength="300" placeholder="Latar belakang profesional Anda — pengalaman kerja, riset notable, atau keahlian khusus. Maks 300 karakter."></textarea><div class="dm-fg-hint">Akan ditampilkan di byline riset Anda.</div></div>
     <div class="dm-fg"><label>Link Portfolio *</label><input type="url" id="m-portfolio" placeholder="https://linkedin.com/in/... atau Google Drive folder"><div class="dm-fg-hint">Sample riset terdahulu, LinkedIn profile, blog, atau Google Drive folder dengan portfolio.</div></div>
 
+    
+    <div style="margin:24px 0 16px;padding-top:20px;border-top:1px dashed rgba(91,140,62,0.25)">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;color:#5b8c3e;text-transform:uppercase;margin-bottom:6px">📷 Foto Profil (Opsional)</div>
+      <div style="font-size:12.5px;color:#4b5563;line-height:1.6;margin-bottom:14px">Foto Anda akan ditampilkan di byline riset dan halaman publik mitra. Format: JPG/PNG/WEBP, max 2 MB. Disarankan foto persegi (square aspect ratio).</div>
+    </div>
+
+    <div class="dm-fg">
+      <label>Upload Foto</label>
+      <input type="file" id="m-foto-input" accept="image/jpeg,image/png,image/webp,image/jpg" style="display:none">
+      
+      <div id="m-foto-uploader" style="border:2px dashed #d1d5db;border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:all 0.2s;background:#fafaf7" onclick="document.getElementById('m-foto-input').click()" onmouseover="this.style.borderColor='#5b8c3e';this.style.background='#f0fdf4'" onmouseout="this.style.borderColor='#d1d5db';this.style.background='#fafaf7'">
+        <div id="m-foto-empty">
+          <div style="font-size:32px;margin-bottom:6px">📷</div>
+          <div style="font-size:13px;color:#374151;font-weight:600">Klik untuk pilih foto</div>
+          <div style="font-size:11.5px;color:#6b7280;margin-top:4px">Atau skip - kosongkan jika tidak mau upload</div>
+        </div>
+        
+        <div id="m-foto-preview" style="display:none">
+          <img id="m-foto-img" src="" alt="Preview" style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto;display:block;border:3px solid #5b8c3e">
+          <div id="m-foto-name" style="font-size:11.5px;color:#374151;margin-top:8px;font-family:'JetBrains Mono',monospace;word-break:break-all"></div>
+          <div style="font-size:10.5px;color:#6b7280;margin-top:4px">Klik untuk ganti foto</div>
+        </div>
+      </div>
+      
+      <button type="button" id="m-foto-clear" onclick="MitraReg.clearFoto()" style="display:none;margin-top:8px;background:none;border:none;color:#dc2626;font-size:12px;cursor:pointer;text-decoration:underline">✕ Hapus foto</button>
+      
+      <div class="dm-fg-hint">Format: JPG, PNG, atau WEBP. Max 2 MB. Akan ditampilkan di profil publik dan byline riset Anda.</div>
+    </div>
+
     <div style="margin:24px 0 16px;padding-top:20px;border-top:1px dashed rgba(27,107,58,0.25)">
       <div style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;color:#1B6B3A;text-transform:uppercase;margin-bottom:6px">💳 Rekening Pembayaran Bagi Hasil</div>
       <div style="font-size:12.5px;color:#6b7280;line-height:1.5">Rekening bank tempat Anda akan menerima pembayaran bagi hasil 40% dari pool subscription. Data ini bersifat rahasia dan hanya diakses oleh tim keuangan Avenir Research.</div>
@@ -3356,7 +3385,85 @@ const MitraReg = {
     el.textContent = msg;
     el.className = 'dm-err is-' + (type || 'error');
   },
-  async submit() {
+  // ━━━ Foto upload state & handlers ━━━
+  _selectedFoto: null,  // File object yang di-pilih user
+  
+  setupFotoHandler() {
+    const input = document.getElementById('m-foto-input');
+    if (!input) return;
+    
+    input.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      // Validasi MIME type
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        alert('Format foto tidak didukung. Pakai JPG, PNG, atau WEBP.');
+        input.value = '';
+        return;
+      }
+      
+      // Validasi ukuran max 2MB
+      const maxSize = 2 * 1024 * 1024;  // 2 MB
+      if (file.size > maxSize) {
+        alert('Ukuran foto terlalu besar. Maksimal 2 MB. Foto Anda: ' + (file.size / 1024 / 1024).toFixed(2) + ' MB');
+        input.value = '';
+        return;
+      }
+      
+      // Save file ke state
+      MitraReg._selectedFoto = file;
+      
+      // Show preview
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        document.getElementById('m-foto-img').src = ev.target.result;
+        document.getElementById('m-foto-name').textContent = file.name + ' (' + (file.size / 1024).toFixed(0) + ' KB)';
+        document.getElementById('m-foto-empty').style.display = 'none';
+        document.getElementById('m-foto-preview').style.display = 'block';
+        document.getElementById('m-foto-clear').style.display = 'inline-block';
+      };
+      reader.readAsDataURL(file);
+    });
+  },
+  
+  clearFoto() {
+    MitraReg._selectedFoto = null;
+    document.getElementById('m-foto-input').value = '';
+    document.getElementById('m-foto-img').src = '';
+    document.getElementById('m-foto-name').textContent = '';
+    document.getElementById('m-foto-empty').style.display = 'block';
+    document.getElementById('m-foto-preview').style.display = 'none';
+    document.getElementById('m-foto-clear').style.display = 'none';
+  },
+  
+  async _uploadFoto(userId) {
+    const file = MitraReg._selectedFoto;
+    if (!file) return null;
+    
+    try {
+      const ext = file.name.split('.').pop().toLowerCase();
+      const path = userId + '/profile.' + ext;
+      
+      const { data, error } = await window._sb.storage
+        .from('mitra-photos')
+        .upload(path, file, { cacheControl: '3600', upsert: true });
+      
+      if (error) {
+        console.warn('Foto upload error:', error);
+        return null;
+      }
+      
+      const { data: urlData } = window._sb.storage.from('mitra-photos').getPublicUrl(path);
+      return urlData?.publicUrl || null;
+    } catch (e) {
+      console.warn('Foto upload exception:', e);
+      return null;
+    }
+  },
+  
+    async submit() {
     const isLoggedIn = !!(window.AUTH && window.AUTH.currentUser);
     
     const hp = document.getElementById('m-hp').value.trim();
@@ -3392,6 +3499,9 @@ const MitraReg = {
       
       try {
         const userId = window.AUTH.currentUser.id;
+        // Upload foto kalau ada (silent fail kalau error)
+        const fotoUrlA = await MitraReg._uploadFoto(userId);
+        
         const updatePromise = window._sb.from('profiles').update({
           no_hp: hp,
           sertifikasi: sert,
@@ -3401,6 +3511,7 @@ const MitraReg = {
           bank_name: bankName,
           rekening_number: rekNum,
           rekening_holder: rekHolder,
+          foto_url: fotoUrlA,
           is_mitra: false
         }).eq('id', userId);
         const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 5000));
@@ -3458,6 +3569,9 @@ const MitraReg = {
           
           try {
             const userId = signInData.user.id;
+            // Upload foto kalau ada
+            const fotoUrlB = await MitraReg._uploadFoto(userId);
+            
             const updatePromise = window._sb.from('profiles').update({
               no_hp: hp,
               sertifikasi: sert,
@@ -3467,6 +3581,7 @@ const MitraReg = {
               bank_name: bankName,
               rekening_number: rekNum,
               rekening_holder: rekHolder,
+              foto_url: fotoUrlB,
               is_mitra: false  // pending review
             }).eq('id', userId);
             const t = new Promise((_, rej) => setTimeout(() => rej(new Error('update timeout')), 5000));
@@ -3494,6 +3609,9 @@ const MitraReg = {
         
         if (data.user) {
           try {
+            // Upload foto kalau ada (pakai user.id yang baru di-create)
+            const fotoUrlC = await MitraReg._uploadFoto(data.user.id);
+            
             const upsertPromise = window._sb.from('profiles').upsert({
               id: data.user.id,
               nama_depan: fn,
@@ -3505,9 +3623,10 @@ const MitraReg = {
               spesialisasi: spes,
               link_portfolio: portfolio,
               bank_name: bankName,
-            rekening_number: rekNum,
-            rekening_holder: rekHolder,
-            is_user: false,  // mitra-only
+              rekening_number: rekNum,
+              rekening_holder: rekHolder,
+              foto_url: fotoUrlC,
+              is_user: false,  // mitra-only
               is_mitra: false  // pending review
             });
             const t = new Promise((_, rej) => setTimeout(() => rej(new Error('upsert timeout')), 4000));
@@ -3528,6 +3647,11 @@ const MitraReg = {
   }
 };
 document.addEventListener('DOMContentLoaded', () => {
+  // Init foto upload handler
+  if (typeof MitraReg !== 'undefined' && MitraReg.setupFotoHandler) {
+    MitraReg.setupFotoHandler();
+  }
+  
   document.querySelectorAll('input[name="spesialisasi"]').forEach(cb => {
     cb.addEventListener('change', () => {
       const checked = document.querySelectorAll('input[name="spesialisasi"]:checked');
