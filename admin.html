@@ -4764,92 +4764,194 @@ const Admin = {
     const container = document.getElementById('admin-stats-content');
     container.innerHTML = '<div class="admin-loading">⏳ Memuat statistik...</div>';
     
+    // Diagnostic: track apa aja yang sukses/gagal
+    const diag = {
+      profilesOk: false,
+      viewsOk: false,
+      visitsOk: false,
+      missingFields: [],
+      errors: []
+    };
+    
+    let profiles = [];
+    let totalViews = 0;
+    let totalVisits = 0;
+    
+    // ━━━ Try 1: Full select (with subscription_until + trial_started_at) ━━━
     try {
-      const [allProfiles, viewsResult] = await Promise.all([
-        window._sb.from('profiles').select('id, is_user, is_mitra, is_admin, sertifikasi, subscription_until, trial_started_at, created_at'),
-        window._sb.from('research_views').select('research_id', { count: 'exact', head: true }).catch(() => ({ count: 0 }))
-      ]);
+      const { data, error } = await window._sb
+        .from('profiles')
+        .select('id, is_user, is_mitra, is_admin, sertifikasi, subscription_until, trial_started_at, created_at');
       
-      const profiles = allProfiles.data || [];
-      const totalUser = profiles.filter(p => p.is_user).length;
-      const totalMitra = profiles.filter(p => p.is_mitra).length;
-      const totalPending = profiles.filter(p => !p.is_mitra && p.sertifikasi).length;
-      const totalAdmin = profiles.filter(p => p.is_admin).length;
-      
-      // Active subscribers
-      const now = new Date();
-      const activeSubs = profiles.filter(p => p.subscription_until && new Date(p.subscription_until) > now).length;
-      const activeTrials = profiles.filter(p => {
-        if (!p.trial_started_at) return false;
+      if (error) {
+        // Check if column missing
+        if (error.message && (error.message.includes('column') || error.message.includes('does not exist'))) {
+          diag.missingFields.push('subscription_until / trial_started_at');
+          // Retry dengan select minimal
+          const fallback = await window._sb
+            .from('profiles')
+            .select('id, is_user, is_mitra, is_admin, sertifikasi, created_at');
+          if (fallback.error) {
+            diag.errors.push('profiles fallback: ' + fallback.error.message);
+          } else {
+            profiles = fallback.data || [];
+            diag.profilesOk = true;
+          }
+        } else {
+          diag.errors.push('profiles: ' + error.message);
+        }
+      } else {
+        profiles = data || [];
+        diag.profilesOk = true;
+      }
+    } catch (e) {
+      diag.errors.push('profiles exception: ' + (e.message || 'unknown'));
+    }
+    
+    // ━━━ Try 2: research_views count ━━━
+    try {
+      const { count, error } = await window._sb
+        .from('research_views')
+        .select('*', { count: 'exact', head: true });
+      if (error) {
+        diag.errors.push('research_views: ' + error.message);
+      } else {
+        totalViews = count || 0;
+        diag.viewsOk = true;
+      }
+    } catch (e) {
+      diag.errors.push('research_views exception: ' + (e.message || 'unknown'));
+    }
+    
+    // ━━━ Try 3: page_visits count (optional) ━━━
+    try {
+      const { count, error } = await window._sb
+        .from('page_visits')
+        .select('*', { count: 'exact', head: true });
+      if (!error) {
+        totalVisits = count || 0;
+        diag.visitsOk = true;
+      } else if (error.message && !error.message.includes('does not exist')) {
+        diag.errors.push('page_visits: ' + error.message);
+      } else {
+        diag.missingFields.push('page_visits table');
+      }
+    } catch (e) { /* silent — page_visits is optional */ }
+    
+    // ━━━ Compute stats from profiles ━━━
+    const totalUser = profiles.filter(p => p.is_user).length;
+    const totalMitra = profiles.filter(p => p.is_mitra).length;
+    const totalPending = profiles.filter(p => !p.is_mitra && p.sertifikasi).length;
+    const totalAdmin = profiles.filter(p => p.is_admin).length;
+    const totalAccounts = profiles.length;
+    
+    const now = new Date();
+    
+    // Active subscribers — gracefully handle missing field
+    const activeSubs = profiles.filter(p => {
+      if (!p.subscription_until) return false;
+      try { return new Date(p.subscription_until) > now; } catch (e) { return false; }
+    }).length;
+    
+    const activeTrials = profiles.filter(p => {
+      if (!p.trial_started_at) return false;
+      try {
         const trialEnd = new Date(new Date(p.trial_started_at).getTime() + 60*24*60*60*1000);
         return trialEnd > now;
-      }).length;
-      
-      // Daftar baru bulan ini
-      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-      const newThisMonth = profiles.filter(p => p.created_at && new Date(p.created_at) >= monthStart).length;
-      
-      const totalViews = viewsResult.count || 0;
-      
-      container.innerHTML = `
-        <div class="admin-stats-grid">
-          <div class="admin-stat-card">
-            <div class="admin-stat-label">Total User Subscriber</div>
-            <div class="admin-stat-value">${totalUser}</div>
-            <div class="admin-stat-sub">Akun aktif sebagai pengguna</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-label">Mitra Aktif</div>
-            <div class="admin-stat-value">${totalMitra}</div>
-            <div class="admin-stat-sub">Mitra terverifikasi</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-label">Pending Mitra</div>
-            <div class="admin-stat-value" style="color:#854d0e">${totalPending}</div>
-            <div class="admin-stat-sub">Menunggu review</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-label">Admin</div>
-            <div class="admin-stat-value">${totalAdmin}</div>
-            <div class="admin-stat-sub">Akses admin console</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-label">Trial Aktif</div>
-            <div class="admin-stat-value" style="color:#1e40af">${activeTrials}</div>
-            <div class="admin-stat-sub">User dalam masa trial 60 hari</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-label">Subscriber Berbayar</div>
-            <div class="admin-stat-value" style="color:#15803d">${activeSubs}</div>
-            <div class="admin-stat-sub">Subscription belum expired</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-label">Daftar Bulan Ini</div>
-            <div class="admin-stat-value">${newThisMonth}</div>
-            <div class="admin-stat-sub">${now.toLocaleString('id-ID', { month: 'long', year: 'numeric' })}</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-label">Total Research Views</div>
-            <div class="admin-stat-value">${totalViews}</div>
-            <div class="admin-stat-sub">Akumulasi sepanjang waktu</div>
-          </div>
-        </div>
-        
-        <div style="background:#fafaf7;padding:20px 24px;border-radius:12px;border:1px solid #e5e7eb">
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#14532d;margin:0 0 12px">📊 Quick Insights</h3>
-          <ul style="font-size:13.5px;line-height:1.8;color:#374151;margin:0;padding-left:20px">
-            <li><strong>${totalMitra}</strong> mitra aktif sedang berproduksi riset</li>
-            <li><strong>${totalPending}</strong> aplikasi mitra menunggu review (cek tab Pending)</li>
-            <li><strong>${activeTrials}</strong> user masih dalam masa trial 60 hari gratis</li>
-            <li><strong>${activeSubs}</strong> subscriber berbayar aktif</li>
-            <li><strong>${newThisMonth}</strong> akun baru terdaftar bulan ${now.toLocaleString('id-ID', { month: 'long' })}</li>
-          </ul>
+      } catch (e) { return false; }
+    }).length;
+    
+    // Daftar baru bulan ini
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    const newThisMonth = profiles.filter(p => {
+      if (!p.created_at) return false;
+      try { return new Date(p.created_at) >= monthStart; } catch (e) { return false; }
+    }).length;
+    
+    // ━━━ Render stats (always render, even if some sources failed) ━━━
+    const monthName = now.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
+    const monthShort = now.toLocaleString('id-ID', { month: 'long' });
+    
+    let warningBanner = '';
+    if (diag.missingFields.length > 0 || diag.errors.length > 0) {
+      warningBanner = `
+        <div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:10px;padding:14px 18px;margin-bottom:18px;font-size:13px;color:#854d0e">
+          <strong>⚠️ Sebagian data tidak tersedia.</strong>
+          ${diag.missingFields.length > 0 ? '<br>Field/table missing: <code>' + diag.missingFields.join(', ') + '</code>' : ''}
+          ${diag.errors.length > 0 ? '<br>Errors: <code>' + diag.errors.map(Admin.escape).join('; ') + '</code>' : ''}
+          <br><span style="font-size:11.5px;opacity:.85">Beberapa angka mungkin 0 atau tidak akurat. Cek setup Supabase: tabel <code>profiles</code> harus punya kolom <code>subscription_until</code> dan <code>trial_started_at</code>; tabel <code>research_views</code> dan <code>page_visits</code> harus exist dengan RLS allow read untuk admin.</span>
         </div>
       `;
-    } catch (e) {
-      console.error('Stats error:', e);
-      container.innerHTML = `<div class="admin-empty"><div class="admin-empty-icon">⚠️</div><div class="admin-empty-title">Error Memuat Statistik</div><div class="admin-empty-sub">${Admin.escape(e.message || '')}</div></div>`;
     }
+    
+    container.innerHTML = warningBanner + `
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Total Akun</div>
+          <div class="admin-stat-value">${totalAccounts}</div>
+          <div class="admin-stat-sub">Semua profil terdaftar</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Total User Subscriber</div>
+          <div class="admin-stat-value">${totalUser}</div>
+          <div class="admin-stat-sub">Akun aktif sebagai pengguna</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Mitra Aktif</div>
+          <div class="admin-stat-value">${totalMitra}</div>
+          <div class="admin-stat-sub">Mitra terverifikasi</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Pending Mitra</div>
+          <div class="admin-stat-value" style="color:#854d0e">${totalPending}</div>
+          <div class="admin-stat-sub">Menunggu review</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Admin</div>
+          <div class="admin-stat-value">${totalAdmin}</div>
+          <div class="admin-stat-sub">Akses admin console</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Trial Aktif</div>
+          <div class="admin-stat-value" style="color:#1e40af">${activeTrials}</div>
+          <div class="admin-stat-sub">User dalam masa trial 60 hari</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Subscriber Berbayar</div>
+          <div class="admin-stat-value" style="color:#15803d">${activeSubs}</div>
+          <div class="admin-stat-sub">Subscription belum expired</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Daftar Bulan Ini</div>
+          <div class="admin-stat-value">${newThisMonth}</div>
+          <div class="admin-stat-sub">${monthName}</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Total Research Views</div>
+          <div class="admin-stat-value">${totalViews}</div>
+          <div class="admin-stat-sub">Akumulasi sepanjang waktu</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-label">Total Page Visits</div>
+          <div class="admin-stat-value">${totalVisits}</div>
+          <div class="admin-stat-sub">Akumulasi tracking visit</div>
+        </div>
+      </div>
+      
+      <div style="background:#fafaf7;padding:20px 24px;border-radius:12px;border:1px solid #e5e7eb">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#14532d;margin:0 0 12px">📊 Quick Insights</h3>
+        <ul style="font-size:13.5px;line-height:1.8;color:#374151;margin:0;padding-left:20px">
+          <li><strong>${totalAccounts}</strong> total akun terdaftar di platform</li>
+          <li><strong>${totalMitra}</strong> mitra aktif sedang berproduksi riset</li>
+          <li><strong>${totalPending}</strong> aplikasi mitra menunggu review (cek tab Pending)</li>
+          <li><strong>${activeTrials}</strong> user masih dalam masa trial 60 hari gratis</li>
+          <li><strong>${activeSubs}</strong> subscriber berbayar aktif</li>
+          <li><strong>${newThisMonth}</strong> akun baru terdaftar bulan ${monthShort}</li>
+          <li><strong>${totalViews}</strong> total research views sepanjang waktu</li>
+          <li><strong>${totalVisits}</strong> total page visits ter-track</li>
+        </ul>
+      </div>
+    `;
   },
   
   // ────────── ACTIONS ──────────
