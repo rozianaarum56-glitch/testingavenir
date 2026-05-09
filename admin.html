@@ -3361,6 +3361,161 @@ body.auth-pending .nav-mobile-auth,
 body.auth-pending .nav-mobile-login {
   display: none !important;
 }
+
+/* ═══ ADMIN CHARTS ═══ */
+.admin-charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 24px;
+}
+.admin-chart-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+}
+.admin-chart-header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 14px;
+}
+.admin-chart-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #14532d;
+  margin: 0 0 4px;
+}
+.admin-chart-sub {
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.admin-bar-chart {
+  display: flex;
+  align-items: flex-end;
+  height: 200px;
+  gap: 4px;
+  padding: 0 8px;
+}
+.admin-bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  flex: 1;
+}
+.admin-bar-value {
+  font-size: 11px;
+  font-weight: 700;
+  color: #4b5563;
+  margin-bottom: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.admin-bar-fill-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  background: linear-gradient(180deg, #fafaf7 0%, transparent 100%);
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  padding: 2px;
+}
+.admin-bar-fill {
+  width: 100%;
+  background: #1B6B3A;
+  border-radius: 4px 4px 0 0;
+  min-height: 2px;
+  transition: height 0.5s ease;
+}
+.admin-bar-label {
+  font-size: 10.5px;
+  color: #6b7280;
+  margin-top: 8px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Top research list */
+.admin-top-research {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.admin-top-research-row {
+  display: grid;
+  grid-template-columns: 36px 1fr 200px 60px;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f9fafb;
+}
+.admin-top-research-rank {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1B6B3A;
+}
+.admin-top-research-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #4b5563;
+  word-break: break-all;
+}
+.admin-top-research-bar-wrap {
+  height: 8px;
+  background: #f3f4f6;
+  border-radius: 50px;
+  overflow: hidden;
+}
+.admin-top-research-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #1B6B3A 0%, #5B8C3E 100%);
+  border-radius: 50px;
+}
+.admin-top-research-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #14532d;
+  text-align: right;
+}
+
+/* Insights box */
+.admin-insights {
+  background: linear-gradient(135deg, #fafaf7 0%, #ffffff 100%);
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin-top: 20px;
+}
+.admin-insights-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #14532d;
+  margin: 0 0 12px;
+}
+.admin-insights-list {
+  font-size: 13.5px;
+  line-height: 1.9;
+  color: #374151;
+  margin: 0;
+  padding-left: 20px;
+}
+
+@media (max-width: 720px) {
+  .admin-charts-row { grid-template-columns: 1fr; }
+  .admin-bar-chart { height: 150px; }
+  .admin-bar-value, .admin-bar-label { font-size: 9.5px; }
+  .admin-top-research-row { grid-template-columns: 30px 1fr 60px; gap: 8px; }
+  .admin-top-research-bar-wrap { display: none; }
+}
 </style>
 </head>
 <body class="auth-pending">
@@ -4727,45 +4882,137 @@ const Admin = {
   // ────────── STATISTIK ──────────
   async loadStats() {
     const container = document.getElementById('admin-stats-content');
-    container.innerHTML = '<div class="admin-loading">⏳ Memuat statistik...</div>';
+    container.innerHTML = `
+      <div class="admin-skeleton">
+        <div class="skel-card" style="height:120px"></div>
+        <div class="skel-card" style="height:280px"></div>
+      </div>
+    `;
     
     try {
-      const [allProfiles, viewsResult] = await Promise.all([
+      // ━━━ Parallel fetch all stats ━━━
+      const now = new Date();
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+      const day30Ago = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString();
+      const todayStr = new Date().toISOString().split('T')[0];
+      
+      const queries = await Promise.all([
+        // 0: All profiles (sekali fetch, multiple stats)
         window._sb.from('profiles').select('id, is_user, is_mitra, is_admin, sertifikasi, subscription_until, trial_started_at, created_at'),
-        window._sb.from('research_views').select('research_id', { count: 'exact', head: true }).catch(() => ({ count: 0 }))
+        
+        // 1: Total page visits (count exact)
+        window._sb.from('page_visits').select('id', { count: 'exact', head: true }).then(r => r).catch(() => ({ count: 0 })),
+        
+        // 2: Visits this month
+        window._sb.from('page_visits').select('id', { count: 'exact', head: true })
+          .gte('visited_at', monthStart).then(r => r).catch(() => ({ count: 0 })),
+        
+        // 3: Visits today
+        window._sb.from('page_visits').select('id', { count: 'exact', head: true })
+          .gte('visited_at', todayStr).then(r => r).catch(() => ({ count: 0 })),
+        
+        // 4: Visits 30 hari (untuk grafik harian + top pages)
+        window._sb.from('page_visits').select('page_path, visited_at, user_id, anonymous_id')
+          .gte('visited_at', day30Ago)
+          .order('visited_at', { ascending: false }).then(r => r).catch(() => ({ data: [] })),
+        
+        // 5: Total research views (existing)
+        window._sb.from('research_views').select('id', { count: 'exact', head: true }).then(r => r).catch(() => ({ count: 0 })),
       ]);
       
-      const profiles = allProfiles.data || [];
+      const profiles = queries[0].data || [];
+      const totalVisits = queries[1].count || 0;
+      const visitsThisMonth = queries[2].count || 0;
+      const visitsToday = queries[3].count || 0;
+      const recentVisits = queries[4].data || [];
+      const totalResearchViews = queries[5].count || 0;
+      
+      // Profile stats
+      const totalProfiles = profiles.length;
       const totalUser = profiles.filter(p => p.is_user).length;
       const totalMitra = profiles.filter(p => p.is_mitra).length;
       const totalPending = profiles.filter(p => !p.is_mitra && p.sertifikasi).length;
       const totalAdmin = profiles.filter(p => p.is_admin).length;
       
-      // Active subscribers
-      const now = new Date();
+      // Subscription stats
       const activeSubs = profiles.filter(p => p.subscription_until && new Date(p.subscription_until) > now).length;
       const activeTrials = profiles.filter(p => {
         if (!p.trial_started_at) return false;
         const trialEnd = new Date(new Date(p.trial_started_at).getTime() + 60*24*60*60*1000);
         return trialEnd > now;
       }).length;
+      const newProfilesThisMonth = profiles.filter(p => p.created_at && new Date(p.created_at) >= new Date(monthStart)).length;
       
-      // Daftar baru bulan ini
-      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-      const newThisMonth = profiles.filter(p => p.created_at && new Date(p.created_at) >= monthStart).length;
+      // ━━━ Compute daily visits (last 30 days) ━━━
+      const dailyMap = {};
+      for (let i = 29; i >= 0; i--) {
+        const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+        const key = d.toISOString().split('T')[0];
+        dailyMap[key] = 0;
+      }
+      const uniqueVisitorsByDay = {};
+      recentVisits.forEach(v => {
+        const day = new Date(v.visited_at).toISOString().split('T')[0];
+        if (dailyMap[day] !== undefined) dailyMap[day]++;
+        const visitorKey = v.user_id || v.anonymous_id;
+        if (visitorKey && uniqueVisitorsByDay[day] === undefined) uniqueVisitorsByDay[day] = new Set();
+        if (uniqueVisitorsByDay[day] && visitorKey) uniqueVisitorsByDay[day].add(visitorKey);
+      });
       
-      const totalViews = viewsResult.count || 0;
+      // Unique visitors total (30 hari)
+      const allUniqueVisitors = new Set();
+      recentVisits.forEach(v => {
+        const k = v.user_id || v.anonymous_id;
+        if (k) allUniqueVisitors.add(k);
+      });
+      const uniqueVisitorCount30d = allUniqueVisitors.size;
+      
+      // ━━━ Top pages (last 30 days) ━━━
+      const pageCount = {};
+      recentVisits.forEach(v => {
+        pageCount[v.page_path] = (pageCount[v.page_path] || 0) + 1;
+      });
+      const topPages = Object.entries(pageCount)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+      
+      // ━━━ Render ━━━
+      const dailyData = Object.entries(dailyMap).map(([date, count]) => ({ date, count }));
       
       container.innerHTML = `
+        <!-- ━━━ STAT CARDS ━━━ -->
         <div class="admin-stats-grid">
           <div class="admin-stat-card">
-            <div class="admin-stat-label">Total User Subscriber</div>
-            <div class="admin-stat-value">${totalUser}</div>
-            <div class="admin-stat-sub">Akun aktif sebagai pengguna</div>
+            <div class="admin-stat-label">Total Visit Web</div>
+            <div class="admin-stat-value">${Admin.formatNum(totalVisits)}</div>
+            <div class="admin-stat-sub">Akumulasi sepanjang waktu</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-label">Visit Hari Ini</div>
+            <div class="admin-stat-value" style="color:#1e40af">${Admin.formatNum(visitsToday)}</div>
+            <div class="admin-stat-sub">${new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'short' })}</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-label">Visit Bulan Ini</div>
+            <div class="admin-stat-value" style="color:#15803d">${Admin.formatNum(visitsThisMonth)}</div>
+            <div class="admin-stat-sub">${new Date().toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-label">Unique Visitors (30 hari)</div>
+            <div class="admin-stat-value" style="color:#7c3aed">${Admin.formatNum(uniqueVisitorCount30d)}</div>
+            <div class="admin-stat-sub">User + guest unik</div>
+          </div>
+        </div>
+        
+        <div class="admin-stats-grid" style="margin-bottom:24px">
+          <div class="admin-stat-card">
+            <div class="admin-stat-label">Total Profil Terdaftar</div>
+            <div class="admin-stat-value">${totalProfiles}</div>
+            <div class="admin-stat-sub">+${newProfilesThisMonth} bulan ini</div>
           </div>
           <div class="admin-stat-card">
             <div class="admin-stat-label">Mitra Aktif</div>
-            <div class="admin-stat-value">${totalMitra}</div>
+            <div class="admin-stat-value" style="color:#15803d">${totalMitra}</div>
             <div class="admin-stat-sub">Mitra terverifikasi</div>
           </div>
           <div class="admin-stat-card">
@@ -4774,40 +5021,48 @@ const Admin = {
             <div class="admin-stat-sub">Menunggu review</div>
           </div>
           <div class="admin-stat-card">
-            <div class="admin-stat-label">Admin</div>
-            <div class="admin-stat-value">${totalAdmin}</div>
-            <div class="admin-stat-sub">Akses admin console</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-label">Trial Aktif</div>
-            <div class="admin-stat-value" style="color:#1e40af">${activeTrials}</div>
-            <div class="admin-stat-sub">User dalam masa trial 60 hari</div>
-          </div>
-          <div class="admin-stat-card">
             <div class="admin-stat-label">Subscriber Berbayar</div>
             <div class="admin-stat-value" style="color:#15803d">${activeSubs}</div>
-            <div class="admin-stat-sub">Subscription belum expired</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-label">Daftar Bulan Ini</div>
-            <div class="admin-stat-value">${newThisMonth}</div>
-            <div class="admin-stat-sub">${now.toLocaleString('id-ID', { month: 'long', year: 'numeric' })}</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="admin-stat-label">Total Research Views</div>
-            <div class="admin-stat-value">${totalViews}</div>
-            <div class="admin-stat-sub">Akumulasi sepanjang waktu</div>
+            <div class="admin-stat-sub">${activeTrials} masih trial</div>
           </div>
         </div>
         
-        <div style="background:#fafaf7;padding:20px 24px;border-radius:12px;border:1px solid #e5e7eb">
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#14532d;margin:0 0 12px">📊 Quick Insights</h3>
-          <ul style="font-size:13.5px;line-height:1.8;color:#374151;margin:0;padding-left:20px">
-            <li><strong>${totalMitra}</strong> mitra aktif sedang berproduksi riset</li>
-            <li><strong>${totalPending}</strong> aplikasi mitra menunggu review (cek tab Pending)</li>
-            <li><strong>${activeTrials}</strong> user masih dalam masa trial 60 hari gratis</li>
-            <li><strong>${activeSubs}</strong> subscriber berbayar aktif</li>
-            <li><strong>${newThisMonth}</strong> akun baru terdaftar bulan ${now.toLocaleString('id-ID', { month: 'long' })}</li>
+        <!-- ━━━ LINE CHART: VISITS DAILY 30 DAYS ━━━ -->
+        <div class="admin-chart-card">
+          <h3 class="admin-chart-title">📈 Trafik Harian (30 Hari Terakhir)</h3>
+          <div class="admin-chart-sub">Visits per hari ke website</div>
+          ${Admin.renderLineChart(dailyData)}
+        </div>
+        
+        <!-- ━━━ BAR CHART: TOP 10 PAGES ━━━ -->
+        <div class="admin-chart-card">
+          <h3 class="admin-chart-title">🏆 Top 10 Halaman Populer (30 Hari)</h3>
+          <div class="admin-chart-sub">Halaman paling banyak dikunjungi</div>
+          ${topPages.length > 0 ? Admin.renderBarChart(topPages) : '<div style="padding:32px;text-align:center;color:#9ca3af;font-size:13px">Belum ada data — visit akan tercatat setelah halaman lain diakses</div>'}
+        </div>
+        
+        <!-- ━━━ DONUT CHART: USER TYPE ━━━ -->
+        <div class="admin-chart-card">
+          <h3 class="admin-chart-title">👥 Komposisi Profil Terdaftar</h3>
+          <div class="admin-chart-sub">Distribusi user, mitra, dan admin</div>
+          ${Admin.renderDonutChart([
+            { label: 'User Reguler', value: profiles.filter(p => p.is_user && !p.is_mitra && !p.is_admin).length, color: '#3b82f6' },
+            { label: 'Mitra Aktif', value: totalMitra, color: '#15803d' },
+            { label: 'Pending Mitra', value: totalPending, color: '#d97706' },
+            { label: 'Admin', value: totalAdmin, color: '#7c3aed' }
+          ])}
+        </div>
+        
+        <!-- ━━━ QUICK INSIGHTS ━━━ -->
+        <div class="admin-insights-box">
+          <h3 class="admin-insights-title">💡 Quick Insights</h3>
+          <ul>
+            <li><strong>${Admin.formatNum(totalVisits)}</strong> total visit ke website Avenir Research</li>
+            <li><strong>${Admin.formatNum(uniqueVisitorCount30d)}</strong> visitors unik dalam 30 hari terakhir</li>
+            <li><strong>${totalMitra}</strong> mitra aktif sedang berproduksi riset, <strong>${totalPending}</strong> pending review</li>
+            <li><strong>${activeTrials}</strong> user dalam masa trial 60 hari, <strong>${activeSubs}</strong> sudah subscriber berbayar</li>
+            <li><strong>${newProfilesThisMonth}</strong> akun baru daftar bulan ${now.toLocaleString('id-ID', { month: 'long' })}</li>
+            <li><strong>${Admin.formatNum(totalResearchViews)}</strong> total research views (riset spesifik)</li>
           </ul>
         </div>
       `;
@@ -4817,172 +5072,136 @@ const Admin = {
     }
   },
   
-  // ────────── ACTIONS ──────────
-  async approve(id) {
-    if (!confirm('Approve sebagai Mitra Avenir Research? Mitra ini akan langsung muncul di halaman publik dan punya akses dashboard mitra.')) return;
-    
-    try {
-      const { error } = await window._sb.from('profiles').update({ is_mitra: true }).eq('id', id);
-      if (error) throw error;
-      
-      alert('✅ Berhasil approved sebagai mitra. Refresh halaman /mitra untuk lihat perubahan.');
-      await Admin.loadAll();
-    } catch (e) {
-      alert('❌ Gagal approve: ' + (e.message || 'unknown error'));
-    }
+  // ━━━ HELPERS ━━━
+  formatNum(n) {
+    if (n == null || isNaN(n)) return '0';
+    if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+    if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+    return n.toLocaleString('id-ID');
   },
   
-  async reject(id) {
-    if (!confirm('Reject aplikasi mitra ini? Data mitra akan dihapus tapi akun tetap aktif sebagai user biasa. Pastikan Anda sudah memberi notifikasi ke applicant.')) return;
-    
-    try {
-      const { error } = await window._sb.from('profiles').update({
-        sertifikasi: null,
-        bio: null,
-        spesialisasi: null,
-        link_portfolio: null,
-        no_hp: null,
-        bank_name: null,
-        rekening_number: null,
-        rekening_holder: null,
-        is_user: true  // ensure user access
-      }).eq('id', id);
-      if (error) throw error;
-      
-      alert('✅ Aplikasi mitra di-reject. Akun tetap aktif sebagai user biasa.');
-      await Admin.loadAll();
-    } catch (e) {
-      alert('❌ Gagal reject: ' + (e.message || 'unknown'));
+  renderLineChart(data) {
+    if (!data || data.length === 0) {
+      return '<div style="padding:32px;text-align:center;color:#9ca3af;font-size:13px">Belum ada data trafik</div>';
     }
+    const W = 800, H = 240, P = { t: 20, r: 20, b: 40, l: 50 };
+    const cw = W - P.l - P.r;
+    const ch = H - P.t - P.b;
+    const maxVal = Math.max(...data.map(d => d.count), 5);
+    const niceMax = Math.ceil(maxVal * 1.2);
+    
+    // Points
+    const points = data.map((d, i) => {
+      const x = P.l + (i / (data.length - 1)) * cw;
+      const y = P.t + ch - (d.count / niceMax) * ch;
+      return { x, y, ...d };
+    });
+    
+    const pathD = points.map((p, i) => (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1)).join(' ');
+    const areaD = pathD + ' L' + points[points.length-1].x.toFixed(1) + ',' + (P.t + ch) + ' L' + points[0].x.toFixed(1) + ',' + (P.t + ch) + ' Z';
+    
+    // Y axis ticks (5 levels)
+    const yTicks = [];
+    for (let i = 0; i <= 4; i++) {
+      const v = (niceMax / 4) * i;
+      const y = P.t + ch - (v / niceMax) * ch;
+      yTicks.push({ y, val: Math.round(v) });
+    }
+    
+    // X axis labels (every 5 days)
+    const xLabels = data.filter((_, i) => i % 5 === 0 || i === data.length - 1);
+    
+    return `
+      <svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;max-height:280px;font-family:'Inter',sans-serif">
+        <defs>
+          <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1B6B3A" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#1B6B3A" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        ${yTicks.map(t => `
+          <line x1="${P.l}" y1="${t.y}" x2="${W - P.r}" y2="${t.y}" stroke="#e5e7eb" stroke-width="1"/>
+          <text x="${P.l - 8}" y="${t.y + 4}" font-size="10" fill="#9ca3af" text-anchor="end">${t.val}</text>
+        `).join('')}
+        <path d="${areaD}" fill="url(#lineGrad)"/>
+        <path d="${pathD}" fill="none" stroke="#1B6B3A" stroke-width="2" stroke-linejoin="round"/>
+        ${points.map(p => `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3" fill="#1B6B3A"/>`).join('')}
+        ${xLabels.map((d, i) => {
+          const idx = data.indexOf(d);
+          const x = P.l + (idx / (data.length - 1)) * cw;
+          const dt = new Date(d.date);
+          return `<text x="${x.toFixed(1)}" y="${H - P.b + 18}" font-size="10" fill="#6b7280" text-anchor="middle">${dt.getDate()}/${dt.getMonth()+1}</text>`;
+        }).join('')}
+      </svg>
+    `;
   },
   
-  async cabutMitra(id, nama) {
-    if (!confirm(`Cabut status Mitra dari "${nama}"? Profilnya tidak akan muncul lagi di halaman publik /mitra.\n\nData riset historikal akan tetap aman. Akun mereka tetap aktif (tidak terhapus).`)) return;
+  renderBarChart(data) {
+    if (!data || data.length === 0) return '';
+    const W = 800, H = 320, P = { t: 20, r: 80, b: 30, l: 200 };
+    const ch = H - P.t - P.b;
+    const cw = W - P.l - P.r;
+    const maxVal = Math.max(...data.map(d => d[1]), 1);
+    const barH = Math.min(24, (ch - data.length * 6) / data.length);
     
-    try {
-      const { error } = await window._sb.from('profiles').update({ is_mitra: false }).eq('id', id);
-      if (error) throw error;
-      
-      alert('✅ Status mitra dicabut.');
-      await Admin.loadAll();
-    } catch (e) {
-      alert('❌ Gagal: ' + (e.message || 'unknown'));
-    }
+    return `
+      <svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;max-height:360px;font-family:'Inter',sans-serif">
+        ${data.map((d, i) => {
+          const y = P.t + i * (barH + 6);
+          const w = (d[1] / maxVal) * cw;
+          const path = d[0].length > 28 ? d[0].substring(0, 25) + '...' : d[0];
+          return `
+            <text x="${P.l - 8}" y="${y + barH/2 + 4}" font-size="11" fill="#374151" text-anchor="end" font-family="'JetBrains Mono', monospace">${Admin.escape(path)}</text>
+            <rect x="${P.l}" y="${y}" width="${w.toFixed(1)}" height="${barH}" fill="#1B6B3A" rx="3"/>
+            <text x="${P.l + w + 6}" y="${y + barH/2 + 4}" font-size="11" fill="#14532d" font-weight="700">${Admin.formatNum(d[1])}</text>
+          `;
+        }).join('')}
+      </svg>
+    `;
   },
   
-  async deleteUser(id, nama) {
-    const confirm1 = prompt(`⚠️ HAPUS PERMANEN akun "${nama}"?\n\nAksi ini akan menghapus profil di tabel profiles.\nData TIDAK BISA DIKEMBALIKAN.\n\nUntuk konfirmasi, ketik HAPUS (huruf kapital):`);
-    if (confirm1 !== 'HAPUS') {
-      alert('Dibatalkan.');
-      return;
+  renderDonutChart(items) {
+    const valid = items.filter(i => i.value > 0);
+    if (valid.length === 0) {
+      return '<div style="padding:32px;text-align:center;color:#9ca3af;font-size:13px">Belum ada data profil</div>';
     }
+    const total = valid.reduce((s, i) => s + i.value, 0);
+    const cx = 110, cy = 110, r = 80, stroke = 30;
+    let cumAngle = -Math.PI / 2;
     
-    try {
-      const { error } = await window._sb.from('profiles').delete().eq('id', id);
-      if (error) throw error;
-      
-      alert('✅ Profile dihapus dari tabel profiles.\n\n⚠️ Catatan: akun di auth.users masih ada. Untuk hapus total (sehingga email bisa register ulang), buka Supabase Dashboard → Authentication → Users → search ID → Delete user.');
-      await Admin.loadAll();
-    } catch (e) {
-      alert('❌ Gagal: ' + (e.message || 'unknown'));
-    }
-  },
-  
-  async extendSub(id, nama) {
-    const months = prompt(`Extend subscription untuk "${nama}"?\n\nMasukkan jumlah bulan (1, 3, 6, atau 12):`, '1');
-    if (!months) return;
+    const segments = valid.map(item => {
+      const angle = (item.value / total) * 2 * Math.PI;
+      const x1 = cx + r * Math.cos(cumAngle);
+      const y1 = cy + r * Math.sin(cumAngle);
+      const x2 = cx + r * Math.cos(cumAngle + angle);
+      const y2 = cy + r * Math.sin(cumAngle + angle);
+      const largeArc = angle > Math.PI ? 1 : 0;
+      const path = `M ${cx},${cy} L ${x1.toFixed(2)},${y1.toFixed(2)} A ${r},${r} 0 ${largeArc} 1 ${x2.toFixed(2)},${y2.toFixed(2)} Z`;
+      cumAngle += angle;
+      return { ...item, path, pct: ((item.value / total) * 100).toFixed(1) };
+    });
     
-    const m = parseInt(months);
-    if (isNaN(m) || m < 1 || m > 24) {
-      alert('Jumlah bulan tidak valid. Masukkan angka 1-24.');
-      return;
-    }
-    
-    try {
-      // Get current subscription_until
-      const { data: profile } = await window._sb.from('profiles').select('subscription_until').eq('id', id).single();
-      
-      const now = new Date();
-      const startDate = (profile?.subscription_until && new Date(profile.subscription_until) > now)
-        ? new Date(profile.subscription_until)
-        : now;
-      const newEnd = new Date(startDate);
-      newEnd.setMonth(newEnd.getMonth() + m);
-      
-      const { error } = await window._sb.from('profiles').update({
-        subscription_until: newEnd.toISOString()
-      }).eq('id', id);
-      
-      if (error) throw error;
-      
-      alert(`✅ Subscription diperpanjang ${m} bulan. Berakhir: ${newEnd.toLocaleDateString('id-ID')}`);
-      await Admin.loadUser();
-      await Admin.loadStats();
-    } catch (e) {
-      alert('❌ Gagal: ' + (e.message || 'unknown'));
-    }
-  },
-  
-  // ────────── EDIT MODAL ──────────
-  openEdit(profile) {
-    document.getElementById('edit-id').value = profile.id;
-    document.getElementById('edit-nama-depan').value = profile.nama_depan || '';
-    document.getElementById('edit-nama-belakang').value = profile.nama_belakang || '';
-    document.getElementById('edit-sertifikasi').value = profile.sertifikasi || '';
-    document.getElementById('edit-spesialisasi').value = Array.isArray(profile.spesialisasi) ? profile.spesialisasi.join(', ') : '';
-    document.getElementById('edit-bio').value = profile.bio || '';
-    document.getElementById('edit-portfolio').value = profile.link_portfolio || '';
-    document.getElementById('edit-hp').value = profile.no_hp || '';
-    document.getElementById('edit-foto').value = profile.foto_url || '';
-    document.getElementById('edit-msg').style.display = 'none';
-    document.getElementById('admin-edit-modal').classList.add('open');
-  },
-  
-  closeEdit() {
-    document.getElementById('admin-edit-modal').classList.remove('open');
-  },
-  
-  async saveEdit() {
-    const id = document.getElementById('edit-id').value;
-    const btn = document.getElementById('edit-save-btn');
-    const msgEl = document.getElementById('edit-msg');
-    
-    const updates = {
-      nama_depan: document.getElementById('edit-nama-depan').value.trim() || null,
-      nama_belakang: document.getElementById('edit-nama-belakang').value.trim() || null,
-      sertifikasi: document.getElementById('edit-sertifikasi').value.trim() || null,
-      spesialisasi: document.getElementById('edit-spesialisasi').value.split(',').map(s => s.trim()).filter(Boolean),
-      bio: document.getElementById('edit-bio').value.trim() || null,
-      link_portfolio: document.getElementById('edit-portfolio').value.trim() || null,
-      no_hp: document.getElementById('edit-hp').value.trim() || null,
-      foto_url: document.getElementById('edit-foto').value.trim() || null
-    };
-    
-    btn.disabled = true;
-    btn.textContent = 'Menyimpan...';
-    
-    try {
-      const { error } = await window._sb.from('profiles').update(updates).eq('id', id);
-      if (error) throw error;
-      
-      msgEl.style.display = 'block';
-      msgEl.style.background = '#dcfce7';
-      msgEl.style.color = '#166534';
-      msgEl.textContent = '✅ Berhasil disimpan!';
-      
-      setTimeout(() => {
-        Admin.closeEdit();
-        Admin.loadAll();
-      }, 1000);
-    } catch (e) {
-      msgEl.style.display = 'block';
-      msgEl.style.background = '#fee2e2';
-      msgEl.style.color = '#991b1b';
-      msgEl.textContent = '❌ Error: ' + (e.message || 'unknown');
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Simpan';
-    }
+    return `
+      <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:center">
+        <svg viewBox="0 0 220 220" style="width:220px;height:220px">
+          ${segments.map(s => `<path d="${s.path}" fill="${s.color}" opacity="0.85"/>`).join('')}
+          <circle cx="${cx}" cy="${cy}" r="${r - stroke}" fill="#fafaf7"/>
+          <text x="${cx}" y="${cy - 6}" font-size="14" fill="#6b7280" text-anchor="middle" font-family="'Inter',sans-serif" font-weight="600">Total</text>
+          <text x="${cx}" y="${cy + 18}" font-size="28" fill="#14532d" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-weight="600">${total}</text>
+        </svg>
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:200px">
+          ${segments.map(s => `
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #f3f4f6">
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:14px;height:14px;border-radius:3px;background:${s.color}"></div>
+                <div style="font-size:13px;color:#374151;font-weight:600">${Admin.escape(s.label)}</div>
+              </div>
+              <div style="font-size:14px;color:#14532d;font-weight:700">${s.value} <span style="font-size:11px;color:#9ca3af;font-weight:500">(${s.pct}%)</span></div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
   },
   
   escape(s) {

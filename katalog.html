@@ -3754,7 +3754,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   <div class="card-date-row">
     <span class="card-author is-internal" data-rid="ades"><span class="card-author-icon">●</span> Tim Avenir</span>
     <span class="card-views" data-rid="ades">⏳</span>
-    <span class="card-date">&#128197; Terbit : 5 April 2026, Update : 6 Mei 2026 &middot; LK Q1-2026 + FY2025</span>
+    <span class="card-date">&#128197; 6 Mei 2026 &middot; LK Q1-2026 + FY2025</span>
   </div><button class="cta-unlock" id="btn-ades" onclick="window.location.href='ades.html'" data-price="8000">Baca Riset →</button>
   </div>
 </div>
@@ -4701,5 +4701,57 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
   document.body.classList.add('auth-state-guest');
 }
 </script>
+
+<script>
+/* ═══ AVENIR PAGE VISITS TRACKER ═══ */
+(function() {
+  function track() {
+    try {
+      // Wait for _sb available
+      if (typeof window._sb === 'undefined' || !window._sb.from) {
+        setTimeout(track, 300);
+        return;
+      }
+      
+      // Get or create anonymous_id (untuk guest)
+      let anonId = null;
+      try {
+        anonId = localStorage.getItem('av_anon_id');
+        if (!anonId) {
+          anonId = 'a_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+          localStorage.setItem('av_anon_id', anonId);
+        }
+      } catch (e) { /* localStorage blocked, fine */ }
+      
+      // Get user_id kalau login
+      const userId = window.AUTH?.currentUser?.id || null;
+      
+      // Get page path (clean format: /admin, /katalog, /news-coco-akuisisi-sma)
+      let path = window.location.pathname || '/';
+      path = path.replace(/\.html$/, '');  // strip .html
+      if (path === '' || path === '/') path = '/';
+      
+      // Skip tracking di /admin sendiri (avoid noise dari admin)
+      if (path === '/admin') return;
+      
+      // Insert visit (silent fail kalau error)
+      window._sb.from('page_visits').insert({
+        page_path: path,
+        user_id: userId,
+        anonymous_id: anonId,
+        user_agent: navigator.userAgent ? navigator.userAgent.substring(0, 200) : null
+      }).then(() => {}).catch(() => {});
+    } catch (e) { /* silent */ }
+  }
+  
+  // Delay 1 detik biar AUTH sempat resolve dulu (untuk dapat user_id kalau login)
+  if (document.readyState === 'complete') {
+    setTimeout(track, 1000);
+  } else {
+    window.addEventListener('load', () => setTimeout(track, 1000));
+  }
+})();
+</script>
+
 </body>
 </html>
