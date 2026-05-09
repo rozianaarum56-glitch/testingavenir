@@ -2989,8 +2989,268 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   display: none !important;
 }
 </style>
+
+
+
+<style>
+/* ═══ AVENIR GUEST LOCK — blur overlay pattern (sama dengan katalog/artikel lama) ═══ */
+
+/* Wrapper */
+.guest-lock-wrap {
+  position: relative;
+  min-height: 600px;
+}
+
+/* Default: no lock effect */
+.guest-lock-content {
+  filter: none;
+  pointer-events: auto;
+  user-select: auto;
+}
+
+/* Hide overlay by default — only show if .is-guest active */
+.guest-lock-overlay {
+  display: none;
+}
+
+/* Anti-flash: hide overlay sampai auth state resolved */
+body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .guest-lock-overlay,
+body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .guest-lock-content {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* GUEST LOCKED STATE — blur konten + show overlay */
+.guest-lock-wrap.is-guest .guest-lock-content {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+  max-height: 700px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 60px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 30%, #ffffff 60%);
+  z-index: 100;
+}
+
+/* Overlay card content */
+.gl-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.gl-title {
+  font-family: 'Cormorant Garamond', 'Fraunces', Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  max-width: 600px;
+}
+
+.gl-sub {
+  font-size: 15px;
+  color: #4b5563;
+  line-height: 1.65;
+  margin-bottom: 16px;
+  max-width: 560px;
+}
+
+.gl-price {
+  display: inline-block;
+  padding: 10px 20px;
+  background: rgba(27,107,58,0.06);
+  border: 1px solid rgba(27,107,58,0.18);
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: #14532d;
+  margin-bottom: 24px;
+}
+
+.gl-price strong {
+  color: #14532d;
+  font-weight: 700;
+}
+
+.gl-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.gl-btn-primary,
+.gl-btn-secondary {
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  letter-spacing: .02em;
+  transition: all .2s;
+  border: none;
+  font-family: inherit;
+}
+
+.gl-btn-primary {
+  background: #1B6B3A;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(27,107,58,0.2);
+}
+
+.gl-btn-primary:hover {
+  background: #14532d;
+  transform: translateY(-1px);
+}
+
+.gl-btn-secondary {
+  background: #fff;
+  color: #1B6B3A;
+  border: 1.5px solid #1B6B3A;
+}
+
+.gl-btn-secondary:hover {
+  background: rgba(27,107,58,0.04);
+}
+
+.gl-link {
+  font-size: 12.5px;
+  color: #6b7280;
+}
+
+.gl-link a {
+  color: #1B6B3A;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .gl-title { font-size: 26px; }
+  .gl-sub { font-size: 14px; }
+  .gl-price { font-size: 12.5px; padding: 8px 14px; }
+  .gl-btn-primary, .gl-btn-secondary { padding: 12px 20px; font-size: 13px; width: 100%; }
+  .gl-actions { flex-direction: column; }
+}
+</style>
+<style>
+/* ═══ AVENIR GUEST LOCK OVERRIDE — overlay HIDDEN if not guest locked ═══ */
+.guest-lock-overlay {
+  display: none !important;
+}
+.guest-lock-wrap.is-guest .guest-lock-overlay {
+  display: flex !important;
+}
+</style>
+<style>
+/* ═══ AVENIR OVERLAY FIX — proper centered overlay for desktop & mobile ═══ */
+.guest-lock-wrap {
+  position: relative !important;
+  min-height: 600px !important;
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 60px 24px !important;
+  text-align: center !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 30%, #ffffff 60%) !important;
+  z-index: 100 !important;
+  box-sizing: border-box !important;
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay > * {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 600px !important;
+  width: auto !important;
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay .gl-icon {
+  font-size: 48px !important;
+  margin: 0 auto 16px !important;
+  text-align: center !important;
+  display: block !important;
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay .gl-title {
+  font-size: 32px !important;
+  text-align: center !important;
+  margin: 0 auto 12px !important;
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay .gl-sub {
+  text-align: center !important;
+  margin: 0 auto 16px !important;
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay .gl-actions {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 auto 16px !important;
+}
+
+@media (max-width: 600px) {
+  .guest-lock-wrap.is-guest .guest-lock-overlay .gl-title {
+    font-size: 24px !important;
+  }
+  .guest-lock-wrap.is-guest .guest-lock-overlay .gl-actions {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .guest-lock-wrap.is-guest .guest-lock-overlay .gl-btn-primary,
+  .guest-lock-wrap.is-guest .guest-lock-overlay .gl-btn-secondary {
+    width: 100% !important;
+  }
+}
+</style>
 </head>
 <body>
+<script>
+/* ═══ EARLY INIT: prevent FOUC ═══ */
+(function() {
+  function setGuestEarly() {
+    if (!document.body) return;
+    if (!document.body.classList.contains('auth-state-user') && !document.body.classList.contains('auth-state-guest')) {
+      document.body.classList.add('auth-state-guest');
+    }
+  }
+  if (document.body) {
+    setGuestEarly();
+  } else {
+    document.addEventListener('DOMContentLoaded', setGuestEarly, { once: true });
+  }
+})();
+</script>
 <nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
   <div style="max-width:1280px;margin:0 auto;padding:0 18px;display:flex;align-items:center;height:54px;gap:18px;position:relative">
     <a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0">
@@ -3000,7 +3260,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
       <a href="index.html" class="nav-link">Beranda</a>
       <a href="katalog.html" class="nav-link">Katalog</a>
       <a href="artikel.html" class="nav-link">Artikel</a>
-      <a href="news.html" class="nav-link">News</a>
+      <a href="artikel.html" class="nav-link">News</a>
       <a href="tentang.html" class="nav-link">Tentang</a>
       <a href="mitra.html" class="nav-link">Mitra</a>
       <a href="dashboard-mitra.html" class="nav-link nav-link-mitra-only" style="display:none">Dashboard Mitra</a>
@@ -3234,6 +3494,9 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
  </div>
 </div>
 <div id="page-asgr" class="page" style="display:block">
+<div class="guest-lock-wrap">
+<div class="guest-lock-content">
+
 <style>
 .page#page-asgr { padding:0; }
 .asgr-hero { position:relative; padding:80px 24px 60px; background:linear-gradient(135deg,#1a1428 0%,#3d1a3a 100%); color:#fff; overflow:hidden; }
@@ -3323,7 +3586,11 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 
 <section class="asgr-section">
   <div class="asgr-section-eyebrow">▸ Framing</div>
-  <h2 class="asgr-section-title">Mengapa ASGR Layak Dianalisis Sebagai "Cash Compounder"</h2>
+  
+
+
+
+<h2 class="asgr-section-title">Mengapa ASGR Layak Dianalisis Sebagai "Cash Compounder"</h2>
   <p class="asgr-section-lead">ASGR adalah salah satu emiten dengan profile <strong>cash compounder</strong> paling jelas di IDX: capex tahunan hanya Rp 18 miliar (vs revenue Rp 3 triliun), operating cash flow Rp 382 miliar, dan dividen tunai konsisten Rp 80/saham (FY24). Berbeda dengan ADES yang reinvestment-heavy, ASGR mendistribusikan ~40-50% laba ke pemegang saham. Q1 2026 menunjukkan akselerasi profit (+47% YoY) di tengah revenue yang relatif flat (+5,3%) — ini sinyal margin expansion yang penting.</p>
 
   <div class="asgr-grid-4">
@@ -3349,7 +3616,9 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 
 <section class="asgr-section">
   <div class="asgr-section-eyebrow">▸ Business Model</div>
-  <h2 class="asgr-section-title">Dua Segmen Utama — Solusi Dokumen + Solusi Teknologi Informasi</h2>
+  
+
+<h2 class="asgr-section-title">Dua Segmen Utama — Solusi Dokumen + Solusi Teknologi Informasi</h2>
   <p class="asgr-section-lead">Astragraphia membagi bisnisnya menjadi dua segmen yang saling melengkapi. Solusi Dokumen adalah core legacy business (Fujifilm BI partnership sejak 1975) — tinggi margin, berulang. Solusi Teknologi Informasi adalah growth engine melalui anak usaha AGIT yang fokus pada IT services dan digital transformation.</p>
 
   <div class="asgr-segment-row">
@@ -3856,10 +4125,32 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   <p style="font-size:12px;line-height:1.7;color:#6b7280;max-width:840px;margin-top:24px;font-style:italic;border-top:1px solid #e5e7eb;padding-top:18px">Disclaimer: Riset ini bersifat informatif dan edukatif, bukan rekomendasi untuk membeli, menjual, atau menahan saham. Avenir Research tidak bertanggung jawab atas keputusan investasi pembaca. Selalu konsultasikan dengan penasihat investasi profesional.</p>
 </section>
 
+
+
+
+</div>
+
+</div>
+
+
+</div>
+<div class="guest-lock-overlay" data-auth="guest">
+  <div class="gl-icon">🔒</div>
+  <div class="gl-title">Daftar Gratis untuk Mulai Akses</div>
+  <div class="gl-sub">Daftar sekarang dan dapatkan <strong>2 bulan uji coba gratis</strong> ke seluruh katalog riset ekuitas, scenario analysis, dan investment thesis Avenir Research.</div>
+  <div class="gl-price">Setelah trial: mulai <strong>Rp 69.000</strong> / bulan</div>
+  <div class="gl-actions">
+    <button class="gl-btn-primary" onclick="AUTH.open('register')">Mulai Trial 2 Bulan</button>
+    <button class="gl-btn-secondary" onclick="AUTH.open('login')">Sudah Punya Akun</button>
+  </div>
+  <div class="gl-link">Lihat detail paket di <a href="index.html">homepage</a></div>
+</div>
 </div>
 </div>
 
 </div>
+</div>
+
 <div class="footer-spacer" style="clear:both;height:0;width:100%"></div>
 <footer style="display:block!important;visibility:visible!important;background:#0f172a;color:#94a3b8;padding:48px 24px 24px;margin-top:80px">
   <div style="max-width:1280px;margin:0 auto">
@@ -3890,9 +4181,11 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
     <div style="border-top:1px solid #1e293b;padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
       <div style="font-size:12px;color:#64748b">© 2026 PT Avenir Fortuna Corporindo. Semua hak dilindungi.</div>
       <div style="font-size:11px;color:#64748b;font-style:italic">Riset bersifat informatif & edukatif — bukan rekomendasi investasi.</div>
-    </div>
-  </div>
+    
+  
 </footer>
+
+
 
 <script>
 /* ═══ SUPABASE AUTH MODULE v2 ═══ */
@@ -3904,7 +4197,7 @@ const AUTH = {
     // Race getSession against 3s timeout — kalau gagal, fallback ke guest state
     try {
       const sessionPromise = _sb.auth.getSession();
-      const timeout = new Promise(res => setTimeout(() => res({ data: { session: null } }), 3000));
+      const timeout = new Promise(res => setTimeout(() => res({ data: { session: null } }), 1500));
       const { data: { session } } = await Promise.race([sessionPromise, timeout]);
       
       if (session?.user) {
@@ -4581,13 +4874,46 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
   }
   
   // Delay 1 detik biar AUTH sempat resolve dulu (untuk dapat user_id kalau login)
-  if (document.readyState === 'complete') {
-    setTimeout(track, 1000);
-  } else {
-    window.addEventListener('load', () => setTimeout(track, 1000));
+  if (document.readyState === 'complete') { if (window.requestIdleCallback) { requestIdleCallback(track, { timeout: 2000 }); } else { setTimeout(track, 1000); } } else {
+    window.addEventListener('load', () => { if (window.requestIdleCallback) { requestIdleCallback(track, { timeout: 2000 }); } else { setTimeout(track, 1000); } });
   }
 })();
 </script>
 
+
+
+<script>
+/* ═══ AVENIR APPLY LOCK — guest-lock pattern (blur + overlay) ═══ */
+(function() {
+  function hasAccess() {
+    if (!window.AUTH || !window.AUTH.currentUser) return false;
+    var p = window.AUTH.profile || {};
+    if (p.is_admin) return true;
+    if (p.is_mitra) return true;
+    var now = Date.now();
+    if (p.subscription_until && new Date(p.subscription_until).getTime() > now) return true;
+    if (p.trial_started_at && new Date(p.trial_started_at).getTime() + 60*86400000 > now) return true;
+    return false;
+  }
+  
+  function applyLock() {
+    var locked = !hasAccess();
+    document.querySelectorAll('.guest-lock-wrap').forEach(function(el){
+      if (locked) {
+        el.classList.add('is-guest');
+      } else {
+        el.classList.remove('is-guest');
+      }
+    });
+  }
+  
+  window._applyLock = applyLock;
+  
+  // Initial apply
+  setTimeout(applyLock, 300);
+  setTimeout(applyLock, 1000);
+  setTimeout(applyLock, 2500);
+})();
+</script>
 </body>
 </html>
