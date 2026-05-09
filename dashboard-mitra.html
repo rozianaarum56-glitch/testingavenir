@@ -3295,6 +3295,45 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
       <div class="dashm-stat"><div class="dashm-stat-label"><span class="dashm-stat-icon">🏦</span> Total Earnings</div><div class="dashm-stat-value dashm-stat-zero" id="dashm-earn-total">Rp 0</div><div class="dashm-stat-sub">Sepanjang masa · belum aktif</div></div>
     </div>
     <div class="dashm-section">
+      <h3>📷 Foto Profil</h3>
+      <div style="display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap">
+        <!-- Current photo / placeholder -->
+        <div id="dashm-foto-current-wrap" style="flex-shrink:0">
+          <div id="dashm-foto-current-circle" style="width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg, #1B6B3A 0%, #5B8C3E 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;overflow:hidden;border:3px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,0.08)">
+            <span id="dashm-foto-initial">?</span>
+            <img id="dashm-foto-current-img" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover">
+          </div>
+        </div>
+        
+        <!-- Upload area -->
+        <div style="flex:1;min-width:250px">
+          <div id="dashm-foto-upload-area" style="border:2px dashed #d1d5db;border-radius:8px;padding:18px;text-align:center;cursor:pointer;transition:all 0.2s;background:#fafaf7" onclick="document.getElementById('dashm-foto-input').click()" onmouseover="this.style.borderColor='#5b8c3e';this.style.background='#f0fdf4'" onmouseout="this.style.borderColor='#d1d5db';this.style.background='#fafaf7'">
+            <div style="font-size:24px;margin-bottom:4px">📷</div>
+            <div style="font-size:13px;color:#374151;font-weight:600">Klik untuk pilih foto baru</div>
+            <div style="font-size:11.5px;color:#6b7280;margin-top:3px">JPG/PNG/WEBP, max 2 MB</div>
+          </div>
+          <input type="file" id="dashm-foto-input" accept="image/jpeg,image/png,image/webp,image/jpg" style="display:none">
+          
+          <div id="dashm-foto-preview-wrap" style="display:none;margin-top:12px;padding:12px;background:#f0fdf4;border-radius:8px">
+            <div style="font-size:11.5px;font-weight:700;color:#15803d;margin-bottom:6px">📎 Foto siap diupload:</div>
+            <div id="dashm-foto-preview-name" style="font-size:12px;color:#374151;font-family:'JetBrains Mono',monospace;word-break:break-all;margin-bottom:8px"></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button type="button" onclick="Dashm.uploadFoto()" id="dashm-foto-upload-btn" style="background:#1B6B3A;color:#fff;padding:8px 16px;border:none;border-radius:6px;font-size:12.5px;font-weight:700;cursor:pointer">💾 Simpan Foto</button>
+              <button type="button" onclick="Dashm.cancelFoto()" style="background:#fff;color:#6b7280;padding:8px 16px;border:1px solid #d1d5db;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer">Batal</button>
+            </div>
+          </div>
+          
+          <div id="dashm-foto-msg" style="display:none;margin-top:10px;padding:10px;border-radius:6px;font-size:12.5px"></div>
+          
+          <button type="button" id="dashm-foto-delete-btn" onclick="Dashm.deleteFoto()" style="display:none;margin-top:10px;background:transparent;color:#dc2626;border:none;font-size:12px;cursor:pointer;text-decoration:underline">🗑️ Hapus foto profil</button>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid #f3f4f6;font-size:12px;color:#6b7280;line-height:1.6">
+        Foto akan ditampilkan di byline riset Anda dan halaman publik <strong>/mitra</strong>. Disarankan foto persegi dengan resolusi minimum 200×200px.
+      </div>
+    </div>
+    
+    <div class="dashm-section">
       <h3>📋 Riset Anda &amp; Performa</h3>
       <div id="dashm-research-list">
         <div class="dashm-empty"><div class="dashm-empty-icon">📝</div>Belum ada riset Anda yang terpublikasi.<br><span style="font-size:12px;color:var(--t3)">Kirim paper Anda ke admin via email untuk dipublikasikan.</span></div>
@@ -3367,6 +3406,12 @@ const Dashm = {
     document.getElementById('dashm-content').style.display = 'block';
     const fname = window.AUTH.profile?.nama_depan || 'Mitra';
     document.getElementById('dashm-greeting').textContent = fname;
+    
+    // Setup foto upload handler
+    Dashm.setupFotoUpload();
+    
+    // Render current foto (kalau ada)
+    Dashm._renderFotoCurrent(window.AUTH?.profile?.foto_url || null);
   },
   async loadData() {
     const userId = window.AUTH.currentUser.id;
@@ -3471,7 +3516,199 @@ const Dashm = {
     points.forEach(p => { svg += `<circle class="data-point" cx="${p.x}" cy="${p.y}" r="3.5"/>`; svg += `<text class="x-label" x="${p.x}" y="${H - 8}" text-anchor="middle">${p.label}</text>`; });
     svg += '</svg>';
     chartEl.innerHTML = svg;
-  }
+  },
+  
+  // ━━━ FOTO PROFIL: state & methods ━━━
+  _selectedFoto: null,  // File yang user pilih
+  
+  setupFotoUpload() {
+    const input = document.getElementById('dashm-foto-input');
+    if (!input) return;
+    
+    input.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      // Validasi MIME type
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        Dashm._fotoMsg('Format foto tidak didukung. Pakai JPG, PNG, atau WEBP.', 'error');
+        input.value = '';
+        return;
+      }
+      
+      // Validasi 2 MB max
+      const maxSize = 2 * 1024 * 1024;
+      if (file.size > maxSize) {
+        Dashm._fotoMsg('Foto terlalu besar. Max 2 MB. Foto Anda: ' + (file.size / 1024 / 1024).toFixed(2) + ' MB', 'error');
+        input.value = '';
+        return;
+      }
+      
+      // Save & show preview
+      Dashm._selectedFoto = file;
+      document.getElementById('dashm-foto-preview-name').textContent = file.name + ' (' + (file.size / 1024).toFixed(0) + ' KB)';
+      document.getElementById('dashm-foto-preview-wrap').style.display = 'block';
+      Dashm._fotoMsg('', 'hidden');
+    });
+  },
+  
+  cancelFoto() {
+    Dashm._selectedFoto = null;
+    document.getElementById('dashm-foto-input').value = '';
+    document.getElementById('dashm-foto-preview-wrap').style.display = 'none';
+    Dashm._fotoMsg('', 'hidden');
+  },
+  
+  async uploadFoto() {
+    const file = Dashm._selectedFoto;
+    if (!file) return;
+    
+    const userId = window.AUTH?.currentUser?.id;
+    if (!userId) {
+      Dashm._fotoMsg('Anda harus login dulu.', 'error');
+      return;
+    }
+    
+    const btn = document.getElementById('dashm-foto-upload-btn');
+    btn.disabled = true;
+    btn.textContent = 'Uploading...';
+    
+    try {
+      // Upload ke Supabase Storage
+      const ext = file.name.split('.').pop().toLowerCase();
+      const path = userId + '/profile.' + ext;
+      
+      const { error: uploadError } = await window._sb.storage
+        .from('mitra-photos')
+        .upload(path, file, { cacheControl: '3600', upsert: true });
+      
+      if (uploadError) {
+        Dashm._fotoMsg('Gagal upload foto: ' + uploadError.message, 'error');
+        btn.disabled = false;
+        btn.textContent = '💾 Simpan Foto';
+        return;
+      }
+      
+      // Get public URL (with cache buster)
+      const { data: urlData } = window._sb.storage.from('mitra-photos').getPublicUrl(path);
+      const fotoUrl = urlData?.publicUrl ? urlData.publicUrl + '?t=' + Date.now() : null;
+      
+      if (!fotoUrl) {
+        Dashm._fotoMsg('Upload berhasil tapi gagal generate URL.', 'error');
+        btn.disabled = false;
+        btn.textContent = '💾 Simpan Foto';
+        return;
+      }
+      
+      // Update profiles.foto_url
+      const { error: updateError } = await window._sb
+        .from('profiles')
+        .update({ foto_url: fotoUrl })
+        .eq('id', userId);
+      
+      if (updateError) {
+        Dashm._fotoMsg('Foto upload OK, tapi gagal update profile: ' + updateError.message, 'error');
+        btn.disabled = false;
+        btn.textContent = '💾 Simpan Foto';
+        return;
+      }
+      
+      // Update local state + UI
+      if (window.AUTH.profile) window.AUTH.profile.foto_url = fotoUrl;
+      Dashm._renderFotoCurrent(fotoUrl);
+      Dashm.cancelFoto();
+      Dashm._fotoMsg('✓ Foto berhasil diupdate!', 'success');
+    } catch (e) {
+      Dashm._fotoMsg('Error: ' + (e.message || 'unknown'), 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '💾 Simpan Foto';
+    }
+  },
+  
+  async deleteFoto() {
+    if (!confirm('Hapus foto profil? Setelah dihapus, akan tampil initial nama Anda di halaman publik.')) return;
+    
+    const userId = window.AUTH?.currentUser?.id;
+    if (!userId) return;
+    
+    try {
+      // Set foto_url ke null di profiles
+      const { error } = await window._sb
+        .from('profiles')
+        .update({ foto_url: null })
+        .eq('id', userId);
+      
+      if (error) {
+        Dashm._fotoMsg('Gagal hapus foto: ' + error.message, 'error');
+        return;
+      }
+      
+      // Try delete storage object (silent fail)
+      try {
+        await window._sb.storage.from('mitra-photos').remove([
+          userId + '/profile.jpg',
+          userId + '/profile.jpeg',
+          userId + '/profile.png',
+          userId + '/profile.webp'
+        ]);
+      } catch (e) { /* silent */ }
+      
+      if (window.AUTH.profile) window.AUTH.profile.foto_url = null;
+      Dashm._renderFotoCurrent(null);
+      Dashm._fotoMsg('✓ Foto profil dihapus.', 'success');
+    } catch (e) {
+      Dashm._fotoMsg('Error: ' + (e.message || 'unknown'), 'error');
+    }
+  },
+  
+  _renderFotoCurrent(fotoUrl) {
+    const profile = window.AUTH?.profile;
+    const initial = (profile?.nama_depan || '?').charAt(0).toUpperCase();
+    const initialEl = document.getElementById('dashm-foto-initial');
+    const imgEl = document.getElementById('dashm-foto-current-img');
+    const deleteBtn = document.getElementById('dashm-foto-delete-btn');
+    
+    if (initialEl) initialEl.textContent = initial;
+    
+    if (fotoUrl) {
+      imgEl.src = fotoUrl;
+      imgEl.style.display = 'block';
+      initialEl.style.display = 'none';
+      if (deleteBtn) deleteBtn.style.display = 'inline-block';
+    } else {
+      imgEl.style.display = 'none';
+      initialEl.style.display = 'block';
+      if (deleteBtn) deleteBtn.style.display = 'none';
+    }
+  },
+  
+  _fotoMsg(msg, type) {
+    const el = document.getElementById('dashm-foto-msg');
+    if (!el) return;
+    
+    if (type === 'hidden' || !msg) {
+      el.style.display = 'none';
+      return;
+    }
+    
+    el.style.display = 'block';
+    el.textContent = msg;
+    
+    if (type === 'success') {
+      el.style.background = '#dcfce7';
+      el.style.color = '#166534';
+    } else {
+      el.style.background = '#fee2e2';
+      el.style.color = '#991b1b';
+    }
+    
+    if (type === 'success') {
+      setTimeout(() => { el.style.display = 'none'; }, 3000);
+    }
+  },
+
 };
 document.addEventListener('DOMContentLoaded', () => { setTimeout(() => Dashm.init(), 800); });
 </script>
@@ -3853,28 +4090,48 @@ const AUTH = {
     
     AUTH.currentUser = data.user;
     
-    try {
+    // Try fetch profile dengan timeout 10s. Kalau timeout, retry sekali.
+    let profileData = null;
+    let timedOut = false;
+    
+    async function tryFetchProfile(timeoutMs) {
       const profilePromise = _sb.from('profiles').select('*').eq('id', data.user.id).maybeSingle();
-      const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 5000));
-      const { data: profileData } = await Promise.race([profilePromise, timeoutPromise]);
-      AUTH.profile = profileData || null;
-      
-      if (!AUTH.profile || AUTH.profile.is_mitra !== true) {
-        await _sb.auth.signOut();
-        AUTH.currentUser = null;
-        AUTH.profile = null;
+      const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), timeoutMs));
+      const result = await Promise.race([profilePromise, timeoutPromise]);
+      return result?.data || null;
+    }
+    
+    try {
+      // Attempt 1: 10 detik
+      profileData = await tryFetchProfile(10000);
+    } catch (e1) {
+      timedOut = true;
+      try {
+        // Attempt 2: retry dengan 8 detik
+        AUTH.err('login-mitra-err', 'Koneksi lambat, mencoba lagi...', 'var(--grn)');
+        profileData = await tryFetchProfile(8000);
+      } catch (e2) {
+        // Both failed — kemungkinan koneksi sangat lambat atau RLS issue
         AUTH.err('login-mitra-err', 
-          'Akun ini bukan Mitra. <a onclick="AUTH.show(\'login\')" style="color:var(--grn);font-weight:700;cursor:pointer;text-decoration:underline">Login sebagai Pengguna →</a>');
+          'Verifikasi profil lambat. Cek koneksi internet Anda. <a onclick="AUTH.loginMitra()" style="color:var(--grn);font-weight:700;cursor:pointer;text-decoration:underline">Coba lagi →</a>');
         return;
       }
-      
-      AUTH.close();
-      AUTH.refreshUI();
-      window.location.href = 'dashboard-mitra.html';
-      
-    } catch (e) {
-      AUTH.err('login-mitra-err', 'Error verifikasi: ' + e.message);
     }
+    
+    AUTH.profile = profileData;
+    
+    if (!AUTH.profile || AUTH.profile.is_mitra !== true) {
+      await _sb.auth.signOut();
+      AUTH.currentUser = null;
+      AUTH.profile = null;
+      AUTH.err('login-mitra-err', 
+        'Akun ini bukan Mitra. <a onclick="AUTH.show(\'login\')" style="color:var(--grn);font-weight:700;cursor:pointer;text-decoration:underline">Login sebagai Pengguna →</a>');
+      return;
+    }
+    
+    AUTH.close();
+    AUTH.refreshUI();
+    window.location.href = 'dashboard-mitra.html';
   },
 
   // Helper: aggressive cleanup of residue UI elements after logout

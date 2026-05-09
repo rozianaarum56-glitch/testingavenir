@@ -3734,28 +3734,48 @@ const AUTH = {
     
     AUTH.currentUser = data.user;
     
-    try {
+    // Try fetch profile dengan timeout 10s. Kalau timeout, retry sekali.
+    let profileData = null;
+    let timedOut = false;
+    
+    async function tryFetchProfile(timeoutMs) {
       const profilePromise = _sb.from('profiles').select('*').eq('id', data.user.id).maybeSingle();
-      const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 5000));
-      const { data: profileData } = await Promise.race([profilePromise, timeoutPromise]);
-      AUTH.profile = profileData || null;
-      
-      if (!AUTH.profile || AUTH.profile.is_mitra !== true) {
-        await _sb.auth.signOut();
-        AUTH.currentUser = null;
-        AUTH.profile = null;
+      const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), timeoutMs));
+      const result = await Promise.race([profilePromise, timeoutPromise]);
+      return result?.data || null;
+    }
+    
+    try {
+      // Attempt 1: 10 detik
+      profileData = await tryFetchProfile(10000);
+    } catch (e1) {
+      timedOut = true;
+      try {
+        // Attempt 2: retry dengan 8 detik
+        AUTH.err('login-mitra-err', 'Koneksi lambat, mencoba lagi...', 'var(--grn)');
+        profileData = await tryFetchProfile(8000);
+      } catch (e2) {
+        // Both failed — kemungkinan koneksi sangat lambat atau RLS issue
         AUTH.err('login-mitra-err', 
-          'Akun ini bukan Mitra. <a onclick="AUTH.show(\'login\')" style="color:var(--grn);font-weight:700;cursor:pointer;text-decoration:underline">Login sebagai Pengguna →</a>');
+          'Verifikasi profil lambat. Cek koneksi internet Anda. <a onclick="AUTH.loginMitra()" style="color:var(--grn);font-weight:700;cursor:pointer;text-decoration:underline">Coba lagi →</a>');
         return;
       }
-      
-      AUTH.close();
-      AUTH.refreshUI();
-      window.location.href = 'dashboard-mitra.html';
-      
-    } catch (e) {
-      AUTH.err('login-mitra-err', 'Error verifikasi: ' + e.message);
     }
+    
+    AUTH.profile = profileData;
+    
+    if (!AUTH.profile || AUTH.profile.is_mitra !== true) {
+      await _sb.auth.signOut();
+      AUTH.currentUser = null;
+      AUTH.profile = null;
+      AUTH.err('login-mitra-err', 
+        'Akun ini bukan Mitra. <a onclick="AUTH.show(\'login\')" style="color:var(--grn);font-weight:700;cursor:pointer;text-decoration:underline">Login sebagai Pengguna →</a>');
+      return;
+    }
+    
+    AUTH.close();
+    AUTH.refreshUI();
+    window.location.href = 'dashboard-mitra.html';
   },
 
   // Helper: aggressive cleanup of residue UI elements after logout
