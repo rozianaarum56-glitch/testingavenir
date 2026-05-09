@@ -5193,5 +5193,85 @@ if (document.readyState === 'loading') {
   attachListener();
 })();
 </script>
+
+<script>
+/* ═══ EMERGENCY UNSTUCK + DIAGNOSTIC (Avenir Admin) ═══ */
+(function() {
+  // 1. Force remove invisible overlays yang nutupin viewport
+  function forceRemoveStuckOverlays() {
+    document.querySelectorAll('[class*="overlay"], [class*="modal-backdrop"]').forEach(el => {
+      const cs = getComputedStyle(el);
+      // Kalau overlay invisible TAPI masih block click, force-fix
+      if (cs.display === 'none' || cs.visibility === 'hidden') return;
+      const rect = el.getBoundingClientRect();
+      // If covers viewport tapi background hampir invisible
+      const opacity = parseFloat(cs.opacity) || 1;
+      if (rect.width >= window.innerWidth * 0.8 && rect.height >= window.innerHeight * 0.8 && opacity < 0.05) {
+        // Suspect overlay invisible nutupin layar
+        el.style.pointerEvents = 'none';
+        console.warn('[Avenir] Force pointer-events:none on stuck overlay:', el.className);
+      }
+    });
+  }
+  
+  // 2. Catch all uncaught errors
+  window.addEventListener('error', function(e) {
+    console.warn('[Avenir Error]', e.message, 'at', e.filename, e.lineno);
+  });
+  
+  // 3. Run unstuck periodically (every 2s for 10s after load)
+  let runs = 0;
+  const interval = setInterval(() => {
+    forceRemoveStuckOverlays();
+    runs++;
+    if (runs >= 5) clearInterval(interval);
+  }, 2000);
+  
+  // 4. Run once immediately
+  if (document.readyState === 'complete') {
+    forceRemoveStuckOverlays();
+  } else {
+    window.addEventListener('load', forceRemoveStuckOverlays);
+  }
+  
+  // 5. Diagnostic info panel — bisa di-trigger via URL hash #debug
+  if (window.location.hash === '#debug') {
+    setTimeout(() => {
+      const panel = document.createElement('div');
+      panel.id = 'avenir-debug-panel';
+      panel.style.cssText = 'position:fixed;top:10px;right:10px;background:#fff;border:2px solid #1B6B3A;padding:14px;border-radius:8px;z-index:99999;font-family:monospace;font-size:11px;max-width:340px;max-height:50vh;overflow:auto;box-shadow:0 4px 20px rgba(0,0,0,.2)';
+      
+      const info = [];
+      info.push('<strong style="color:#1B6B3A">🔍 Avenir Diagnostic</strong>');
+      info.push('AUTH: ' + (typeof window.AUTH));
+      info.push('Admin: ' + (typeof window.Admin));
+      info.push('_sb: ' + (typeof window._sb));
+      info.push('User: ' + (window.AUTH?.currentUser?.email || 'none'));
+      info.push('Profile: ' + (window.AUTH?.profile ? 'loaded' : 'null'));
+      info.push('isAdmin: ' + (window.AUTH?.profile?.is_admin || false));
+      info.push('Body class: ' + document.body.className);
+      info.push('Buttons: ' + document.querySelectorAll('button').length);
+      info.push('Links: ' + document.querySelectorAll('a').length);
+      
+      // Find covered clickables
+      let covered = 0;
+      document.querySelectorAll('[onclick], button').forEach(b => {
+        const r = b.getBoundingClientRect();
+        if (r.width === 0 || r.height === 0) return;
+        const cy = r.y + r.height/2;
+        if (cy < 0 || cy > window.innerHeight) return;
+        const top = document.elementFromPoint(r.x + r.width/2, cy);
+        if (top !== b && !b.contains(top) && !top.contains(b)) covered++;
+      });
+      info.push('Covered buttons: ' + covered);
+      
+      panel.innerHTML = info.join('<br>');
+      panel.innerHTML += '<br><br><button onclick="document.getElementById(\'avenir-debug-panel\').remove()" style="background:#1B6B3A;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer">Close</button>';
+      document.body.appendChild(panel);
+    }, 2000);
+  }
+})();
+</script>
+
 </body>
 </html>
