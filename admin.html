@@ -3324,6 +3324,154 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 }
 
 
+
+/* Pool Performance card */
+.admin-pool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+.admin-pool-card {
+  background: linear-gradient(135deg, #fafaf7 0%, #f0f7f0 100%);
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.admin-pool-card.tim_avenir {
+  background: linear-gradient(135deg, #0f3823 0%, #1B6B3A 100%);
+  border-color: #1B6B3A;
+  color: #fff;
+}
+.admin-pool-card.tim_avenir::after {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 120px; height: 120px;
+  background: radial-gradient(circle, rgba(245,158,11,0.18) 0%, transparent 70%);
+}
+.admin-pool-card.mitra {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-color: #f59e0b;
+}
+.admin-pool-author {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  z-index: 1;
+}
+.admin-pool-card.tim_avenir .admin-pool-author { color: #fbbf24; }
+.admin-pool-card:not(.tim_avenir) .admin-pool-author { color: #92400e; }
+.admin-pool-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+.admin-pool-card.tim_avenir .admin-pool-name { color: #fff; }
+.admin-pool-card:not(.tim_avenir) .admin-pool-name { color: #14532d; }
+.admin-pool-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+.admin-pool-stat-label {
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.admin-pool-card.tim_avenir .admin-pool-stat-label { color: #c5e7d4; }
+.admin-pool-card:not(.tim_avenir) .admin-pool-stat-label { color: #6b7280; }
+.admin-pool-stat-value {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 24px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.admin-pool-card.tim_avenir .admin-pool-stat-value { color: #fff; }
+.admin-pool-card:not(.tim_avenir) .admin-pool-stat-value { color: #14532d; }
+.admin-pool-share {
+  position: absolute;
+  top: 18px; right: 20px;
+  background: rgba(255,255,255,0.18);
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  z-index: 1;
+}
+.admin-pool-card.tim_avenir .admin-pool-share { background: rgba(251,191,36,0.18); color: #fbbf24; }
+.admin-pool-card:not(.tim_avenir) .admin-pool-share { background: rgba(146,64,14,0.12); color: #92400e; }
+
+
+.admin-pool-earnings {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 8px;
+  border-left: 3px solid #fbbf24;
+  position: relative;
+  z-index: 1;
+}
+.admin-pool-card:not(.tim_avenir) .admin-pool-earnings {
+  background: rgba(146,64,14,0.08);
+  border-left-color: #d97706;
+}
+.admin-pool-earnings-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.admin-pool-card.tim_avenir .admin-pool-earnings-label { color: #fbbf24; }
+.admin-pool-card:not(.tim_avenir) .admin-pool-earnings-label { color: #92400e; }
+.admin-pool-earnings-value {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 26px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+.admin-pool-card.tim_avenir .admin-pool-earnings-value { color: #fff; }
+.admin-pool-card:not(.tim_avenir) .admin-pool-earnings-value { color: #14532d; }
+
+/* Author badge in Top 10 */
+.admin-top-author-badge {
+  display: inline-block;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.admin-top-author-badge.tim_avenir {
+  background: rgba(27,107,58,0.12);
+  color: #14532d;
+}
+.admin-top-author-badge.mitra {
+  background: rgba(245,158,11,0.18);
+  color: #92400e;
+}
+
+
 /* Activity heatmap (day × hour grid) */
 .admin-heatmap-wrap {
   overflow-x: auto;
@@ -5192,13 +5340,20 @@ const Admin = {
       if (!error && data) heatmap = data;
     } catch (e) { /* ignore */ }
     
+    // Fetch pool performance per author (bulan ini, dengan earnings calculation)
+    let pool = [];
+    try {
+      const { data, error } = await window._sb.rpc('get_pool_earnings');
+      if (!error && data) pool = data;
+    } catch (e) { /* ignore */ }
+    
     // Fallback to old multi-query approach kalau RPC gak ada
     if (!stats) {
       stats = await Admin.loadStatsLegacy();
     }
     
     // Render
-    Admin.renderDashboard(container, stats, topResearch, trend, heatmap, warningMsg);
+    Admin.renderDashboard(container, stats, topResearch, trend, heatmap, pool, warningMsg);
     
     // Animate counters after render
     setTimeout(() => Admin.animateCounters(), 100);
@@ -5265,7 +5420,7 @@ const Admin = {
     });
   },
   
-  renderDashboard(container, s, topResearch, trend, heatmap, warningMsg) {
+  renderDashboard(container, s, topResearch, trend, heatmap, pool, warningMsg) {
     const now = new Date();
     const monthName = now.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
     
@@ -5334,6 +5489,12 @@ const Admin = {
       </div>
       
       <div class="admin-chart-card" style="margin-bottom:24px">
+        <h3 class="admin-chart-title">💼 Pool Performance — ${Admin.getCurrentMonthName()}</h3>
+        <div class="admin-chart-sub">${Admin.renderPoolBudgetInfo(pool)}</div>
+        ${Admin.renderPoolPerformance(pool)}
+      </div>
+      
+      <div class="admin-chart-card" style="margin-bottom:24px">
         <h3 class="admin-chart-title">🏆 Top 10 Riset Paling Banyak Dilihat</h3>
         <div class="admin-chart-sub">Berdasarkan unique views · Excluded Tim Avenir</div>
         ${Admin.renderTopResearch(topResearch)}
@@ -5367,11 +5528,14 @@ const Admin = {
     const maxViews = Math.max(...items.map(i => Number(i.view_count)));
     return `<div class="admin-top-list">${items.map(it => {
       const pct = (Number(it.view_count) / maxViews) * 100;
+      const authorType = it.author_type || 'tim_avenir';
+      const authorName = it.author_display_name || 'Tim Avenir';
+      const ticker = it.ticker || (it.research_id || '?').toUpperCase();
       return `
         <div class="admin-top-row">
           <div class="admin-top-rank">${items.indexOf(it) + 1}</div>
           <div class="admin-top-content">
-            <div class="admin-top-name">${Admin.escape(it.research_id || '?')}</div>
+            <div class="admin-top-name">${Admin.escape(ticker)}<span class="admin-top-author-badge ${authorType}">${Admin.escape(authorName)}</span></div>
             <div class="admin-top-bar-wrap"><div class="admin-top-bar" style="width:${pct}%"></div></div>
           </div>
           <div class="admin-top-stats">
@@ -5554,6 +5718,64 @@ const Admin = {
         <span>Ramai (max ${maxVal} view/jam)</span>
       </div>
     `;
+  },
+  
+  renderPoolPerformance(data) {
+    if (!data || data.length === 0) {
+      return '<div style="text-align:center;padding:24px;color:#9ca3af;font-size:13px">Belum ada views bulan ini. Pool earnings akan muncul setelah ada research views.</div>';
+    }
+    
+    return `<div class="admin-pool-grid">${data.map(d => {
+      const cls = d.author_type === 'mitra' ? 'mitra' : 'tim_avenir';
+      const icon = d.author_type === 'mitra' ? '🤝' : '⚡';
+      const earnings = Number(d.pool_earnings_idr || 0);
+      const earningsLabel = earnings === 0 ? 'Rp 0' : 'Rp ' + earnings.toLocaleString('id-ID');
+      return `
+        <div class="admin-pool-card ${cls}">
+          <div class="admin-pool-share">${Number(d.views_share_pct).toFixed(1)}% share</div>
+          <div class="admin-pool-author">${icon} ${d.author_type === 'mitra' ? 'MITRA' : 'TIM AVENIR'}</div>
+          <div class="admin-pool-name">${Admin.escape(d.author_display_name)}</div>
+          <div class="admin-pool-earnings">
+            <div class="admin-pool-earnings-label">💰 Pool Earnings</div>
+            <div class="admin-pool-earnings-value">${earningsLabel}</div>
+          </div>
+          <div class="admin-pool-stats">
+            <div>
+              <div class="admin-pool-stat-label">Riset</div>
+              <div class="admin-pool-stat-value">${d.research_count}</div>
+            </div>
+            <div>
+              <div class="admin-pool-stat-label">Views Bulan Ini</div>
+              <div class="admin-pool-stat-value">${Number(d.total_views).toLocaleString('id-ID')}</div>
+            </div>
+            <div>
+              <div class="admin-pool-stat-label">Unique Reader</div>
+              <div class="admin-pool-stat-value">${d.total_unique_viewers}</div>
+            </div>
+            <div>
+              <div class="admin-pool-stat-label">Share</div>
+              <div class="admin-pool-stat-value">${Number(d.views_share_pct).toFixed(1)}%</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('')}</div>`;
+  },
+  
+  getCurrentMonthName() {
+    const now = new Date();
+    return now.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
+  },
+  
+  renderPoolBudgetInfo(pool) {
+    if (!pool || pool.length === 0) {
+      return 'Belum ada views bulan ini · Update pool budget via Supabase: <code>UPDATE pool_config SET pool_budget_idr = X</code>';
+    }
+    const budget = Number(pool[0].pool_budget_idr || 0);
+    if (budget === 0) {
+      return '⚠️ Pool budget bulan ini belum di-set (Rp 0). Update via Supabase: <code>UPDATE pool_config SET pool_budget_idr = X WHERE period_year=' + (pool[0].period_year || new Date().getFullYear()) + ' AND period_month=' + (pool[0].period_month || (new Date().getMonth()+1)) + '</code>';
+    }
+    return 'Pool budget bulan ini: <strong>Rp ' + budget.toLocaleString('id-ID') + '</strong> · Distribusi proporsional per riset → di-sum per author';
   },
   // ────────── ACTIONS ──────────
   async approve(id) {
