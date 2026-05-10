@@ -3677,21 +3677,37 @@ const AUTH = {
   profile: null,
 
   async init() {
-    // Race getSession against 3s timeout — kalau gagal, fallback ke guest state
+    // CRITICAL FIX: getSession dgn timeout MUCH MORE GENEROUS (8s, was 1.5s).
+    // Kalau timeout, JANGAN langsung treat as guest — keep waiting in background
+    // dan biarkan onAuthStateChange yang handle (akan fire saat session restored).
     try {
+      // Try with generous 8s timeout — biasa enough for slow mobile networks
       const sessionPromise = _sb.auth.getSession();
-      const timeout = new Promise(res => setTimeout(() => res({ data: { session: null } }), 1500));
-      const { data: { session } } = await Promise.race([sessionPromise, timeout]);
+      const timeout = new Promise(res => setTimeout(() => res({ data: { session: null }, timedOut: true }), 8000));
+      const result = await Promise.race([sessionPromise, timeout]);
+      const session = result?.data?.session;
+      const timedOut = result?.timedOut === true;
       
       if (session?.user) {
+        // SUCCESS: session ada
         AUTH.currentUser = session.user;
-        // CRITICAL: refreshUI() langsung dipanggil dengan user metadata,
-        // jangan tunggu loadProfile (yang bisa lambat). Profile akan load di background.
         AUTH.refreshUI();
-        // Load profile di background untuk update tambahan (is_mitra dll)
         AUTH.loadProfile().then(() => AUTH.refreshUI()).catch(() => {});
+      } else if (timedOut) {
+        // TIMEOUT: jangan set guest! Keep waiting — onAuthStateChange will fire when session restored.
+        // Background: continue waiting for getSession to complete
+        console.warn('AUTH: getSession timeout 8s, waiting for onAuthStateChange...');
+        sessionPromise.then(({ data }) => {
+          if (data?.session?.user && !AUTH.currentUser) {
+            AUTH.currentUser = data.session.user;
+            AUTH.refreshUI();
+            AUTH.loadProfile().then(() => AUTH.refreshUI()).catch(() => {});
+          }
+        }).catch(e => console.warn('Background getSession failed:', e.message));
+        // Also call refreshUI now to initialize body classes (will re-run when session arrives)
+        AUTH.refreshUI();
       } else {
-        // Pastikan refreshUI() jalan untuk set body class auth-state-guest
+        // Session genuinely null (no logged in user)
         AUTH.refreshUI();
       }
     } catch (e) {
@@ -3699,9 +3715,9 @@ const AUTH = {
       AUTH.refreshUI();
     }
     
+    // onAuthStateChange — fires when session restored from storage OR new login
     _sb.auth.onAuthStateChange((event, session) => {
       AUTH.currentUser = session?.user || null;
-      // Refresh UI immediately — don't await profile
       AUTH.refreshUI();
       if (AUTH.currentUser) {
         AUTH.loadProfile().then(() => AUTH.refreshUI()).catch(() => {});
@@ -4239,6 +4255,20 @@ window.showNewsList = function(){ window.showPage('news'); };
     if (!window._sb || !window.AUTH || !window.AUTH.currentUser) return;
     
     try {
+      // Skip tracking kalau user adalah Tim Avenir (email di blacklist)
+      var userEmail = (window.AUTH.currentUser.email || '').toLowerCase();
+      if (userEmail) {
+        var teamCheck = await window._sb
+          .from('avenir_team_emails')
+          .select('email')
+          .eq('email', userEmail)
+          .maybeSingle();
+        if (teamCheck && teamCheck.data) {
+          // Tim Avenir — jangan tracking
+          return;
+        }
+      }
+      
       await window._sb.from('research_views').insert({
         user_id: window.AUTH.currentUser.id,
         research_id: getResearchId()
