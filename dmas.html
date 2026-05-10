@@ -4429,7 +4429,8 @@ const AUTH = {
         // Race: upsert vs 4s timeout — biar gak hang kalau RLS blokir
         const upsertPromise = _sb.from('profiles').upsert({
           id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
-          trial_started_at: new Date().toISOString()
+          trial_started_at: new Date().toISOString(),
+          is_user: true
         });
         const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('upsert timeout')), 4000));
         await Promise.race([upsertPromise, timeout]);
@@ -4851,11 +4852,19 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
   function hasAccess() {
     if (!window.AUTH || !window.AUTH.currentUser) return false;
     var p = window.AUTH.profile || {};
+    // C1: mitra-only (is_user=false) tidak punya akses subscriber
+    if (p.is_user === false) return false;
     if (p.is_admin) return true;
     if (p.is_mitra) return true;
     var now = Date.now();
+    // Paid subscription
     if (p.subscription_until && new Date(p.subscription_until).getTime() > now) return true;
-    if (p.trial_started_at && new Date(p.trial_started_at).getTime() + 60*86400000 > now) return true;
+    // 60-day trial — fallback ke user.created_at (untuk user baru yang trial_started_at belum ke-save)
+    var trialStartRaw = p.trial_started_at || window.AUTH.currentUser.created_at;
+    if (trialStartRaw) {
+      var trialEnd = new Date(trialStartRaw).getTime() + 60 * 86400000;
+      if (now < trialEnd) return true;
+    }
     return false;
   }
   

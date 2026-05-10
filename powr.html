@@ -6,17 +6,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Avenir Research</title>
+<title>POWR — PT Cikarang Listrindo | Avenir Research</title>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Avenir Research">
 <meta property="og:title" content="POWR — PT Cikarang Listrindo | Avenir Research">
-<meta property="og:description" content="Riset ekuitas mendalam POWR: bank terbesar Indonesia, kredit mikro, financials terkini.">
+<meta property="og:description" content="Riset ekuitas mendalam POWR: pemain Independent Power Producer (IPP) terdepan di kawasan industri Cikarang. Dual customer industri + PLN, dividend yield 9.4%, transisi biomass + solar, eksposur data center growth (PDG, EdgeConneX).">
 <meta property="og:url" content="https://avenirresearch.app/katalog/powr">
 <meta property="og:image" content="https://avenirresearch.app/og-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="POWR — PT Cikarang Listrindo | Avenir Research">
-<meta name="twitter:description" content="Riset ekuitas mendalam POWR: bank terbesar Indonesia, kredit mikro, financials terkini.">
-<meta name="description" content="Riset ekuitas mendalam POWR: bank terbesar Indonesia, kredit mikro, financials terkini.">
+<meta name="twitter:description" content="Riset ekuitas mendalam POWR: pemain Independent Power Producer (IPP) terdepan di kawasan industri Cikarang. Dual customer industri + PLN, dividend yield 9.4%, transisi biomass + solar, eksposur data center growth (PDG, EdgeConneX).">
+<meta name="twitter:image" content="https://avenirresearch.app/og-cover.jpg">
+<meta name="description" content="Riset ekuitas mendalam POWR: pemain Independent Power Producer (IPP) terdepan di kawasan industri Cikarang. Dual customer industri + PLN, dividend yield 9.4%, transisi biomass + solar, eksposur data center growth (PDG, EdgeConneX).">
 
 <style>
 
@@ -3233,6 +3234,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
   }
 }
 </style>
+<link rel="canonical" href="https://avenirresearch.app/katalog/powr">
 </head>
 <body>
 <script>
@@ -5267,7 +5269,8 @@ const AUTH = {
         // Race: upsert vs 4s timeout — biar gak hang kalau RLS blokir
         const upsertPromise = _sb.from('profiles').upsert({
           id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
-          trial_started_at: new Date().toISOString()
+          trial_started_at: new Date().toISOString(),
+          is_user: true
         });
         const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('upsert timeout')), 4000));
         await Promise.race([upsertPromise, timeout]);
@@ -5689,11 +5692,19 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
   function hasAccess() {
     if (!window.AUTH || !window.AUTH.currentUser) return false;
     var p = window.AUTH.profile || {};
+    // C1: mitra-only (is_user=false) tidak punya akses subscriber
+    if (p.is_user === false) return false;
     if (p.is_admin) return true;
     if (p.is_mitra) return true;
     var now = Date.now();
+    // Paid subscription
     if (p.subscription_until && new Date(p.subscription_until).getTime() > now) return true;
-    if (p.trial_started_at && new Date(p.trial_started_at).getTime() + 60*86400000 > now) return true;
+    // 60-day trial — fallback ke user.created_at (untuk user baru yang trial_started_at belum ke-save)
+    var trialStartRaw = p.trial_started_at || window.AUTH.currentUser.created_at;
+    if (trialStartRaw) {
+      var trialEnd = new Date(trialStartRaw).getTime() + 60 * 86400000;
+      if (now < trialEnd) return true;
+    }
     return false;
   }
   

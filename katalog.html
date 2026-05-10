@@ -3032,6 +3032,490 @@ a, button, [onclick] {
   cursor: pointer !important;
 }
 </style>
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   AVENIR ENGAGEMENT FEATURES — CSS
+   Like / Comment / Share di card katalog + modal komentar
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* --- Engagement bar (tampil di card-ft, sebelum tombol BACA RISET) --- */
+.eng-bar {
+  display: flex;
+  gap: 4px;
+  padding: 10px 0;
+  border-top: 1px solid var(--bd);
+  margin: 0;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.eng-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: var(--t2);
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s;
+  flex: 1;
+  justify-content: center;
+  min-width: 0;
+}
+.eng-btn:hover {
+  background: rgba(91, 140, 62, 0.08);
+  color: var(--t);
+}
+.eng-btn:active {
+  transform: scale(0.97);
+}
+.eng-btn .eng-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.eng-btn .eng-count {
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  font-weight: 600;
+}
+.eng-btn[data-active="true"] {
+  color: #DC2626;
+}
+.eng-btn[data-active="true"] .eng-icon path {
+  fill: #DC2626;
+  stroke: #DC2626;
+}
+.eng-btn-comment[data-has-comments="true"] {
+  color: var(--t);
+}
+.eng-btn-comment[data-has-comments="true"] .eng-icon path {
+  fill: var(--grn);
+  stroke: var(--grn);
+}
+
+/* --- Latest comment preview (tampil di card-ft) --- */
+.eng-preview {
+  background: rgba(91, 140, 62, 0.04);
+  border: 1px solid rgba(91, 140, 62, 0.12);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  margin: 0;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.eng-preview:hover {
+  background: rgba(91, 140, 62, 0.08);
+}
+.eng-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.eng-preview-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--grn), #7AAD5A);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.eng-preview-name {
+  font-weight: 700;
+  color: var(--t);
+  font-size: 12px;
+}
+.eng-preview-time {
+  font-size: 10.5px;
+  color: var(--t2);
+  margin-left: auto;
+}
+.eng-preview-body {
+  color: var(--t);
+  line-height: 1.5;
+  font-size: 12.5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.eng-preview-more {
+  font-size: 11px;
+  color: var(--grn);
+  font-weight: 700;
+  text-align: right;
+}
+
+
+/* --- Empty state preview (count = 0, CTA untuk first commenter) --- */
+.eng-preview.eng-preview-empty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(91, 140, 62, 0.025);
+  border: 1px dashed rgba(91, 140, 62, 0.25);
+}
+.eng-preview.eng-preview-empty:hover {
+  background: rgba(91, 140, 62, 0.06);
+  border-style: solid;
+}
+.eng-preview-empty-icon {
+  font-size: 22px;
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+.eng-preview-empty-text {
+  flex: 1;
+  line-height: 1.35;
+}
+.eng-preview-empty-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--t);
+  margin-bottom: 2px;
+}
+.eng-preview-empty-cta {
+  font-size: 11.5px;
+  color: var(--grn);
+  font-weight: 600;
+}
+
+/* --- COMMENT MODAL --- */
+.eng-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  overflow-y: auto;
+}
+.eng-modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.eng-modal {
+  background: #fff;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  transform: scale(0.96);
+  transition: transform 0.2s;
+}
+.eng-modal-backdrop.open .eng-modal {
+  transform: scale(1);
+}
+.eng-modal-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.eng-modal-header h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--t);
+  margin: 0;
+  flex: 1;
+}
+.eng-modal-close {
+  background: none;
+  border: 0;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--t2);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+.eng-modal-close:hover {
+  background: var(--bg3);
+  color: var(--t);
+}
+
+.eng-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 22px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.eng-modal-form {
+  padding: 14px 22px 18px;
+  border-top: 1px solid var(--bd);
+  background: var(--bg3);
+  flex-shrink: 0;
+}
+.eng-modal-form-disabled {
+  background: rgba(0, 0, 0, 0.02);
+  text-align: center;
+  padding: 18px;
+  color: var(--t2);
+  font-size: 13px;
+}
+.eng-modal-form-disabled a {
+  color: var(--grn);
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.eng-input-area {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.eng-input-area textarea {
+  flex: 1;
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 13.5px;
+  resize: none;
+  background: #fff;
+  color: var(--t);
+  min-height: 40px;
+  max-height: 120px;
+  line-height: 1.5;
+}
+.eng-input-area textarea:focus {
+  outline: 2px solid var(--grn);
+  outline-offset: -1px;
+  border-color: var(--grn);
+}
+.eng-input-submit {
+  background: var(--grn);
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  align-self: stretch;
+}
+.eng-input-submit:hover {
+  background: #4F7A35;
+}
+.eng-input-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Comment item inside modal */
+.eng-c-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bd);
+}
+.eng-c-item:last-child {
+  border-bottom: 0;
+}
+.eng-c-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.eng-c-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--grn), #7AAD5A);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.eng-c-meta {
+  flex: 1;
+  min-width: 0;
+}
+.eng-c-name {
+  font-weight: 700;
+  color: var(--t);
+  font-size: 13px;
+}
+.eng-c-role {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(91, 140, 62, 0.12);
+  color: var(--grn);
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.eng-c-role[data-role="admin"] {
+  background: rgba(184, 50, 50, 0.12);
+  color: var(--dn);
+}
+.eng-c-role[data-role="mitra"] {
+  background: rgba(212, 165, 25, 0.18);
+  color: #B8841A;
+}
+.eng-c-time {
+  font-size: 11px;
+  color: var(--t2);
+}
+.eng-c-body {
+  color: var(--t);
+  line-height: 1.6;
+  font-size: 13.5px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-bottom: 6px;
+}
+.eng-c-actions {
+  display: flex;
+  gap: 14px;
+  font-size: 12px;
+}
+.eng-c-actions button {
+  background: none;
+  border: 0;
+  color: var(--t2);
+  cursor: pointer;
+  padding: 2px 0;
+  font-family: inherit;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.eng-c-actions button:hover {
+  color: var(--t);
+}
+.eng-c-actions button[data-active="true"] {
+  color: #DC2626;
+}
+
+.eng-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--t2);
+  font-size: 14px;
+}
+.eng-empty-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  opacity: 0.3;
+}
+
+/* --- SHARE MENU --- */
+.eng-share-menu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  padding: 6px;
+  min-width: 200px;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: all 0.15s;
+}
+.eng-share-menu.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.eng-share-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--t);
+  font-weight: 600;
+}
+.eng-share-menu button:hover {
+  background: var(--bg3);
+}
+.eng-share-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+
+/* Toast notif */
+.eng-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--t);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s;
+  max-width: 90vw;
+  text-align: center;
+}
+.eng-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .eng-modal-backdrop { padding: 0; align-items: flex-end; }
+  .eng-modal { max-width: 100%; max-height: 92vh; border-radius: 14px 14px 0 0; }
+  .eng-modal-header h3 { font-size: 18px; }
+  .eng-btn { padding: 6px 6px; font-size: 11.5px; }
+  .eng-btn .eng-count { font-size: 11px; }
+  .eng-c-body { font-size: 13px; }
+}
+
+</style>
 </head>
 <body>
 <script>
@@ -3876,6 +4360,12 @@ const AUTH = {
       
       if (session?.user) {
         AUTH.currentUser = session.user;
+        window.dispatchEvent(new CustomEvent('avenir:auth-changed', { detail: { user: AUTH.currentUser, profile: AUTH.profile } }));
+        window.dispatchEvent(new CustomEvent('avenir:auth-changed', { detail: { user: AUTH.currentUser, profile: AUTH.profile } }));
+        window.dispatchEvent(new CustomEvent('avenir:auth-changed', { detail: { user: AUTH.currentUser, profile: AUTH.profile } }));
+        window.dispatchEvent(new CustomEvent('avenir:auth-changed', { detail: { user: AUTH.currentUser, profile: AUTH.profile } }));
+        window.dispatchEvent(new CustomEvent('avenir:auth-changed', { detail: { user: AUTH.currentUser, profile: AUTH.profile } }));
+        window.dispatchEvent(new CustomEvent('avenir:auth-changed', { detail: { user: AUTH.currentUser, profile: AUTH.profile } }));
         // CRITICAL: refreshUI() langsung dipanggil dengan user metadata,
         // jangan tunggu loadProfile (yang bisa lambat). Profile akan load di background.
         AUTH.refreshUI();
@@ -3916,9 +4406,12 @@ const AUTH = {
         return;
       }
       AUTH.profile = data || null;
+      // Notify engagement module
+      window.dispatchEvent(new CustomEvent('avenir:auth-changed', { detail: { user: AUTH.currentUser, profile: AUTH.profile } }));
     } catch (e) {
       console.warn('Profile load failed:', e.message);
       AUTH.profile = null;
+      window.dispatchEvent(new CustomEvent('avenir:auth-changed', { detail: { user: AUTH.currentUser, profile: null } }));
     }
   },
 
@@ -4140,7 +4633,8 @@ const AUTH = {
         // Race: upsert vs 4s timeout — biar gak hang kalau RLS blokir
         const upsertPromise = _sb.from('profiles').upsert({
           id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
-          trial_started_at: new Date().toISOString()
+          trial_started_at: new Date().toISOString(),
+          is_user: true
         });
         const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('upsert timeout')), 4000));
         await Promise.race([upsertPromise, timeout]);
@@ -4805,6 +5299,718 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
     });
   }
 })();
+</script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   AVENIR ENGAGEMENT MODULE
+   Like / Comment / Share — depends on existing _sb (supabase) and AUTH
+   ═══════════════════════════════════════════════════════════════════ */
+(function() {
+  'use strict';
+
+  // ─────────────────────────────────────────────────────────
+  // SVG ICONS (inline, no external dep)
+  // ─────────────────────────────────────────────────────────
+  const ICONS = {
+    heart: '<svg class="eng-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+    comment: '<svg class="eng-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+    share: '<svg class="eng-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
+    whatsapp: '<svg class="eng-share-icon" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.463 3.488"/></svg>',
+    twitter: '<svg class="eng-share-icon" viewBox="0 0 24 24" fill="#000"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
+    linkedin: '<svg class="eng-share-icon" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.063 2.063 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
+    link: '<svg class="eng-share-icon" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>'
+  };
+
+  // ─────────────────────────────────────────────────────────
+  // STATE
+  // ─────────────────────────────────────────────────────────
+  const ENG = {
+    sb: null,           // supabase client (initialized in init)
+    catalogData: {},    // {research_id: {total_comments, total_likes, latest_comment_*, user_has_liked}}
+    currentUser: null,  // current user (mirror AUTH.currentUser)
+    currentProfile: null,
+    initialized: false
+  };
+
+  // ─────────────────────────────────────────────────────────
+  // UTIL
+  // ─────────────────────────────────────────────────────────
+  function escapeHTML(s) {
+    if (!s) return '';
+    return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function timeAgo(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    const sec = Math.floor((Date.now() - d.getTime()) / 1000);
+    if (sec < 60) return 'baru saja';
+    if (sec < 3600) return Math.floor(sec/60) + ' menit lalu';
+    if (sec < 86400) return Math.floor(sec/3600) + ' jam lalu';
+    if (sec < 2592000) return Math.floor(sec/86400) + ' hari lalu';
+    if (sec < 31536000) return Math.floor(sec/2592000) + ' bulan lalu';
+    return Math.floor(sec/31536000) + ' tahun lalu';
+  }
+
+  function fmtCount(n) {
+    n = Number(n) || 0;
+    if (n < 1000) return String(n);
+    if (n < 1000000) return (n/1000).toFixed(n < 10000 ? 1 : 0) + 'K';
+    return (n/1000000).toFixed(1) + 'M';
+  }
+
+  function avatarInitial(name) {
+    if (!name) return '?';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0][0]?.toUpperCase() || '?';
+    return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
+  }
+
+  function toast(msg, dur = 2200) {
+    let t = document.querySelector('.eng-toast');
+    if (!t) {
+      t = document.createElement('div');
+      t.className = 'eng-toast';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), dur);
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // PERMISSION CHECK
+  // ─────────────────────────────────────────────────────────
+  function isAuth() {
+    return !!(ENG.currentUser && ENG.currentUser.id);
+  }
+
+  function canComment() {
+    if (!isAuth() || !ENG.currentProfile) return false;
+    const p = ENG.currentProfile;
+    if (p.is_admin || p.is_mitra) return true;
+    if (p.subscription_until && new Date(p.subscription_until) > new Date()) return true;
+    if (p.trial_started_at) {
+      const trialEnd = new Date(p.trial_started_at);
+      trialEnd.setDate(trialEnd.getDate() + 60);
+      if (new Date() < trialEnd) return true;
+    }
+    return false;
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // FETCH ENGAGEMENT DATA (batch, single RPC call)
+  // ─────────────────────────────────────────────────────────
+  async function fetchCatalogEngagement() {
+    if (!ENG.sb) {
+      console.warn('[ENG] fetchCatalogEngagement: no sb client');
+      return {};
+    }
+    try {
+      var userId = (ENG.currentUser && ENG.currentUser.id) || null;
+      console.log('[ENG] calling get_catalog_engagement RPC, userId:', userId);
+      var result = await ENG.sb.rpc('get_catalog_engagement', { p_user_id: userId });
+      if (result.error) {
+        console.warn('[ENG] RPC get_catalog_engagement error:', result.error.message, result.error);
+        ENG.catalogData = {};
+        return {};
+      }
+      var map = {};
+      (result.data || []).forEach(function(row) {
+        map[row.research_id] = row;
+      });
+      ENG.catalogData = map;
+      console.log('[ENG] fetched', Object.keys(map).length, 'engagement rows');
+      return map;
+    } catch (e) {
+      console.warn('[ENG] fetchCatalogEngagement exception:', e.message || e);
+      ENG.catalogData = {};
+      return {};
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // RENDER ENGAGEMENT BAR + PREVIEW DI CARD
+  // ─────────────────────────────────────────────────────────
+  function renderEngagement() {
+    const cards = document.querySelectorAll('.card[data-tags]');
+    cards.forEach(card => {
+      // Detect research_id dari onclick (e.g. window.location.href='powr.html')
+      const btn = card.querySelector('.cta-unlock');
+      if (!btn) return;
+      const onclickStr = btn.getAttribute('onclick') || '';
+      const m = onclickStr.match(/['"]([a-z0-9_-]+)\.html['"]/i);
+      if (!m) return;
+      const rid = m[1].toLowerCase();
+      
+      // Skip non-stock pages
+      if (rid === 'index' || rid === 'katalog' || rid === 'news' || rid === 'artikel') return;
+
+      const data = ENG.catalogData[rid] || {
+        total_comments: 0, total_likes: 0,
+        latest_comment_body: null, latest_comment_user_name: null, latest_comment_at: null,
+        user_has_liked: false
+      };
+      
+      const cardFt = card.querySelector('.card-ft');
+      if (!cardFt) return;
+      
+      // Remove existing engagement (re-render)
+      cardFt.querySelectorAll('.eng-bar, .eng-preview').forEach(el => el.remove());
+      
+      // Build engagement bar
+      const bar = document.createElement('div');
+      bar.className = 'eng-bar';
+      bar.dataset.rid = rid;
+      bar.innerHTML = `
+        <button class="eng-btn eng-btn-like" data-action="like" data-rid="${rid}" data-active="${data.user_has_liked ? 'true' : 'false'}" type="button" aria-label="Like">
+          ${ICONS.heart}
+          <span class="eng-count">${fmtCount(data.total_likes)}</span>
+        </button>
+        <button class="eng-btn eng-btn-comment" data-action="comment" data-rid="${rid}" data-has-comments="${data.total_comments > 0 ? 'true' : 'false'}" type="button" aria-label="Komentar">
+          ${ICONS.comment}
+          <span class="eng-count">${fmtCount(data.total_comments)}</span>
+        </button>
+        <div style="position:relative;flex:1;">
+          <button class="eng-btn eng-btn-share" data-action="share" data-rid="${rid}" type="button" aria-label="Share" style="width:100%;">
+            ${ICONS.share}
+            <span class="eng-count" style="display:none">0</span>
+          </button>
+        </div>
+      `;
+      // Insert sebelum tombol Baca Riset (atau button cta-unlock di card-ft)
+      const ctaBtn = cardFt.querySelector('.cta-unlock');
+      if (ctaBtn && ctaBtn.parentNode === cardFt) {
+        cardFt.insertBefore(bar, ctaBtn);
+      } else {
+        cardFt.appendChild(bar);
+      }
+      
+      // Comment preview — SELALU tampil (CTA untuk komentar walau count = 0)
+      const preview = document.createElement('div');
+      preview.dataset.rid = rid;
+      
+      if (data.latest_comment_body) {
+        // Ada komentar — tampil isinya
+        preview.className = 'eng-preview';
+        const initial = avatarInitial(data.latest_comment_user_name);
+        const moreCount = data.total_comments > 1 ? ` +${data.total_comments - 1} komentar lain →` : ' Klik untuk lihat detail →';
+        preview.innerHTML = `
+          <div class="eng-preview-header">
+            <div class="eng-preview-avatar">${escapeHTML(initial)}</div>
+            <span class="eng-preview-name">${escapeHTML(data.latest_comment_user_name || 'Anonymous')}</span>
+            <span class="eng-preview-time">${timeAgo(data.latest_comment_at)}</span>
+          </div>
+          <div class="eng-preview-body">${escapeHTML(data.latest_comment_body)}</div>
+          <div class="eng-preview-more">${moreCount}</div>
+        `;
+      } else {
+        // Belum ada komentar — empty state CTA
+        preview.className = 'eng-preview eng-preview-empty';
+        preview.innerHTML = `
+          <div class="eng-preview-empty-icon">💬</div>
+          <div class="eng-preview-empty-text">
+            <div class="eng-preview-empty-title">Belum ada komentar</div>
+            <div class="eng-preview-empty-cta">Jadi yang pertama mendiskusikan riset ini →</div>
+          </div>
+        `;
+      }
+      
+      if (ctaBtn && ctaBtn.parentNode === cardFt) {
+        cardFt.insertBefore(preview, ctaBtn);
+      }
+    });
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // ACTION HANDLERS
+  // ─────────────────────────────────────────────────────────
+  async function handleLike(rid, btn) {
+    if (!isAuth()) {
+      toast('Login dulu untuk memberi like ❤');
+      if (typeof AUTH !== 'undefined' && AUTH.open) AUTH.open('login');
+      return;
+    }
+    
+    const wasActive = btn.dataset.active === 'true';
+    const countEl = btn.querySelector('.eng-count');
+    const currentCount = Number(countEl.textContent.replace(/[^\d]/g, '')) || 0;
+    
+    // Optimistic UI
+    btn.dataset.active = wasActive ? 'false' : 'true';
+    countEl.textContent = fmtCount(wasActive ? Math.max(0, currentCount - 1) : currentCount + 1);
+    
+    try {
+      if (wasActive) {
+        // Unlike
+        const { error } = await ENG.sb
+          .from('research_likes')
+          .delete()
+          .eq('research_id', rid)
+          .eq('user_id', ENG.currentUser.id);
+        if (error) throw error;
+      } else {
+        // Like
+        const { error } = await ENG.sb
+          .from('research_likes')
+          .insert({ research_id: rid, user_id: ENG.currentUser.id });
+        if (error && error.code !== '23505') throw error; // 23505 = unique violation, already liked
+      }
+      // Update cache
+      if (ENG.catalogData[rid]) {
+        ENG.catalogData[rid].user_has_liked = !wasActive;
+        ENG.catalogData[rid].total_likes = wasActive 
+          ? Math.max(0, (ENG.catalogData[rid].total_likes || 0) - 1)
+          : (ENG.catalogData[rid].total_likes || 0) + 1;
+      }
+    } catch (e) {
+      console.error('[ENG] like error', e);
+      // Rollback
+      btn.dataset.active = wasActive ? 'true' : 'false';
+      countEl.textContent = fmtCount(currentCount);
+      toast('Gagal menyimpan like, coba lagi');
+    }
+  }
+
+  async function handleShare(rid, btn) {
+    // Build share URL
+    const baseUrl = (window.location.origin && window.location.origin !== 'null') 
+      ? window.location.origin 
+      : 'https://researchavenir.com';
+    const url = `${baseUrl}/${rid}`;
+    
+    // Get research title from card
+    const card = btn.closest('.card');
+    const title = card?.querySelector('h2')?.textContent?.trim() || 'Avenir Research';
+    const shareText = `${title} — Riset Ekuitas Avenir Research`;
+    
+    // Toggle menu
+    let menu = btn.parentElement.querySelector('.eng-share-menu');
+    if (menu) {
+      const isOpen = menu.classList.contains('open');
+      // Close all other menus first
+      document.querySelectorAll('.eng-share-menu.open').forEach(m => m.classList.remove('open'));
+      if (!isOpen) menu.classList.add('open');
+      return;
+    }
+    
+    // Create menu
+    menu = document.createElement('div');
+    menu.className = 'eng-share-menu';
+    menu.innerHTML = `
+      <button data-share="copy" type="button">${ICONS.link}<span>Salin link</span></button>
+      <button data-share="whatsapp" type="button">${ICONS.whatsapp}<span>WhatsApp</span></button>
+      <button data-share="twitter" type="button">${ICONS.twitter}<span>Twitter / X</span></button>
+      <button data-share="linkedin" type="button">${ICONS.linkedin}<span>LinkedIn</span></button>
+    `;
+    btn.parentElement.appendChild(menu);
+    
+    setTimeout(() => menu.classList.add('open'), 10);
+    
+    menu.addEventListener('click', async (e) => {
+      const btnEl = e.target.closest('button[data-share]');
+      if (!btnEl) return;
+      e.stopPropagation();
+      const action = btnEl.dataset.share;
+      
+      try {
+        if (action === 'copy') {
+          await navigator.clipboard.writeText(url);
+          toast('Link disalin ✓');
+        } else if (action === 'whatsapp') {
+          window.open(`https://wa.me/?text=${encodeURIComponent(shareText + '\n' + url)}`, '_blank');
+        } else if (action === 'twitter') {
+          window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}`, '_blank');
+        } else if (action === 'linkedin') {
+          window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+        }
+      } catch (err) {
+        console.warn('[ENG] share failed', err);
+        toast('Gagal share, salin manual: ' + url);
+      }
+      menu.classList.remove('open');
+    });
+  }
+
+  // Close share menus when click outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.eng-share-menu') && !e.target.closest('.eng-btn-share')) {
+      document.querySelectorAll('.eng-share-menu.open').forEach(m => m.classList.remove('open'));
+    }
+  });
+
+  // ─────────────────────────────────────────────────────────
+  // COMMENT MODAL
+  // ─────────────────────────────────────────────────────────
+  let _modalRid = null;
+
+  async function openCommentModal(rid) {
+    _modalRid = rid;
+    let backdrop = document.querySelector('.eng-modal-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.className = 'eng-modal-backdrop';
+      backdrop.innerHTML = `
+        <div class="eng-modal" role="dialog" aria-modal="true">
+          <div class="eng-modal-header">
+            <h3>Komentar</h3>
+            <button class="eng-modal-close" type="button" aria-label="Tutup">×</button>
+          </div>
+          <div class="eng-modal-body">
+            <div class="eng-empty"><div class="eng-empty-icon">💬</div>Memuat komentar...</div>
+          </div>
+          <div class="eng-modal-form-wrap"></div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+      
+      // Close handlers
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) closeCommentModal();
+      });
+      backdrop.querySelector('.eng-modal-close').addEventListener('click', closeCommentModal);
+    }
+    
+    // Update title with research name
+    const card = document.querySelector(`[data-rid="${rid}"]`)?.closest('.card');
+    const stockName = card?.querySelector('h2')?.textContent?.trim() || rid.toUpperCase();
+    backdrop.querySelector('.eng-modal-header h3').textContent = `Komentar — ${stockName}`;
+    
+    // Render form (di bottom)
+    renderCommentForm(backdrop, rid);
+    
+    backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    
+    // Load comments
+    await loadAndRenderComments(rid, backdrop);
+  }
+
+  function closeCommentModal() {
+    const backdrop = document.querySelector('.eng-modal-backdrop');
+    if (backdrop) backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+    _modalRid = null;
+  }
+
+  function renderCommentForm(backdrop, rid) {
+    const wrap = backdrop.querySelector('.eng-modal-form-wrap');
+    wrap.innerHTML = '';
+    
+    if (!isAuth()) {
+      const div = document.createElement('div');
+      div.className = 'eng-modal-form eng-modal-form-disabled';
+      div.innerHTML = 'Mau ikut diskusi? <a href="javascript:void(0)" onclick="if(typeof AUTH!==\'undefined\') AUTH.open(\'login\')">Login dulu</a> atau <a href="javascript:void(0)" onclick="if(typeof AUTH!==\'undefined\') AUTH.open(\'register\')">daftar gratis</a>';
+      wrap.appendChild(div);
+      return;
+    }
+    
+    if (!canComment()) {
+      const div = document.createElement('div');
+      div.className = 'eng-modal-form eng-modal-form-disabled';
+      div.innerHTML = 'Komentar hanya untuk subscriber atau mitra. <a href="index.html">Lihat paket berlangganan →</a>';
+      wrap.appendChild(div);
+      return;
+    }
+    
+    const form = document.createElement('div');
+    form.className = 'eng-modal-form';
+    form.innerHTML = `
+      <div class="eng-input-area">
+        <textarea class="eng-input-textarea" placeholder="Tulis komentar Anda..." maxlength="1000" rows="2"></textarea>
+        <button class="eng-input-submit" type="button">Kirim</button>
+      </div>
+      <div style="font-size:11px;color:var(--t2);margin-top:6px;text-align:right">Komentar Anda mencerminkan opini pribadi, bukan rekomendasi investasi Avenir Research.</div>
+    `;
+    wrap.appendChild(form);
+    
+    const textarea = form.querySelector('.eng-input-textarea');
+    const submit = form.querySelector('.eng-input-submit');
+    
+    textarea.addEventListener('input', () => {
+      textarea.style.height = 'auto';
+      textarea.style.height = Math.min(120, textarea.scrollHeight) + 'px';
+    });
+    
+    submit.addEventListener('click', async () => {
+      const body = textarea.value.trim();
+      if (body.length < 1) return;
+      submit.disabled = true;
+      submit.textContent = 'Mengirim...';
+      try {
+        const { error } = await ENG.sb
+          .from('comments')
+          .insert({
+            research_id: rid,
+            user_id: ENG.currentUser.id,
+            body: body
+          });
+        if (error) throw error;
+        textarea.value = '';
+        textarea.style.height = 'auto';
+        toast('Komentar terkirim ✓');
+        // Re-fetch & re-render
+        await loadAndRenderComments(rid, backdrop);
+        // Refresh catalog data
+        await fetchCatalogEngagement();
+        renderEngagement();
+      } catch (e) {
+        console.error('[ENG] comment insert error', e);
+        toast('Gagal mengirim komentar: ' + (e.message || 'unknown'));
+      } finally {
+        submit.disabled = false;
+        submit.textContent = 'Kirim';
+      }
+    });
+  }
+
+  async function loadAndRenderComments(rid, backdrop) {
+    const body = backdrop.querySelector('.eng-modal-body');
+    body.innerHTML = '<div class="eng-empty"><div class="eng-empty-icon">💬</div>Memuat komentar...</div>';
+    
+    try {
+      const userId = ENG.currentUser?.id || null;
+      const { data, error } = await ENG.sb.rpc('get_research_comments', { 
+        p_research_id: rid, 
+        p_user_id: userId,
+        p_limit: 100
+      });
+      if (error) throw error;
+      
+      if (!data || data.length === 0) {
+        body.innerHTML = '<div class="eng-empty"><div class="eng-empty-icon">💬</div>Belum ada komentar.<br>Jadilah yang pertama!</div>';
+        return;
+      }
+      
+      // Group: top-level only for now (no nested replies in MVP)
+      const topLevel = data.filter(c => !c.parent_id);
+      
+      body.innerHTML = '';
+      topLevel.forEach(c => {
+        const item = document.createElement('div');
+        item.className = 'eng-c-item';
+        item.dataset.cid = c.id;
+        const roleBadge = c.user_role && c.user_role !== 'user'
+          ? `<span class="eng-c-role" data-role="${escapeHTML(c.user_role)}">${escapeHTML(c.user_role)}</span>`
+          : '';
+        item.innerHTML = `
+          <div class="eng-c-head">
+            <div class="eng-c-avatar">${escapeHTML(avatarInitial(c.user_name))}</div>
+            <div class="eng-c-meta">
+              <div>
+                <span class="eng-c-name">${escapeHTML(c.user_name)}</span>
+                ${roleBadge}
+              </div>
+              <div class="eng-c-time">${timeAgo(c.created_at)}</div>
+            </div>
+          </div>
+          <div class="eng-c-body">${escapeHTML(c.body)}</div>
+          <div class="eng-c-actions">
+            <button data-action="like-comment" data-cid="${c.id}" data-active="${c.user_has_liked ? 'true' : 'false'}" type="button">
+              ${ICONS.heart}
+              <span class="eng-c-like-count">${c.like_count || 0}</span>
+            </button>
+            ${(ENG.currentUser?.id === c.user_id) ? '<button data-action="delete-comment" data-cid="' + c.id + '" type="button" style="color:#DC2626">Hapus</button>' : ''}
+          </div>
+        `;
+        body.appendChild(item);
+      });
+      
+      // Wire comment-level actions
+      body.querySelectorAll('[data-action="like-comment"]').forEach(btn => {
+        btn.addEventListener('click', () => handleCommentLike(btn));
+      });
+      body.querySelectorAll('[data-action="delete-comment"]').forEach(btn => {
+        btn.addEventListener('click', () => handleDeleteComment(btn, rid, backdrop));
+      });
+    } catch (e) {
+      console.error('[ENG] load comments error', e);
+      body.innerHTML = '<div class="eng-empty">Gagal memuat komentar. Refresh halaman.</div>';
+    }
+  }
+
+  async function handleCommentLike(btn) {
+    if (!isAuth()) {
+      toast('Login untuk memberi like');
+      return;
+    }
+    const cid = btn.dataset.cid;
+    const wasActive = btn.dataset.active === 'true';
+    const countEl = btn.querySelector('.eng-c-like-count');
+    const currentCount = Number(countEl.textContent) || 0;
+    
+    btn.dataset.active = wasActive ? 'false' : 'true';
+    countEl.textContent = wasActive ? Math.max(0, currentCount - 1) : currentCount + 1;
+    
+    try {
+      if (wasActive) {
+        const { error } = await ENG.sb
+          .from('comment_likes')
+          .delete()
+          .eq('comment_id', cid)
+          .eq('user_id', ENG.currentUser.id);
+        if (error) throw error;
+      } else {
+        const { error } = await ENG.sb
+          .from('comment_likes')
+          .insert({ comment_id: cid, user_id: ENG.currentUser.id });
+        if (error && error.code !== '23505') throw error;
+      }
+    } catch (e) {
+      console.error('[ENG] comment like error', e);
+      btn.dataset.active = wasActive ? 'true' : 'false';
+      countEl.textContent = currentCount;
+      toast('Gagal like komentar');
+    }
+  }
+
+  async function handleDeleteComment(btn, rid, backdrop) {
+    if (!confirm('Hapus komentar ini?')) return;
+    const cid = btn.dataset.cid;
+    try {
+      const { error } = await ENG.sb
+        .from('comments')
+        .update({ is_deleted: true })
+        .eq('id', cid)
+        .eq('user_id', ENG.currentUser.id);
+      if (error) throw error;
+      toast('Komentar dihapus');
+      await loadAndRenderComments(rid, backdrop);
+      await fetchCatalogEngagement();
+      renderEngagement();
+    } catch (e) {
+      console.error('[ENG] delete error', e);
+      toast('Gagal hapus komentar');
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // EVENT DELEGATION (catalog-wide click handler)
+  // ─────────────────────────────────────────────────────────
+  document.addEventListener('click', (e) => {
+    const eb = e.target.closest('.eng-btn');
+    if (eb) {
+      e.stopPropagation();
+      const action = eb.dataset.action;
+      const rid = eb.dataset.rid;
+      if (action === 'like') return handleLike(rid, eb);
+      if (action === 'comment') return openCommentModal(rid);
+      if (action === 'share') return handleShare(rid, eb);
+      return;
+    }
+    // Click on preview opens modal
+    const prev = e.target.closest('.eng-preview');
+    if (prev) {
+      e.stopPropagation();
+      openCommentModal(prev.dataset.rid);
+    }
+  });
+
+  // ─────────────────────────────────────────────────────────
+  // INIT
+  // ─────────────────────────────────────────────────────────
+  async function init(retryCount) {
+    retryCount = retryCount || 0;
+    if (ENG.initialized) {
+      console.log('[ENG] already initialized, skip');
+      return;
+    }
+    
+    // Get supabase client — try multiple sources
+    var sb = (typeof window._sb !== 'undefined' ? window._sb : null) 
+          || (typeof _sb !== 'undefined' ? _sb : null);
+    
+    if (!sb || !sb.from) {
+      if (retryCount < 20) {
+        console.log('[ENG] _sb not ready (retry ' + retryCount + '/20), wait 500ms');
+        setTimeout(function() { init(retryCount + 1); }, 500);
+        return;
+      } else {
+        console.error('[ENG] _sb still not ready after 10s — RENDER WITHOUT BACKEND');
+        // Fallback: render dengan empty data biar UI tetap muncul
+        ENG.catalogData = {};
+        renderEngagement();
+        return;
+      }
+    }
+    
+    ENG.sb = sb;
+    console.log('[ENG] _sb ready, init engagement module');
+    
+    // Mirror auth state from AUTH module
+    if (typeof AUTH !== 'undefined') {
+      ENG.currentUser = AUTH.currentUser || null;
+      ENG.currentProfile = AUTH.profile || null;
+      console.log('[ENG] AUTH state mirrored:', { hasUser: !!ENG.currentUser, hasProfile: !!ENG.currentProfile });
+    } else {
+      console.log('[ENG] AUTH module not available yet (will sync via event)');
+    }
+    
+    ENG.initialized = true;
+    
+    // Listen for AUTH module state changes (custom event) — BEFORE fetch (catch early)
+    window.addEventListener('avenir:auth-changed', async function(e) {
+      ENG.currentUser = (e.detail && e.detail.user) || null;
+      ENG.currentProfile = (e.detail && e.detail.profile) || null;
+      console.log('[ENG] auth-changed event received', { hasUser: !!ENG.currentUser });
+      try {
+        await fetchCatalogEngagement();
+      } catch(err) { console.warn('[ENG] fetch failed in auth-changed', err); }
+      renderEngagement();
+    });
+    
+    // Listen for auth state via supabase
+    if (ENG.sb.auth && ENG.sb.auth.onAuthStateChange) {
+      try {
+        ENG.sb.auth.onAuthStateChange(async function(_event, session) {
+          ENG.currentUser = (session && session.user) || null;
+          if (typeof AUTH !== 'undefined') {
+            ENG.currentProfile = AUTH.profile || null;
+          }
+          try {
+            await fetchCatalogEngagement();
+          } catch(err) { console.warn('[ENG] fetch failed in onAuthStateChange', err); }
+          renderEngagement();
+        });
+      } catch(err) {
+        console.warn('[ENG] onAuthStateChange setup failed', err);
+      }
+    }
+    
+    // Initial fetch & render — RENDER FIRST EVEN IF FETCH FAILS
+    try {
+      await fetchCatalogEngagement();
+      console.log('[ENG] initial fetch OK, catalogData keys:', Object.keys(ENG.catalogData));
+    } catch(err) {
+      console.warn('[ENG] initial fetch FAILED but rendering anyway with empty data:', err);
+      ENG.catalogData = {};
+    }
+    
+    renderEngagement();
+    console.log('[ENG] initial render done, cards rendered:', document.querySelectorAll('.eng-bar').length);
+  }
+
+  // Expose
+  window.AVENIR_ENG = ENG;
+  window.AVENIR_ENG_INIT = init;
+  window.AVENIR_ENG_RENDER = renderEngagement;
+  window.AVENIR_ENG_FETCH = fetchCatalogEngagement;
+
+  // Auto-init — multiple trigger points untuk robustness
+  function tryInit() { init(0); }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(tryInit, 300); });
+  } else {
+    setTimeout(tryInit, 300);
+  }
+  // Also trigger on load (final fallback)
+  if (document.readyState !== 'complete') {
+    window.addEventListener('load', function() { setTimeout(tryInit, 100); });
+  }
+})();
+
 </script>
 </body>
 </html>
