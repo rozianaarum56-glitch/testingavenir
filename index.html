@@ -1,4 +1,4 @@
-u<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -3041,8 +3041,197 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   display: none !important;
 }
 </style>
+
+<style>
+/* ═══ AVENIR BELL (matches research portal nav style) ═══ */
+.nav-bell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 7px;
+  color: #374151;
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+  transition: all .15s;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+.nav-bell:hover { color: #1B6B3A; border-color: #1B6B3A; background: rgba(27,107,58,.05); }
+.nav-bell svg { display: block; }
+.nav-bell-dot {
+  position: absolute;
+  top: 5px; right: 5px;
+  width: 7px; height: 7px;
+  background: #ef4444;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(239,68,68,0.55);
+  animation: avn-bell-pulse 2.4s infinite;
+  pointer-events: none;
+}
+@keyframes avn-bell-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.5); }
+  50% { box-shadow: 0 0 0 4px rgba(239,68,68,0); }
+}
+.nav-bell-dot.hidden { display: none; }
+
+.nav-bell-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: min(380px, calc(100vw - 32px));
+  max-height: 480px;
+  background: #ffffff;
+  color: #18211D;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+  text-align: left;
+}
+.nav-bell-panel.open { display: flex; }
+.nav-bell-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fafaf7;
+}
+.nav-bell-h-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #18211D;
+  text-transform: uppercase;
+}
+.nav-bell-mark {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1B6B3A;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 4px 6px;
+}
+.nav-bell-mark:hover { text-decoration: underline; }
+.nav-bell-list {
+  overflow-y: auto;
+  flex: 1;
+  max-height: 380px;
+}
+.nav-bell-item {
+  display: block;
+  padding: 12px 16px 12px 22px;
+  border-bottom: 1px solid #f3f4f1;
+  text-decoration: none;
+  color: #18211D;
+  position: relative;
+  transition: background .12s;
+}
+.nav-bell-item:hover { background: #fafaf7; }
+.nav-bell-item:last-child { border-bottom: none; }
+.nav-bell-item.unread { background: rgba(27,107,58,0.04); }
+.nav-bell-item.unread::before {
+  content: "";
+  position: absolute;
+  left: 10px; top: 50%;
+  transform: translateY(-50%);
+  width: 6px; height: 6px;
+  background: #1B6B3A;
+  border-radius: 50%;
+}
+.nav-bell-cat {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1B6B3A;
+  display: block;
+  margin-bottom: 3px;
+}
+.nav-bell-cat.amber { color: #B85C1A; }
+.nav-bell-cat.blue { color: #1A5C9B; }
+.nav-bell-cat.grey { color: #6b6b6b; }
+.nav-bell-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #18211D;
+  line-height: 1.42;
+  margin-bottom: 3px;
+}
+.nav-bell-date {
+  font-size: 10.5px;
+  color: #8EA899;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.02em;
+}
+.nav-bell-empty {
+  padding: 36px 24px;
+  text-align: center;
+  color: #8EA899;
+  font-size: 12.5px;
+}
+.nav-bell-foot {
+  padding: 10px 16px;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+  background: #fafaf7;
+}
+.nav-bell-foot a {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1B6B3A;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.nav-bell-foot a:hover { text-decoration: underline; }
+
+@media (max-width: 820px) {
+  .nav-bell-wrap {
+    position: absolute !important;
+    right: 60px !important;
+    top: 10px !important;
+    z-index: 10;
+  }
+  .nav-bell-panel {
+    position: fixed !important;
+    top: 64px !important;
+    right: 12px !important;
+    left: 12px !important;
+    width: calc(100vw - 24px) !important;
+    max-width: none !important;
+  }
+}
+</style>
 </head>
 <body>
+<script>
+/* ═══ EARLY INIT: prevent FOUC ═══ */
+(function() {
+  function setGuestEarly() {
+    if (!document.body) return;
+    if (!document.body.classList.contains('auth-state-user') && !document.body.classList.contains('auth-state-guest')) {
+      document.body.classList.add('auth-state-guest');
+    }
+  }
+  if (document.body) {
+    setGuestEarly();
+  } else {
+    document.addEventListener('DOMContentLoaded', setGuestEarly, { once: true });
+  }
+})();
+</script>
 <nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
   <div style="max-width:1280px;margin:0 auto;padding:0 18px;display:flex;align-items:center;height:54px;gap:18px;position:relative">
     <a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0">
@@ -3091,6 +3280,21 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
       </a>
     </div>
     <button data-auth="guest" class="nav-mobile-auth nav-mobile-login" onclick="AUTH.open('login')" style="display:none">Masuk</button>
+    <!-- Notification Bell -->
+    <div class="nav-bell-wrap" style="position:relative;display:inline-flex;align-items:center">
+      <button class="nav-bell" id="nav-bell-btn" type="button" onclick="AVN_BELL.toggle(event)" aria-label="Notifikasi">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+        <span class="nav-bell-dot" id="nav-bell-dot"></span>
+      </button>
+      <div class="nav-bell-panel" id="nav-bell-panel" role="dialog" aria-label="Pemberitahuan">
+        <div class="nav-bell-header">
+          <span class="nav-bell-h-title">Pemberitahuan</span>
+          <button class="nav-bell-mark" type="button" onclick="event.stopPropagation();AVN_BELL.markAllRead()">Tandai dibaca</button>
+        </div>
+        <div class="nav-bell-list" id="nav-bell-list"></div>
+        <div class="nav-bell-foot"><a href="news.html">Lihat semua →</a></div>
+      </div>
+    </div>
     <button class="nav-hamburger" onclick="document.getElementById('mobile-drawer').classList.toggle('open')" aria-label="Menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
@@ -3328,7 +3532,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 
   <div class="hh-stats">
    <div class="hh-stat">
-    <span class="hhs-num">17<span style="font-size:60%;color:var(--grn)"> Riset</span></span>
+    <span class="hhs-num">13<span style="font-size:60%;color:var(--grn)"> Riset</span></span>
     <span class="hhs-lbl">Tersedia di Katalog</span>
    </div>
    <div class="hh-stat">
@@ -3554,7 +3758,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <div class="hp-tier-name">Bulanan</div>
    <div class="hp-tier-price">
     <span class="hp-tier-currency">Rp</span>
-    <span class="hp-tier-amount hp-tier-strike">149.000</span>
+    <span class="hp-tier-amount hp-tier-strike">69.000</span>
    </div>
    <div class="hp-tier-period">/ bulan</div>
    <div class="hp-tier-eq">&nbsp;</div>
@@ -3569,12 +3773,12 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <div class="hp-tier-name">3 Bulan</div>
    <div class="hp-tier-price">
     <span class="hp-tier-currency">Rp</span>
-    <span class="hp-tier-amount hp-tier-strike">399.000</span>
+    <span class="hp-tier-amount hp-tier-strike">189.000</span>
    </div>
    <div class="hp-tier-period">/ 3 bulan</div>
-   <div class="hp-tier-eq">≈ Rp 133.000 / bulan</div>
+   <div class="hp-tier-eq">≈ Rp 63.000 / bulan</div>
    <button class="hp-tier-btn" onclick="AUTH.open('register')">Daftar &amp; Coba Gratis</button>
-   <div class="hp-tier-foot">Hemat Rp 16.000 vs bulanan</div>
+   <div class="hp-tier-foot">Hemat Rp 18.000 vs bulanan</div>
   </div>
 
   <!-- 6 BULAN -->
@@ -3584,12 +3788,12 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <div class="hp-tier-name">6 Bulan</div>
    <div class="hp-tier-price">
     <span class="hp-tier-currency">Rp</span>
-    <span class="hp-tier-amount hp-tier-strike">749.000</span>
+    <span class="hp-tier-amount hp-tier-strike">339.000</span>
    </div>
    <div class="hp-tier-period">/ 6 bulan</div>
-   <div class="hp-tier-eq">≈ Rp 124.800 / bulan</div>
+   <div class="hp-tier-eq">≈ Rp 56.500 / bulan</div>
    <button class="hp-tier-btn hp-tier-btn-primary" onclick="AUTH.open('register')">Daftar &amp; Coba Gratis</button>
-   <div class="hp-tier-foot">Hemat Rp 145.000 · Diskon 19%</div>
+   <div class="hp-tier-foot">Hemat Rp 75.000 · Diskon 18%</div>
   </div>
 
   <!-- 1 TAHUN -->
@@ -3599,12 +3803,12 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <div class="hp-tier-name">1 Tahun</div>
    <div class="hp-tier-price">
     <span class="hp-tier-currency">Rp</span>
-    <span class="hp-tier-amount hp-tier-strike">1.299.000</span>
+    <span class="hp-tier-amount hp-tier-strike">599.000</span>
    </div>
    <div class="hp-tier-period">/ tahun</div>
-   <div class="hp-tier-eq">≈ Rp 108.250 / bulan</div>
+   <div class="hp-tier-eq">≈ Rp 49.917 / bulan</div>
    <button class="hp-tier-btn" onclick="AUTH.open('register')">Daftar &amp; Coba Gratis</button>
-   <div class="hp-tier-foot">Hemat Rp 489.000 · Diskon 37%</div>
+   <div class="hp-tier-foot">Hemat Rp 229.000 · Diskon 28%</div>
   </div>
  </div>
 
@@ -3684,7 +3888,7 @@ const AUTH = {
     // Race getSession against 3s timeout — kalau gagal, fallback ke guest state
     try {
       const sessionPromise = _sb.auth.getSession();
-      const timeout = new Promise(res => setTimeout(() => res({ data: { session: null } }), 3000));
+      const timeout = new Promise(res => setTimeout(() => res({ data: { session: null } }), 1500));
       const { data: { session } } = await Promise.race([sessionPromise, timeout]);
       
       if (session?.user) {
@@ -3953,7 +4157,8 @@ const AUTH = {
         // Race: upsert vs 4s timeout — biar gak hang kalau RLS blokir
         const upsertPromise = _sb.from('profiles').upsert({
           id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
-          trial_started_at: new Date().toISOString()
+          trial_started_at: new Date().toISOString(),
+          is_user: true
         });
         const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('upsert timeout')), 4000));
         await Promise.race([upsertPromise, timeout]);
@@ -4362,13 +4567,114 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
   }
   
   // Delay 1 detik biar AUTH sempat resolve dulu (untuk dapat user_id kalau login)
-  if (document.readyState === 'complete') {
-    setTimeout(track, 1000);
-  } else {
-    window.addEventListener('load', () => setTimeout(track, 1000));
+  if (document.readyState === 'complete') { if (window.requestIdleCallback) { requestIdleCallback(track, { timeout: 2000 }); } else { setTimeout(track, 1000); } } else {
+    window.addEventListener('load', () => { if (window.requestIdleCallback) { requestIdleCallback(track, { timeout: 2000 }); } else { setTimeout(track, 1000); } });
   }
 })();
 </script>
 
+
+<script>
+/* ═══ AVENIR BELL — Latest Updates ═══ */
+(function() {
+  const items = [
+    {
+      id: 'art-ai-power-infra-2026',
+      cat: 'Artikel Baru',
+      catClass: 'amber',
+      title: 'Setelah Photonics & CPO: AI Power Infrastructure sebagai Bottleneck Berikutnya',
+      date: '17 Mei 2026',
+      url: 'artikel-ai-power-infrastructure-2026.html'
+    },
+    {
+      id: 'art-photonics-cpo-2026',
+      cat: 'Artikel',
+      catClass: '',
+      title: 'Mengapa Saham Coherent Naik 367% dalam 12 Bulan: Bedah Tema Photonics',
+      date: '15 Mei 2026',
+      url: 'artikel-photonics-cpo-2026.html'
+    },
+    {
+      id: 'art-etf-dram-2026',
+      cat: 'Artikel',
+      catClass: '',
+      title: 'ETF Bernama DRAM yang Mengalahkan Bitcoin: Memory Supercycle & Crowded Trade',
+      date: '15 Mei 2026',
+      url: 'artikel-etf-dram-2026.html'
+    },
+    {
+      id: 'news-ctth-mei-2026',
+      cat: 'Market News',
+      catClass: 'blue',
+      title: 'CTTH Keterbukaan Informasi — Restrukturisasi Mei 2026',
+      date: '14 Mei 2026',
+      url: 'news-ctth-keterbukaan-mei-2026.html'
+    }
+  ];
+
+  const KEY = 'avenir_bell_read';
+  function getRead() {
+    try { const r = localStorage.getItem(KEY); return r ? JSON.parse(r) : []; }
+    catch (e) { return []; }
+  }
+  function setRead(list) {
+    try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {}
+  }
+  function render() {
+    const list = document.getElementById('nav-bell-list');
+    const dot = document.getElementById('nav-bell-dot');
+    if (!list || !dot) return;
+    const read = getRead();
+    const unread = items.filter(i => !read.includes(i.id)).length;
+    dot.classList.toggle('hidden', unread === 0);
+    if (items.length === 0) {
+      list.innerHTML = '<div class="nav-bell-empty">Belum ada pemberitahuan.</div>';
+      return;
+    }
+    list.innerHTML = items.map(i => {
+      const u = !read.includes(i.id);
+      const cc = i.catClass ? ' ' + i.catClass : '';
+      return '<a class="nav-bell-item' + (u ? ' unread' : '') + '" href="' + i.url + '" onclick="AVN_BELL.markRead(\'' + i.id + '\')">' +
+        '<span class="nav-bell-cat' + cc + '">' + i.cat + '</span>' +
+        '<div class="nav-bell-title">' + i.title + '</div>' +
+        '<div class="nav-bell-date">' + i.date + '</div>' +
+        '</a>';
+    }).join('');
+  }
+  function toggle(e) {
+    if (e) e.stopPropagation();
+    const p = document.getElementById('nav-bell-panel');
+    if (!p) return;
+    p.classList.toggle('open');
+    if (p.classList.contains('open')) render();
+  }
+  function markRead(id) {
+    const r = getRead();
+    if (!r.includes(id)) { r.push(id); setRead(r); }
+    setTimeout(render, 60);
+  }
+  function markAllRead() { setRead(items.map(i => i.id)); render(); }
+
+  document.addEventListener('click', function(e) {
+    const panel = document.getElementById('nav-bell-panel');
+    const wrap = document.querySelector('.nav-bell-wrap');
+    if (!panel || !wrap) return;
+    if (panel.classList.contains('open') && !wrap.contains(e.target)) {
+      panel.classList.remove('open');
+    }
+  });
+  function init() {
+    const panel = document.getElementById('nav-bell-panel');
+    if (panel) panel.addEventListener('click', function(e) { e.stopPropagation(); });
+    render();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  window.AVN_BELL = { toggle: toggle, markRead: markRead, markAllRead: markAllRead };
+})();
+</script>
 </body>
 </html>
