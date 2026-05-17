@@ -3730,31 +3730,44 @@ const AUTH = {
   profile: null,
 
   async init() {
-    // Race getSession against 3s timeout — kalau gagal, fallback ke guest state
+    // ═══ OPTIMISTIC AUTH CHECK ═══
+    // Cek localStorage dulu untuk tahu apakah user pernah login.
+    // Kalau ada token tersimpan, set body class auth-state-user DULU
+    // sebelum getSession() balik — supaya UI tidak flash ke guest state.
     try {
-      const sessionPromise = _sb.auth.getSession();
-      const timeout = new Promise(res => setTimeout(() => res({ data: { session: null } }), 1500));
-      const { data: { session } } = await Promise.race([sessionPromise, timeout]);
-      
+      const keys = Object.keys(localStorage);
+      const authKey = keys.find(k => k.startsWith('sb-') && k.includes('-auth-token'));
+      if (authKey) {
+        const raw = localStorage.getItem(authKey);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.user) {
+            AUTH.currentUser = parsed.user;
+            document.body.classList.remove('auth-state-guest');
+            document.body.classList.add('auth-state-user');
+          }
+        }
+      }
+    } catch (e) {}
+    
+    // Get fresh session dari Supabase (tanpa timeout race yang merusak)
+    try {
+      const { data: { session } } = await _sb.auth.getSession();
       if (session?.user) {
         AUTH.currentUser = session.user;
-        // CRITICAL: refreshUI() langsung dipanggil dengan user metadata,
-        // jangan tunggu loadProfile (yang bisa lambat). Profile akan load di background.
         AUTH.refreshUI();
-        // Load profile di background untuk update tambahan (is_mitra dll)
         AUTH.loadProfile().then(() => AUTH.refreshUI()).catch(() => {});
       } else {
-        // Pastikan refreshUI() jalan untuk set body class auth-state-guest
+        AUTH.currentUser = null;
         AUTH.refreshUI();
       }
     } catch (e) {
       console.warn('AUTH init error:', e.message);
-      AUTH.refreshUI();
+      if (!AUTH.currentUser) AUTH.refreshUI();
     }
     
     _sb.auth.onAuthStateChange((event, session) => {
       AUTH.currentUser = session?.user || null;
-      // Refresh UI immediately — don't await profile
       AUTH.refreshUI();
       if (AUTH.currentUser) {
         AUTH.loadProfile().then(() => AUTH.refreshUI()).catch(() => {});

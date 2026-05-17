@@ -3200,9 +3200,14 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 @media (max-width: 820px) {
   .nav-bell-wrap {
     position: absolute !important;
-    right: 60px !important;
-    top: 10px !important;
+    right: 95px !important;
+    top: 14px !important;
+    transform: none !important;
     z-index: 10;
+  }
+  .nav-bell {
+    width: 36px !important;
+    height: 36px !important;
   }
   .nav-bell-panel {
     position: fixed !important;
@@ -3885,26 +3890,44 @@ const AUTH = {
   profile: null,
 
   async init() {
-    // Race getSession against 3s timeout — kalau gagal, fallback ke guest state
+    // ═══ OPTIMISTIC AUTH CHECK ═══
+    // Cek localStorage dulu untuk tahu apakah user pernah login.
+    // Kalau ada token tersimpan, set body class auth-state-user DULU
+    // sebelum getSession() balik — supaya UI tidak flash ke guest state.
     try {
-      const sessionPromise = _sb.auth.getSession();
-      const timeout = new Promise(res => setTimeout(() => res({ data: { session: null } }), 1500));
-      const { data: { session } } = await Promise.race([sessionPromise, timeout]);
-      
+      const keys = Object.keys(localStorage);
+      const authKey = keys.find(k => k.startsWith('sb-') && k.includes('-auth-token'));
+      if (authKey) {
+        const raw = localStorage.getItem(authKey);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.user) {
+            // Optimistic: set user state segera dari localStorage
+            AUTH.currentUser = parsed.user;
+            document.body.classList.remove('auth-state-guest');
+            document.body.classList.add('auth-state-user');
+          }
+        }
+      }
+    } catch (e) {}
+    
+    // Get fresh session dari Supabase (tanpa timeout race yang merusak)
+    try {
+      const { data: { session } } = await _sb.auth.getSession();
       if (session?.user) {
         AUTH.currentUser = session.user;
-        // CRITICAL: refreshUI() langsung dipanggil dengan user metadata,
-        // jangan tunggu loadProfile (yang bisa lambat). Profile akan load di background.
         AUTH.refreshUI();
-        // Load profile di background untuk update tambahan (is_mitra dll)
         AUTH.loadProfile().then(() => AUTH.refreshUI()).catch(() => {});
       } else {
-        // Pastikan refreshUI() jalan untuk set body class auth-state-guest
+        // Session benar-benar kosong → reset ke guest
+        AUTH.currentUser = null;
         AUTH.refreshUI();
       }
     } catch (e) {
       console.warn('AUTH init error:', e.message);
-      AUTH.refreshUI();
+      // Kalau error & kita sudah optimistic-set user, biarkan saja
+      // sampai onAuthStateChange handle kemudian
+      if (!AUTH.currentUser) AUTH.refreshUI();
     }
     
     _sb.auth.onAuthStateChange((event, session) => {
@@ -3917,6 +3940,32 @@ const AUTH = {
         AUTH.profile = null;
       }
     });
+    
+    // ═══ FIX: re-check session saat tab kembali visible / bfcache / focus ═══
+    // Mencegah konten ke-lock lagi setiap pindah halaman atau pindah aplikasi
+    async function _recheckSession() {
+      try {
+        const { data: { session } } = await _sb.auth.getSession();
+        const newUser = session?.user || null;
+        const changed = (newUser?.id || null) !== (AUTH.currentUser?.id || null);
+        AUTH.currentUser = newUser;
+        if (changed) {
+          AUTH.refreshUI();
+          if (newUser) AUTH.loadProfile().then(() => AUTH.refreshUI()).catch(() => {});
+          else AUTH.profile = null;
+        } else if (newUser && !AUTH.profile) {
+          // user ada tapi profile belum loaded — coba load ulang
+          AUTH.loadProfile().then(() => AUTH.refreshUI()).catch(() => {});
+        }
+      } catch (e) {}
+    }
+    document.addEventListener('visibilitychange', function() {
+      if (document.visibilityState === 'visible') _recheckSession();
+    });
+    window.addEventListener('pageshow', function(e) {
+      if (e.persisted) _recheckSession();
+    });
+    window.addEventListener('focus', _recheckSession);
   },
 
   // Load profile data including trial/subscription dates
