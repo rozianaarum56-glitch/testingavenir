@@ -3239,6 +3239,146 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
   }
 }
 </style>
+<style>
+/* ═══ AVENIR NOTIFICATION BELL ═══ */
+.nav-bell {
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  width: 38px; height: 38px;
+  background: transparent;
+  border: 1px solid #DDE7E2;
+  border-radius: 9px;
+  cursor: pointer;
+  position: relative;
+  color: #18211D;
+  margin-right: 4px;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.nav-bell:hover { background: rgba(27,107,58,0.07); border-color: rgba(27,107,58,0.3); color: #1B6B3A; }
+.nav-bell-dot {
+  position: absolute;
+  top: 7px; right: 7px;
+  width: 8px; height: 8px;
+  background: #dc2626;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 0 rgba(220,38,38,0.6);
+  animation: bellpulse 2s infinite;
+}
+@keyframes bellpulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.6); }
+  50% { box-shadow: 0 0 0 4px rgba(220,38,38,0); }
+}
+.nav-bell-dot.hidden { display: none; }
+.nav-bell-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(360px, calc(100vw - 24px));
+  max-height: 460px;
+  background: #fff;
+  border: 1px solid #DDE7E2;
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+  z-index: 600;
+  display: none;
+  overflow: hidden;
+  flex-direction: column;
+}
+.nav-bell-panel.open { display: flex; }
+.nav-bell-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #DDE7E2;
+  background: #F0EDE8;
+}
+.nav-bell-header-title {
+  font-family: 'Fraunces','Cormorant Garamond',Georgia,serif;
+  font-size: 16px; font-weight: 600;
+  color: #18211D;
+}
+.nav-bell-mark-all {
+  font-size: 11px; color: #1B6B3A;
+  background: none; border: none;
+  cursor: pointer; font-weight: 600;
+  padding: 4px 6px;
+  font-family: inherit;
+}
+.nav-bell-mark-all:hover { text-decoration: underline; }
+.nav-bell-list {
+  overflow-y: auto;
+  flex: 1;
+  max-height: 380px;
+}
+.nav-bell-item {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f3f4f1;
+  cursor: pointer;
+  text-decoration: none;
+  color: #18211D;
+  position: relative;
+  transition: background .15s;
+}
+.nav-bell-item:hover { background: #F0EDE8; }
+.nav-bell-item:last-child { border-bottom: none; }
+.nav-bell-item.unread { background: rgba(27,107,58,0.04); }
+.nav-bell-item.unread::before {
+  content: "";
+  position: absolute;
+  left: 6px; top: 50%;
+  transform: translateY(-50%);
+  width: 6px; height: 6px;
+  background: #1B6B3A;
+  border-radius: 50%;
+}
+.nav-bell-cat {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  color: #1B6B3A; text-transform: uppercase;
+  margin-bottom: 3px;
+  display: block;
+}
+.nav-bell-cat.amber { color: #d97706; }
+.nav-bell-cat.blue { color: #2563eb; }
+.nav-bell-title {
+  font-size: 13.5px; font-weight: 600;
+  color: #18211D;
+  line-height: 1.4;
+  margin-bottom: 3px;
+}
+.nav-bell-date {
+  font-size: 11px; color: #8EA899;
+}
+.nav-bell-empty {
+  padding: 32px 24px;
+  text-align: center;
+  color: #8EA899;
+  font-size: 13px;
+}
+.nav-bell-footer {
+  padding: 10px 16px;
+  border-top: 1px solid #DDE7E2;
+  text-align: center;
+}
+.nav-bell-footer a {
+  font-size: 12px;
+  color: #1B6B3A;
+  text-decoration: none;
+  font-weight: 600;
+}
+.nav-bell-footer a:hover { text-decoration: underline; }
+@media (max-width: 600px) {
+  .nav-bell-panel {
+    position: fixed !important;
+    top: 64px !important;
+    right: 8px !important;
+    left: 8px !important;
+    width: auto !important;
+    max-width: none;
+  }
+}
+</style>
 </head>
 <body>
 <script>
@@ -3305,7 +3445,24 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
       </a>
     </div>
     <button data-auth="guest" class="nav-mobile-auth nav-mobile-login" onclick="AUTH.open('login')" style="display:none">Masuk</button>
-    <button class="nav-hamburger" onclick="document.getElementById('mobile-drawer').classList.toggle('open')" aria-label="Menu">
+    <!-- Notification Bell -->
+<div class="nav-bell-wrap" style="position:relative">
+<button aria-label="Notifikasi" class="nav-bell" id="nav-bell-btn" onclick="AVN_BELL.toggle()">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+<span class="nav-bell-dot" id="nav-bell-dot"></span>
+</button>
+<div class="nav-bell-panel" id="nav-bell-panel" role="dialog" aria-label="Pemberitahuan">
+  <div class="nav-bell-header">
+    <span class="nav-bell-header-title">Pemberitahuan</span>
+    <button class="nav-bell-mark-all" onclick="AVN_BELL.markAllRead()">Tandai semua dibaca</button>
+  </div>
+  <div class="nav-bell-list" id="nav-bell-list"></div>
+  <div class="nav-bell-footer">
+    <a href="artikel.html">Lihat semua artikel →</a>
+  </div>
+</div>
+</div>
+<button class="nav-hamburger" onclick="document.getElementById('mobile-drawer').classList.toggle('open')" aria-label="Menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
@@ -4888,10 +5045,102 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
   
   window._applyLock = applyLock;
   
+  function _scheduleLock() {
+    setTimeout(applyLock, 100);
+    setTimeout(applyLock, 600);
+    setTimeout(applyLock, 1500);
+  }
+  
   // Initial apply
   setTimeout(applyLock, 300);
   setTimeout(applyLock, 1000);
   setTimeout(applyLock, 2500);
+  
+  // ═══ EVENT LISTENERS — fix lock-refresh issue ═══
+  // Re-apply ketika auth state berubah (token refresh, login/logout)
+  if (typeof _sb !== 'undefined' && _sb.auth && _sb.auth.onAuthStateChange) {
+    _sb.auth.onAuthStateChange(function() { _scheduleLock(); });
+  }
+  // Re-apply ketika tab kembali visible (balik dari aplikasi lain)
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') _scheduleLock();
+  });
+  // Re-apply saat bfcache restore (back/forward navigation)
+  window.addEventListener('pageshow', function(e) {
+    if (e.persisted) _scheduleLock();
+  });
+  // Re-apply saat window mendapat focus (Android Chrome)
+  window.addEventListener('focus', function() { _scheduleLock(); });
+})();
+</script>
+<script src="notifications.js"></script>
+<script>
+/* ═══ AVENIR NOTIFICATION BELL ═══ */
+const AVN_BELL = (function() {
+  const items = (window.AVENIR_NOTIFICATIONS && window.AVENIR_NOTIFICATIONS.items) || [];
+
+  const STORAGE_KEY = 'avenir_bell_read';
+
+  function getRead() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function setRead(list) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); } catch (e) {}
+  }
+
+  function render() {
+    const list = document.getElementById('nav-bell-list');
+    const dot = document.getElementById('nav-bell-dot');
+    if (!list || !dot) return;
+    const read = getRead();
+    const unreadCount = items.filter(i => !read.includes(i.id)).length;
+    if (unreadCount === 0) dot.classList.add('hidden');
+    else dot.classList.remove('hidden');
+    if (items.length === 0) {
+      list.innerHTML = '<div class="nav-bell-empty">Belum ada notifikasi.</div>';
+      return;
+    }
+    list.innerHTML = items.map(i => {
+      const unread = !read.includes(i.id);
+      const catClassExtra = i.catClass ? ' ' + i.catClass : '';
+      return '<a href="' + i.url + '" class="nav-bell-item' + (unread ? ' unread' : '') + '" data-id="' + i.id + '" onclick="AVN_BELL.markRead(\'' + i.id + '\')">' +
+        '<span class="nav-bell-cat' + catClassExtra + '">' + i.cat + '</span>' +
+        '<div class="nav-bell-title">' + i.title + '</div>' +
+        '<div class="nav-bell-date">' + i.date + '</div>' +
+        '</a>';
+    }).join('');
+  }
+  function toggle() {
+    const p = document.getElementById('nav-bell-panel');
+    if (!p) return;
+    p.classList.toggle('open');
+    if (p.classList.contains('open')) render();
+  }
+  function markRead(id) {
+    const read = getRead();
+    if (!read.includes(id)) { read.push(id); setRead(read); }
+    setTimeout(render, 100);
+  }
+  function markAllRead() { setRead(items.map(i => i.id)); render(); }
+
+  document.addEventListener('click', function(e) {
+    const panel = document.getElementById('nav-bell-panel');
+    const btn = document.getElementById('nav-bell-btn');
+    if (!panel || !btn) return;
+    if (panel.classList.contains('open') && !panel.contains(e.target) && !btn.contains(e.target)) {
+      panel.classList.remove('open');
+    }
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+  return { toggle, markRead, markAllRead };
 })();
 </script>
 </body>

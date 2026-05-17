@@ -3532,7 +3532,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 
   <div class="hh-stats">
    <div class="hh-stat">
-    <span class="hhs-num">13<span style="font-size:60%;color:var(--grn)"> Riset</span></span>
+    <span class="hhs-num"><span id="hero-riset-count">13</span><span style="font-size:60%;color:var(--grn)"> Riset</span></span>
     <span class="hhs-lbl">Tersedia di Katalog</span>
    </div>
    <div class="hh-stat">
@@ -3614,7 +3614,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <div class="hwhy-card">
     <div class="hwhy-num">04</div>
     <h3>Akses Demokratis, Harga Terjangkau</h3>
-    <p>Riset sell-side institusi biasa dijual ratusan juta per tahun ke klien besar saja. Avenir membuka akses penuh dengan langganan Rp 49.000-69.000/bulan — agar investor ritel pun bisa berinvestasi seperti institusi.</p>
+    <p>Riset sell-side institusi biasa dijual ratusan juta per tahun ke klien besar saja. Avenir membuka akses penuh dengan langganan mulai Rp 149.000/bulan — agar investor ritel pun bisa berinvestasi seperti institusi.</p>
     <div class="hwhy-tag">AKSES PENUH 2 BULAN GRATIS</div>
    </div>
   </div>
@@ -3758,7 +3758,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <div class="hp-tier-name">Bulanan</div>
    <div class="hp-tier-price">
     <span class="hp-tier-currency">Rp</span>
-    <span class="hp-tier-amount hp-tier-strike">69.000</span>
+    <span class="hp-tier-amount hp-tier-strike">149.000</span>
    </div>
    <div class="hp-tier-period">/ bulan</div>
    <div class="hp-tier-eq">&nbsp;</div>
@@ -3773,12 +3773,12 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <div class="hp-tier-name">3 Bulan</div>
    <div class="hp-tier-price">
     <span class="hp-tier-currency">Rp</span>
-    <span class="hp-tier-amount hp-tier-strike">189.000</span>
+    <span class="hp-tier-amount hp-tier-strike">399.000</span>
    </div>
    <div class="hp-tier-period">/ 3 bulan</div>
-   <div class="hp-tier-eq">≈ Rp 63.000 / bulan</div>
+   <div class="hp-tier-eq">≈ Rp 133.000 / bulan</div>
    <button class="hp-tier-btn" onclick="AUTH.open('register')">Daftar &amp; Coba Gratis</button>
-   <div class="hp-tier-foot">Hemat Rp 18.000 vs bulanan</div>
+   <div class="hp-tier-foot">Hemat Rp 48.000 vs bulanan</div>
   </div>
 
   <!-- 6 BULAN -->
@@ -3788,12 +3788,12 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <div class="hp-tier-name">6 Bulan</div>
    <div class="hp-tier-price">
     <span class="hp-tier-currency">Rp</span>
-    <span class="hp-tier-amount hp-tier-strike">339.000</span>
+    <span class="hp-tier-amount hp-tier-strike">729.000</span>
    </div>
    <div class="hp-tier-period">/ 6 bulan</div>
-   <div class="hp-tier-eq">≈ Rp 56.500 / bulan</div>
+   <div class="hp-tier-eq">≈ Rp 121.500 / bulan</div>
    <button class="hp-tier-btn hp-tier-btn-primary" onclick="AUTH.open('register')">Daftar &amp; Coba Gratis</button>
-   <div class="hp-tier-foot">Hemat Rp 75.000 · Diskon 18%</div>
+   <div class="hp-tier-foot">Hemat Rp 165.000 · Diskon 18%</div>
   </div>
 
   <!-- 1 TAHUN -->
@@ -3803,12 +3803,12 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <div class="hp-tier-name">1 Tahun</div>
    <div class="hp-tier-price">
     <span class="hp-tier-currency">Rp</span>
-    <span class="hp-tier-amount hp-tier-strike">599.000</span>
+    <span class="hp-tier-amount hp-tier-strike">1.289.000</span>
    </div>
    <div class="hp-tier-period">/ tahun</div>
-   <div class="hp-tier-eq">≈ Rp 49.917 / bulan</div>
+   <div class="hp-tier-eq">≈ Rp 107.500 / bulan</div>
    <button class="hp-tier-btn" onclick="AUTH.open('register')">Daftar &amp; Coba Gratis</button>
-   <div class="hp-tier-foot">Hemat Rp 229.000 · Diskon 28%</div>
+   <div class="hp-tier-foot">Hemat Rp 499.000 · Diskon 28%</div>
   </div>
  </div>
 
@@ -4574,43 +4574,21 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
 </script>
 
 
+<script src="notifications.js"></script>
+<script>
+/* ═══ AVENIR HERO STATS — Auto-update Riset Count ═══ */
+(function() {
+  const stats = (window.AVENIR_NOTIFICATIONS && window.AVENIR_NOTIFICATIONS.stats) || {};
+  if (stats.risetCount && typeof stats.risetCount === 'number') {
+    const el = document.getElementById('hero-riset-count');
+    if (el) el.textContent = stats.risetCount;
+  }
+})();
+</script>
 <script>
 /* ═══ AVENIR BELL — Latest Updates ═══ */
 (function() {
-  const items = [
-    {
-      id: 'art-ai-power-infra-2026',
-      cat: 'Artikel Baru',
-      catClass: 'amber',
-      title: 'Setelah Photonics & CPO: AI Power Infrastructure sebagai Bottleneck Berikutnya',
-      date: '17 Mei 2026',
-      url: 'artikel-ai-power-infrastructure-2026.html'
-    },
-    {
-      id: 'art-photonics-cpo-2026',
-      cat: 'Artikel',
-      catClass: '',
-      title: 'Mengapa Saham Coherent Naik 367% dalam 12 Bulan: Bedah Tema Photonics',
-      date: '15 Mei 2026',
-      url: 'artikel-photonics-cpo-2026.html'
-    },
-    {
-      id: 'art-etf-dram-2026',
-      cat: 'Artikel',
-      catClass: '',
-      title: 'ETF Bernama DRAM yang Mengalahkan Bitcoin: Memory Supercycle & Crowded Trade',
-      date: '15 Mei 2026',
-      url: 'artikel-etf-dram-2026.html'
-    },
-    {
-      id: 'news-ctth-mei-2026',
-      cat: 'Market News',
-      catClass: 'blue',
-      title: 'CTTH Keterbukaan Informasi — Restrukturisasi Mei 2026',
-      date: '14 Mei 2026',
-      url: 'news-ctth-keterbukaan-mei-2026.html'
-    }
-  ];
+  const items = (window.AVENIR_NOTIFICATIONS && window.AVENIR_NOTIFICATIONS.items) || [];
 
   const KEY = 'avenir_bell_read';
   function getRead() {

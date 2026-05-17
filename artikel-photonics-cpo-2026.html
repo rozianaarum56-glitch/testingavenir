@@ -9,7 +9,7 @@
 <title>Photonics & AI Infrastructure: Masih Permukaan atau Sudah Terlambat? | Avenir Research</title>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Avenir Research">
-<meta property="og:title" content="Mengapa Saham Bernama Coherent Naik 367% dalam 12 Bulan: Bedah Tema Photonics dan Pertanyaan yang Belum Banyak Ditanya — Avenir Research">
+<meta property="og:title" content="Photonics & AI Infrastructure: Masih Permukaan atau Sudah Terlambat? — Avenir Research Paper">
 <meta property="og:description" content="Analisis tematik Avenir Research tentang co-packaged optics (CPO), silicon photonics, optical I/O, dan AI cluster scaling. NVIDIA $4B deal, Marvell-Celestial AI $3,25B, AAOI +441% YTD. Bedah 4-bucket value chain, framework 5 generasi teknologi, tiga skenario probabilistik 2026-2030. Tidak memuat target harga.">
 <meta property="og:url" content="https://research.avenirfortuna.com/artikel/photonics-ai-infrastructure-2026">
 <meta property="og:image" content="https://avenirresearch.app/og-cover.jpg">
@@ -3602,10 +3602,10 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
 ◆ AVENIR RESEARCH · EQUITY STRATEGY · AI INFRASTRUCTURE
 </div>
 <h1 style="font-family:Georgia,serif;font-size:clamp(24px,5vw,38px);line-height:1.2;color:#0f172a;margin:8px 0 14px 0;font-weight:700;word-wrap:break-word">
-Mengapa Saham Bernama Coherent Naik 367% dalam 12 Bulan: Bedah Tema Photonics dan Pertanyaan yang Belum Banyak Ditanya
+Photonics &amp; AI Infrastructure: Masih Permukaan atau Sudah Terlambat?
 </h1>
 <div style="border-left:3px solid #00aacc;padding:14px 18px;background:rgba(0,200,200,0.04);margin:18px 0;color:#475569;font-size:15px;line-height:1.65">
-Pada 2 Maret 2026, NVIDIA mengumumkan investasi <strong>$4 miliar</strong> &mdash; $2B masing-masing ke Lumentum dan Coherent. Tiga bulan sebelumnya, Marvell mengakuisisi Celestial AI senilai <strong>$3,25 miliar</strong>. Saham Applied Optoelectronics (AAOI) sudah naik <strong>441%</strong> sepanjang 2026. Apakah masih ada ruang masuk di tema photonics, atau pasar sudah memberi harga skenario sempurna? Artikel ini melakukan bedah mendalam terhadap teknologi, value chain, individual company economics, analogi historis, dan implikasi struktural untuk investor Indonesia.
+Pada 2 Maret 2026, NVIDIA mengumumkan investasi <strong>$4 miliar</strong> &mdash; $2B masing-masing ke Lumentum dan Coherent. Tiga bulan sebelumnya, Marvell mengakuisisi Celestial AI senilai <strong>$3,25 miliar</strong>. Saham Applied Optoelectronics (AAOI) sudah naik <strong>441%</strong> sepanjang 2026. Apakah masih ada ruang masuk di tema photonics, atau pasar sudah memberi harga skenario sempurna? Paper ini melakukan bedah mendalam terhadap teknologi, value chain, individual company economics, analogi historis, dan implikasi struktural untuk investor Indonesia.
 </div>
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:#64748b;font-size:13px;margin-top:18px;padding-top:16px;border-top:1px solid #e2e8f0">
 <span><strong>Tim Avenir Research</strong></span>
@@ -6333,10 +6333,32 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
   
   window._applyLock = applyLock;
   
+  function _scheduleLock() {
+    setTimeout(applyLock, 100);
+    setTimeout(applyLock, 600);
+    setTimeout(applyLock, 1500);
+  }
+  
   // Initial apply
   setTimeout(applyLock, 300);
   setTimeout(applyLock, 1000);
   setTimeout(applyLock, 2500);
+  
+  // ═══ EVENT LISTENERS — fix lock-refresh issue ═══
+  // Re-apply ketika auth state berubah (token refresh, login/logout)
+  if (typeof _sb !== 'undefined' && _sb.auth && _sb.auth.onAuthStateChange) {
+    _sb.auth.onAuthStateChange(function() { _scheduleLock(); });
+  }
+  // Re-apply ketika tab kembali visible (balik dari aplikasi lain)
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') _scheduleLock();
+  });
+  // Re-apply saat bfcache restore (back/forward navigation)
+  window.addEventListener('pageshow', function(e) {
+    if (e.persisted) _scheduleLock();
+  });
+  // Re-apply saat window mendapat focus (Android Chrome)
+  window.addEventListener('focus', function() { _scheduleLock(); });
 })();
 </script>
 </body>

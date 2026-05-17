@@ -4971,10 +4971,32 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
   
   window._applyLock = applyLock;
   
+  function _scheduleLock() {
+    setTimeout(applyLock, 100);
+    setTimeout(applyLock, 600);
+    setTimeout(applyLock, 1500);
+  }
+  
   // Initial apply
   setTimeout(applyLock, 300);
   setTimeout(applyLock, 1000);
   setTimeout(applyLock, 2500);
+  
+  // ═══ EVENT LISTENERS — fix lock-refresh issue ═══
+  // Re-apply ketika auth state berubah (token refresh, login/logout)
+  if (typeof _sb !== 'undefined' && _sb.auth && _sb.auth.onAuthStateChange) {
+    _sb.auth.onAuthStateChange(function() { _scheduleLock(); });
+  }
+  // Re-apply ketika tab kembali visible (balik dari aplikasi lain)
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') _scheduleLock();
+  });
+  // Re-apply saat bfcache restore (back/forward navigation)
+  window.addEventListener('pageshow', function(e) {
+    if (e.persisted) _scheduleLock();
+  });
+  // Re-apply saat window mendapat focus (Android Chrome)
+  window.addEventListener('focus', function() { _scheduleLock(); });
 })();
 </script>
 </body>
