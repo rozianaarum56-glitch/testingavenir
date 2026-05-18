@@ -3447,7 +3447,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <h3>Pendaftaran Mitra Analis</h3>
    <p class="auth-sub">Kirimkan aplikasi Anda sebagai analis riset freelance Avenir</p>
    <div class="auth-info-box">
-    Setiap riset yang diterima akan ditinjau oleh tim editorial kami untuk pemilihan riset yang akan dipublikasikan. Analis mitra mendapatkan <strong>bagi hasil 40%</strong> dari pool subscription, dibagi proporsional berdasarkan views. (Sisa 60% untuk operasional Avenir: platform, kurasi editorial, marketing & pengembangan)
+    Setiap riset yang diterima akan ditinjau oleh tim editorial kami untuk pemilihan riset yang akan dipublikasikan. Analis mitra mendapatkan <strong>bagi hasil 20%</strong> dari pool subscription, dibagi ke <strong>Top 10 mitra</strong> berdasarkan peringkat views bulanan. (Sisa 80% untuk operasional Avenir: platform, kurasi editorial, marketing & pengembangan)
    </div>
    <div class="auth-err" id="analyst-err"></div>
    <div class="auth-2col">
@@ -3536,9 +3536,9 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
  </div>
 
  <div class="home-hero-inner">
-  <div class="hh-tag"><span class="hh-dot"></span>EQUITY RESEARCH MARKETPLACE INDONESIA</div>
+  <div class="hh-tag"><span class="hh-dot"></span>RISET EKUITAS · LANGGANAN PROFESIONAL</div>
   <h1 class="hh-title">Riset Saham Kelas <span class="hl">Institusi</span><br>untuk Investor <span class="hl">Cerdas</span></h1>
-  <p class="hh-lead">Akses laporan riset ekuitas mendalam berbasis Annual Report audited. Ditulis oleh analis bersertifikasi. AKSES PENUH 2 BULAN GRATIS — atau gratis untuk riset pilihan.</p>
+  <p class="hh-lead">Berlangganan untuk akses penuh ke katalog riset ekuitas mendalam dan artikel pasar yang ditulis analis bersertifikasi — semuanya berbasis Annual Report audited. <strong>2 bulan trial gratis</strong>, lalu Rp 149.000/bulan.</p>
 
   <div class="hh-cta">
    <button class="hh-btn-primary" onclick="window.location.href='katalog.html'">Jelajahi Katalog Riset →</button>
@@ -3547,7 +3547,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 
   <div class="hh-stats">
    <div class="hh-stat">
-    <span class="hhs-num"><span id="hero-riset-count">18</span><span style="font-size:60%;color:var(--grn)"> Riset</span></span>
+    <span class="hhs-num"><span id="hero-riset-count">13</span><span style="font-size:60%;color:var(--grn)"> Riset</span></span>
     <span class="hhs-lbl">Tersedia di Katalog</span>
    </div>
    <div class="hh-stat">
@@ -3605,7 +3605,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
  <div class="hwhy-inner">
   <div class="hwhy-eyebrow">◆ MENGAPA AVENIR</div>
   <h2 class="hwhy-title">Riset Ekuitas yang <span class="hl">Bekerja</span> untuk Investor</h2>
-  <p class="hwhy-lead">Bukan sekadar marketplace. Avenir Research adalah ekosistem riset yang dibangun di atas tiga prinsip utama: data audited, metodologi multi-skenario, dan analis bersertifikasi.</p>
+  <p class="hwhy-lead">Lebih dari sekadar arsip riset. Avenir Research adalah platform langganan yang dibangun di atas tiga prinsip utama: data audited, metodologi multi-skenario, dan analis bersertifikasi.</p>
 
   <div class="hwhy-grid">
    <div class="hwhy-card">
@@ -4675,6 +4675,7 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
         .from('notifications')
         .select('*')
         .order('published_at', { ascending: false })
+        .order('id', { ascending: false })
         .limit(10);
       if (error) {
         console.warn('Bell fetch error:', error.message);
@@ -4719,12 +4720,23 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
     const p = document.getElementById('nav-bell-panel');
     if (!p) return;
     
-    // Portal trick: move panel ke body saat open agar position:fixed bekerja
-    // tanpa terpengaruh transform parent
+    // Portal trick: HANYA mobile (≤820px) yang perlu move ke body untuk position:fixed.
+    // Desktop pakai position:absolute relative ke nav-bell-wrap, jangan dipindah —
+    // kalau dipindah ke body, top:calc(100%+10px) jadi reference body height, panel off-screen.
+    const isMobile = window.innerWidth <= 820;
+    
     if (!p.classList.contains('open')) {
-      // Buka: move ke body
-      if (p.parentElement !== document.body) {
-        document.body.appendChild(p);
+      if (isMobile) {
+        // Buka di mobile: move ke body agar position:fixed bekerja tanpa terpengaruh transform parent
+        if (p.parentElement !== document.body) {
+          document.body.appendChild(p);
+        }
+      } else {
+        // Buka di desktop: pastikan panel kembali ke nav-bell-wrap (kalau sebelumnya dipindah ke body karena resize)
+        const wrap = document.querySelector('.nav-bell-wrap');
+        if (wrap && p.parentElement !== wrap) {
+          wrap.appendChild(p);
+        }
       }
     }
     p.classList.toggle('open');

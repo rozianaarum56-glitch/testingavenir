@@ -3267,6 +3267,22 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 </style>
 </head>
 <body>
+<script>
+/* ═══ EARLY INIT: prevent FOUC ═══ */
+(function() {
+  function setGuestEarly() {
+    if (!document.body) return;
+    if (!document.body.classList.contains('auth-state-user') && !document.body.classList.contains('auth-state-guest')) {
+      document.body.classList.add('auth-state-guest');
+    }
+  }
+  if (document.body) {
+    setGuestEarly();
+  } else {
+    document.addEventListener('DOMContentLoaded', setGuestEarly, { once: true });
+  }
+})();
+</script>
 <nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
   <div style="max-width:1280px;margin:0 auto;padding:0 18px;display:flex;align-items:center;height:54px;gap:18px;position:relative">
     <a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0">
@@ -3452,7 +3468,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <h3>Pendaftaran Mitra Analis</h3>
    <p class="auth-sub">Kirimkan aplikasi Anda sebagai analis riset freelance Avenir</p>
    <div class="auth-info-box">
-    Setiap riset yang diterima akan ditinjau oleh tim editorial kami untuk pemilihan riset yang akan dipublikasikan. Analis mitra mendapatkan <strong>bagi hasil 40%</strong> dari pool subscription, dibagi proporsional berdasarkan views. (Sisa 60% untuk operasional Avenir: platform, kurasi editorial, marketing & pengembangan)
+    Setiap riset yang diterima akan ditinjau oleh tim editorial kami untuk pemilihan riset yang akan dipublikasikan. Analis mitra mendapatkan <strong>bagi hasil 20%</strong> dari pool subscription, dibagi ke <strong>Top 10 mitra</strong> berdasarkan peringkat views bulanan. (Sisa 80% untuk operasional Avenir: platform, kurasi editorial, marketing & pengembangan)
    </div>
    <div class="auth-err" id="analyst-err"></div>
    <div class="auth-2col">
@@ -3572,16 +3588,32 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 <div class="mt-wrap">
   <div class="mt-hero">
     <div class="mt-hero-eyebrow">◆ PROGRAM MITRA ANALIS</div>
-    <h1>Tulis Riset dan Nikmati <span class="hl">Revenue Sharing</span> dari Pendapatan Subscription</h1>
-    <p>Bergabunglah sebagai Mitra Analis Avenir Research. Submit riset Anda, dan dapatkan bagi hasil bulanan dari pool subscription — dibagi proporsional berdasarkan jumlah views ke setiap riset.</p>
+    <h1>Tulis Riset, Naik <span class="hl">Peringkat</span>, Dapat Bagian Pool</h1>
+    <p>Bergabunglah sebagai Mitra Analis Avenir Research. Submit riset Anda, capai peringkat views tertinggi, dan dapatkan bagian dari pool bulanan — yang dibentuk dari 20% revenue subscription dan dibagi berdasarkan peringkat performa riset Anda.</p>
   </div>
   <div class="mt-formula">
-    <div class="mt-formula-h">💰 Model Bagi Hasil</div>
+    <div class="mt-formula-h">💰 Model Pool & Pembagian Ranking</div>
     <div class="mt-formula-eq">
-      <strong>Pool Mitra</strong> = 40% × Total Revenue Subscription Bulanan<br>
-      <strong>Bagian Mitra X</strong> = (Views Riset X ÷ Total Views Semua Riset) × Pool Mitra
+      <strong>Pool Mitra Bulanan</strong> = 20% × Total Revenue Subscription<br>
+      <strong>Bagian Mitra</strong> = Persentase Ranking × Pool Mitra Bulanan
     </div>
-    <p class="mt-formula-explain">Setiap akhir bulan, 40% dari total subscription revenue dialokasikan ke pool mitra. Pool tersebut dibagi <strong>proporsional</strong> berdasarkan jumlah views ke setiap riset di bulan tersebut. Riset internal Avenir juga ikut "kompetisi views" — semakin banyak riset Anda dibaca dibanding semua riset lain, semakin besar bagian Anda. Pembayaran via transfer bank tiap awal bulan berikutnya.</p>
+    <p class="mt-formula-explain">Setiap akhir bulan, 20% dari total revenue subscription dialokasikan ke <strong>pool mitra</strong>. Dari pool tersebut, hanya <strong>Top 10 mitra dengan views terbanyak</strong> yang dapat bagian — masing-masing dengan persentase berdasarkan peringkat. Bukan proporsional views, melainkan <strong>peringkat</strong>: yang nomor 1 dapat bagian paling besar tanpa harus punya selisih views besar dengan nomor 2. Pembayaran via transfer bank tiap awal bulan berikutnya.</p>
+    <div style="margin-top:18px;padding:16px 18px;background:#fff;border:1px solid var(--bd);border-radius:8px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--t2);text-transform:uppercase;margin-bottom:10px">Persentase Pool per Peringkat</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px">
+        <div style="background:var(--grn);color:#fff;padding:10px 8px;border-radius:6px;text-align:center"><div style="font-size:10px;opacity:.85;margin-bottom:2px">RANK #1</div><div style="font-size:15px;font-weight:700">25%</div></div>
+        <div style="background:var(--grn-l);color:#fff;padding:10px 8px;border-radius:6px;text-align:center"><div style="font-size:10px;opacity:.85;margin-bottom:2px">RANK #2</div><div style="font-size:15px;font-weight:700">18%</div></div>
+        <div style="background:var(--grn-l);color:#fff;padding:10px 8px;border-radius:6px;text-align:center"><div style="font-size:10px;opacity:.85;margin-bottom:2px">RANK #3</div><div style="font-size:15px;font-weight:700">14%</div></div>
+        <div style="background:var(--grn-gl);color:var(--grn-d);padding:10px 8px;border-radius:6px;text-align:center"><div style="font-size:10px;opacity:.85;margin-bottom:2px">RANK #4</div><div style="font-size:15px;font-weight:700">11%</div></div>
+        <div style="background:var(--grn-gl);color:var(--grn-d);padding:10px 8px;border-radius:6px;text-align:center"><div style="font-size:10px;opacity:.85;margin-bottom:2px">RANK #5</div><div style="font-size:15px;font-weight:700">9%</div></div>
+        <div style="background:var(--grn-gl);color:var(--grn-d);padding:10px 8px;border-radius:6px;text-align:center"><div style="font-size:10px;opacity:.85;margin-bottom:2px">RANK #6</div><div style="font-size:15px;font-weight:700">7%</div></div>
+        <div style="background:var(--grn-gl);color:var(--grn-d);padding:10px 8px;border-radius:6px;text-align:center"><div style="font-size:10px;opacity:.85;margin-bottom:2px">RANK #7</div><div style="font-size:15px;font-weight:700">6%</div></div>
+        <div style="background:var(--grn-gl);color:var(--grn-d);padding:10px 8px;border-radius:6px;text-align:center"><div style="font-size:10px;opacity:.85;margin-bottom:2px">RANK #8</div><div style="font-size:15px;font-weight:700">5%</div></div>
+        <div style="background:var(--grn-gl);color:var(--grn-d);padding:10px 8px;border-radius:6px;text-align:center"><div style="font-size:10px;opacity:.85;margin-bottom:2px">RANK #9</div><div style="font-size:15px;font-weight:700">3%</div></div>
+        <div style="background:var(--grn-gl);color:var(--grn-d);padding:10px 8px;border-radius:6px;text-align:center"><div style="font-size:10px;opacity:.85;margin-bottom:2px">RANK #10</div><div style="font-size:15px;font-weight:700">2%</div></div>
+      </div>
+      <div style="font-size:11.5px;color:var(--t3);margin-top:10px;line-height:1.5">Total 100% dari pool. Peringkat di-reset setiap bulan — setiap mitra punya kesempatan baru tiap awal periode.</div>
+    </div>
   </div>
   <div class="mt-section-h">CARA BERGABUNG &amp; WORKFLOW</div>
   <div class="mt-steps">
@@ -3592,20 +3624,16 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   </div>
   <div class="mt-example">
     <h2>📊 Contoh Perhitungan Pendapatan Bulanan</h2>
-    <p>Asumsi: <strong>100 subscriber bulanan</strong> × Rp 69.000 = <strong>Rp 6.900.000</strong> total revenue → Pool mitra (40%) = <strong>Rp 2.760.000</strong>. Total views semua riset di bulan tersebut: <strong>1.000 views</strong>.</p>
+    <p>Asumsi: <strong>100 subscriber</strong> × Rp 149.000 = <strong>Rp 14.900.000</strong> revenue → Pool 20% = <strong>Rp 2.980.000</strong>. Berikut simulasi distribusi ke peringkat Top 10 menggunakan nama mitra terverifikasi Avenir Research:</p>
     <div class="mt-table-wrap">
     <table class="mt-example-table">
-      <thead><tr><th>Riset</th><th>Penulis</th><th>Views</th><th class="mt-pct">%</th><th class="mt-money">Bagian</th></tr></thead>
-      <tbody>
-        <tr><td>BBCA Q1 Review</td><td>Budi (Mitra)</td><td>200</td><td class="mt-pct">20%</td><td class="mt-money">Rp 552.000</td></tr>
-        <tr><td>UNVR Margin Outlook</td><td>Andi (Mitra)</td><td>100</td><td class="mt-pct">10%</td><td class="mt-money">Rp 276.000</td></tr>
-        <tr><td>ASII Diversification</td><td>Citra (Mitra)</td><td>50</td><td class="mt-pct">5%</td><td class="mt-money">Rp 138.000</td></tr>
-        <tr class="mt-internal"><td>ADRO Investment Thesis</td><td>Tim Avenir (internal)</td><td>400</td><td class="mt-pct">40%</td><td class="mt-money">Rp 1.104.000</td></tr>
-        <tr class="mt-internal"><td>BBRI Q4 Update</td><td>Tim Avenir (internal)</td><td>250</td><td class="mt-pct">25%</td><td class="mt-money">Rp 690.000</td></tr>
+      <thead><tr><th>Peringkat</th><th>Mitra</th><th>Views (contoh)</th><th class="mt-pct">% Pool</th><th class="mt-money">Bagian</th></tr></thead>
+      <tbody id="mt-contoh-tbody">
+        <tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px;font-style:italic">⏳ Memuat daftar mitra…</td></tr>
       </tbody>
     </table>
     </div>
-    <p class="mt-example-note">Catatan: Riset internal Avenir ikut perhitungan views, tapi bagian-nya dialokasikan untuk operasional platform (kurasi editorial, infrastruktur, marketing). Total mitra di contoh ini menerima <strong>Rp 966.000</strong> (35%) dari total pool, dengan distribusi sesuai proporsi views masing-masing.</p>
+    <p class="mt-example-note"><strong>Catatan:</strong> Nama-nama di atas adalah <strong>mitra terverifikasi</strong> yang sudah aktif di Avenir Research. Angka views, persentase pool, dan nominal bagian adalah <strong>contoh ilustrasi</strong> untuk menunjukkan mekanisme distribusi — bukan data aktual. Peringkat sesungguhnya akan ditentukan oleh views aktual setiap bulan setelah subscription berbayar aktif. Slot yang belum terisi (kalau total mitra terverifikasi &lt; 10) terbuka untuk pendaftaran baru.</p>
   </div>
   <div class="mt-section-h">KENAPA JADI MITRA AVENIR?</div>
   <div class="mt-features">
@@ -3638,10 +3666,12 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   </div>
   <div class="mt-faq">
     <h2>❓ Pertanyaan Umum</h2>
-    <div class="mt-q"><h3 class="mt-q-h">Apakah ada minimum jumlah riset per bulan?</h3><p class="mt-q-a">Tidak ada minimum. Anda bebas tulis berapapun. Tapi makin banyak riset (dengan kualitas konsisten), makin besar potensi views Anda.</p></div>
-    <div class="mt-q"><h3 class="mt-q-h">Bagaimana jika subscription belum aktif (masih fase trial)?</h3><p class="mt-q-a">Saat ini Avenir Research dalam fase peluncuran awal dengan trial 2 bulan untuk semua user. Pembayaran ke mitra dimulai setelah subscription berbayar aktif. Selama trial, views tetap tercatat dan akan dikonversi pendapatan setelah subscription jalan.</p></div>
+    <div class="mt-q"><h3 class="mt-q-h">Apakah ada minimum jumlah riset per bulan?</h3><p class="mt-q-a">Tidak ada minimum. Anda bebas tulis berapapun. Tapi karena sistem berbasis <strong>peringkat views</strong>, lebih banyak riset berkualitas konsisten = lebih besar peluang Anda masuk Top 10 setiap bulan.</p></div>
+    <div class="mt-q"><h3 class="mt-q-h">Bagaimana jika saya tidak masuk Top 10 di bulan tertentu?</h3><p class="mt-q-a">Mitra di luar Top 10 mendapat <strong>0 (nol) bagian</strong> dari pool bulan tersebut, tapi views Anda tetap tercatat dan terlihat di dashboard. Setiap bulan adalah <strong>periode baru</strong>, jadi performa bulan sebelumnya tidak menentukan bulan berikutnya. Mitra dengan riset evergreen yang konsisten dibaca punya peluang besar untuk konsisten masuk Top 10.</p></div>
+    <div class="mt-q"><h3 class="mt-q-h">Bagaimana jika subscription belum aktif (masih fase trial)?</h3><p class="mt-q-a">Saat ini Avenir Research dalam fase peluncuran awal dengan trial 2 bulan untuk semua user (lalu Rp 149.000/bulan). Pembayaran ke mitra dimulai setelah subscription berbayar aktif. Selama trial, peringkat dan views tetap tercatat dan akan dikonversi pendapatan setelah subscription jalan.</p></div>
+    <div class="mt-q"><h3 class="mt-q-h">Apakah riset internal Avenir ikut kompetisi peringkat?</h3><p class="mt-q-a">Tidak. Riset yang ditulis Tim Avenir internal <strong>tidak ikut</strong> Top 10 ranking — pool 20% sepenuhnya untuk mitra eksternal. Tim Avenir menulis untuk kebutuhan editorial dan kurasi, sementara mitra bersaing sehat dalam pool tersendiri.</p></div>
     <div class="mt-q"><h3 class="mt-q-h">Apakah saya bisa repost riset di blog/LinkedIn pribadi?</h3><p class="mt-q-a">Riset eksklusif untuk Avenir Research selama 30 hari. Setelah itu, Anda boleh repost dengan attribusi "Pertama dipublikasikan di Avenir Research".</p></div>
-    <div class="mt-q"><h3 class="mt-q-h">Bagaimana cara saya track penghasilan saya?</h3><p class="mt-q-a">Setelah disetujui jadi mitra, Anda otomatis dapat akses ke <strong>Dashboard Mitra</strong> di menu nav. Di sana Anda bisa lihat real-time: total views bulan ini, estimasi pendapatan, dan tren views.</p></div>
+    <div class="mt-q"><h3 class="mt-q-h">Bagaimana cara saya track peringkat saya?</h3><p class="mt-q-a">Setelah disetujui jadi mitra, Anda otomatis dapat akses ke <strong>Dashboard Mitra</strong> di menu nav. Di sana Anda bisa lihat real-time: views per riset, peringkat sementara bulan berjalan, estimasi pendapatan jika peringkat bertahan, dan tren historis.</p></div>
     <div class="mt-q"><h3 class="mt-q-h">Apakah ada training atau onboarding?</h3><p class="mt-q-a">Setelah disetujui, Anda akan dapat akses ke template riset standar Avenir, editorial guidelines (30+ checklist), dan onboarding session 1-on-1 dengan tim editor.</p></div>
   </div>
 </div>
@@ -3690,7 +3720,7 @@ const AUTH = {
     // Race getSession against 3s timeout — kalau gagal, fallback ke guest state
     try {
       const sessionPromise = _sb.auth.getSession();
-      const timeout = new Promise(res => setTimeout(() => res({ data: { session: null } }), 3000));
+      const timeout = new Promise(res => setTimeout(() => res({ data: { session: null } }), 1500));
       const { data: { session } } = await Promise.race([sessionPromise, timeout]);
       
       if (session?.user) {
@@ -3959,7 +3989,8 @@ const AUTH = {
         // Race: upsert vs 4s timeout — biar gak hang kalau RLS blokir
         const upsertPromise = _sb.from('profiles').upsert({
           id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
-          trial_started_at: new Date().toISOString()
+          trial_started_at: new Date().toISOString(),
+          is_user: true
         });
         const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('upsert timeout')), 4000));
         await Promise.race([upsertPromise, timeout]);
@@ -4406,6 +4437,76 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
 </script>
 
 <script>
+/* ═══ CONTOH PERHITUNGAN: Render tabel dgn nama mitra real dari Supabase ═══ */
+(async function loadContohPerhitungan() {
+  const tbody = document.getElementById('mt-contoh-tbody');
+  if (!tbody) return;
+  
+  // Tier ranking-based (10 peringkat, total 100%)
+  const TIER_PCT     = [25, 18, 14, 11, 9, 7, 6, 5, 3, 2];
+  const TIER_VIEWS   = [312, 284, 241, 198, 175, 142, 118, 97, 82, 71];
+  const TIER_BAGIAN  = ['Rp 745.000', 'Rp 536.400', 'Rp 417.200', 'Rp 327.800', 'Rp 268.200', 'Rp 208.600', 'Rp 178.800', 'Rp 149.000', 'Rp 89.400', 'Rp 59.600'];
+  
+  function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  
+  function renderRows(mitraNames) {
+    const rows = [];
+    for (let i = 0; i < 10; i++) {
+      const nama = (i < mitraNames.length)
+        ? escapeHtml(mitraNames[i])
+        : '<span style="color:var(--t3);font-style:italic">Slot tersedia</span>';
+      rows.push(
+        '<tr>' +
+          '<td><strong>#' + (i + 1) + '</strong></td>' +
+          '<td>' + nama + '</td>' +
+          '<td>' + TIER_VIEWS[i] + '</td>' +
+          '<td class="mt-pct">' + TIER_PCT[i] + '%</td>' +
+          '<td class="mt-money">' + TIER_BAGIAN[i] + '</td>' +
+        '</tr>'
+      );
+    }
+    tbody.innerHTML = rows.join('');
+  }
+  
+  // Wait for Supabase client
+  let attempts = 0;
+  while (typeof window._sb === 'undefined' && attempts < 30) {
+    await new Promise(r => setTimeout(r, 100));
+    attempts++;
+  }
+  if (typeof window._sb === 'undefined') {
+    renderRows([]); // semua slot tersedia
+    return;
+  }
+  
+  try {
+    const { data, error } = await window._sb
+      .from('public_mitra_list')
+      .select('nama_depan, nama_belakang')
+      .order('nama_depan', { ascending: true })
+      .limit(10);
+    
+    if (error || !data || data.length === 0) {
+      renderRows([]);
+      return;
+    }
+    
+    const names = data.map(m => {
+      const full = ((m.nama_depan || '') + ' ' + (m.nama_belakang || '')).trim();
+      return full || 'Mitra Anonim';
+    });
+    renderRows(names);
+  } catch (e) {
+    console.warn('Contoh perhitungan error:', e);
+    renderRows([]);
+  }
+})();
+</script>
+
+<script>
 /* ═══ MITRA TERVERIFIKASI: Fetch & Render ═══ */
 (async function() {
   const loadingEl = document.getElementById('mt-verified-loading');
@@ -4536,10 +4637,8 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
   }
   
   // Delay 1 detik biar AUTH sempat resolve dulu (untuk dapat user_id kalau login)
-  if (document.readyState === 'complete') {
-    setTimeout(track, 1000);
-  } else {
-    window.addEventListener('load', () => setTimeout(track, 1000));
+  if (document.readyState === 'complete') { if (window.requestIdleCallback) { requestIdleCallback(track, { timeout: 2000 }); } else { setTimeout(track, 1000); } } else {
+    window.addEventListener('load', () => { if (window.requestIdleCallback) { requestIdleCallback(track, { timeout: 2000 }); } else { setTimeout(track, 1000); } });
   }
 })();
 </script>
