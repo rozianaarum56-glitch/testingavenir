@@ -6245,8 +6245,13 @@ const Admin = {
         return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
       };
       
-      container.innerHTML = '<div style="background:#fff;border:1px solid var(--bd);border-radius:12px;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="background:#f8fafc"><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Judul / URL</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Kategori</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Tanggal</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Baru?</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Aksi</th></tr></thead><tbody>' + 
-        data.map(n => '<tr><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top"><div style="font-weight:600;color:#0f172a;margin-bottom:2px">' + Admin.escape(n.title) + '</div><div style="font-size:12px;color:#64748b;word-break:break-all">' + Admin.escape(n.url) + '</div></td><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top"><span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#f1f5f9;color:#475569;font-size:11px;font-weight:600">' + Admin.escape(n.category) + '</span></td><td style="padding:12px;border-bottom:1px solid #f1f5f9;font-size:12px;color:#94a3b8;white-space:nowrap;vertical-align:top">' + fmtDate(n.published_at) + '</td><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top">' + (n.is_new ? '<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#fef3c7;color:#92400e;font-size:11px;font-weight:700;letter-spacing:.5px">BARU</span>' : '—') + '</td><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top"><div style="display:flex;gap:6px"><button onclick="Admin.notifEdit(' + n.id + ')" style="padding:6px 10px;border:1px solid var(--bd);background:#fff;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✏️ Edit</button><button onclick="Admin.notifDelete(' + n.id + ')" style="padding:6px 10px;border:1px solid #fecaca;background:#fff;color:#dc2626;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🗑 Hapus</button></div></td></tr>').join('') +
+      container.innerHTML = '<div style="background:#fff;border:1px solid var(--bd);border-radius:12px;overflow:hidden;overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px;min-width:780px"><thead><tr style="background:#f8fafc"><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Judul / URL</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Kategori</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Tanggal</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Baru?</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Email</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Aksi</th></tr></thead><tbody>' + 
+        data.map(n => {
+          const emailStatus = n.email_sent_at 
+            ? '<div style="font-size:11px;color:#15803d;font-weight:600">✓ ' + (n.email_sent_count || 0) + ' terkirim</div><div style="font-size:10px;color:#94a3b8">' + fmtDate(n.email_sent_at) + '</div>' 
+            : '<div style="font-size:11px;color:#94a3b8">Belum dikirim</div>';
+          return '<tr><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top"><div style="font-weight:600;color:#0f172a;margin-bottom:2px">' + Admin.escape(n.title) + '</div><div style="font-size:12px;color:#64748b;word-break:break-all">' + Admin.escape(n.url) + '</div></td><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top"><span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#f1f5f9;color:#475569;font-size:11px;font-weight:600">' + Admin.escape(n.category) + '</span></td><td style="padding:12px;border-bottom:1px solid #f1f5f9;font-size:12px;color:#94a3b8;white-space:nowrap;vertical-align:top">' + fmtDate(n.published_at) + '</td><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top">' + (n.is_new ? '<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#fef3c7;color:#92400e;font-size:11px;font-weight:700;letter-spacing:.5px">BARU</span>' : '—') + '</td><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top">' + emailStatus + '</td><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top"><div style="display:flex;gap:6px;flex-wrap:wrap"><button onclick="Admin.notifBlastEmail(' + n.id + ')" style="padding:6px 10px;border:1px solid #1B6B3A;background:#1B6B3A;color:#fff;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit" title="Kirim email ke semua subscriber aktif">📧 Blast</button><button onclick="Admin.notifEdit(' + n.id + ')" style="padding:6px 10px;border:1px solid var(--bd);background:#fff;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✏️ Edit</button><button onclick="Admin.notifDelete(' + n.id + ')" style="padding:6px 10px;border:1px solid #fecaca;background:#fff;color:#dc2626;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🗑 Hapus</button></div></td></tr>';
+        }).join('') +
         '</tbody></table></div>';
     } catch (e) {
       container.innerHTML = '<div class="admin-loading" style="color:#dc2626">⚠️ Error: ' + e.message + '</div>';
@@ -6325,6 +6330,50 @@ const Admin = {
     document.getElementById('notif-f-category').value = 'Artikel';
     document.getElementById('notif-f-is-new').checked = true;
     document.getElementById('notif-f-date').value = new Date().toISOString().split('T')[0];
+  },
+  
+  async notifBlastEmail(id) {
+    if (!confirm('Kirim email notifikasi ini ke SEMUA subscriber aktif?\n\nIni tidak dapat dibatalkan setelah dikirim.')) return;
+    
+    // Disable tombol selama proses (cari tombol yang di-klik)
+    const btn = event && event.target ? event.target : null;
+    const originalText = btn ? btn.textContent : '';
+    if (btn) {
+      btn.disabled = true;
+      btn.style.opacity = '0.6';
+      btn.textContent = '⏳ Mengirim...';
+    }
+    
+    try {
+      const { data: { session } } = await window._sb.auth.getSession();
+      if (!session) throw new Error('Session expired. Login ulang.');
+      
+      const resp = await fetch(
+        'https://wkcqnqtwuxzcjagitkmk.supabase.co/functions/v1/blast-email',
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + session.access_token,
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_YYtylX5tqzI0Xdy3OrQPgQ_YIXP2zSM'
+          },
+          body: JSON.stringify({ notification_id: id })
+        }
+      );
+      
+      const result = await resp.json();
+      if (!resp.ok) throw new Error(result.error || 'Failed: ' + resp.status);
+      
+      alert(`✅ Email berhasil dikirim!\n\nTotal subscriber: ${result.total}\nTerkirim: ${result.sent}\nGagal: ${result.failed}`);
+      Admin.loadNotif();
+    } catch (e) {
+      alert('❌ Gagal kirim email: ' + e.message);
+      if (btn) {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        btn.textContent = originalText;
+      }
+    }
   },
   
   escape(s) {
