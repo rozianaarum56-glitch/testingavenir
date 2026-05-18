@@ -56,21 +56,14 @@
     styleEl.id = 'avenir-nav-styles';
     styleEl.textContent = `
 
-/* ═══ Toggle visibility [data-auth] berdasarkan body class ═══ */
-/* Default: sembunyikan SEMUA data-auth element sampai body class ter-set */
-[data-auth="user"], [data-auth="guest"] { display: none !important; }
+/* ═══ Toggle visibility [data-auth] — HIDE-only approach ═══ */
+/* Element default-nya pakai class CSS masing-masing (.mob-link → block, dll).
+   Inline style="display:none" di HTML jadi initial state SEMUA tersembunyi.
+   refreshUI() strip inline style → element tampil sesuai class CSS-nya.
+   CSS di bawah HIDE element yang TIDAK match body state. */
 
-/* Saat body punya class auth-state-user → show user-only elements */
-body.auth-state-user [data-auth="user"] { display: revert !important; }
-
-/* Saat body punya class auth-state-guest → show guest-only elements */
-body.auth-state-guest [data-auth="guest"] { display: revert !important; }
-
-/* Override untuk display:flex elements (dropdown user wrap, dst) */
-body.auth-state-user [data-auth="user"][id="user-menu-wrap"],
-body.auth-state-user .nav-mobile-auth[data-auth="user"] { 
-  display: inline-flex !important; 
-}
+body.auth-state-user [data-auth="guest"] { display: none !important; }
+body.auth-state-guest [data-auth="user"] { display: none !important; }
 
 /* ═══ AVENIR AUTH MODAL ═══ */
 .auth-overlay {
@@ -413,39 +406,9 @@ body.auth-state-user .nav-mobile-auth[data-auth="user"] {
       <a href="dashboard-mitra.html" class="nav-link nav-link-mitra-only" style="display:none">Dashboard Mitra</a>
     </div>
     <div class="nav-right-desktop" style="display:flex;gap:6px;align-items:center;flex-shrink:0">
-      
-      <button data-auth="guest" onclick="AUTH.open('login')" class="nav-btn-secondary">Sign In</button>
-      <button data-auth="guest" onclick="AUTH.open('register')" class="nav-btn-primary">Daftar</button>
-      <div data-auth="user" style="display:none;position:relative" id="user-menu-wrap">
-        <button onclick="document.getElementById('user-dropdown').style.display=document.getElementById('user-dropdown').style.display==='block'?'none':'block'" class="nav-btn-user" id="nav-user-name-item">
-          👤 <span id="nav-user-name">Akun</span>
-          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div id="user-dropdown" style="display:none;position:absolute;top:100%;right:0;margin-top:6px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.1);min-width:200px;overflow:hidden;z-index:10">
-          <a href="pengguna.html" class="user-dd-item">
-            <span class="user-dd-icon">👤</span>
-            <span><strong>Akun Saya</strong><br><span class="user-dd-hint">Profil &amp; pengaturan</span></span>
-          </a>
-          <a href="pengguna.html#langganan" class="user-dd-item">
-            <span class="user-dd-icon">🎟️</span>
-            <span><strong>Status Langganan</strong><br><span class="user-dd-hint" id="user-dd-sub-hint">Cek masa aktif</span></span>
-          </a>
-          <a href="dashboard-mitra.html" class="user-dd-item nav-link-mitra-only" style="display:none">
-            <span class="user-dd-icon">📊</span>
-            <span><strong>Dashboard Mitra</strong><br><span class="user-dd-hint">Performa &amp; earnings</span></span>
-          </a>
-          <button onclick="AUTH.logout();document.getElementById('user-dropdown').style.display='none'" class="user-dd-logout">Keluar →</button>
-        </div>
-      </div>
+      <!-- Auth buttons removed — akses via hamburger drawer -->
     </div>
-    <!-- Mobile auth indicator (shown < 820px) -->
-    <div class="nav-mobile-auth" data-auth="user" style="display:none">
-      <a href="pengguna.html" class="mob-user-chip" id="mob-user-chip">
-        <span class="mob-user-icon">👤</span>
-        <span id="mob-user-name">Akun</span>
-      </a>
-    </div>
-    <button data-auth="guest" class="nav-mobile-auth nav-mobile-login" onclick="AUTH.open('login')" style="display:none">Masuk</button>
+    <!-- Mobile auth removed — akses via hamburger drawer -->
     <!-- Notification Bell -->
     <div class="nav-bell-wrap" style="position:relative;display:inline-flex;align-items:center">
       <button class="nav-bell" id="nav-bell-btn" type="button" onclick="AVN_BELL.toggle(event)" aria-label="Notifikasi">
