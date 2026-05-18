@@ -46,10 +46,32 @@
   }
   
   function boot() {
+    // Set default body class supaya CSS data-auth rules ada anchor (sebelum AUTH resolve)
+    if (document.body && !document.body.classList.contains('auth-state-user') && !document.body.classList.contains('auth-state-guest')) {
+      document.body.classList.add('auth-state-guest');
+    }
+    
     // ──────────────── Inject CSS ────────────────
     const styleEl = document.createElement('style');
     styleEl.id = 'avenir-nav-styles';
     styleEl.textContent = `
+
+/* ═══ Toggle visibility [data-auth] berdasarkan body class ═══ */
+/* Default: sembunyikan SEMUA data-auth element sampai body class ter-set */
+[data-auth="user"], [data-auth="guest"] { display: none !important; }
+
+/* Saat body punya class auth-state-user → show user-only elements */
+body.auth-state-user [data-auth="user"] { display: revert !important; }
+
+/* Saat body punya class auth-state-guest → show guest-only elements */
+body.auth-state-guest [data-auth="guest"] { display: revert !important; }
+
+/* Override untuk display:flex elements (dropdown user wrap, dst) */
+body.auth-state-user [data-auth="user"][id="user-menu-wrap"],
+body.auth-state-user .nav-mobile-auth[data-auth="user"] { 
+  display: inline-flex !important; 
+}
+
 /* ═══ AVENIR AUTH MODAL ═══ */
 .auth-overlay {
   position: fixed; inset: 0; background: rgba(15,23,42,0.55); display: none;
