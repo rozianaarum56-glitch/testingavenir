@@ -3058,8 +3058,227 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   background: rgba(27,107,58,0.12);
   color: var(--grn, #1B6B3A);
 }
+/* Urgent: badge merah pulsing untuk pending pembayaran */
+.admin-tab-count.admin-tab-count-urgent[data-pending="true"] {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
+  animation: admin-pulse-urgent 1.8s ease-in-out infinite;
+}
+@keyframes admin-pulse-urgent {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.45); }
+  50% { box-shadow: 0 0 0 5px rgba(220,38,38,0); }
+}
 .admin-pane { display: none; }
 .admin-pane.active { display: block; }
+
+/* ═══ PAYMENT TAB ═══ */
+.pay-filter-btn {
+  background: #fff;
+  border: 1px solid var(--bd);
+  color: var(--t2);
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.pay-filter-btn:hover {
+  border-color: var(--grn);
+  color: var(--grn-d);
+}
+.pay-filter-btn.active {
+  background: var(--grn);
+  color: #fff;
+  border-color: var(--grn);
+}
+.pay-filter-btn > span {
+  background: rgba(0,0,0,0.08);
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.pay-filter-btn.active > span {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+}
+
+.pay-card {
+  background: #fff;
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+}
+.pay-card-pending { border-left: 4px solid #f59e0b; }
+.pay-card-approved { border-left: 4px solid #15803d; opacity: 0.85; }
+.pay-card-rejected { border-left: 4px solid #b91c1c; opacity: 0.7; }
+
+.pay-card-main { min-width: 0; }
+.pay-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.pay-card-name { font-size: 16px; font-weight: 700; color: var(--t); margin: 0; }
+.pay-card-email { font-size: 12.5px; color: var(--t3); font-family: 'JetBrains Mono', monospace; }
+.pay-card-badge {
+  padding: 3px 9px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.pay-card-badge.pending { background: #fef3c7; color: #92400e; }
+.pay-card-badge.approved { background: #d1fae5; color: #15803d; }
+.pay-card-badge.rejected { background: #fee2e2; color: #b91c1c; }
+
+.pay-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+}
+.pay-card-meta-label { font-size: 10.5px; font-weight: 700; color: var(--t3); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 3px; }
+.pay-card-meta-value { font-size: 13px; color: var(--t); font-family: 'JetBrains Mono', monospace; font-weight: 600; word-break: break-all; }
+.pay-card-meta-value.nominal { color: var(--grn-d); font-size: 14.5px; }
+
+.pay-card-actions { display: flex; flex-direction: column; gap: 8px; min-width: 130px; }
+.pay-card-bukti-btn {
+  background: #fff;
+  border: 1px solid var(--bd);
+  color: var(--t2);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.pay-card-bukti-btn:hover { border-color: var(--grn); color: var(--grn-d); }
+.pay-card-approve-btn {
+  background: var(--grn);
+  color: #fff;
+  border: none;
+  padding: 9px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.pay-card-approve-btn:hover { background: var(--grn-d); }
+.pay-card-approve-btn:disabled { opacity: .5; cursor: not-allowed; }
+.pay-card-reject-btn {
+  background: transparent;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.pay-card-reject-btn:hover { background: #fee2e2; }
+
+.pay-card-result {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.pay-card-result.approved { background: #d1fae5; color: #15803d; }
+.pay-card-result.rejected { background: #fee2e2; color: #b91c1c; }
+.pay-card-result strong { font-weight: 700; }
+
+/* Lightbox bukti */
+.pay-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100000;
+  padding: 20px;
+  cursor: zoom-out;
+}
+.pay-lightbox.open { display: flex; }
+.pay-lightbox img { max-width: 95vw; max-height: 92vh; object-fit: contain; border-radius: 6px; cursor: default; }
+.pay-lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pay-lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+/* Reject modal */
+.pay-reject-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100001;
+  padding: 16px;
+}
+.pay-reject-overlay.open { display: flex; }
+.pay-reject-box {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 480px;
+  width: 100%;
+  padding: 28px;
+}
+.pay-reject-box h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; font-weight: 600; margin: 0 0 8px; }
+.pay-reject-box .pay-reject-sub { font-size: 13.5px; color: var(--t2); margin-bottom: 18px; }
+.pay-reject-box textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--bd);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  min-height: 90px;
+  resize: vertical;
+}
+.pay-reject-actions { display: flex; gap: 8px; margin-top: 18px; }
+.pay-reject-actions button { flex: 1; padding: 11px; border-radius: 6px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
+.pay-reject-confirm { background: #b91c1c; color: #fff; border: none; }
+.pay-reject-cancel { background: #fff; color: var(--t2); border: 1px solid var(--bd); }
+
+@media (max-width: 720px) {
+  .pay-card { grid-template-columns: 1fr; }
+  .pay-card-actions { flex-direction: row; flex-wrap: wrap; }
+  .pay-card-actions > * { flex: 1; min-width: 100px; }
+}
 
 /* Stats grid — Futuristic glassmorphism */
 .admin-stats-grid {
@@ -4167,6 +4386,9 @@ body.auth-pending .nav-mobile-login {
         <button class="admin-tab-btn active" data-tab="pending" onclick="Admin.switchTab('pending')">
           📥 Pending Mitra <span class="admin-tab-count" id="admin-count-pending">0</span>
         </button>
+        <button class="admin-tab-btn" data-tab="payment" onclick="Admin.switchTab('payment')">
+          💳 Konfirmasi Pembayaran <span class="admin-tab-count admin-tab-count-urgent" id="admin-count-payment">0</span>
+        </button>
         <button class="admin-tab-btn" data-tab="mitra" onclick="Admin.switchTab('mitra')">
           ✅ Mitra Aktif <span class="admin-tab-count" id="admin-count-mitra">0</span>
         </button>
@@ -4184,6 +4406,20 @@ body.auth-pending .nav-mobile-login {
       <!-- PANE: Pending -->
       <div id="admin-pane-pending" class="admin-pane active">
         <div id="admin-pending-list" class="admin-list">
+          <div class="admin-skeleton"><div class="skel-card"></div><div class="skel-card"></div></div>
+        </div>
+      </div>
+      
+      <!-- PANE: Konfirmasi Pembayaran -->
+      <div id="admin-pane-payment" class="admin-pane">
+        <div class="pay-filters" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;padding:14px;background:#fff;border:1px solid var(--bd);border-radius:8px">
+          <button class="pay-filter-btn active" data-filter="pending" onclick="Admin.paymentFilter('pending')">⏳ Pending <span id="pay-c-pending">0</span></button>
+          <button class="pay-filter-btn" data-filter="approved" onclick="Admin.paymentFilter('approved')">✓ Approved <span id="pay-c-approved">0</span></button>
+          <button class="pay-filter-btn" data-filter="rejected" onclick="Admin.paymentFilter('rejected')">✗ Rejected <span id="pay-c-rejected">0</span></button>
+          <button class="pay-filter-btn" data-filter="all" onclick="Admin.paymentFilter('all')">Semua <span id="pay-c-all">0</span></button>
+          <div style="margin-left:auto;display:flex;align-items:center"><button onclick="Admin.loadPayment()" style="background:transparent;color:var(--t2);border:1px solid var(--bd);padding:7px 12px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">🔄 Refresh</button></div>
+        </div>
+        <div id="admin-payment-list" class="admin-list">
           <div class="admin-skeleton"><div class="skel-card"></div><div class="skel-card"></div></div>
         </div>
       </div>
@@ -5041,6 +5277,7 @@ const Admin = {
     Admin.isReady = true;
     
     Admin.loadPending();
+    setTimeout(() => Admin.loadPayment(), 50);
     setTimeout(() => Admin.loadMitra(), 100);
     setTimeout(() => Admin.loadUser(), 200);
     setTimeout(() => Admin.loadNotif(), 250);
@@ -5050,6 +5287,7 @@ const Admin = {
   async loadAll() {
     await Promise.all([
       Admin.loadPending(),
+      Admin.loadPayment(),
       Admin.loadMitra(),
       Admin.loadUser(),
       Admin.loadNotif(),
@@ -6378,6 +6616,294 @@ const Admin = {
     }
   },
   
+  // ════════════════ KONFIRMASI PEMBAYARAN ════════════════
+  paymentData: { all: [] },
+  paymentCurrentFilter: 'pending',
+  
+  async loadPayment() {
+    const container = document.getElementById('admin-payment-list');
+    const countEl = document.getElementById('admin-count-payment');
+    if (!container) return;
+    container.innerHTML = '<div class="admin-loading">⏳ Memuat submission pembayaran...</div>';
+    
+    try {
+      const { data, error } = await window._sb
+        .from('payment_submissions')
+        .select('*')
+        .order('submitted_at', { ascending: false });
+      
+      if (error) throw error;
+      
+      Admin.paymentData.all = data || [];
+      
+      // Update counts per status
+      const counts = { pending: 0, approved: 0, rejected: 0 };
+      for (const p of Admin.paymentData.all) {
+        if (counts[p.status] !== undefined) counts[p.status]++;
+      }
+      const total = Admin.paymentData.all.length;
+      document.getElementById('pay-c-pending').textContent = counts.pending;
+      document.getElementById('pay-c-approved').textContent = counts.approved;
+      document.getElementById('pay-c-rejected').textContent = counts.rejected;
+      document.getElementById('pay-c-all').textContent = total;
+      
+      // Tab badge: jumlah pending, dengan urgent style
+      countEl.textContent = counts.pending;
+      countEl.setAttribute('data-pending', counts.pending > 0 ? 'true' : 'false');
+      
+      Admin.renderPaymentList();
+    } catch (e) {
+      console.error('loadPayment error:', e);
+      container.innerHTML = '<div class="admin-empty"><div class="admin-empty-icon">⚠️</div><div class="admin-empty-title">Error</div><div class="admin-empty-sub">' + Admin.escape(e.message || 'Gagal memuat data') + '</div></div>';
+    }
+  },
+  
+  paymentFilter(filter) {
+    Admin.paymentCurrentFilter = filter;
+    document.querySelectorAll('.pay-filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.filter === filter);
+    });
+    Admin.renderPaymentList();
+  },
+  
+  renderPaymentList() {
+    const container = document.getElementById('admin-payment-list');
+    if (!container) return;
+    const filter = Admin.paymentCurrentFilter;
+    const list = (filter === 'all')
+      ? Admin.paymentData.all
+      : Admin.paymentData.all.filter(p => p.status === filter);
+    
+    if (list.length === 0) {
+      const emptyMsg = {
+        pending: { icon: '✅', title: 'Tidak Ada Pending', sub: 'Semua submission sudah ditangani.' },
+        approved: { icon: '📭', title: 'Belum Ada Approved', sub: 'Submission yang disetujui akan muncul di sini.' },
+        rejected: { icon: '📭', title: 'Belum Ada Rejected', sub: 'Submission yang ditolak akan muncul di sini.' },
+        all: { icon: '💳', title: 'Belum Ada Submission', sub: 'Submission pembayaran user akan muncul di sini.' }
+      }[filter] || { icon: '📭', title: 'Kosong', sub: '' };
+      container.innerHTML = '<div class="admin-empty"><div class="admin-empty-icon">' + emptyMsg.icon + '</div><div class="admin-empty-title">' + emptyMsg.title + '</div><div class="admin-empty-sub">' + emptyMsg.sub + '</div></div>';
+      return;
+    }
+    
+    container.innerHTML = list.map(p => Admin.renderPaymentCard(p)).join('');
+  },
+  
+  renderPaymentCard(p) {
+    const paketLabel = { '1bulan': 'Bulanan (30 hari)', '3bulan': '3 Bulan (90 hari)', '6bulan': '6 Bulan (180 hari)', '12bulan': '1 Tahun (365 hari)' }[p.paket] || p.paket;
+    const submittedFmt = p.submitted_at ? new Date(p.submitted_at).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : '-';
+    const verifiedFmt = p.verified_at ? new Date(p.verified_at).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : '-';
+    const nominal = 'Rp ' + (p.nominal || 0).toLocaleString('id-ID');
+    const namaUser = p.user_nama || '(nama belum diisi)';
+    const emailUser = p.user_email || '(email belum diisi)';
+    const buktiBtn = p.bukti_url
+      ? '<button class="pay-card-bukti-btn" onclick="Admin.openLightbox(\'' + Admin.escape(p.bukti_url) + '\')">📷 Lihat Bukti TF</button>'
+      : '<button class="pay-card-bukti-btn" disabled style="opacity:.5;cursor:not-allowed">📷 Tidak ada bukti</button>';
+    
+    let actionsHtml = '';
+    let resultHtml = '';
+    
+    if (p.status === 'pending') {
+      actionsHtml =
+        buktiBtn +
+        '<button class="pay-card-approve-btn" onclick="Admin.confirmApprove(' + p.id + ')">✓ Setujui</button>' +
+        '<button class="pay-card-reject-btn" onclick="Admin.openRejectModal(' + p.id + ')">✗ Tolak</button>';
+    } else if (p.status === 'approved') {
+      actionsHtml = buktiBtn;
+      resultHtml = '<div class="pay-card-result approved">✅ <strong>Disetujui</strong> pada ' + verifiedFmt + '. Subscription user sudah ter-extend ' + p.durasi_hari + ' hari.' + (p.admin_notes ? '<br>Catatan: <em>' + Admin.escape(p.admin_notes) + '</em>' : '') + '</div>';
+    } else if (p.status === 'rejected') {
+      actionsHtml = buktiBtn;
+      resultHtml = '<div class="pay-card-result rejected">❌ <strong>Ditolak</strong> pada ' + verifiedFmt + (p.admin_notes ? '.<br>Alasan: <em>' + Admin.escape(p.admin_notes) + '</em>' : '.') + '</div>';
+    }
+    
+    return (
+      '<div class="pay-card pay-card-' + p.status + '" id="pay-card-' + p.id + '">' +
+        '<div class="pay-card-main">' +
+          '<div class="pay-card-header">' +
+            '<h3 class="pay-card-name">' + Admin.escape(namaUser) + '</h3>' +
+            '<span class="pay-card-badge ' + p.status + '">' + p.status + '</span>' +
+          '</div>' +
+          '<div class="pay-card-email">' + Admin.escape(emailUser) + '</div>' +
+          '<div class="pay-card-grid">' +
+            '<div><div class="pay-card-meta-label">Paket</div><div class="pay-card-meta-value">' + Admin.escape(paketLabel) + '</div></div>' +
+            '<div><div class="pay-card-meta-label">Nominal</div><div class="pay-card-meta-value nominal">' + nominal + '</div></div>' +
+            '<div><div class="pay-card-meta-label">Submitted</div><div class="pay-card-meta-value">' + submittedFmt + '</div></div>' +
+            '<div><div class="pay-card-meta-label">ID</div><div class="pay-card-meta-value">#' + p.id + '</div></div>' +
+          '</div>' +
+          resultHtml +
+        '</div>' +
+        '<div class="pay-card-actions">' + actionsHtml + '</div>' +
+      '</div>'
+    );
+  },
+  
+  openLightbox(url) {
+    const lb = document.getElementById('pay-lightbox');
+    const img = document.getElementById('pay-lightbox-img');
+    if (!lb || !img) return;
+    img.src = url;
+    lb.classList.add('open');
+  },
+  closeLightbox(e, force) {
+    if (force || e.target?.id === 'pay-lightbox' || e.target?.classList?.contains('pay-lightbox-close')) {
+      document.getElementById('pay-lightbox').classList.remove('open');
+    }
+  },
+  
+  async confirmApprove(submissionId) {
+    const sub = Admin.paymentData.all.find(p => p.id === submissionId);
+    if (!sub) return;
+    const paketLabel = { '1bulan': 'Bulanan (30 hari)', '3bulan': '3 Bulan (90 hari)', '6bulan': '6 Bulan (180 hari)', '12bulan': '1 Tahun (365 hari)' }[sub.paket] || sub.paket;
+    const ok = confirm(
+      'Konfirmasi Approve Submission #' + sub.id + '\n\n' +
+      'User: ' + (sub.user_nama || '(no nama)') + ' (' + sub.user_email + ')\n' +
+      'Paket: ' + paketLabel + '\n' +
+      'Nominal: Rp ' + sub.nominal.toLocaleString('id-ID') + '\n\n' +
+      'Pastikan Mbak sudah cek mutasi BCA dan nominal SESUAI. Setelah disetujui:\n' +
+      '• Subscription user akan ter-extend ' + sub.durasi_hari + ' hari\n' +
+      '• Email konfirmasi akan dikirim ke user\n' +
+      '• Aksi ini TIDAK BISA dibatalkan\n\n' +
+      'Lanjutkan approve?'
+    );
+    if (!ok) return;
+    
+    await Admin.doApprove(submissionId);
+  },
+  
+  async doApprove(submissionId) {
+    const card = document.getElementById('pay-card-' + submissionId);
+    if (card) card.style.opacity = '0.5';
+    
+    try {
+      const { data, error } = await window._sb.rpc('approve_payment_submission', {
+        p_submission_id: submissionId,
+        p_admin_notes: null
+      });
+      
+      if (error) throw new Error(error.message);
+      
+      const result = Array.isArray(data) ? data[0] : data;
+      if (!result || !result.ok) {
+        throw new Error(result?.message || 'Approve gagal');
+      }
+      
+      // Try kirim email confirmation (best-effort, jangan blocking)
+      const sub = Admin.paymentData.all.find(p => p.id === submissionId);
+      if (sub && result.new_subscription_until) {
+        Admin.sendApprovalEmail(sub, result.new_subscription_until).catch(e => {
+          console.warn('Email send failed (approve still successful):', e.message);
+        });
+      }
+      
+      // Toast sukses
+      Admin.toast('✅ Disetujui! Subscription user aktif sampai ' + new Date(result.new_subscription_until).toLocaleDateString('id-ID', { dateStyle: 'medium' }));
+      
+      // Reload list
+      await Admin.loadPayment();
+    } catch (e) {
+      console.error('Approve error:', e);
+      alert('Approve gagal: ' + e.message);
+      if (card) card.style.opacity = '1';
+    }
+  },
+  
+  // Reject modal flow
+  _rejectSubmissionId: null,
+  openRejectModal(submissionId) {
+    Admin._rejectSubmissionId = submissionId;
+    document.getElementById('pay-reject-reason').value = '';
+    document.getElementById('pay-reject-overlay').classList.add('open');
+    setTimeout(() => document.getElementById('pay-reject-reason').focus(), 100);
+  },
+  closeRejectModal() {
+    document.getElementById('pay-reject-overlay').classList.remove('open');
+    Admin._rejectSubmissionId = null;
+  },
+  closeRejectOutside(e) {
+    if (e.target?.id === 'pay-reject-overlay') Admin.closeRejectModal();
+  },
+  async doReject() {
+    const subId = Admin._rejectSubmissionId;
+    const reason = document.getElementById('pay-reject-reason').value.trim();
+    if (!subId) return;
+    if (!reason || reason.length < 5) {
+      alert('Alasan harus diisi minimal 5 karakter.');
+      return;
+    }
+    
+    const btn = document.getElementById('pay-reject-confirm-btn');
+    btn.disabled = true;
+    btn.textContent = 'Memproses...';
+    
+    try {
+      const { data, error } = await window._sb.rpc('reject_payment_submission', {
+        p_submission_id: subId,
+        p_admin_notes: reason
+      });
+      
+      if (error) throw new Error(error.message);
+      const result = Array.isArray(data) ? data[0] : data;
+      if (!result || !result.ok) throw new Error(result?.message || 'Reject gagal');
+      
+      Admin.toast('❌ Submission #' + subId + ' ditolak.');
+      Admin.closeRejectModal();
+      await Admin.loadPayment();
+    } catch (e) {
+      alert('Reject gagal: ' + e.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Tolak Submission';
+    }
+  },
+  
+  // Kirim email konfirmasi via Edge Function (best-effort)
+  async sendApprovalEmail(submission, newUntil) {
+    const { data: { session } } = await window._sb.auth.getSession();
+    if (!session) return;
+    
+    const supabaseUrl = window._sb.supabaseUrl || (window._sb.rest?.url || '').replace('/rest/v1', '');
+    if (!supabaseUrl) {
+      console.warn('Cannot determine Supabase URL for edge function');
+      return;
+    }
+    
+    const paketLabel = { '1bulan': 'Bulanan', '3bulan': '3 Bulan', '6bulan': '6 Bulan', '12bulan': '1 Tahun' }[submission.paket] || submission.paket;
+    
+    const res = await fetch(supabaseUrl + '/functions/v1/notify-subscription-approved', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + session.access_token
+      },
+      body: JSON.stringify({
+        user_email: submission.user_email,
+        user_nama: submission.user_nama || 'Subscriber',
+        paket: paketLabel,
+        nominal: submission.nominal,
+        durasi_hari: submission.durasi_hari,
+        new_subscription_until: newUntil
+      })
+    });
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error('Email function error: ' + res.status + ' ' + txt);
+    }
+  },
+  
+  // Mini toast
+  toast(msg) {
+    let t = document.getElementById('admin-toast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'admin-toast';
+      t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#0f172a;color:#fff;padding:14px 22px;border-radius:8px;font-size:13.5px;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:100002;max-width:340px;line-height:1.5;transition:transform .3s,opacity .3s;transform:translateY(20px);opacity:0';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    requestAnimationFrame(() => { t.style.transform = 'translateY(0)'; t.style.opacity = '1'; });
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.style.transform = 'translateY(20px)'; t.style.opacity = '0'; }, 4500);
+  },
+  
   escape(s) {
     if (s == null) return '';
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
@@ -6494,6 +7020,25 @@ if (document.readyState === 'loading') {
   }
 })();
 </script>
+
+<!-- Payment: Lightbox bukti TF -->
+<div class="pay-lightbox" id="pay-lightbox" onclick="Admin.closeLightbox(event)">
+  <button class="pay-lightbox-close" onclick="Admin.closeLightbox(event,true)">✕</button>
+  <img id="pay-lightbox-img" src="" alt="Bukti pembayaran" onclick="event.stopPropagation()">
+</div>
+
+<!-- Payment: Reject modal dengan textarea alasan -->
+<div class="pay-reject-overlay" id="pay-reject-overlay" onclick="Admin.closeRejectOutside(event)">
+  <div class="pay-reject-box">
+    <h3>Tolak Submission</h3>
+    <p class="pay-reject-sub">Berikan alasan penolakan. Alasan ini akan tersimpan di sistem dan bisa dilihat oleh user di portal mereka. Sebaiknya jelas dan ramah.</p>
+    <textarea id="pay-reject-reason" placeholder="Contoh: Nominal transfer tidak sesuai paket yang dipilih. Mohon transfer ulang sebesar Rp 149.000 untuk paket Bulanan."></textarea>
+    <div class="pay-reject-actions">
+      <button class="pay-reject-cancel" onclick="Admin.closeRejectModal()">Batal</button>
+      <button class="pay-reject-confirm" id="pay-reject-confirm-btn" onclick="Admin.doReject()">Tolak Submission</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
