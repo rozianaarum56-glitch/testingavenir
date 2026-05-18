@@ -3019,6 +3019,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
       <a href="news.html" class="nav-link">News</a>
       <a href="tentang.html" class="nav-link">Tentang</a>
       <a href="mitra.html" class="nav-link">Mitra</a>
+      <a href="langganan.html" class="nav-link">Langganan</a>
       <a href="dashboard-mitra.html" class="nav-link nav-link-mitra-only" style="display:none">Dashboard Mitra</a>
     </div>
     <div class="nav-right-desktop" style="display:flex;gap:6px;align-items:center;flex-shrink:0">
@@ -3066,6 +3067,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
     <a href="news.html" class="mob-link">Market News</a>
     <a href="tentang.html" class="mob-link">Tentang Avenir</a>
     <a href="mitra.html" class="mob-link">Mitra Terverifikasi</a>
+    <a href="langganan.html" class="mob-link">Langganan</a>
     <div class="mob-divider"></div>
     
     <!-- Guest state -->
@@ -3133,6 +3135,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <div class="auth-err" id="login-err"></div>
    <div class="auth-fg"><label>EMAIL</label><input type="email" id="l-email" placeholder="email@anda.com" autocomplete="email"></div>
    <div class="auth-fg"><label>PASSWORD</label><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password"></div>
+   <div style="text-align:right;margin:-4px 0 10px"><a onclick="AUTH.show('forgot')" style="font-size:11.5px;color:var(--t2);cursor:pointer;text-decoration:underline">Lupa password?</a></div>
    <button class="auth-submit grn" onclick="AUTH.login()">Masuk →</button>
    <div class="auth-sep">Belum punya akun?</div>
    <button class="auth-submit" style="background:transparent;border:1px solid var(--bd);color:var(--t2);font-weight:600;padding:11px;border-radius:50px;width:100%;cursor:pointer;font-family:inherit" onclick="AUTH.show('register')">Daftar Gratis</button>
@@ -3149,6 +3152,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <div class="auth-err" id="login-mitra-err"></div>
    <div class="auth-fg"><label>EMAIL MITRA</label><input type="email" id="lm-email" placeholder="email@anda.com" autocomplete="email"></div>
    <div class="auth-fg"><label>PASSWORD</label><input type="password" id="lm-pass" placeholder="••••••••" autocomplete="current-password"></div>
+   <div style="text-align:right;margin:-4px 0 10px"><a onclick="AUTH.show('forgot')" style="font-size:11.5px;color:#854d0e;cursor:pointer;text-decoration:underline">Lupa password?</a></div>
    <button class="auth-submit" style="background:#854d0e;color:#fff;border:none;padding:12px;border-radius:50px;width:100%;cursor:pointer;font-family:inherit;font-weight:700;letter-spacing:.04em;text-transform:uppercase" onclick="AUTH.loginMitra()">MASUK SEBAGAI MITRA →</button>
    <div class="auth-sep">Belum jadi Mitra?</div>
    <a href="daftar-mitra.html" style="display:block;text-align:center;background:#fef9c3;color:#854d0e;border:1px solid #fde68a;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase">DAFTAR SEBAGAI MITRA →</a>
@@ -3245,6 +3249,26 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
    <h3 style="text-align:center" id="success-title">Berhasil!</h3>
    <p class="auth-sub" style="text-align:center" id="success-msg">Selamat datang di Avenir Research.</p>
    <button class="auth-submit grn" onclick="AUTH.close()">Mulai Jelajahi Riset →</button>
+  </div>
+
+  <!-- LUPA PASSWORD: request reset link -->
+  <div class="auth-view" id="auth-forgot">
+   <h3>Lupa Password?</h3>
+   <p class="auth-sub">Masukkan email akun Anda. Kami akan kirim link reset password ke email tersebut.</p>
+   <div class="auth-err" id="forgot-err"></div>
+   <div class="auth-fg"><label>EMAIL</label><input type="email" id="f-email" placeholder="email@anda.com" autocomplete="email"></div>
+   <button class="auth-submit grn" onclick="AUTH.sendResetLink()">Kirim Link Reset →</button>
+   <div class="auth-toggle">Ingat password Anda? <a onclick="AUTH.show('login')">Kembali ke Login</a></div>
+  </div>
+
+  <!-- RESET PASSWORD: set new password (triggered by recovery link from email) -->
+  <div class="auth-view" id="auth-reset">
+   <h3>Buat Password Baru</h3>
+   <p class="auth-sub">Masukkan password baru Anda. Minimal 8 karakter.</p>
+   <div class="auth-err" id="reset-err"></div>
+   <div class="auth-fg"><label>PASSWORD BARU</label><input type="password" id="r-pass" placeholder="••••••••" autocomplete="new-password"></div>
+   <div class="auth-fg"><label>KONFIRMASI PASSWORD</label><input type="password" id="r-pass2" placeholder="••••••••" autocomplete="new-password"></div>
+   <button class="auth-submit grn" onclick="AUTH.resetPassword()">Simpan Password Baru →</button>
   </div>
 
  </div>
@@ -3362,7 +3386,17 @@ const AUTH = {
       } else {
         AUTH.profile = null;
       }
+      // Recovery flow: user klik link reset password di email
+      if (event === 'PASSWORD_RECOVERY') {
+        AUTH.open('reset');
+      }
     });
+    
+    // Fallback: deteksi hash recovery manual jika event belum fire
+    // (URL example: https://researchavenir.com/#access_token=...&type=recovery)
+    if (typeof window !== 'undefined' && window.location.hash.includes('type=recovery')) {
+      AUTH.open('reset');
+    }
   },
 
   // Load profile data including trial/subscription dates
@@ -3653,6 +3687,54 @@ const AUTH = {
       AUTH.refreshUI();
       if (typeof window._applyLock === 'function') window._applyLock();
     });
+  },
+
+  // Kirim link reset password ke email
+  async sendResetLink() {
+    const email = document.getElementById('f-email')?.value.trim();
+    AUTH.err('forgot-err', '');
+    if (!email) return AUTH.err('forgot-err', 'Email wajib diisi.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return AUTH.err('forgot-err', 'Format email tidak valid.');
+
+    AUTH.err('forgot-err', 'Mengirim link reset...', 'var(--grn)');
+
+    // redirectTo: kembali ke origin + hash recovery, supaya hash detection di AUTH.init bisa
+    // auto-open view reset password. User wajib whitelist URL ini di Supabase dashboard.
+    const redirectTo = window.location.origin + '/#type=recovery';
+    const { error } = await _sb.auth.resetPasswordForEmail(email, { redirectTo });
+
+    if (error) {
+      return AUTH.err('forgot-err', 'Gagal kirim: ' + error.message);
+    }
+
+    AUTH.err('forgot-err', '✓ Link reset sudah dikirim ke ' + email + '. Cek inbox/spam (link berlaku 1 jam).', 'var(--grn)');
+    const emailInput = document.getElementById('f-email');
+    if (emailInput) emailInput.value = '';
+  },
+
+  // Simpan password baru setelah klik link recovery
+  async resetPassword() {
+    const pass  = document.getElementById('r-pass')?.value;
+    const pass2 = document.getElementById('r-pass2')?.value;
+
+    AUTH.err('reset-err', '');
+    if (!pass || pass.length < 8) return AUTH.err('reset-err', 'Password minimal 8 karakter.');
+    if (pass !== pass2) return AUTH.err('reset-err', 'Konfirmasi password tidak cocok.');
+
+    AUTH.err('reset-err', 'Menyimpan password baru...', 'var(--grn)');
+
+    const { error } = await _sb.auth.updateUser({ password: pass });
+
+    if (error) {
+      return AUTH.err('reset-err', 'Gagal: ' + error.message);
+    }
+
+    // Sukses: bersihkan hash recovery dari URL & redirect ke login
+    try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) {}
+    AUTH.err('reset-err', '✓ Password berhasil diubah. Anda otomatis login dengan password baru.', 'var(--grn)');
+    const r1 = document.getElementById('r-pass'); if (r1) r1.value = '';
+    const r2 = document.getElementById('r-pass2'); if (r2) r2.value = '';
+    setTimeout(() => { AUTH.close(); }, 1800);
   },
 
   // Logout
