@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Nav Global · Avenir Research</title>
+
+<!-- Fonts (sama dengan halaman Avenir lain) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Cormorant+Garamond:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- Preconnect Supabase untuk percepat init -->
+<link rel="preconnect" href="https://wkcqnqtwuxzcjagitkmk.supabase.co">
+
+<style>
+:root {
+  --bg: #F7F5F0; --bg2: #FFFFFF; --bg3: #F0EDE8;
+  --grn: #1B6B3A; --grn-d: #155028;
+  --t: #1a1a1a; --t2: #4b5563; --t3: #9ca3af;
+  --bd: #e5e7eb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0; background: var(--bg); color: var(--t);
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+/* Skeleton placeholder untuk anti-FOUC (height matches nav-global) */
+#avenir-nav-mount:empty { 
+  display: block;
+  height: 54px; 
+  background: rgba(255,255,255,0.97);
+  border-bottom: 1px solid #e5e7eb;
+}
+.test-wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 36px;
+  margin: 0 0 16px;
+}
+.test-info {
+  background: #fff;
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 18px;
+}
+.test-info h2 {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--t2);
+  margin: 0 0 12px;
+}
+.status-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  padding: 6px 0;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+}
+.status-line:last-child { border-bottom: none; }
+.status-line .label { color: var(--t3); }
+.status-line .value { font-weight: 600; color: var(--t); }
+.status-line .value.ok { color: var(--grn-d); }
+.status-line .value.err { color: #b91c1c; }
+.btn-test {
+  display: inline-block;
+  padding: 10px 18px;
+  background: var(--grn);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  margin-right: 8px;
+  font-family: inherit;
+}
+.btn-test:hover { background: var(--grn-d); }
+.btn-test.secondary { background: transparent; color: var(--t2); border: 1px solid var(--bd); }
+.btn-test.secondary:hover { border-color: var(--grn); color: var(--grn-d); }
+</style>
+</head>
+<body>
+
+<!-- Mount point untuk nav global (akan di-fill oleh nav-avenir.js) -->
+<div id="avenir-nav-mount"></div>
+
+<!-- Konten test -->
+<div class="test-wrap">
+  <h1>🧪 Test Page: Nav Global</h1>
+  <p style="color:var(--t2);font-size:15px;line-height:1.65">Halaman ini hanya berisi <strong>2 baris</strong> untuk navbar (mount div + script tag). Tidak ada inline AUTH module, tidak ada copy-paste HTML navbar. Navbar di atas ini di-render dari <code>nav-avenir.js</code>.</p>
+
+  <div class="test-info">
+    <h2>📊 Status Real-time</h2>
+    <div class="status-line">
+      <span class="label">Script loaded</span>
+      <span class="value" id="status-script">⏳ Checking...</span>
+    </div>
+    <div class="status-line">
+      <span class="label">AUTH module ready</span>
+      <span class="value" id="status-auth">⏳ Waiting...</span>
+    </div>
+    <div class="status-line">
+      <span class="label">Supabase client</span>
+      <span class="value" id="status-sb">⏳ Waiting...</span>
+    </div>
+    <div class="status-line">
+      <span class="label">User logged in?</span>
+      <span class="value" id="status-user">⏳ Waiting for auth-ready event...</span>
+    </div>
+    <div class="status-line">
+      <span class="label">Profile loaded?</span>
+      <span class="value" id="status-profile">⏳ Waiting...</span>
+    </div>
+    <div class="status-line">
+      <span class="label">Subscription status</span>
+      <span class="value" id="status-subscription">⏳ Waiting...</span>
+    </div>
+    <div class="status-line">
+      <span class="label">Has access?</span>
+      <span class="value" id="status-access">⏳ Waiting...</span>
+    </div>
+  </div>
+
+  <div class="test-info">
+    <h2>🎮 Test Actions</h2>
+    <p style="font-size:13.5px;color:var(--t2);margin:0 0 14px">Coba klik tombol-tombol di atas (Sign In, Daftar, dropdown user) untuk test navbar functionality.</p>
+    <button class="btn-test" onclick="if(window.AUTH)AUTH.open('login');else alert('AUTH belum ready')">Test Open Login</button>
+    <button class="btn-test secondary" onclick="if(window.AUTH)AUTH.open('forgot');else alert('AUTH belum ready')">Test Lupa Password</button>
+    <button class="btn-test secondary" onclick="location.reload()">🔄 Reload</button>
+  </div>
+
+  <div class="test-info">
+    <h2>📝 Catatan</h2>
+    <ul style="font-size:13.5px;color:var(--t2);line-height:1.7;padding-left:20px">
+      <li>Kalau status semua hijau (✓), nav-avenir.js berhasil di-load.</li>
+      <li>Kalau ada error merah, cek browser console untuk detail.</li>
+      <li>Test di desktop (lihat dropdown user) dan mobile (lihat hamburger menu).</li>
+      <li>Test login pakai akun yang sudah ada — harus konsisten dengan halaman lain.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Supabase library (wajib di-load dulu) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Nav Global (SINGLE source of truth) -->
+<script src="/nav-avenir.js?v=20260518" defer></script>
+
+<!-- Page-specific test logic -->
+<script>
+// Helper untuk update status display
+function setStatus(id, text, type) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = text;
+  el.classList.remove('ok', 'err');
+  if (type) el.classList.add(type);
+}
+
+// Check script loaded (kalau window.AUTH undefined setelah 1s = script fail)
+setStatus('status-script', '✓ Loaded (HTML & JS parsed)', 'ok');
+
+// Hook ke event avenir:auth-ready
+document.addEventListener('avenir:auth-ready', function(e) {
+  // AUTH module ready
+  setStatus('status-auth', typeof window.AUTH === 'object' ? '✓ Ready (window.AUTH available)' : '✗ Missing', 
+    typeof window.AUTH === 'object' ? 'ok' : 'err');
+  
+  // Supabase client
+  setStatus('status-sb', typeof window._sb === 'object' ? '✓ Ready (window._sb available)' : '✗ Missing',
+    typeof window._sb === 'object' ? 'ok' : 'err');
+  
+  // User
+  const user = e.detail.user;
+  if (user) {
+    setStatus('status-user', '✓ Logged in: ' + user.email, 'ok');
+  } else {
+    setStatus('status-user', '— Not logged in (guest)', '');
+  }
+  
+  // Profile
+  const profile = e.detail.profile;
+  if (profile) {
+    const nama = profile.nama_depan || '(tanpa nama)';
+    setStatus('status-profile', '✓ Loaded: ' + nama, 'ok');
+  } else if (user) {
+    setStatus('status-profile', '⚠ User exists but profile not loaded', 'err');
+  } else {
+    setStatus('status-profile', '— (guest, no profile)', '');
+  }
+  
+  // Subscription status
+  if (window.AUTH && typeof AUTH.getSubscriptionStatus === 'function') {
+    const status = AUTH.getSubscriptionStatus();
+    setStatus('status-subscription', '✓ ' + status, status === 'active' || status === 'trial' ? 'ok' : '');
+  }
+  
+  // Has access
+  if (window.AUTH && typeof AUTH.hasAccess === 'function') {
+    const access = AUTH.hasAccess();
+    setStatus('status-access', access ? '✓ Yes' : '✗ No', access ? 'ok' : '');
+  }
+  
+  console.log('[test-page] avenir:auth-ready fired', e.detail);
+});
+
+// Timeout fallback
+setTimeout(function() {
+  if (!window.AUTH) {
+    setStatus('status-auth', '✗ TIMEOUT — nav-avenir.js failed to load', 'err');
+    setStatus('status-sb', '✗ TIMEOUT', 'err');
+    setStatus('status-user', '✗ TIMEOUT', 'err');
+  }
+}, 5000);
+</script>
+</body>
+</html>
