@@ -3062,6 +3062,10 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   flex-shrink: 0;
 }
 .nav-bell:hover { color: #1B6B3A; border-color: #1B6B3A; background: rgba(27,107,58,.05); }
+.nav-bell:focus { outline: none; }
+@media (hover: none) {
+  .nav-bell:hover { color: #374151; border-color: #e5e7eb; background: transparent; }
+}
 .nav-bell svg { display: block; }
 .nav-bell-dot {
   position: absolute;
@@ -3204,18 +3208,24 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
     top: 50% !important;
     transform: translateY(-50%) !important;
     z-index: 10;
+    /* Isolasi: cegah transform mempengaruhi panel fixed */
+    /* Panel akan keluar dari nav-bell-wrap via portal trick */
   }
   .nav-bell {
     width: 34px !important;
     height: 34px !important;
   }
+  /* Panel keluar dari nav-bell-wrap context: pakai position fixed + override */
   .nav-bell-panel {
     position: fixed !important;
     top: 64px !important;
     right: 12px !important;
     left: 12px !important;
-    width: calc(100vw - 24px) !important;
+    bottom: auto !important;
+    width: auto !important;
     max-width: none !important;
+    max-height: calc(100vh - 88px) !important;
+    transform: none !important;
   }
 }
 </style>
@@ -4623,29 +4633,65 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
 </script>
 
 
-<script src="notifications.js"></script>
 <script>
-/* ═══ AVENIR HERO STATS — Auto-update Riset Count ═══ */
+/* ═══ AVENIR HERO STATS — Auto-update Riset Count (static count) ═══ */
 (function() {
-  const stats = (window.AVENIR_NOTIFICATIONS && window.AVENIR_NOTIFICATIONS.stats) || {};
-  if (stats.risetCount && typeof stats.risetCount === 'number') {
-    const el = document.getElementById('hero-riset-count');
-    if (el) el.textContent = stats.risetCount;
+  const el = document.getElementById('hero-riset-count');
+  if (el) {
+    // Count is hardcoded; update manually as research catalog grows
+    // To update: count cards in katalog.html or edit number below
+    el.textContent = '13';
   }
 })();
 </script>
 <script>
-/* ═══ AVENIR BELL — Latest Updates ═══ */
+/* ═══ AVENIR BELL — Fetch from Supabase ═══ */
 (function() {
-  const items = (window.AVENIR_NOTIFICATIONS && window.AVENIR_NOTIFICATIONS.items) || [];
-
+  let items = [];
   const KEY = 'avenir_bell_read';
+  
+  function monthName(m) {
+    return ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'][m];
+  }
+  function formatDate(iso) {
+    const d = new Date(iso);
+    return d.getDate() + ' ' + monthName(d.getMonth()) + ' ' + d.getFullYear();
+  }
   function getRead() {
     try { const r = localStorage.getItem(KEY); return r ? JSON.parse(r) : []; }
     catch (e) { return []; }
   }
   function setRead(list) {
     try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {}
+  }
+  function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  async function fetchItems() {
+    try {
+      if (typeof _sb === 'undefined' || !_sb.from) return [];
+      const { data, error } = await _sb
+        .from('notifications')
+        .select('*')
+        .order('published_at', { ascending: false })
+        .limit(10);
+      if (error) {
+        console.warn('Bell fetch error:', error.message);
+        return [];
+      }
+      return (data || []).map(n => ({
+        id: 'notif-' + n.id,
+        title: n.title,
+        url: n.url,
+        cat: n.is_new ? n.category + ' Baru' : n.category,
+        catClass: n.is_new ? 'amber' : '',
+        date: formatDate(n.published_at)
+      }));
+    } catch (e) {
+      console.warn('Bell fetch exception:', e);
+      return [];
+    }
   }
   function render() {
     const list = document.getElementById('nav-bell-list');
@@ -4661,10 +4707,10 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
     list.innerHTML = items.map(i => {
       const u = !read.includes(i.id);
       const cc = i.catClass ? ' ' + i.catClass : '';
-      return '<a class="nav-bell-item' + (u ? ' unread' : '') + '" href="' + i.url + '" onclick="AVN_BELL.markRead(\'' + i.id + '\')">' +
-        '<span class="nav-bell-cat' + cc + '">' + i.cat + '</span>' +
-        '<div class="nav-bell-title">' + i.title + '</div>' +
-        '<div class="nav-bell-date">' + i.date + '</div>' +
+      return '<a class="nav-bell-item' + (u ? ' unread' : '') + '" href="' + escapeHtml(i.url) + '" onclick="AVN_BELL.markRead(\'' + i.id + '\')">' +
+        '<span class="nav-bell-cat' + cc + '">' + escapeHtml(i.cat) + '</span>' +
+        '<div class="nav-bell-title">' + escapeHtml(i.title) + '</div>' +
+        '<div class="nav-bell-date">' + escapeHtml(i.date) + '</div>' +
         '</a>';
     }).join('');
   }
@@ -4672,6 +4718,15 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
     if (e) e.stopPropagation();
     const p = document.getElementById('nav-bell-panel');
     if (!p) return;
+    
+    // Portal trick: move panel ke body saat open agar position:fixed bekerja
+    // tanpa terpengaruh transform parent
+    if (!p.classList.contains('open')) {
+      // Buka: move ke body
+      if (p.parentElement !== document.body) {
+        document.body.appendChild(p);
+      }
+    }
     p.classList.toggle('open');
     if (p.classList.contains('open')) render();
   }
@@ -4686,13 +4741,16 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
     const panel = document.getElementById('nav-bell-panel');
     const wrap = document.querySelector('.nav-bell-wrap');
     if (!panel || !wrap) return;
-    if (panel.classList.contains('open') && !wrap.contains(e.target)) {
+    // Cek klik di dalam wrap (bell button) atau panel itu sendiri
+    if (panel.classList.contains('open') && !wrap.contains(e.target) && !panel.contains(e.target)) {
       panel.classList.remove('open');
     }
   });
-  function init() {
+
+  async function init() {
     const panel = document.getElementById('nav-bell-panel');
     if (panel) panel.addEventListener('click', function(e) { e.stopPropagation(); });
+    items = await fetchItems();
     render();
   }
   if (document.readyState === 'loading') {

@@ -4173,6 +4173,9 @@ body.auth-pending .nav-mobile-login {
         <button class="admin-tab-btn" data-tab="user" onclick="Admin.switchTab('user')">
           👤 User Subscriber <span class="admin-tab-count" id="admin-count-user">0</span>
         </button>
+        <button class="admin-tab-btn" data-tab="notif" onclick="Admin.switchTab('notif')">
+          🔔 Notifikasi <span class="admin-tab-count" id="admin-count-notif">0</span>
+        </button>
         <button class="admin-tab-btn" data-tab="stats" onclick="Admin.switchTab('stats')">
           📊 Statistik
         </button>
@@ -4195,6 +4198,61 @@ body.auth-pending .nav-mobile-login {
       <!-- PANE: User Subscriber -->
       <div id="admin-pane-user" class="admin-pane">
         <div id="admin-user-list" class="admin-list">
+          <div class="admin-skeleton"><div class="skel-card"></div><div class="skel-card"></div></div>
+        </div>
+      </div>
+      
+      <!-- PANE: Notifikasi -->
+      <div id="admin-pane-notif" class="admin-pane">
+        <!-- Form add/edit -->
+        <div style="background:#fff;border:1px solid var(--bd);border-radius:12px;padding:24px;margin-bottom:20px">
+          <h3 id="notif-form-title" style="margin:0 0 16px;font-size:18px;color:var(--t)">+ Tambah Notifikasi Baru</h3>
+          <div style="display:grid;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label style="font-size:13px;font-weight:600;color:var(--t2)">Pilih artikel dari list (auto-isi):</label>
+              <select id="notif-article-picker" onchange="Admin.notifPickArticle()" style="padding:10px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:inherit;background:#fff">
+                <option value="">— Pilih artikel atau isi manual di bawah —</option>
+              </select>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label style="font-size:13px;font-weight:600;color:var(--t2)">Judul *</label>
+              <input type="text" id="notif-f-title" placeholder="Misal: Pelemahan Rupiah 2026: Oil Shock..." maxlength="200" style="padding:10px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:inherit">
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap">
+              <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:6px">
+                <label style="font-size:13px;font-weight:600;color:var(--t2)">URL artikel *</label>
+                <input type="text" id="notif-f-url" placeholder="artikel-pelemahan-rupiah-2026.html" style="padding:10px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:inherit">
+              </div>
+              <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:6px">
+                <label style="font-size:13px;font-weight:600;color:var(--t2)">Kategori</label>
+                <select id="notif-f-category" style="padding:10px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:inherit;background:#fff">
+                  <option value="Artikel">Artikel</option>
+                  <option value="News">News</option>
+                  <option value="Riset">Riset</option>
+                  <option value="Katalog">Katalog</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap">
+              <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:6px">
+                <label style="font-size:13px;font-weight:600;color:var(--t2)">Tanggal terbit *</label>
+                <input type="date" id="notif-f-date" style="padding:10px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:inherit">
+              </div>
+              <div style="flex:1;min-width:200px;display:flex;align-items:flex-end;padding-bottom:8px">
+                <label style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--t);cursor:pointer">
+                  <input type="checkbox" id="notif-f-is-new" checked style="width:18px;height:18px;cursor:pointer">
+                  Tampilkan badge "Baru" (amber)
+                </label>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:8px">
+              <button onclick="Admin.notifSave()" style="background:var(--grn);color:#fff;padding:10px 18px;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">💾 Simpan</button>
+              <button onclick="Admin.notifResetForm()" style="background:#fff;color:var(--t);padding:10px 18px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">Reset Form</button>
+            </div>
+          </div>
+        </div>
+        <!-- List existing -->
+        <div id="admin-notif-list" class="admin-list">
           <div class="admin-skeleton"><div class="skel-card"></div><div class="skel-card"></div></div>
         </div>
       </div>
@@ -4985,6 +5043,7 @@ const Admin = {
     Admin.loadPending();
     setTimeout(() => Admin.loadMitra(), 100);
     setTimeout(() => Admin.loadUser(), 200);
+    setTimeout(() => Admin.loadNotif(), 250);
     setTimeout(() => Admin.loadStats(), 300);
   },
   
@@ -4993,6 +5052,7 @@ const Admin = {
       Admin.loadPending(),
       Admin.loadMitra(),
       Admin.loadUser(),
+      Admin.loadNotif(),
       Admin.loadStats()
     ]);
   },
@@ -6079,6 +6139,192 @@ const Admin = {
       btn.disabled = false;
       btn.textContent = 'Simpan';
     }
+  },
+  
+  // ────────── NOTIFIKASI ──────────
+  
+  // List artikel/news/riset untuk dropdown auto-pick
+  NOTIF_ARTICLE_LIST: [
+    { url: "artikel-pelemahan-rupiah-2026.html", title: "Pelemahan Rupiah 2026: Oil Shock, Dollar Premium, dan Diskon Kredibilitas Kebijakan", category: "Artikel" },
+    { url: "artikel-sandisk-ai-storage-2026.html", title: "Sejarah Reli Sandisk: Dari Spin-off Western Digital ke AI Storage Proxy", category: "Artikel" },
+    { url: "artikel-ai-power-infrastructure-2026.html", title: "Setelah Photonics & CPO: AI Power Infrastructure sebagai Bottleneck Berikutnya", category: "Artikel" },
+    { url: "artikel-photonics-cpo-2026.html", title: "Photonics & AI Infrastructure: Masih Permukaan atau Sudah Terlambat?", category: "Artikel" },
+    { url: "artikel-etf-dram-2026.html", title: "ETF DRAM: Bedah Mendalam Memory Supercycle, AI Infrastructure, dan Risiko Crowded Trade", category: "Artikel" },
+    { url: "artikel-ai-bubble-risk-2026.html", title: "AI Bubble Risk: Anatomi Risiko Bubble di Sektor AI 2026", category: "Artikel" },
+    { url: "artikel-private-credit-bubble-risk.html", title: "Private Credit Bubble Risk: Tail Risk di Pasar Pinjaman Privat", category: "Artikel" },
+    { url: "artikel-bedah-orderbook-transaksi-institusi.html", title: "Membaca Orderbook & Transaksi Seperti Institusi: Kerangka Market Microstructure Bursa Efek Indonesia", category: "Artikel" },
+    { url: "artikel-industri-ethanol-indonesia.html", title: "Industri Ethanol Indonesia: Peta Pemain, Regulasi, dan Implikasi Investasi", category: "Artikel" },
+    { url: "news-ctth-keterbukaan-mei-2026.html", title: "CTTH: Keterbukaan Informasi Mei 2026", category: "News" },
+    { url: "news-pdb-q1-2026.html", title: "PDB Q1 2026", category: "News" },
+    { url: "news-tpia-force-majeure.html", title: "TPIA Force Majeure", category: "News" },
+    { url: "news-us-cpi-april-2026.html", title: "US CPI April 2026", category: "News" },
+    { url: "news-windfall-tax-nikel.html", title: "Windfall Tax Nikel", category: "News" },
+    { url: "riset/ades.html", title: "Riset Saham ADES", category: "Riset" },
+    { url: "riset/asgr.html", title: "Riset Saham ASGR", category: "Riset" },
+    { url: "riset/avia.html", title: "Riset Saham AVIA", category: "Riset" },
+    { url: "riset/bbri.html", title: "Riset Saham BBRI", category: "Riset" },
+    { url: "riset/cmry.html", title: "Riset Saham CMRY", category: "Riset" },
+    { url: "riset/crm.html", title: "Riset Saham CRM", category: "Riset" },
+    { url: "riset/dewa.html", title: "Riset Saham DEWA", category: "Riset" },
+    { url: "riset/mrvl.html", title: "Riset Saham MRVL", category: "Riset" },
+    { url: "riset/nisp.html", title: "Riset Saham NISP", category: "Riset" },
+    { url: "riset/part.html", title: "Riset Saham PART", category: "Riset" },
+    { url: "riset/ptro.html", title: "Riset Saham PTRO", category: "Riset" },
+    { url: "riset/smar.html", title: "Riset Saham SMAR", category: "Riset" },
+    { url: "riset/wifi.html", title: "Riset Saham WIFI", category: "Riset" }
+  ],
+  
+  notifEditId: null,
+  
+  notifPopulateDropdown() {
+    const sel = document.getElementById('notif-article-picker');
+    if (!sel || sel.dataset.populated) return;
+    sel.dataset.populated = '1';
+    const groups = { 'Artikel': [], 'News': [], 'Riset': [] };
+    Admin.NOTIF_ARTICLE_LIST.forEach(a => {
+      if (groups[a.category]) groups[a.category].push(a);
+    });
+    Object.keys(groups).forEach(cat => {
+      if (groups[cat].length === 0) return;
+      const og = document.createElement('optgroup');
+      og.label = cat;
+      groups[cat].forEach(a => {
+        const opt = document.createElement('option');
+        opt.value = a.url;
+        opt.textContent = a.title.length > 80 ? a.title.slice(0, 80) + '…' : a.title;
+        opt.dataset.title = a.title;
+        opt.dataset.category = a.category;
+        og.appendChild(opt);
+      });
+      sel.appendChild(og);
+    });
+  },
+  
+  notifPickArticle() {
+    const sel = document.getElementById('notif-article-picker');
+    const opt = sel.options[sel.selectedIndex];
+    if (!opt.value) return;
+    document.getElementById('notif-f-title').value = opt.dataset.title;
+    document.getElementById('notif-f-url').value = opt.value;
+    document.getElementById('notif-f-category').value = opt.dataset.category;
+  },
+  
+  async loadNotif() {
+    Admin.notifPopulateDropdown();
+    // Set default date hari ini
+    const dateEl = document.getElementById('notif-f-date');
+    if (dateEl && !dateEl.value) {
+      dateEl.value = new Date().toISOString().split('T')[0];
+    }
+    
+    const container = document.getElementById('admin-notif-list');
+    const countEl = document.getElementById('admin-count-notif');
+    
+    try {
+      const { data, error } = await window._sb
+        .from('notifications')
+        .select('*')
+        .order('published_at', { ascending: false });
+      
+      if (error) {
+        container.innerHTML = '<div class="admin-loading" style="color:#dc2626">⚠️ Gagal load: ' + error.message + '. Pastikan table <code>notifications</code> sudah dibuat di Supabase.</div>';
+        countEl.textContent = '0';
+        return;
+      }
+      
+      countEl.textContent = data.length;
+      
+      if (data.length === 0) {
+        container.innerHTML = '<div class="admin-loading" style="text-align:center;padding:40px 20px"><strong style="display:block;color:#64748b;margin-bottom:6px">Belum ada notifikasi</strong><span style="color:#94a3b8;font-size:13px">Tambah notifikasi baru lewat form di atas.</span></div>';
+        return;
+      }
+      
+      const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+      const fmtDate = (iso) => {
+        const d = new Date(iso);
+        return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+      };
+      
+      container.innerHTML = '<div style="background:#fff;border:1px solid var(--bd);border-radius:12px;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="background:#f8fafc"><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Judul / URL</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Kategori</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Tanggal</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Baru?</th><th style="text-align:left;padding:10px 12px;color:#64748b;font-weight:600;border-bottom:2px solid var(--bd)">Aksi</th></tr></thead><tbody>' + 
+        data.map(n => '<tr><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top"><div style="font-weight:600;color:#0f172a;margin-bottom:2px">' + Admin.escape(n.title) + '</div><div style="font-size:12px;color:#64748b;word-break:break-all">' + Admin.escape(n.url) + '</div></td><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top"><span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#f1f5f9;color:#475569;font-size:11px;font-weight:600">' + Admin.escape(n.category) + '</span></td><td style="padding:12px;border-bottom:1px solid #f1f5f9;font-size:12px;color:#94a3b8;white-space:nowrap;vertical-align:top">' + fmtDate(n.published_at) + '</td><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top">' + (n.is_new ? '<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#fef3c7;color:#92400e;font-size:11px;font-weight:700;letter-spacing:.5px">BARU</span>' : '—') + '</td><td style="padding:12px;border-bottom:1px solid #f1f5f9;vertical-align:top"><div style="display:flex;gap:6px"><button onclick="Admin.notifEdit(' + n.id + ')" style="padding:6px 10px;border:1px solid var(--bd);background:#fff;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✏️ Edit</button><button onclick="Admin.notifDelete(' + n.id + ')" style="padding:6px 10px;border:1px solid #fecaca;background:#fff;color:#dc2626;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🗑 Hapus</button></div></td></tr>').join('') +
+        '</tbody></table></div>';
+    } catch (e) {
+      container.innerHTML = '<div class="admin-loading" style="color:#dc2626">⚠️ Error: ' + e.message + '</div>';
+    }
+  },
+  
+  async notifSave() {
+    const title = document.getElementById('notif-f-title').value.trim();
+    const url = document.getElementById('notif-f-url').value.trim();
+    const category = document.getElementById('notif-f-category').value;
+    const date = document.getElementById('notif-f-date').value;
+    const isNew = document.getElementById('notif-f-is-new').checked;
+    
+    if (!title || !url || !date) {
+      alert('Title, URL, dan Tanggal wajib diisi.');
+      return;
+    }
+    
+    const publishedAt = new Date(date + 'T08:00:00+07:00').toISOString();
+    const payload = { title, url, category, is_new: isNew, published_at: publishedAt };
+    
+    try {
+      if (Admin.notifEditId) {
+        payload.updated_at = new Date().toISOString();
+        const { error } = await window._sb.from('notifications').update(payload).eq('id', Admin.notifEditId);
+        if (error) throw error;
+        alert('✅ Notifikasi berhasil diupdate.');
+      } else {
+        const { error } = await window._sb.from('notifications').insert([payload]);
+        if (error) throw error;
+        alert('✅ Notifikasi baru berhasil ditambahkan.');
+      }
+      Admin.notifResetForm();
+      Admin.loadNotif();
+    } catch (e) {
+      alert('❌ Gagal: ' + e.message);
+    }
+  },
+  
+  async notifEdit(id) {
+    try {
+      const { data, error } = await window._sb.from('notifications').select('*').eq('id', id).single();
+      if (error || !data) throw error || new Error('Not found');
+      Admin.notifEditId = id;
+      document.getElementById('notif-form-title').textContent = '✏️ Edit Notifikasi #' + id;
+      document.getElementById('notif-f-title').value = data.title;
+      document.getElementById('notif-f-url').value = data.url;
+      document.getElementById('notif-f-category').value = data.category;
+      document.getElementById('notif-f-date').value = data.published_at.split('T')[0];
+      document.getElementById('notif-f-is-new').checked = data.is_new;
+      document.getElementById('notif-article-picker').value = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (e) {
+      alert('❌ Gagal load: ' + e.message);
+    }
+  },
+  
+  async notifDelete(id) {
+    if (!confirm('Hapus notifikasi ini permanen? Tidak bisa di-undo.')) return;
+    try {
+      const { error } = await window._sb.from('notifications').delete().eq('id', id);
+      if (error) throw error;
+      alert('✅ Notifikasi berhasil dihapus.');
+      Admin.loadNotif();
+    } catch (e) {
+      alert('❌ Gagal: ' + e.message);
+    }
+  },
+  
+  notifResetForm() {
+    Admin.notifEditId = null;
+    document.getElementById('notif-form-title').textContent = '+ Tambah Notifikasi Baru';
+    document.getElementById('notif-article-picker').value = '';
+    document.getElementById('notif-f-title').value = '';
+    document.getElementById('notif-f-url').value = '';
+    document.getElementById('notif-f-category').value = 'Artikel';
+    document.getElementById('notif-f-is-new').checked = true;
+    document.getElementById('notif-f-date').value = new Date().toISOString().split('T')[0];
   },
   
   escape(s) {
