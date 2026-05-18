@@ -2758,79 +2758,11 @@ text-shadow: none;
   .idx-hero { padding-left: 18px !important; padding-right: 18px !important; }
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-<div style="max-width:1280px;margin:0 auto;padding:0 18px;display:flex;align-items:center;height:54px;gap:18px;position:relative">
-<a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0">
-<img alt="Avenir" data-avlogo="1" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="height:26px;width:auto"/>
-</a>
-<div class="nav-links-desktop" style="display:flex;gap:2px;flex:1;align-items:center">
-<a class="nav-link" href="index.html">Beranda</a>
-<a class="nav-link" href="katalog.html">Katalog</a>
-<a class="nav-link" href="artikel.html">Artikel</a>
-<a class="nav-link" href="artikel.html">News</a>
-<a class="nav-link" href="tentang.html">Tentang</a>
-<a class="nav-link" href="mitra.html">Mitra</a>
-<a class="nav-link nav-link-mitra-only" href="dashboard-mitra.html" style="display:none">Dashboard Mitra</a>
-</div>
-<div class="nav-right-desktop" style="display:flex;gap:6px;align-items:center;flex-shrink:0">
-<button class="nav-btn-secondary" data-auth="guest" onclick="AUTH.open('login')">Sign In</button>
-<button class="nav-btn-primary" data-auth="guest" onclick="AUTH.open('register')">Daftar</button>
-<div data-auth="user" id="user-menu-wrap" style="display:none;position:relative">
-<button class="nav-btn-user" id="nav-user-name-item" onclick="document.getElementById('user-dropdown').style.display=document.getElementById('user-dropdown').style.display==='block'?'none':'block'">
-          👤 <span id="nav-user-name">Akun</span>
-<svg fill="none" height="9" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="9"><polyline points="6 9 12 15 18 9"></polyline></svg>
-</button>
-<div id="user-dropdown" style="display:none;position:absolute;top:100%;right:0;margin-top:6px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.1);min-width:200px;overflow:hidden;z-index:10">
-<a class="user-dd-item" href="pengguna.html">
-<span class="user-dd-icon">👤</span>
-<span><strong>Akun Saya</strong><br/><span class="user-dd-hint">Profil &amp; pengaturan</span></span>
-</a>
-<a class="user-dd-item" href="pengguna.html#langganan">
-<span class="user-dd-icon">🎟️</span>
-<span><strong>Status Langganan</strong><br/><span class="user-dd-hint" id="user-dd-sub-hint">Cek masa aktif</span></span>
-</a>
-<a class="user-dd-item nav-link-mitra-only" href="dashboard-mitra.html" style="display:none">
-<span class="user-dd-icon">📊</span>
-<span><strong>Dashboard Mitra</strong><br/><span class="user-dd-hint">Performa &amp; earnings</span></span>
-</a>
-<button class="user-dd-logout" onclick="AUTH.logout();document.getElementById('user-dropdown').style.display='none'">Keluar →</button>
-</div>
-</div>
-</div>
-<!-- Mobile auth indicator (shown < 820px) -->
-<div class="nav-mobile-auth" data-auth="user" style="display:none">
-<a class="mob-user-chip" href="pengguna.html" id="mob-user-chip">
-<span class="mob-user-icon">👤</span>
-<span id="mob-user-name">Akun</span>
-</a>
-</div>
-<button class="nav-mobile-auth nav-mobile-login" data-auth="guest" onclick="AUTH.open('login')" style="display:none">Masuk</button>
-</div>
-<button aria-label="Menu" class="nav-hamburger" onclick="document.getElementById('mobile-drawer').classList.toggle('open')">
-<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-width="2.2" viewbox="0 0 24 24" width="22"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
-</button>
-</div>
-<div class="mobile-drawer" id="mobile-drawer">
-<a class="mob-link" href="index.html">Beranda</a>
-<a class="mob-link" href="katalog.html">Katalog Riset</a>
-<a class="mob-link" href="artikel.html">Artikel</a>
-<a class="mob-link" href="news.html">Market News</a>
-<a class="mob-link" href="tentang.html">Tentang Avenir</a>
-<a class="mob-link" href="mitra.html">Mitra Terverifikasi</a>
-<div class="mob-divider"></div>
-<!-- Guest state -->
-<button class="mob-link mob-btn-style" data-auth="guest" onclick="AUTH.open('login');document.getElementById('mobile-drawer').classList.remove('open')">Sign In</button>
-<button class="mob-link mob-btn-primary-style" data-auth="guest" onclick="AUTH.open('register');document.getElementById('mobile-drawer').classList.remove('open')">Daftar Gratis</button>
-<!-- User logged-in state -->
-<div data-auth="user" style="display:none;padding:8px 16px;font-size:12px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.06em">
-      👤 <span id="mob-drawer-name">Akun</span>
-</div>
-<a class="mob-link" data-auth="user" href="pengguna.html" style="display:none">Akun Saya</a>
-<a class="mob-link nav-link-mitra-only" data-auth="user" href="dashboard-mitra.html" style="display:none">📊 Dashboard Mitra</a>
-<button class="mob-link mob-btn-logout-style" data-auth="user" onclick="AUTH.logout();document.getElementById('mobile-drawer').classList.remove('open')" style="display:none">Keluar →</button>
-</div>
-</nav>
+<!-- supabase tag replaced by injected AUTH module -->
+
+<!-- ▶ avenir-nav-mount: di-render oleh nav-avenir.js -->
+<div id="avenir-nav-mount"></div>
+
 <style>
   .nav-link { padding:6px 11px; border-radius:6px; text-decoration:none; color:#4b5563; font-size:12.5px; font-weight:600; transition:all .15s; }
   .nav-link:hover { background:#f3f4f6; color:#1B6B3A; }
@@ -2854,6 +2786,15 @@ text-shadow: none;
   .mobile-drawer { display:none; position:absolute; top:54px; left:0; right:0; background:#fff; border-bottom:1px solid #e5e7eb; box-shadow:0 8px 20px rgba(0,0,0,.06); padding:8px 0 14px; max-height:calc(100vh - 54px); overflow-y:auto; z-index:499; }
   .mobile-drawer.open { display:block; }
   .mob-link { display:block; padding:11px 18px; text-decoration:none; color:#374151; font-size:14px; font-weight:600; background:transparent; border:none; width:100%; text-align:left; cursor:pointer; font-family:inherit; }
+  .mob-status-hint { display:block; font-size:11.5px; font-weight:500; color:#9ca3af; margin-top:2px; }
+  #mob-status-langganan.status-warning .mob-status-hint { color:#854d0e; font-weight:600; }
+  #mob-status-langganan.status-urgent { background:#fff7ed; }
+  #mob-status-langganan.status-urgent .mob-status-hint { color:#c2410c; font-weight:700; }
+  #mob-status-langganan.status-expired { background:#fef2f2; }
+  #mob-status-langganan.status-expired .mob-status-hint { color:#b91c1c; font-weight:700; }
+  #user-dd-sub-hint.status-warning { color:#854d0e !important; font-weight:600 !important; }
+  #user-dd-sub-hint.status-urgent { color:#c2410c !important; font-weight:700 !important; }
+  #user-dd-sub-hint.status-expired { color:#b91c1c !important; font-weight:700 !important; }
   .mob-link:hover { background:#f9fafb; color:#1B6B3A; }
   .mob-divider { border-top:1px solid #f3f4f6; margin:6px 14px; }
   .mob-btn-primary-style { background:#1B6B3A !important; color:#fff !important; border-radius:8px !important; margin:6px 18px !important; width:calc(100% - 36px) !important; text-align:center !important; }
@@ -2872,127 +2813,8 @@ text-shadow: none;
   }
   }
 </style>
-<div class="auth-overlay" id="auth-overlay" onclick="AUTH.closeOutside(event)" style="display:none">
-<div class="auth-box">
-<button class="auth-close" onclick="AUTH.close()">✕</button>
-<!-- LOGIN -->
-<div class="auth-view active" id="auth-login">
-<h3>Selamat Datang</h3>
-<p class="auth-sub">Masuk untuk mengakses riset yang sudah Anda beli</p>
-<div class="auth-err" id="login-err"></div>
-<div class="auth-fg"><label>EMAIL</label><input autocomplete="email" id="l-email" placeholder="email@anda.com" type="email"/></div>
-<div class="auth-fg"><label>PASSWORD</label><input autocomplete="current-password" id="l-pass" placeholder="••••••••" type="password"/></div>
-<button class="auth-submit grn" onclick="AUTH.login()">Masuk →</button>
-<div class="auth-sep">Belum punya akun?</div>
-<button class="auth-submit" onclick="AUTH.show('register')" style="background:transparent;border:1px solid var(--bd);color:var(--t2);font-weight:600;padding:11px;border-radius:50px;width:100%;cursor:pointer;font-family:inherit">Daftar Gratis</button>
-<div style="border-top:1px solid var(--bd);margin:20px 0 14px"></div>
-<div style="text-align:center;font-size:11.5px;color:var(--t3);margin-bottom:10px;letter-spacing:.04em">ANDA ANALIS PROFESIONAL?</div>
-<button class="auth-submit" onclick="AUTH.show('login-mitra')" style="background:#854d0e;color:#fff;border:1px solid #854d0e;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;width:100%;cursor:pointer;font-family:inherit;margin-bottom:8px">LOGIN SEBAGAI MITRA →</button>
-<a href="daftar-mitra.html" style="display:block;text-align:center;background:#fef9c3;color:#854d0e;border:1px solid #fde68a;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase">DAFTAR SEBAGAI MITRA →</a>
-</div>
-<!-- LOGIN MITRA -->
-<div class="auth-view" id="auth-login-mitra">
-<h3 style="color:#854d0e">🟡 Masuk sebagai Mitra</h3>
-<p class="auth-sub">Login khusus untuk Mitra Analis Avenir Research yang sudah terdaftar.</p>
-<div class="auth-err" id="login-mitra-err"></div>
-<div class="auth-fg"><label>EMAIL MITRA</label><input autocomplete="email" id="lm-email" placeholder="email@anda.com" type="email"/></div>
-<div class="auth-fg"><label>PASSWORD</label><input autocomplete="current-password" id="lm-pass" placeholder="••••••••" type="password"/></div>
-<button class="auth-submit" onclick="AUTH.loginMitra()" style="background:#854d0e;color:#fff;border:none;padding:12px;border-radius:50px;width:100%;cursor:pointer;font-family:inherit;font-weight:700;letter-spacing:.04em;text-transform:uppercase">MASUK SEBAGAI MITRA →</button>
-<div class="auth-sep">Belum jadi Mitra?</div>
-<a href="daftar-mitra.html" style="display:block;text-align:center;background:#fef9c3;color:#854d0e;border:1px solid #fde68a;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase">DAFTAR SEBAGAI MITRA →</a>
-<div class="auth-toggle">Mau login sebagai pengguna? <a onclick="AUTH.show('login')">Login Pengguna</a></div>
-</div>
-<!-- REGISTER -->
-<div class="auth-view" id="auth-register">
-<h3>Buat Akun</h3>
-<p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 2 bulan — tanpa kartu kredit, tanpa komitmen.</p>
-<div class="auth-trial-banner">
-<div class="auth-trial-icon">🎁</div>
-<div class="auth-trial-text"><strong>2 Bulan Akses Gratis</strong><br/><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
-</div>
-<div class="auth-err" id="reg-err"></div>
-<div class="auth-2col">
-<div class="auth-fg"><label>NAMA DEPAN</label><input id="r-fname" placeholder="Budi" type="text"/></div>
-<div class="auth-fg"><label>NAMA BELAKANG</label><input id="r-lname" placeholder="Santoso" type="text"/></div>
-</div>
-<div class="auth-fg"><label>EMAIL</label><input autocomplete="email" id="r-email" placeholder="email@anda.com" type="email"/></div>
-<div class="auth-fg"><label>PASSWORD</label><input autocomplete="new-password" id="r-pass" placeholder="Min. 8 karakter" type="password"/></div>
-<div class="auth-fg">
-<label>PROFIL INVESTOR</label>
-<select id="r-profile">
-<option>Investor Individu</option>
-<option>Trader Aktif</option>
-<option>Fund Manager</option>
-<option>Institusi / Perusahaan</option>
-</select>
-</div>
-<button class="auth-submit grn" onclick="AUTH.register()">Daftar Sekarang →</button>
-<div class="auth-toggle">Sudah punya akun? <a onclick="AUTH.show('login')">Masuk</a></div>
-<div style="border-top:1px solid var(--bd);margin:20px 0 14px"></div>
-<div style="text-align:center;font-size:11.5px;color:var(--t3);margin-bottom:10px;letter-spacing:.04em">ANDA ANALIS PROFESIONAL?</div>
-<button class="auth-submit" onclick="AUTH.show('login-mitra')" style="background:#854d0e;color:#fff;border:1px solid #854d0e;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;width:100%;cursor:pointer;font-family:inherit;margin-bottom:8px">LOGIN SEBAGAI MITRA →</button>
-<a href="daftar-mitra.html" style="display:block;text-align:center;background:#fef9c3;color:#854d0e;border:1px solid #fde68a;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase">DAFTAR SEBAGAI MITRA →</a>
-</div>
-<!-- DAFTAR MITRA ANALIS -->
-<div class="auth-view" id="auth-analyst">
-<h3>Pendaftaran Mitra Analis</h3>
-<p class="auth-sub">Kirimkan aplikasi Anda sebagai analis riset freelance Avenir</p>
-<div class="auth-info-box">
-    Setiap riset yang diterima akan ditinjau oleh tim editorial kami untuk pemilihan riset yang akan dipublikasikan. Analis mitra mendapatkan <strong>bagi hasil 40%</strong> dari pool subscription, dibagi proporsional berdasarkan views. (Sisa 60% untuk operasional Avenir: platform, kurasi editorial, marketing &amp; pengembangan)
-   </div>
-<div class="auth-err" id="analyst-err"></div>
-<div class="auth-2col">
-<div class="auth-fg"><label>NAMA DEPAN</label><input id="a-fname" placeholder="Dewi" type="text"/></div>
-<div class="auth-fg"><label>NAMA BELAKANG</label><input id="a-lname" placeholder="Kusuma, CFA" type="text"/></div>
-</div>
-<div class="auth-fg"><label>EMAIL PROFESIONAL</label><input id="a-email" placeholder="dewi@perusahaan.com" type="email"/></div>
-<div class="auth-fg"><label>NO. HANDPHONE / WA</label><input id="a-phone" placeholder="08xx-xxxx-xxxx" type="tel"/></div>
-<div class="auth-2col">
-<div class="auth-fg">
-<label>SERTIFIKASI UTAMA</label>
-<select id="a-cert">
-<option>CFA Charterholder</option>
-<option>CFA Level 1</option>
-<option>CFA Level 2</option>
-<option>WPPE</option>
-<option>WPEE</option>
-<option>WPMPM</option>
-<option>Lainnya</option>
-</select>
-</div>
-<div class="auth-fg">
-<label>SEKTOR SPESIALISASI</label>
-<select id="a-sector">
-<option>Banking &amp; Finance</option>
-<option>Consumer &amp; Retail</option>
-<option>Energy &amp; Mining</option>
-<option>Technology &amp; Telco</option>
-<option>Healthcare &amp; Pharma</option>
-<option>Infrastruktur &amp; Properti</option>
-<option>Multi-sektor</option>
-</select>
-</div>
-</div>
-<div class="auth-fg">
-<label>INSTITUSI / AFILIASI SAAT INI</label>
-<input id="a-company" placeholder="Nama perusahaan atau 'Independen'" type="text"/>
-</div>
-<div class="auth-fg">
-<label>LINK CONTOH RISET (Google Drive / Scribd / LinkedIn)</label>
-<input id="a-portfolio" placeholder="https://..." type="url"/>
-</div>
-<button class="auth-submit gold" onclick="AUTH.submitAnalyst()">Kirim Aplikasi →</button>
-<div class="auth-toggle" style="margin-top:12px;font-size:11px">Tim kami akan menghubungi Anda dalam <strong>5–7 hari kerja</strong></div>
-</div>
-<!-- SUCCESS -->
-<div class="auth-view" id="auth-success">
-<div class="auth-success-icon" id="success-icon">✅</div>
-<h3 id="success-title" style="text-align:center">Berhasil!</h3>
-<p class="auth-sub" id="success-msg" style="text-align:center">Selamat datang di Avenir Research.</p>
-<button class="auth-submit grn" onclick="AUTH.close()">Mulai Jelajahi Riset →</button>
-</div>
-</div>
-</div>
+
+<!-- ▶ auth modal: di-handle nav-avenir.js -->
 <div class="page" id="page-artikel" style="display:block">
 <style>
 .artikel-page { max-width:1100px; margin:0 auto; padding:48px 24px 80px; }
@@ -3025,26 +2847,6 @@ text-shadow: none;
 <p>Studi kasus, sejarah korporasi, dan analisis industri jangka panjang dari tim Avenir Research. Bebas diakses untuk semua pembaca.</p>
 </div>
 <div class="artikel-grid">
-<!-- Article: Paradoks PDB & Pelemahan Rupiah 2026 -->
-<div class="artikel-card" onclick="window.location.href='artikel-paradoks-pdb-rupiah-2026.html'">
-<div class="artikel-card-cover">
-<img alt="Paradoks PDB 5,61% Pelemahan Rupiah DSR Revenue Chatib Basri Fiscal Space 2026" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20viewBox%3D%220%200%201200%20675%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23140a05%22/%3E%3Cstop%20offset%3D%220.5%22%20stop-color%3D%22%23281410%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231a0a05%22/%3E%3C/linearGradient%3E%3CradialGradient%20id%3D%22g1%22%20cx%3D%2272%25%22%20cy%3D%2235%25%22%20r%3D%2255%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f59e0b%22%20stop-opacity%3D%220.30%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f59e0b%22%20stop-opacity%3D%220%22/%3E%3C/radialGradient%3E%3ClinearGradient%20id%3D%22gold%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%220%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fcd34d%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23d97706%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%221200%22%20height%3D%22675%22%20fill%3D%22url%28%23bg%29%22/%3E%3Crect%20width%3D%221200%22%20height%3D%22675%22%20fill%3D%22url%28%23g1%29%22/%3E%3Cg%3E%3Crect%20x%3D%22790%22%20y%3D%22400%22%20width%3D%2240%22%20height%3D%2280%22%20fill%3D%22%2316a34a%22%20opacity%3D%220.7%22/%3E%3Crect%20x%3D%22850%22%20y%3D%22370%22%20width%3D%2240%22%20height%3D%22110%22%20fill%3D%22%2316a34a%22%20opacity%3D%220.75%22/%3E%3Crect%20x%3D%22910%22%20y%3D%22345%22%20width%3D%2240%22%20height%3D%22135%22%20fill%3D%22%2316a34a%22%20opacity%3D%220.8%22/%3E%3Crect%20x%3D%22970%22%20y%3D%22315%22%20width%3D%2240%22%20height%3D%22165%22%20fill%3D%22%2316a34a%22%20opacity%3D%220.85%22/%3E%3Crect%20x%3D%221030%22%20y%3D%22285%22%20width%3D%2240%22%20height%3D%22195%22%20fill%3D%22%2316a34a%22%20opacity%3D%220.9%22/%3E%3Crect%20x%3D%221090%22%20y%3D%22245%22%20width%3D%2240%22%20height%3D%22235%22%20fill%3D%22%2316a34a%22%20opacity%3D%220.95%22/%3E%3C/g%3E%3Cpath%20d%3D%22M810%20230L870%20245L930%20255L990%20275L1050%20300L1110%20335%22%20stroke%3D%22%23ef4444%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20opacity%3D%220.9%22/%3E%3Ctext%20x%3D%2280%22%20y%3D%22155%22%20fill%3D%22%23fcd34d%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22800%22%20letter-spacing%3D%224%22%3EAVENIR%20RESEARCH%20%C2%B7%20MACRO%20%C2%B7%20FX%20STRATEGY%3C/text%3E%3Ctext%20x%3D%2280%22%20y%3D%22245%22%20fill%3D%22%23ffffff%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2262%22%20font-weight%3D%22700%22%20letter-spacing%3D%22-1.5%22%3EParadoks%20PDB%3C/text%3E%3Ctext%20x%3D%2280%22%20y%3D%22315%22%20fill%3D%22%23ffffff%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2262%22%20font-weight%3D%22700%22%20letter-spacing%3D%22-1.5%22%3E5%2C61%25%3A%3C/text%3E%3Ctext%20x%3D%2280%22%20y%3D%22390%22%20fill%3D%22url%28%23gold%29%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2236%22%20font-style%3D%22italic%22%20font-weight%3D%22600%22%3EKualitas%20Pertumbuhan%2C%3C/text%3E%3Ctext%20x%3D%2280%22%20y%3D%22435%22%20fill%3D%22url%28%23gold%29%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2236%22%20font-style%3D%22italic%22%20font-weight%3D%22600%22%3EDSR/Revenue%2C%20Risiko%20Fiskal%3C/text%3E%3Ctext%20x%3D%2280%22%20y%3D%22480%22%20fill%3D%22%23bbaaaa%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2218%22%3EQ1-2026%20Tertinggi%20%C2%B7%20Rp17.668%2FUSD%20%C2%B7%20Mei%202026%3C/text%3E%3C/svg%3E"/>
-<div class="artikel-badge">Macro &middot; PDB &middot; Rupiah</div>
-</div>
-<div class="artikel-card-body">
-<div class="artikel-card-cat">Macro &amp; Markets &middot; FX Strategy &middot; PDB &middot; DSR/Revenue &middot; Chatib Basri</div>
-<div class="artikel-card-title">Paradoks PDB 5,61% dan Pelemahan Rupiah: Kualitas Pertumbuhan, DSR/Revenue, dan Repricing Risiko Fiskal</div>
-<div class="artikel-card-excerpt">Selasa 5 Mei 2026, BPS mengumumkan PDB Q1 tumbuh <strong>5,61% YoY</strong> &mdash; tertinggi sejak Q3-2022. Namun rupiah justru melemah ke <strong>Rp17.668/USD</strong>, rekor terlemah baru. Paradoks ini bukan anomali pasar. <strong>13 bagian:</strong> dekomposisi pertumbuhan (belanja pemerintah +21,8%, ekspor -3,1% YoY), simulasi tanpa stimulus fiskal (~4,43%), translasi PDB rupiah ke dolar, lima kanal tekanan rupiah, kerangka <strong>DSR/Revenue dari M. Chatib Basri</strong> (DSR/T = (r+&alpha;)&middot;D/Y/(T/Y)), simulasi fiskal Indonesia (Tax/PDB 10,3% &rarr; DSR/T 37,9%), studi komparatif tax capacity, tiga skenario USD/IDR H2-2026, dashboard 7 indikator. Sumber: BPS, Reuters, WSJ, IMF, Trading Economics, DBS, akademik Chatib Basri (@ChatibBasri). Tidak memuat target kurs.</div>
-<div class="artikel-card-meta">
-<span>18 Mei 2026</span>
-<span>&middot;</span>
-<span class="author">Tim Avenir Research</span>
-<span>&middot;</span>
-<span class="badge-paid">Berlangganan</span>
-</div>
-</div>
-</div>
-
 <!-- Article: Pelemahan Rupiah 2026 -->
 <div class="artikel-card" onclick="window.location.href='artikel-pelemahan-rupiah-2026.html'">
 <div class="artikel-card-cover">
@@ -3385,13 +3187,24 @@ text-shadow: none;
 </div>
 </footer>
 
-<script>
-/* ═══ AVENIR LOGO INJECTION ═══ */
-(function(){
-  var LOGO_B64 = 'data:image/png;base64,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';
-  var imgs = document.querySelectorAll('img[data-avlogo]');
-  for(var i=0;i<imgs.length;i++){ imgs[i].src = LOGO_B64; }
-})();
-</script>
+<!-- ▶ Logo loader: di-handle nav-avenir.js -->
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- INJECTED: Supabase + AUTH module + Status Langganan -->
+<!-- Source: synced from index.html (single source of truth) -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- ▶ Supabase init: di-handle nav-avenir.js -->
+
+<!-- ▶ AUTH module: di-handle nav-avenir.js -->
+
+<!-- ▶ Status updater: di-handle nav-avenir.js -->
+
+
+
+<!-- Nav Global (single source of truth) -->
+<script src="/nav-avenir.js?v=20260520" defer></script>
 </body>
 </html>

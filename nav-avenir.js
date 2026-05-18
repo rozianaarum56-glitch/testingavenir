@@ -25,35 +25,6 @@
 (function() {
   'use strict';
 
-  // ──────────────── DEBUG PANEL (tampil di layar kalau ada error) ────────────────
-  function _showDebug(title, msg, isError) {
-    try {
-      let panel = document.getElementById('avenir-debug-panel');
-      if (!panel) {
-        panel = document.createElement('div');
-        panel.id = 'avenir-debug-panel';
-        panel.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;color:#fff;padding:12px 14px;font-family:monospace;font-size:11px;line-height:1.5;z-index:999999;max-height:50vh;overflow-y:auto;border-top:3px solid ' + (isError ? '#dc2626' : '#1B6B3A');
-        document.body.appendChild(panel);
-      }
-      const ts = new Date().toLocaleTimeString();
-      const color = isError ? '#fca5a5' : '#86efac';
-      panel.innerHTML += '<div style="color:' + color + '">[' + ts + '] ' + title + ': ' + msg + '</div>';
-    } catch(e) { console.error('debug panel error', e); }
-  }
-  window._navAvenirDebug = _showDebug;
-  
-  // Catch all errors during boot
-  const _origError = window.onerror;
-  window.onerror = function(msg, src, line, col, err) {
-    if (src && src.includes('nav-avenir')) {
-      _showDebug('🔴 JS ERROR', msg + ' @ line ' + line, true);
-    }
-    if (_origError) return _origError.apply(this, arguments);
-    return false;
-  };
-  
-  _showDebug('✓ Step 1', 'IIFE outer started');
-
   // ──────────────── Backward Compat Guard ────────────────
   // Kalau halaman sudah punya inline AUTH module (legacy), skip self-init.
   if (window.AUTH && typeof window.AUTH.init === 'function') {
@@ -75,8 +46,6 @@
   }
   
   function boot() {
-    try {
-    _showDebug('✓ Step 2', 'boot() started');
     // ──────────────── Inject CSS ────────────────
     const styleEl = document.createElement('style');
     styleEl.id = 'avenir-nav-styles';
@@ -143,7 +112,6 @@
   font-size: 12.5px; line-height: 1.5; margin-bottom: 14px; display: none;
 }
 .auth-success-icon { font-size: 44px; text-align: center; margin-bottom: 14px; }
-
 
 :root {
   --bg: #F7F5F0; --bg2: #FFFFFF; --bg3: #F0EDE8;
@@ -398,7 +366,6 @@
   }
   }`;
     document.head.appendChild(styleEl);
-    _showDebug('✓ Step 3', 'CSS injected');
     
     // ──────────────── Render Nav + Modal ────────────────
     // Cari mount point. Kalau tidak ada, buat di awal body.
@@ -408,8 +375,6 @@
       mount.id = 'avenir-nav-mount';
       document.body.insertBefore(mount, document.body.firstChild);
     }
-    
-    _showDebug('✓ Step 4a', 'Rendering HTML to mount...');
     mount.innerHTML = `<nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
   <div style="max-width:1280px;margin:0 auto;padding:0 18px;display:flex;align-items:center;height:54px;gap:18px;position:relative">
     <a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0">
@@ -1269,7 +1234,6 @@ window._sb = _sb;
     
     // Expose
     window.AUTH = AUTH;
-    _showDebug('✓ Step 5', 'window.AUTH set: ' + (typeof window.AUTH));
     
     // ──────────────── Status Updater ────────────────
     /* ═══ STATUS LANGGANAN: update hint text di menu Status Langganan ═══
@@ -1485,13 +1449,10 @@ document.addEventListener('DOMContentLoaded', () => {
     init();
   }
   window.AVN_BELL = { toggle: toggle, markRead: markRead, markAllRead: markAllRead };
-  if (window._navAvenirDebug) window._navAvenirDebug('✓ Step 6', 'window.AVN_BELL set: ' + (typeof window.AVN_BELL));
 })();
     
     // ──────────────── Init AUTH + Fire Event ────────────────
-    _showDebug('✓ Step 7', 'AUTH.init() called');
     AUTH.init().then(() => {
-      _showDebug('✓ Step 8', 'AUTH.init() resolved');
       // Update status hint after profile ready
       if (typeof window._updateSubscriptionStatus === 'function') {
         window._updateSubscriptionStatus();
@@ -1510,7 +1471,7 @@ document.addEventListener('DOMContentLoaded', () => {
         detail: { user: null, profile: null, error: err }
       }));
     });
-    } catch(e) { _showDebug('🔴 BOOT ERROR', e.message + ' (stack: ' + (e.stack||'').substring(0,200) + ')', true); }
+
   }
   
   // ──────────────── Boot Sequence ────────────────
