@@ -56,14 +56,15 @@
     styleEl.id = 'avenir-nav-styles';
     styleEl.textContent = `
 
-/* ═══ Toggle visibility [data-auth] — HIDE-only approach ═══ */
-/* Element default-nya pakai class CSS masing-masing (.mob-link → block, dll).
-   Inline style="display:none" di HTML jadi initial state SEMUA tersembunyi.
-   refreshUI() strip inline style → element tampil sesuai class CSS-nya.
-   CSS di bawah HIDE element yang TIDAK match body state. */
+/* ═══ Toggle visibility [data-auth] — SELF-CONTAINED approach ═══ */
+/* Tidak bergantung CSS residual di file HTML lain.
+   Default: SEMUA data-auth elements hidden sampai body class set.
+   Setelah AUTH ready, body class trigger SHOW rules.
+   Drawer items semua block-level (.mob-link), jadi display:block aman. */
 
-body.auth-state-user [data-auth="guest"] { display: none !important; }
-body.auth-state-guest [data-auth="user"] { display: none !important; }
+[data-auth="user"], [data-auth="guest"] { display: none !important; }
+body.auth-state-user [data-auth="user"] { display: block !important; }
+body.auth-state-guest [data-auth="guest"] { display: block !important; }
 
 /* ═══ AVENIR AUTH MODAL ═══ */
 .auth-overlay {
@@ -406,7 +407,29 @@ body.auth-state-guest [data-auth="user"] { display: none !important; }
       <a href="dashboard-mitra.html" class="nav-link nav-link-mitra-only" style="display:none">Dashboard Mitra</a>
     </div>
     <div class="nav-right-desktop" style="display:flex;gap:6px;align-items:center;flex-shrink:0">
-      <!-- Auth buttons removed — akses via hamburger drawer -->
+      <button data-auth="guest" onclick="AUTH.open('login')" class="nav-btn-secondary">Sign In</button>
+      <button data-auth="guest" onclick="AUTH.open('register')" class="nav-btn-primary">Daftar</button>
+      <div data-auth="user" style="display:none;position:relative" id="user-menu-wrap">
+        <button onclick="document.getElementById('user-dropdown').style.display=document.getElementById('user-dropdown').style.display==='block'?'none':'block'" class="nav-btn-user" id="nav-user-name-item">
+          👤 <span id="nav-user-name">Akun</span>
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div id="user-dropdown" style="display:none;position:absolute;top:100%;right:0;margin-top:6px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.1);min-width:200px;overflow:hidden;z-index:10">
+          <a href="pengguna.html" class="user-dd-item">
+            <span class="user-dd-icon">👤</span>
+            <span><strong>Akun Saya</strong><br><span class="user-dd-hint">Profil &amp; pengaturan</span></span>
+          </a>
+          <a href="pengguna.html#langganan" class="user-dd-item">
+            <span class="user-dd-icon">🎟️</span>
+            <span><strong>Status Langganan</strong><br><span class="user-dd-hint" id="user-dd-sub-hint">Cek masa aktif</span></span>
+          </a>
+          <a href="dashboard-mitra.html" class="user-dd-item nav-link-mitra-only" style="display:none">
+            <span class="user-dd-icon">📊</span>
+            <span><strong>Dashboard Mitra</strong><br><span class="user-dd-hint">Performa &amp; earnings</span></span>
+          </a>
+          <button onclick="AUTH.logout();document.getElementById('user-dropdown').style.display='none'" class="user-dd-logout">Keluar →</button>
+        </div>
+      </div>
     </div>
     <!-- Mobile auth removed — akses via hamburger drawer -->
     <!-- Notification Bell -->
@@ -1178,6 +1201,9 @@ window._sb = _sb;
     
     // 5. Refresh UI (will set body class via refreshUI logic juga)
     await AUTH.refreshUI();
+    
+    // 6. Hard reload supaya state page-specific (paywall, member-only content, dll) reset bersih
+    setTimeout(() => { window.location.reload(); }, 100);
   },
 
   // Mitra Analis
