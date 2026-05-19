@@ -701,11 +701,91 @@ window._sb = _sb;
       }
     });
     
-    // Fallback: deteksi hash recovery manual jika event belum fire
-    // (URL example: https://researchavenir.com/#access_token=...&type=recovery)
-    if (typeof window !== 'undefined' && window.location.hash.includes('type=recovery')) {
-      AUTH.open('reset');
+    // ═══ Recovery hash detection — multi-strategy ═══
+    // Supabase recovery link format bisa beragam:
+    //   #access_token=...&type=recovery&...
+    //   #access_token=...&refresh_token=...&type=recovery
+    //   ?type=recovery (query string, sangat jarang)
+    function _detectRecoveryHash() {
+      if (typeof window === 'undefined') return false;
+      const hash = window.location.hash || '';
+      const search = window.location.search || '';
+      return hash.includes('type=recovery') || 
+             search.includes('type=recovery') ||
+             (hash.includes('access_token=') && hash.includes('recovery'));
     }
+    
+    // Detect expired/error recovery link
+    function _detectRecoveryError() {
+      if (typeof window === 'undefined') return null;
+      const hash = window.location.hash || '';
+      const search = window.location.search || '';
+      const combined = hash + search;
+      
+      if (combined.includes('error_code=otp_expired') || combined.includes('error=access_denied')) {
+        return 'expired';
+      }
+      if (combined.includes('error=')) {
+        return 'other';
+      }
+      return null;
+    }
+    
+    // Strategy 0: Cek error dulu — link expired/invalid
+    const recoveryError = _detectRecoveryError();
+    if (recoveryError) {
+      // Wait DOM ready
+      const _showExpiredError = (retries = 10) => {
+        const ov = document.getElementById('auth-overlay');
+        if (ov) {
+          AUTH.open('forgot');
+          setTimeout(() => {
+            const msg = recoveryError === 'expired' 
+              ? '⚠️ Link reset password sudah expired (berlaku 1 jam). Kirim ulang link baru di bawah.'
+              : '⚠️ Link reset password tidak valid. Coba kirim link baru.';
+            AUTH.err('forgot-err', msg);
+          }, 100);
+          // Clean URL setelah 1 detik
+          setTimeout(() => {
+            if (history.replaceState) {
+              history.replaceState(null, '', window.location.pathname);
+            }
+          }, 1000);
+        } else if (retries > 0) {
+          setTimeout(() => _showExpiredError(retries - 1), 200);
+        }
+      };
+      _showExpiredError();
+    }
+    
+    // Strategy 1: Cek immediately (recovery hash valid)
+    else if (_detectRecoveryHash()) {
+      // Wait sampai DOM ready + auth-overlay di-mount
+      const _tryOpenReset = (retries = 10) => {
+        const ov = document.getElementById('auth-overlay');
+        const resetView = document.getElementById('auth-reset');
+        if (ov && resetView) {
+          AUTH.open('reset');
+          // Jangan langsung clear hash — biarkan onAuthStateChange handle session dulu
+          // Setelah 2 detik baru clean URL (untuk mencegah link expired keulang refresh)
+          setTimeout(() => {
+            if (history.replaceState) {
+              history.replaceState(null, '', window.location.pathname);
+            }
+          }, 2000);
+        } else if (retries > 0) {
+          setTimeout(() => _tryOpenReset(retries - 1), 200);
+        }
+      };
+      _tryOpenReset();
+    }
+    
+    // Strategy 2: Listen for hashchange (kalau Supabase ngubah hash setelah init)
+    window.addEventListener('hashchange', () => {
+      if (_detectRecoveryHash()) {
+        AUTH.open('reset');
+      }
+    });
     
     // ═══ FIX: re-check session saat tab kembali visible / bfcache / focus ═══
     // Mencegah konten ke-lock lagi setiap pindah halaman atau pindah aplikasi
@@ -967,12 +1047,19 @@ window._sb = _sb;
   async register() {
     const fn    = document.getElementById('r-fname')?.value.trim();
     const ln    = document.getElementById('r-lname')?.value.trim();
-    const email = document.getElementById('r-email')?.value.trim();
+    const email = document.getElementById('r-email')?.value.trim().toLowerCase();
     const pass  = document.getElementById('r-pass')?.value;
     const profil= document.getElementById('r-profile')?.value;
 
     AUTH.err('reg-err', '');
     if (!fn || !ln || !email || !pass) return AUTH.err('reg-err', 'Semua field wajib diisi.');
+    
+    // Email format validation (regex)
+    const EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!EMAIL_RE.test(email)) {
+      return AUTH.err('reg-err', 'Format email tidak valid. Pastikan email lengkap (contoh: nama@gmail.com).');
+    }
+    
     if (pass.length < 8) return AUTH.err('reg-err', 'Password minimal 8 karakter.');
 
     AUTH.err('reg-err', 'Mendaftarkan akun...', 'var(--grn)');
@@ -1046,7 +1133,7 @@ window._sb = _sb;
 
   // Kirim link reset password ke email
   async sendResetLink() {
-    const email = document.getElementById('f-email')?.value.trim();
+    const email = document.getElementById('f-email')?.value.trim().toLowerCase();
     AUTH.err('forgot-err', '');
     if (!email) return AUTH.err('forgot-err', 'Email wajib diisi.');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return AUTH.err('forgot-err', 'Format email tidak valid.');
@@ -1059,6 +1146,18 @@ window._sb = _sb;
     const { error } = await _sb.auth.resetPasswordForEmail(email, { redirectTo });
 
     if (error) {
+      // Smart error messages
+      const msg = (error.message || '').toLowerCase();
+      if (msg.includes('rate limit') || msg.includes('429') || msg.includes('over_email_send_rate_limit')) {
+        return AUTH.err('forgot-err', 'Terlalu banyak permintaan. Coba lagi dalam 1 jam.');
+      }
+      if (msg.includes('sending') || msg.includes('smtp') || msg.includes('email service')) {
+        return AUTH.err('forgot-err', 'Layanan email sedang bermasalah. Hubungi admin: support@researchavenir.com');
+      }
+      if (msg.includes('not found') || msg.includes('not exist')) {
+        // Tetap tampilkan generic message demi security (jangan bocorin email exists)
+        return AUTH.err('forgot-err', '✓ Jika email terdaftar, link reset sudah dikirim. Cek inbox/spam.', 'var(--grn)');
+      }
       return AUTH.err('forgot-err', 'Gagal kirim: ' + error.message);
     }
 
@@ -1240,7 +1339,7 @@ window._sb = _sb;
   async submitAnalyst() {
     const fn      = document.getElementById('a-fname')?.value.trim();
     const ln      = document.getElementById('a-lname')?.value.trim();
-    const email   = document.getElementById('a-email')?.value.trim();
+    const email   = document.getElementById('a-email')?.value.trim().toLowerCase();
     const phone   = document.getElementById('a-phone')?.value.trim();
     const cert    = document.getElementById('a-cert')?.value;
     const sector  = document.getElementById('a-sector')?.value;
@@ -1249,6 +1348,12 @@ window._sb = _sb;
 
     AUTH.err('analyst-err', '');
     if (!fn || !ln || !email || !phone) return AUTH.err('analyst-err', 'Nama, email, dan WA wajib diisi.');
+    
+    // Email format validation
+    const EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!EMAIL_RE.test(email)) {
+      return AUTH.err('analyst-err', 'Format email tidak valid (contoh: nama@perusahaan.com).');
+    }
 
     const { error } = await _sb.from('analyst_applications').insert({
       nama_depan: fn, nama_belakang: ln, email, phone,
