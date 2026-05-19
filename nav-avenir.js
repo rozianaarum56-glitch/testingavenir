@@ -136,6 +136,17 @@ body.auth-state-guest [data-auth="guest"] { display: block !important; }
   --bd: #e5e7eb;
 }
 .nav-global * { box-sizing: border-box; }
+/* Pastikan mount div + nav sticky bekerja meskipun ada CSS overflow di parent */
+#avenir-nav-mount {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 500 !important;
+}
+#avenir-nav-mount .nav-global {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 500 !important;
+}
 .nav-mobile-auth { display: none; }
 @media (max-width: 820px) {
   .nav-mobile-auth { display: inline-flex !important; align-items: center; }
