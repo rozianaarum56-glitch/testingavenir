@@ -3013,8 +3013,8 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   user-select: none;
   max-height: 700px;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 30%, transparent 70%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 30%, transparent 70%);
 }
 
 /* DEFAULT STATE = OVERLAY SHOWN */
@@ -3030,7 +3030,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   bottom: 0;
   padding: 60px 24px;
   text-align: center;
-  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 30%, #ffffff 60%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.92) 20%, #ffffff 40%);
   z-index: 100;
 }
 
@@ -3050,8 +3050,8 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 
 /* Overlay card */
 .gl-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.6; }
-.gl-title { font-family: 'Cormorant Garamond', 'Fraunces', Georgia, serif; font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 12px; line-height: 1.2; max-width: 600px; }
-.gl-sub { font-size: 15px; color: #4b5563; line-height: 1.65; margin-bottom: 16px; max-width: 560px; }
+.gl-title { font-family: 'Cormorant Garamond', 'Fraunces', Georgia, serif; font-size: 32px; font-weight: 700; color: #1a1a1a; margin: 0 auto 12px; line-height: 1.2; max-width: 600px; text-align: center; }
+.gl-sub { font-size: 15px; color: #4b5563; line-height: 1.65; margin: 0 auto 16px; max-width: 560px; text-align: center; }
 .gl-price { display: inline-block; padding: 10px 20px; background: rgba(27,107,58,0.06); border: 1px solid rgba(27,107,58,0.18); border-radius: 8px; font-size: 13.5px; color: #14532d; margin-bottom: 24px; }
 .gl-price strong { color: #14532d; font-weight: 700; }
 .gl-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; }
