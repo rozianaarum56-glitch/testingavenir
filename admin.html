@@ -7232,7 +7232,41 @@ const Admin = {
       const result = await resp.json();
       if (!resp.ok) throw new Error(result.error || 'Failed: ' + resp.status);
       
-      alert(`✅ Email berhasil dikirim!\n\nTotal subscriber: ${result.total}\nTerkirim: ${result.sent}\nGagal: ${result.failed}`);
+      // Smart alert berdasarkan hasil
+      const sent = Number(result.sent || 0);
+      const failed = Number(result.failed || 0);
+      const total = Number(result.total || 0);
+      
+      let title, body;
+      if (sent === 0 && failed > 0) {
+        // SEMUA GAGAL - kasih panduan
+        title = '❌ Semua email gagal terkirim';
+        body = `Total subscriber: ${total}\nTerkirim: 0\nGagal: ${failed}\n\n` +
+               `Kemungkinan penyebab:\n` +
+               `1. Domain researchavenir.com belum diverifikasi di Resend\n` +
+               `   → Buka resend.com/domains → Add Domain → tambah DNS records\n\n` +
+               `2. Resend free tier hanya boleh kirim ke email pemilik account\n` +
+               `   sampai domain diverifikasi (kecuali email = onboarding@resend.dev)\n\n` +
+               `3. API key Resend di Edge Function expired/salah\n\n` +
+               `Cek detail error di Supabase → Edge Functions → blast-email → Logs`;
+      } else if (sent > 0 && failed > 0) {
+        // PARTIAL
+        title = `⚠️ Sebagian email gagal`;
+        body = `Total subscriber: ${total}\nTerkirim: ${sent} ✓\nGagal: ${failed} ✗\n\n` +
+               `Cek log Edge Function untuk detail.`;
+      } else {
+        // SUKSES SEMUA
+        title = '✅ Email berhasil dikirim!';
+        body = `Total subscriber: ${total}\nTerkirim: ${sent}\nGagal: ${failed}`;
+      }
+      
+      // Detail errors kalau ada
+      if (result.errors && Array.isArray(result.errors) && result.errors.length > 0) {
+        body += `\n\nDetail error (3 pertama):\n` + 
+                result.errors.slice(0, 3).map(e => `• ${e.email || '?'}: ${e.message || e.error || JSON.stringify(e)}`).join('\n');
+      }
+      
+      alert(title + '\n\n' + body);
       Admin.loadNotif();
     } catch (e) {
       alert('❌ Gagal kirim email: ' + e.message);
