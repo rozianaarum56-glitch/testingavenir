@@ -3009,11 +3009,18 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   display: none;
 }
 
-/* Anti-flash: hide overlay sampai auth state resolved */
-body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .guest-lock-overlay,
+/* Anti-flash: SEMENTARA hide overlay & jangan blur content sampai auth state resolved */
+body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .guest-lock-overlay {
+  display: none !important;
+}
 body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .guest-lock-content {
-  opacity: 0;
-  pointer-events: none;
+  filter: none !important;
+  pointer-events: auto !important;
+  max-height: none !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  opacity: 1 !important;
+  overflow: visible !important;
 }
 
 /* GUEST LOCKED STATE — blur konten + show overlay */
@@ -4378,8 +4385,46 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
     return false;
   }
   
+
+  // ═══ INSTANT ACCESS CHECK (anti FOLC - Flash of Locked Content) ═══
+  // Baca cached profile dari localStorage untuk hindari flash paywall saat page load
+  function _instantHasAccess() {
+    try {
+      // Step 1: cek apakah ada token di localStorage (user pernah login)
+      var keys = Object.keys(localStorage);
+      var hasToken = keys.some(function(k){ return k.indexOf('sb-') === 0 && k.indexOf('-auth-token') > -1; });
+      if (!hasToken) return false;
+      
+      // Step 2: cek cached profile
+      var cached = localStorage.getItem('avenir_cached_profile');
+      if (!cached) {
+        // Ada token tapi belum ada cached profile → asumsikan punya akses sementara
+        // (akan di-recheck setelah AUTH init)
+        return true;
+      }
+      var p = JSON.parse(cached);
+      if (!p) return false;
+      if (p.is_admin) return true;
+      if (p.is_mitra) return true;
+      var now = Date.now();
+      if (p.subscription_until && new Date(p.subscription_until).getTime() > now) return true;
+      if (p.trial_started_at && new Date(p.trial_started_at).getTime() + 7*86400000 > now) return true;
+      return false;
+    } catch(e) { return false; }
+  }
+
   function applyLock() {
-    var locked = !hasAccess();
+    var locked;
+    // Strategy: kalau AUTH module belum siap, pakai instant cached check
+    // supaya tidak flash paywall lock
+    if (!window.AUTH || typeof window.AUTH.profile === 'undefined') {
+      locked = !_instantHasAccess();
+    } else if (window.AUTH.currentUser && !window.AUTH.profile) {
+      // Token ada tapi profile masih loading → trust instant check
+      locked = !_instantHasAccess();
+    } else {
+      locked = !hasAccess();
+    }
     document.querySelectorAll('.guest-lock-wrap').forEach(function(el){
       if (locked) {
         el.classList.add('is-guest');
@@ -4399,6 +4444,6 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
 </script>
 
 <!-- Nav Global -->
-<script src="/nav-avenir.js?v=20260525" defer></script>
+<script src="/nav-avenir.js?v=20260526" defer></script>
 </body>
 </html>

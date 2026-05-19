@@ -4342,6 +4342,34 @@ window.showNewsList = function(){ window.showPage('news'); };
     }
   }
   
+
+  // ═══ INSTANT ACCESS CHECK (anti FOLC - Flash of Locked Content) ═══
+  // Baca cached profile dari localStorage untuk hindari flash paywall saat page load
+  function _instantHasAccess() {
+    try {
+      // Step 1: cek apakah ada token di localStorage (user pernah login)
+      var keys = Object.keys(localStorage);
+      var hasToken = keys.some(function(k){ return k.indexOf('sb-') === 0 && k.indexOf('-auth-token') > -1; });
+      if (!hasToken) return false;
+      
+      // Step 2: cek cached profile
+      var cached = localStorage.getItem('avenir_cached_profile');
+      if (!cached) {
+        // Ada token tapi belum ada cached profile → asumsikan punya akses sementara
+        // (akan di-recheck setelah AUTH init)
+        return true;
+      }
+      var p = JSON.parse(cached);
+      if (!p) return false;
+      if (p.is_admin) return true;
+      if (p.is_mitra) return true;
+      var now = Date.now();
+      if (p.subscription_until && new Date(p.subscription_until).getTime() > now) return true;
+      if (p.trial_started_at && new Date(p.trial_started_at).getTime() + 7*86400000 > now) return true;
+      return false;
+    } catch(e) { return false; }
+  }
+
   function applyLock() {
     const status = getStatus();
     
