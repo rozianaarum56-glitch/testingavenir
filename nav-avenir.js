@@ -434,6 +434,10 @@ body.auth-state-guest [data-auth="guest"] { display: block !important; }
             <span class="user-dd-icon">🎟️</span>
             <span><strong>Status Langganan</strong><br><span class="user-dd-hint" id="user-dd-sub-hint">Cek masa aktif</span></span>
           </a>
+          <a onclick="AUTH.open('reset');document.getElementById('user-dropdown').style.display='none'" class="user-dd-item" style="cursor:pointer">
+            <span class="user-dd-icon">🔑</span>
+            <span><strong>Ganti Password</strong><br><span class="user-dd-hint">Update password akun</span></span>
+          </a>
           <a href="dashboard-mitra.html" class="user-dd-item nav-link-mitra-only" style="display:none">
             <span class="user-dd-icon">📊</span>
             <span><strong>Dashboard Mitra</strong><br><span class="user-dd-hint">Performa &amp; earnings</span></span>
@@ -697,7 +701,21 @@ window._sb = _sb;
       }
       // Recovery flow: user klik link reset password di email
       if (event === 'PASSWORD_RECOVERY') {
+        // Set flag supaya bisa di-detect kalau user reload
+        try { sessionStorage.setItem('avenir_recovery_mode', '1'); } catch(e) {}
         AUTH.open('reset');
+      }
+      // PKCE flow: kalau user baru SIGNED_IN dan datang dari recovery URL,
+      // auto-buka modal reset (Supabase PKCE tidak fire PASSWORD_RECOVERY)
+      if (event === 'SIGNED_IN' && session) {
+        try {
+          const cameFromRecovery = sessionStorage.getItem('avenir_came_from_recovery');
+          if (cameFromRecovery === '1') {
+            sessionStorage.removeItem('avenir_came_from_recovery');
+            sessionStorage.setItem('avenir_recovery_mode', '1');
+            setTimeout(() => AUTH.open('reset'), 300);
+          }
+        } catch(e) {}
       }
     });
     
@@ -705,6 +723,7 @@ window._sb = _sb;
     // Supabase recovery link format bisa beragam:
     //   #access_token=...&type=recovery&...
     //   #access_token=...&refresh_token=...&type=recovery
+    //   ?code=xxx (PKCE flow - newer Supabase)
     //   ?type=recovery (query string, sangat jarang)
     function _detectRecoveryHash() {
       if (typeof window === 'undefined') return false;
@@ -713,6 +732,19 @@ window._sb = _sb;
       return hash.includes('type=recovery') || 
              search.includes('type=recovery') ||
              (hash.includes('access_token=') && hash.includes('recovery'));
+    }
+    
+    // Detect PKCE recovery: URL berisi ?code=xxx dan baru landing dari email
+    function _detectPKCERecovery() {
+      if (typeof window === 'undefined') return false;
+      const search = window.location.search || '';
+      // PKCE recovery: ?code=xxx (Supabase JS exchange ini otomatis)
+      return /[?&]code=[a-zA-Z0-9-]+/.test(search);
+    }
+    
+    // SET FLAG: kalau landing dari email recovery (sebelum Supabase exchange code)
+    if (_detectRecoveryHash() || _detectPKCERecovery()) {
+      try { sessionStorage.setItem('avenir_came_from_recovery', '1'); } catch(e) {}
     }
     
     // Detect expired/error recovery link
@@ -1184,7 +1216,11 @@ window._sb = _sb;
     }
 
     // Sukses: bersihkan hash recovery dari URL & redirect ke login
-    try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) {}
+    try { history.replaceState(null, '', window.location.pathname); } catch (e) {}
+    try { 
+      sessionStorage.removeItem('avenir_recovery_mode');
+      sessionStorage.removeItem('avenir_came_from_recovery');
+    } catch(e) {}
     AUTH.err('reset-err', '✓ Password berhasil diubah. Anda otomatis login dengan password baru.', 'var(--grn)');
     const r1 = document.getElementById('r-pass'); if (r1) r1.value = '';
     const r2 = document.getElementById('r-pass2'); if (r2) r2.value = '';
