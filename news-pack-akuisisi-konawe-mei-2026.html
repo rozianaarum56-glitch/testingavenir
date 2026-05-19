@@ -2998,29 +2998,16 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 
 
 <style>
-/* ═══ AVENIR GUEST LOCK — blur overlay pattern (sama dengan katalog/artikel lama) ═══ */
+/* ═══ AVENIR GUEST LOCK — INVERTED LOGIC: locked by default, JS unlocks ═══ */
 
-/* Wrapper */
+/* Wrapper - always positioned */
 .guest-lock-wrap {
   position: relative;
   min-height: 600px;
 }
 
-/* Default: no lock effect */
+/* DEFAULT STATE = LOCKED (blur + clip + mask) */
 .guest-lock-content {
-  filter: none;
-  pointer-events: auto;
-  user-select: auto;
-}
-
-/* Hide overlay by default — only show if .is-guest active */
-.guest-lock-overlay {
-  display: none;
-}
-
-/* Anti-flash: SEMENTARA hide overlay & jangan blur content sampai auth state resolved */
-/* GUEST LOCKED STATE — blur konten + show overlay */
-.guest-lock-wrap.is-guest .guest-lock-content {
   filter: blur(6px);
   pointer-events: none;
   user-select: none;
@@ -3030,7 +3017,8 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
 }
 
-.guest-lock-wrap.is-guest .guest-lock-overlay {
+/* DEFAULT STATE = OVERLAY SHOWN */
+.guest-lock-overlay {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3046,99 +3034,34 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   z-index: 100;
 }
 
-/* Overlay card content */
-.gl-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
-  opacity: 0.6;
+/* UNLOCKED STATE = ONLY when JS verified subscriber adds .is-unlocked */
+.guest-lock-wrap.is-unlocked .guest-lock-content {
+  filter: none;
+  pointer-events: auto;
+  user-select: auto;
+  max-height: none;
+  overflow: visible;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.guest-lock-wrap.is-unlocked .guest-lock-overlay {
+  display: none;
 }
 
-.gl-title {
-  font-family: 'Cormorant Garamond', 'Fraunces', Georgia, serif;
-  font-size: 32px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin-bottom: 12px;
-  line-height: 1.2;
-  max-width: 600px;
-}
-
-.gl-sub {
-  font-size: 15px;
-  color: #4b5563;
-  line-height: 1.65;
-  margin-bottom: 16px;
-  max-width: 560px;
-}
-
-.gl-price {
-  display: inline-block;
-  padding: 10px 20px;
-  background: rgba(27,107,58,0.06);
-  border: 1px solid rgba(27,107,58,0.18);
-  border-radius: 8px;
-  font-size: 13.5px;
-  color: #14532d;
-  margin-bottom: 24px;
-}
-
-.gl-price strong {
-  color: #14532d;
-  font-weight: 700;
-}
-
-.gl-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 16px;
-}
-
-.gl-btn-primary,
-.gl-btn-secondary {
-  padding: 14px 28px;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 13.5px;
-  cursor: pointer;
-  letter-spacing: .02em;
-  transition: all .2s;
-  border: none;
-  font-family: inherit;
-}
-
-.gl-btn-primary {
-  background: #1B6B3A;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(27,107,58,0.2);
-}
-
-.gl-btn-primary:hover {
-  background: #14532d;
-  transform: translateY(-1px);
-}
-
-.gl-btn-secondary {
-  background: #fff;
-  color: #1B6B3A;
-  border: 1.5px solid #1B6B3A;
-}
-
-.gl-btn-secondary:hover {
-  background: rgba(27,107,58,0.04);
-}
-
-.gl-link {
-  font-size: 12.5px;
-  color: #6b7280;
-}
-
-.gl-link a {
-  color: #1B6B3A;
-  text-decoration: underline;
-  font-weight: 600;
-}
+/* Overlay card */
+.gl-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.6; }
+.gl-title { font-family: 'Cormorant Garamond', 'Fraunces', Georgia, serif; font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 12px; line-height: 1.2; max-width: 600px; }
+.gl-sub { font-size: 15px; color: #4b5563; line-height: 1.65; margin-bottom: 16px; max-width: 560px; }
+.gl-price { display: inline-block; padding: 10px 20px; background: rgba(27,107,58,0.06); border: 1px solid rgba(27,107,58,0.18); border-radius: 8px; font-size: 13.5px; color: #14532d; margin-bottom: 24px; }
+.gl-price strong { color: #14532d; font-weight: 700; }
+.gl-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; }
+.gl-btn-primary, .gl-btn-secondary { padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 13.5px; cursor: pointer; letter-spacing: .02em; transition: all .2s; border: none; font-family: inherit; }
+.gl-btn-primary { background: #1B6B3A; color: #fff; box-shadow: 0 4px 12px rgba(27,107,58,0.2); }
+.gl-btn-primary:hover { background: #14532d; transform: translateY(-1px); }
+.gl-btn-secondary { background: #fff; color: #1B6B3A; border: 1.5px solid #1B6B3A; }
+.gl-btn-secondary:hover { background: rgba(27,107,58,0.04); }
+.gl-link { font-size: 12.5px; color: #6b7280; }
+.gl-link a { color: #1B6B3A; text-decoration: underline; font-weight: 600; }
 
 @media (max-width: 600px) {
   .gl-title { font-size: 26px; }
@@ -3148,15 +3071,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   .gl-actions { flex-direction: column; }
 }
 </style>
-<style>
-/* ═══ AVENIR GUEST LOCK OVERRIDE — overlay HIDDEN if not guest locked ═══ */
-.guest-lock-overlay {
-  display: none !important;
-}
-.guest-lock-wrap.is-guest .guest-lock-overlay {
-  display: flex !important;
-}
-</style>
+
 <style>
 /* ═══ AVENIR OVERLAY FIX — proper centered overlay for desktop & mobile ═══ */
 .guest-lock-wrap {
@@ -3687,7 +3602,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   </div><!-- /art-body section 1-3 -->
 
   <!-- ═══ PAYWALL START — Section 4-15 + sources (locked) ═══ -->
-  <div class="guest-lock-wrap is-guest">
+  <div class="guest-lock-wrap">
   <div class="guest-lock-content">
   <div class="art-body">
 
@@ -4660,21 +4575,24 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
   }
 
     function applyLock() {
-    var locked;
-    if (!window.AUTH || typeof window.AUTH.profile === 'undefined') {
-      locked = !_instantHasAccess();
-    } else if (window.AUTH.currentUser && !window.AUTH.profile) {
-      locked = !_instantHasAccess();
+    var hasFullAccess = false;
+    if (window.AUTH && typeof window.AUTH.profile !== 'undefined' && !window.AUTH.currentUser) {
+      // AUTH ready, no user logged in → guest, stays locked
+      hasFullAccess = false;
+    } else if (window.AUTH && window.AUTH.profile) {
+      // User has profile loaded, check actual access
+      hasFullAccess = hasAccess();
     } else {
-      locked = !hasAccess();
+      // AUTH not ready yet → check cached profile
+      hasFullAccess = _instantHasAccess();
     }
     document.querySelectorAll('.guest-lock-wrap').forEach(function(el){
-      if (locked) {
-        el.classList.add('is-guest');
+      if (hasFullAccess) {
+        el.classList.add('is-unlocked');
       } else {
-        el.classList.remove('is-guest');
+        el.classList.remove('is-unlocked');
       }
-    });
+    })
   }
   
   window._applyLock = applyLock;
