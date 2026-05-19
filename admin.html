@@ -3280,110 +3280,85 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   .pay-card-actions > * { flex: 1; min-width: 100px; }
 }
 
-/* Stats grid — Futuristic glassmorphism */
+/* Stats grid — Professional terminal style */
 .admin-stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
-  margin-bottom: 28px;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
 }
 .admin-stat-card {
   position: relative;
-  background: linear-gradient(135deg, #ffffff 0%, #f7faf7 100%);
+  background: #fff;
   border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 22px 20px;
-  overflow: hidden;
-  transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), box-shadow 0.25s, border-color 0.25s;
-}
-.admin-stat-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #1B6B3A 0%, #10b981 50%, #1B6B3A 100%);
-  opacity: 0.85;
-}
-.admin-stat-card::after {
-  content: '';
-  position: absolute;
-  top: -50%; right: -50%;
-  width: 200px; height: 200px;
-  background: radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 70%);
-  pointer-events: none;
+  border-radius: 10px;
+  padding: 18px 20px 16px;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 .admin-stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px -8px rgba(20,83,45,0.18), 0 0 0 1px rgba(16,185,129,0.15);
-  border-color: rgba(16,185,129,0.3);
+  border-color: #1B6B3A;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(27,107,58,0.08);
 }
 .admin-stat-card.featured {
-  background: linear-gradient(135deg, #0f3823 0%, #1B6B3A 100%);
+  background: #0f3823;
+  border-color: #0f3823;
   color: #fff;
-  border-color: #1B6B3A;
 }
-.admin-stat-card.featured::after {
-  background: radial-gradient(circle, rgba(245,158,11,0.18) 0%, transparent 70%);
-}
-.admin-stat-card.featured .admin-stat-label { color: #c5e7d4; }
+.admin-stat-card.featured .admin-stat-label { color: #86efac; }
 .admin-stat-card.featured .admin-stat-value { color: #fff; }
-.admin-stat-card.featured .admin-stat-sub { color: #a7d4bc; }
+.admin-stat-card.featured .admin-stat-sub { color: rgba(255,255,255,0.6); }
 .admin-stat-label {
-  font-size: 11px;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: #6b7280;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 6px;
-  position: relative;
-  z-index: 1;
-}
-.admin-stat-icon {
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  opacity: 0.6;
 }
 .admin-stat-value {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 38px;
+  font-size: 34px;
   font-weight: 600;
-  color: #14532d;
+  color: #111827;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   font-variant-numeric: tabular-nums;
-  position: relative;
-  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
 }
 .admin-stat-sub {
-  font-size: 12px;
-  color: #6b7280;
-  margin-top: 6px;
-  position: relative;
-  z-index: 1;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 8px;
+  letter-spacing: 0.02em;
 }
 .admin-stat-trend {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  font-size: 11px;
+  gap: 2px;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 10.5px;
   font-weight: 700;
-  margin-left: 8px;
-  padding: 2px 7px;
-  border-radius: 4px;
+  margin-left: 6px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
 }
-.admin-stat-trend.up { background: rgba(16,185,129,0.12); color: #047857; }
-.admin-stat-trend.down { background: rgba(220,38,38,0.10); color: #b91c1c; }
-.admin-stat-trend.flat { background: rgba(107,114,128,0.10); color: #4b5563; }
+.admin-stat-trend.up { background: rgba(16,185,129,0.10); color: #047857; }
+.admin-stat-trend.down { background: rgba(220,38,38,0.08); color: #b91c1c; }
+.admin-stat-trend.flat { background: rgba(107,114,128,0.08); color: #4b5563; }
 
-/* Charts section */
+/* Charts section — Professional terminal */
 .admin-charts-row {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 20px;
+  gap: 16px;
   margin-bottom: 24px;
 }
 @media (max-width: 900px) {
@@ -3392,29 +3367,33 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 .admin-chart-card {
   background: #fff;
   border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 20px 22px;
+  border-radius: 10px;
+  padding: 22px 24px;
   position: relative;
-  overflow: hidden;
 }
-.admin-chart-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #10b981, transparent);
+.admin-chart-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f3f4f6;
 }
 .admin-chart-title {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
-  color: #14532d;
-  margin: 0 0 4px;
+  color: #111827;
+  margin: 0 0 2px;
+  letter-spacing: -0.01em;
 }
 .admin-chart-sub {
-  font-size: 12px;
-  color: #6b7280;
-  margin-bottom: 16px;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 10.5px;
+  color: #9ca3af;
+  margin: 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -3423,12 +3402,24 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   content: '';
   width: 6px; height: 6px; border-radius: 50%;
   background: #10b981;
-  box-shadow: 0 0 0 3px rgba(16,185,129,0.18);
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.16);
   animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.admin-chart-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(16,185,129,0.08);
+  color: #047857;
+  white-space: nowrap;
 }
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(16,185,129,0.18); }
-  50% { box-shadow: 0 0 0 6px rgba(16,185,129,0.05); }
+  0%, 100% { box-shadow: 0 0 0 3px rgba(16,185,129,0.16); }
+  50% { box-shadow: 0 0 0 6px rgba(16,185,129,0.04); }
 }
 
 /* Top research bar list */
@@ -3691,27 +3682,92 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 }
 
 
-/* Activity heatmap (day × hour grid) */
+/* Activity heatmap — Professional terminal grid (FIX: label hari, cell ukuran proper) */
 .admin-heatmap-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 4px 0;
+  padding: 8px 4px;
+  margin-top: 8px;
+  position: relative;
+  /* Subtle scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
 }
-.admin-heatmap-grid {
-  display: grid;
-  grid-template-columns: 30px repeat(24, 1fr);
-  gap: 2px;
-  min-width: 600px;
-  font-size: 9px;
+.admin-heatmap-wrap::-webkit-scrollbar {
+  height: 6px;
+}
+.admin-heatmap-wrap::-webkit-scrollbar-track {
+  background: transparent;
+}
+.admin-heatmap-wrap::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 99px;
+}
+.admin-heatmap-wrap::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+/* Mobile scroll hint */
+@media (max-width: 760px) {
+  .admin-heatmap-wrap::after {
+    content: '← geser →';
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #9ca3af;
+    letter-spacing: 0.05em;
+    background: rgba(255,255,255,0.9);
+    padding: 2px 6px;
+    border-radius: 3px;
+    pointer-events: none;
+    z-index: 5;
+  }
+}
+.admin-heatmap-table {
+  border-collapse: separate;
+  border-spacing: 4px;
+  min-width: 760px;
+  width: 100%;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+.admin-heatmap-table td, .admin-heatmap-table th {
+  padding: 0;
+  vertical-align: middle;
+}
+.admin-heatmap-table th.admin-heatmap-label {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: right;
+  padding-right: 12px;
+  width: 50px;
+  white-space: nowrap;
+}
+.admin-heatmap-table th.admin-heatmap-axis-h {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 9.5px;
+  color: #9ca3af;
+  font-weight: 600;
+  text-align: center;
+  padding-top: 4px;
+  letter-spacing: 0.04em;
+  height: 22px;
 }
 .admin-heatmap-cell {
-  aspect-ratio: 1;
-  min-height: 18px;
+  width: 100%;
+  height: 30px;
+  min-width: 24px;
+  min-height: 30px;
   background: #f3f4f6;
-  border-radius: 2px;
+  border-radius: 4px;
   position: relative;
   cursor: default;
-  transition: transform 0.1s, box-shadow 0.1s;
+  transition: transform 0.12s ease-out, box-shadow 0.12s;
+  display: block;
 }
 .admin-heatmap-cell[data-intensity="0"] { background: #f3f4f6; }
 .admin-heatmap-cell[data-intensity="1"] { background: rgba(16,185,129,0.18); }
@@ -3719,98 +3775,309 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
 .admin-heatmap-cell[data-intensity="3"] { background: rgba(16,185,129,0.55); }
 .admin-heatmap-cell[data-intensity="4"] { background: rgba(16,185,129,0.78); }
 .admin-heatmap-cell[data-intensity="5"] { background: #047857; }
-.admin-heatmap-cell:hover {
+.admin-heatmap-cell[data-views]:hover {
   transform: scale(1.4);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
   z-index: 10;
-}
-.admin-heatmap-cell[data-tooltip] {
-  position: relative;
 }
 .admin-heatmap-cell[data-tooltip]:hover::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 130%;
+  bottom: calc(100% + 10px);
   left: 50%;
   transform: translateX(-50%);
-  background: #14532d;
+  background: #111827;
   color: #fff;
-  padding: 5px 9px;
-  border-radius: 5px;
+  padding: 7px 12px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   font-weight: 600;
   white-space: nowrap;
   pointer-events: none;
   z-index: 20;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  letter-spacing: 0.02em;
 }
-.admin-heatmap-label {
-  font-size: 9.5px;
-  font-weight: 700;
-  color: #6b7280;
-  display: flex;
-  align-items: center;
-  letter-spacing: 0.04em;
+/* FIX: tooltip baris Minggu (paling atas) tampil di BAWAH cell supaya tidak ketutupan padding card */
+.admin-heatmap-table tr:nth-child(1) .admin-heatmap-cell[data-tooltip]:hover::after,
+.admin-heatmap-table tr:nth-child(2) .admin-heatmap-cell[data-tooltip]:hover::after {
+  bottom: auto;
+  top: calc(100% + 10px);
 }
-.admin-heatmap-axis-x {
-  display: grid;
-  grid-template-columns: 30px repeat(24, 1fr);
-  gap: 2px;
-  margin-top: 6px;
-  min-width: 600px;
-  font-size: 9px;
-  color: #9ca3af;
+.admin-heatmap-table tr:nth-child(1) .admin-heatmap-cell[data-tooltip]:hover::before,
+.admin-heatmap-table tr:nth-child(2) .admin-heatmap-cell[data-tooltip]:hover::before {
+  bottom: auto;
+  top: calc(100% + 4px);
+  border-top-color: transparent;
+  border-bottom-color: #111827;
 }
-.admin-heatmap-axis-x > div {
-  text-align: center;
-  font-weight: 600;
+.admin-heatmap-cell[data-tooltip]:hover::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: #111827;
+  z-index: 20;
+  pointer-events: none;
 }
-.admin-heatmap-axis-x > div:first-child { /* spacer */ }
 .admin-heatmap-legend {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 12px;
-  font-size: 11px;
-  color: #6b7280;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: #9ca3af;
   justify-content: flex-end;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
 }
 .admin-heatmap-legend-cells {
   display: flex;
-  gap: 2px;
+  gap: 3px;
 }
 .admin-heatmap-legend-cell {
-  width: 14px; height: 14px; border-radius: 2px;
+  width: 16px; height: 16px; border-radius: 3px;
 }
 
-/* Sparkline trend chart */
+/* ═══ Additional Stats: Mini Bar Chart, KPI cards, Funnel ═══ */
+.admin-mini-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.admin-mini-stat-card {
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 14px 16px;
+  position: relative;
+}
+.admin-mini-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #6b7280;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.admin-mini-stat-value {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.admin-mini-stat-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #9ca3af;
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+.admin-mini-stat-bar-wrap {
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 99px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.admin-mini-stat-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #047857);
+  border-radius: 99px;
+}
+
+/* Funnel chart */
+.admin-funnel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+.admin-funnel-row {
+  position: relative;
+  background: #f3f4f6;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+.admin-funnel-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #10b981 0%, #047857 100%);
+  border-radius: 6px;
+  z-index: 0;
+}
+.admin-funnel-row.is-low .admin-funnel-fill { background: linear-gradient(90deg, #fbbf24 0%, #d97706 100%); }
+.admin-funnel-row.is-cold .admin-funnel-fill { background: linear-gradient(90deg, #94a3b8 0%, #475569 100%); }
+.admin-funnel-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 16px;
+  color: #fff;
+  font-weight: 600;
+}
+.admin-funnel-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.admin-funnel-count {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.admin-funnel-arrow {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 12px;
+  line-height: 1;
+  margin: -2px 0;
+}
+
+/* Mini bar chart (Top X by metric) */
+.admin-bar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+.admin-bar-row {
+  display: grid;
+  grid-template-columns: minmax(80px, 0.3fr) 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+.admin-bar-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #4b5563;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-bar-track {
+  height: 8px;
+  background: #f3f4f6;
+  border-radius: 99px;
+  overflow: hidden;
+  position: relative;
+}
+.admin-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1B6B3A, #10b981);
+  border-radius: 99px;
+  transition: width 0.6s ease-out;
+}
+.admin-bar-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #111827;
+  font-variant-numeric: tabular-nums;
+  min-width: 36px;
+  text-align: right;
+}
+
+/* Sparkline trend chart — interactive */
 .admin-trend-wrap {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 320px;
+  user-select: none;
 }
-.admin-trend-svg { width: 100%; height: 100%; }
+.admin-trend-svg { 
+  width: 100%; 
+  height: 100%; 
+  display: block;
+  cursor: crosshair;
+}
 .admin-trend-axis {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
   font-size: 10px;
   fill: #9ca3af;
+  letter-spacing: 0.02em;
 }
 .admin-trend-grid line {
   stroke: #f3f4f6;
   stroke-width: 1;
+  stroke-dasharray: 2 3;
 }
+.admin-trend-baseline {
+  stroke: #e5e7eb;
+  stroke-width: 1;
+}
+.admin-trend-dot {
+  cursor: pointer;
+  transition: r 0.15s ease, stroke-width 0.15s;
+}
+.admin-trend-dot.is-active {
+  r: 5.5;
+  stroke-width: 2.5;
+}
+.admin-trend-hover-line {
+  stroke: #9ca3af;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.admin-trend-hover-line.show { opacity: 1; }
 .admin-trend-tooltip {
   position: absolute;
-  background: #14532d;
+  background: #111827;
   color: #fff;
-  padding: 6px 10px;
+  padding: 8px 12px;
   border-radius: 6px;
-  font-size: 12px;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 11px;
   font-weight: 600;
   pointer-events: none;
   white-space: nowrap;
-  transform: translate(-50%, -130%);
+  transform: translate(-50%, calc(-100% - 12px));
   display: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  z-index: 10;
+  letter-spacing: 0.02em;
+}
+.admin-trend-tooltip-date {
+  font-size: 10px;
+  color: #9ca3af;
+  margin-bottom: 2px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.admin-trend-tooltip-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #34d399;
+  font-variant-numeric: tabular-nums;
 }
 .admin-trend-tooltip::after {
   content: '';
@@ -3818,7 +4085,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   top: 100%; left: 50%;
   transform: translateX(-50%);
   border: 5px solid transparent;
-  border-top-color: #14532d;
+  border-top-color: #111827;
 }
 
 /* Applicant cards */
@@ -5773,48 +6040,130 @@ const Admin = {
         </div>
       </div>
       
-      <div class="admin-charts-row">
+      <div class="admin-chart-card" style="margin-bottom:16px">
+        <div class="admin-chart-header">
+          <div>
+            <h3 class="admin-chart-title">Trend Views — 30 Hari Terakhir</h3>
+            <div class="admin-chart-sub">LIVE · Excluded Tim Avenir · Hover/klik titik untuk detail harian</div>
+          </div>
+          <div class="admin-chart-badge">${Number(trend?.reduce((s,d)=>s+Number(d.view_count||0),0) || 0).toLocaleString('id-ID')} VIEWS</div>
+        </div>
+        ${Admin.renderTrendChart(trend)}
+      </div>
+      
+      <div class="admin-charts-row" style="grid-template-columns:1fr 1fr">
         <div class="admin-chart-card">
-          <h3 class="admin-chart-title">📈 Trend Views — 30 Hari Terakhir</h3>
-          <div class="admin-chart-sub">Update real-time · Tidak termasuk view dari Tim Avenir</div>
-          ${Admin.renderTrendChart(trend)}
+          <div class="admin-chart-header">
+            <div>
+              <h3 class="admin-chart-title">Distribusi User</h3>
+              <div class="admin-chart-sub">SNAPSHOT · Status akun saat ini</div>
+            </div>
+          </div>
+          ${Admin.renderDonutChart(usersData)}
         </div>
         <div class="admin-chart-card">
-          <h3 class="admin-chart-title">👤 Distribusi User</h3>
-          <div class="admin-chart-sub">Status akun saat ini</div>
-          ${Admin.renderDonutChart(usersData)}
+          <div class="admin-chart-header">
+            <div>
+              <h3 class="admin-chart-title">Konversi & Revenue</h3>
+              <div class="admin-chart-sub">METRIC · Trial → Subscriber funnel</div>
+            </div>
+          </div>
+          ${Admin.renderConversionKPI(s)}
         </div>
       </div>
       
-      <div class="admin-chart-card" style="margin-bottom:24px">
-        <h3 class="admin-chart-title">💼 Pool Performance — ${Admin.getCurrentMonthName()}</h3>
-        <div class="admin-chart-sub">${Admin.renderPoolBudgetInfo(pool)}</div>
+      <div class="admin-chart-card" style="margin-bottom:16px">
+        <div class="admin-chart-header">
+          <div>
+            <h3 class="admin-chart-title">Pool Performance — ${Admin.getCurrentMonthName()}</h3>
+            <div class="admin-chart-sub">${Admin.renderPoolBudgetInfo(pool)}</div>
+          </div>
+        </div>
         ${Admin.renderPoolPerformance(pool)}
       </div>
       
-      <div class="admin-chart-card" style="margin-bottom:24px">
-        <h3 class="admin-chart-title">🏆 Top 10 Riset Paling Banyak Dilihat</h3>
-        <div class="admin-chart-sub">Berdasarkan unique views · Excluded Tim Avenir</div>
+      <div class="admin-chart-card" style="margin-bottom:16px">
+        <div class="admin-chart-header">
+          <div>
+            <h3 class="admin-chart-title">Top 10 Riset Paling Banyak Dilihat</h3>
+            <div class="admin-chart-sub">RANKING · Berdasarkan unique views · Excluded Tim Avenir</div>
+          </div>
+        </div>
         ${Admin.renderTopResearch(topResearch)}
       </div>
       
-      <div class="admin-chart-card" style="margin-bottom:24px">
-        <h3 class="admin-chart-title">🔥 Heatmap Aktivitas — Hari × Jam (30 Hari)</h3>
-        <div class="admin-chart-sub">Kapan user paling aktif baca riset · WIB · Excluded Tim Avenir</div>
+      <div class="admin-chart-card" style="margin-bottom:16px">
+        <div class="admin-chart-header">
+          <div>
+            <h3 class="admin-chart-title">Heatmap Aktivitas — Hari × Jam</h3>
+            <div class="admin-chart-sub">30 HARI · WIB · Excluded Tim Avenir · Hover untuk detail</div>
+          </div>
+        </div>
         ${Admin.renderHeatmap(heatmap)}
       </div>
       
-      <div style="background:linear-gradient(135deg,#0f3823 0%,#1B6B3A 100%);padding:24px 28px;border-radius:16px;color:#fff;position:relative;overflow:hidden">
-        <div style="position:absolute;top:-50px;right:-50px;width:300px;height:300px;background:radial-gradient(circle,rgba(245,158,11,0.15) 0%,transparent 70%);pointer-events:none"></div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#fbbf24;margin:0 0 14px;position:relative">📊 Quick Insights</h3>
-        <ul style="font-size:13.5px;line-height:1.9;margin:0;padding-left:20px;color:#e5e7eb;position:relative">
-          <li><strong style="color:#fff">${s.total_accounts.toLocaleString('id-ID')}</strong> total akun terdaftar di platform</li>
-          <li><strong style="color:#fff">${s.total_mitra}</strong> mitra aktif sedang berproduksi riset${s.total_pending > 0 ? ', <strong style="color:#fbbf24">' + s.total_pending + '</strong> pending review' : ''}</li>
-          <li><strong style="color:#fff">${s.active_trials + s.active_subs}</strong> user dengan akses penuh (${s.active_trials} trial + ${s.active_subs} subscriber)</li>
-          <li><strong style="color:#fff">${s.total_views_excluded.toLocaleString('id-ID')}</strong> research views autentik${s.tim_avenir_views > 0 ? ' (excluded ' + s.tim_avenir_views + ' view dari Tim Avenir)' : ''}</li>
-          <li><strong style="color:#fff">${s.total_likes + s.total_comments}</strong> total engagement (likes + comments)</li>
-          <li>Period: <strong style="color:#fbbf24">${monthName}</strong></li>
-        </ul>
+      <div class="admin-charts-row" style="grid-template-columns:1fr 1fr">
+        <div class="admin-chart-card">
+          <div class="admin-chart-header">
+            <div>
+              <h3 class="admin-chart-title">Engagement Funnel</h3>
+              <div class="admin-chart-sub">CONVERSION · Account → Trial → Subscribe</div>
+            </div>
+          </div>
+          ${Admin.renderEngagementFunnel(s)}
+        </div>
+        <div class="admin-chart-card">
+          <div class="admin-chart-header">
+            <div>
+              <h3 class="admin-chart-title">Status Subscription</h3>
+              <div class="admin-chart-sub">DISTRIBUSI · Akun aktif vs expired/guest</div>
+            </div>
+          </div>
+          ${Admin.renderSubStatusBars(s)}
+        </div>
+      </div>
+      
+      <div class="admin-chart-card" style="margin-bottom:16px">
+        <div class="admin-chart-header">
+          <div>
+            <h3 class="admin-chart-title">Top Authors — Share of Views</h3>
+            <div class="admin-chart-sub">LEADERBOARD · ${monthName} · % share dari total views bulan ini</div>
+          </div>
+        </div>
+        ${Admin.renderTopAuthors(pool)}
+      </div>
+      
+      <div class="admin-chart-card" style="background:#0f3823;border-color:#0f3823;color:#fff">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08)">
+          <div>
+            <h3 class="admin-chart-title" style="color:#fff">Quick Insights</h3>
+            <div class="admin-chart-sub" style="color:#86efac">SUMMARY · ${monthName}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px">
+          <div style="padding:14px 16px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:2px solid #34d399">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#86efac;letter-spacing:0.08em;margin-bottom:6px">TOTAL ACCOUNTS</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#fff;line-height:1">${s.total_accounts.toLocaleString('id-ID')}</div>
+          </div>
+          <div style="padding:14px 16px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:2px solid #fbbf24">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#fcd34d;letter-spacing:0.08em;margin-bottom:6px">ACTIVE MITRA</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#fff;line-height:1">${s.total_mitra}${s.total_pending > 0 ? ' <span style="color:#fbbf24;font-size:14px">/ ' + s.total_pending + ' pending</span>' : ''}</div>
+          </div>
+          <div style="padding:14px 16px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:2px solid #34d399">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#86efac;letter-spacing:0.08em;margin-bottom:6px">FULL ACCESS</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#fff;line-height:1">${s.active_trials + s.active_subs} <span style="font-size:13px;color:#a7d4bc">(${s.active_trials}T + ${s.active_subs}S)</span></div>
+          </div>
+          <div style="padding:14px 16px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:2px solid #34d399">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#86efac;letter-spacing:0.08em;margin-bottom:6px">RESEARCH VIEWS</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#fff;line-height:1">${s.total_views_excluded.toLocaleString('id-ID')}</div>
+            ${s.tim_avenir_views > 0 ? '<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;color:rgba(255,255,255,0.5);margin-top:4px">−' + s.tim_avenir_views + ' Tim Avenir excluded</div>' : ''}
+          </div>
+          <div style="padding:14px 16px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:2px solid #34d399">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#86efac;letter-spacing:0.08em;margin-bottom:6px">ENGAGEMENT</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#fff;line-height:1">${(s.total_likes + s.total_comments).toLocaleString('id-ID')}</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.5);margin-top:4px">${s.total_likes} likes + ${s.total_comments} comments</div>
+          </div>
+        </div>
       </div>
     `;
   },
@@ -5895,87 +6244,170 @@ const Admin = {
   
   renderTrendChart(data) {
     if (!data || data.length === 0) {
-      return '<div style="text-align:center;padding:50px 20px;color:#9ca3af;font-size:13px">Belum ada data trend. Akan muncul setelah ada research view dalam 30 hari terakhir.</div>';
+      return '<div style="text-align:center;padding:60px 20px;color:#9ca3af;font-size:13px;font-family:\'JetBrains Mono\',monospace">NO DATA · Akan muncul setelah ada research view dalam 30 hari terakhir.</div>';
     }
     
-    const W = 600, H = 200, paddingX = 40, paddingY = 30;
-    const innerW = W - paddingX * 2, innerH = H - paddingY * 2;
+    const W = 720, H = 320, padL = 48, padR = 16, padT = 24, padB = 40;
+    const innerW = W - padL - padR;
+    const innerH = H - padT - padB;
     const maxVal = Math.max(...data.map(d => Number(d.view_count)), 1);
+    // Step ke nilai bulat untuk Y axis
+    const niceMax = (() => {
+      const v = maxVal;
+      if (v <= 5) return 5;
+      if (v <= 10) return 10;
+      if (v <= 20) return 20;
+      if (v <= 50) return 50;
+      const mag = Math.pow(10, Math.floor(Math.log10(v)));
+      return Math.ceil(v / (mag/2)) * (mag/2);
+    })();
     
     const points = data.map((d, i) => {
-      const x = paddingX + (i / (data.length - 1 || 1)) * innerW;
-      const y = paddingY + innerH - (Number(d.view_count) / maxVal) * innerH;
-      return { x, y, val: d.view_count, date: d.view_date };
+      const x = padL + (i / (data.length - 1 || 1)) * innerW;
+      const y = padT + innerH - (Number(d.view_count) / niceMax) * innerH;
+      const dt = new Date(d.view_date);
+      const fullDate = dt.toLocaleDateString('id-ID', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+      return { x, y, val: Number(d.view_count), date: d.view_date, fullDate, idx: i };
     });
     
-    const linePath = 'M ' + points.map(p => `${p.x},${p.y}`).join(' L ');
-    const areaPath = `${linePath} L ${points[points.length-1].x},${paddingY + innerH} L ${paddingX},${paddingY + innerH} Z`;
+    const linePath = 'M ' + points.map(p => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' L ');
+    const areaPath = `${linePath} L ${points[points.length-1].x.toFixed(2)},${(padT + innerH).toFixed(2)} L ${padL.toFixed(2)},${(padT + innerH).toFixed(2)} Z`;
     
-    // Grid lines
-    const gridY = [0, 0.5, 1].map(t => paddingY + innerH * t);
+    // Grid lines + Y axis labels (4 ticks)
+    const yTicks = [0, 0.25, 0.5, 0.75, 1];
+    const gridLines = yTicks.map(t => {
+      const y = padT + innerH * t;
+      return `<line x1="${padL}" y1="${y.toFixed(2)}" x2="${W - padR}" y2="${y.toFixed(2)}"/>`;
+    }).join('');
     
-    // X-axis labels (every 5 days)
-    const xLabels = data.map((d, i) => {
-      if (i % 5 !== 0 && i !== data.length - 1) return '';
-      const dt = new Date(d.view_date);
+    const yLabels = yTicks.map(t => {
+      const val = Math.round(niceMax * (1 - t));
+      const y = padT + innerH * t;
+      return `<text x="${padL - 8}" y="${(y + 3).toFixed(2)}" text-anchor="end" class="admin-trend-axis">${val}</text>`;
+    }).join('');
+    
+    // X-axis labels (~5 ticks evenly distributed)
+    const xTickCount = Math.min(6, data.length);
+    const xStep = Math.max(1, Math.floor((data.length - 1) / (xTickCount - 1)));
+    const xLabels = [];
+    for (let i = 0; i < data.length; i += xStep) {
+      const p = points[i];
+      const dt = new Date(p.date);
       const lbl = dt.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' });
-      return `<text x="${points[i].x}" y="${H - 8}" text-anchor="middle" class="admin-trend-axis">${lbl}</text>`;
-    }).join('');
+      xLabels.push(`<text x="${p.x.toFixed(2)}" y="${H - 10}" text-anchor="middle" class="admin-trend-axis">${lbl}</text>`);
+    }
+    // Always include last point
+    if ((data.length - 1) % xStep !== 0) {
+      const p = points[data.length - 1];
+      const dt = new Date(p.date);
+      const lbl = dt.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' });
+      xLabels.push(`<text x="${p.x.toFixed(2)}" y="${H - 10}" text-anchor="middle" class="admin-trend-axis">${lbl}</text>`);
+    }
     
-    // Y-axis labels
-    const yLabels = [0, 0.5, 1].map((t, i) => {
-      const val = Math.round(maxVal * (1 - t));
-      const y = paddingY + innerH * t;
-      return `<text x="${paddingX - 6}" y="${y + 3}" text-anchor="end" class="admin-trend-axis">${val}</text>`;
-    }).join('');
+    // Store points data globally for interaction
+    window._adminTrendPoints = points;
+    window._adminTrendDims = { W, H, padL, padR, padT, padB, innerW, innerH };
+    
+    const dotsHtml = points.map((p, i) => 
+      `<circle class="admin-trend-dot" data-idx="${i}" cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="3.5" fill="#fff" stroke="#10b981" stroke-width="2" onmouseenter="Admin.trendShowTooltip(${i})" onmouseleave="Admin.trendHideTooltip()" onclick="Admin.trendShowTooltip(${i})" ontouchstart="event.preventDefault();Admin.trendShowTooltip(${i})"/>`
+    ).join('');
     
     return `
-      <div class="admin-trend-wrap">
-        <svg class="admin-trend-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+      <div class="admin-trend-wrap" id="admin-trend-wrap">
+        <svg class="admin-trend-svg" id="admin-trend-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
           <defs>
             <linearGradient id="trendGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#10b981" stop-opacity="0.35"/>
+              <stop offset="0%" stop-color="#10b981" stop-opacity="0.32"/>
               <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
             </linearGradient>
           </defs>
-          <g class="admin-trend-grid">
-            ${gridY.map(y => `<line x1="${paddingX}" y1="${y}" x2="${W - paddingX}" y2="${y}"/>`).join('')}
-          </g>
+          <g class="admin-trend-grid">${gridLines}</g>
           ${yLabels}
-          ${xLabels}
+          ${xLabels.join('')}
+          <line class="admin-trend-baseline" x1="${padL}" y1="${padT + innerH}" x2="${W - padR}" y2="${padT + innerH}"/>
           <path d="${areaPath}" fill="url(#trendGrad)"/>
-          <path d="${linePath}" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-          ${points.map(p => `<circle cx="${p.x}" cy="${p.y}" r="3" fill="#fff" stroke="#10b981" stroke-width="2"/>`).join('')}
+          <path d="${linePath}" fill="none" stroke="#10b981" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+          <line class="admin-trend-hover-line" id="admin-trend-hover-line" x1="0" y1="${padT}" x2="0" y2="${padT + innerH}"/>
+          ${dotsHtml}
         </svg>
+        <div class="admin-trend-tooltip" id="admin-trend-tooltip"></div>
       </div>
     `;
+  },
+  
+  trendShowTooltip(idx) {
+    const pts = window._adminTrendPoints;
+    const dims = window._adminTrendDims;
+    if (!pts || !pts[idx]) return;
+    const p = pts[idx];
+    const tip = document.getElementById('admin-trend-tooltip');
+    const svg = document.getElementById('admin-trend-svg');
+    const wrap = document.getElementById('admin-trend-wrap');
+    const hoverLine = document.getElementById('admin-trend-hover-line');
+    if (!tip || !svg || !wrap) return;
+    
+    // Convert SVG coord → pixel coord in wrapper
+    const rect = svg.getBoundingClientRect();
+    const wrapRect = wrap.getBoundingClientRect();
+    const scaleX = rect.width / dims.W;
+    const scaleY = rect.height / dims.H;
+    const px = (p.x * scaleX) + (rect.left - wrapRect.left);
+    const py = (p.y * scaleY) + (rect.top - wrapRect.top);
+    
+    tip.style.left = px + 'px';
+    tip.style.top = py + 'px';
+    tip.innerHTML = `<div class="admin-trend-tooltip-date">${p.fullDate}</div><div class="admin-trend-tooltip-value">${p.val.toLocaleString('id-ID')} view${p.val !== 1 ? 's' : ''}</div>`;
+    tip.style.display = 'block';
+    
+    // Hover line
+    if (hoverLine) {
+      hoverLine.setAttribute('x1', p.x);
+      hoverLine.setAttribute('x2', p.x);
+      hoverLine.classList.add('show');
+    }
+    
+    // Highlight dot
+    document.querySelectorAll('.admin-trend-dot').forEach(d => d.classList.remove('is-active'));
+    const activeDot = document.querySelector(`.admin-trend-dot[data-idx="${idx}"]`);
+    if (activeDot) activeDot.classList.add('is-active');
+  },
+  
+  trendHideTooltip() {
+    const tip = document.getElementById('admin-trend-tooltip');
+    const hoverLine = document.getElementById('admin-trend-hover-line');
+    if (tip) tip.style.display = 'none';
+    if (hoverLine) hoverLine.classList.remove('show');
+    document.querySelectorAll('.admin-trend-dot').forEach(d => d.classList.remove('is-active'));
   },
   
   
   renderHeatmap(data) {
     if (!data || data.length === 0) {
-      return '<div style="text-align:center;padding:40px 20px;color:#9ca3af;font-size:13px">Belum ada data aktivitas. Akan muncul setelah ada research views dalam 30 hari terakhir.</div>';
+      return '<div style="text-align:center;padding:50px 20px;color:#9ca3af;font-size:13px;font-family:\'JetBrains Mono\',monospace">NO DATA · Akan muncul setelah ada research views dalam 30 hari terakhir.</div>';
     }
     
     // Build matrix: 7 days × 24 hours
     const matrix = Array.from({length: 7}, () => Array(24).fill(0));
     let maxVal = 0;
+    let totalViews = 0;
     data.forEach(d => {
       const dow = Number(d.day_of_week);
       const hour = Number(d.hour_of_day);
       const cnt = Number(d.view_count);
       if (dow >= 0 && dow < 7 && hour >= 0 && hour < 24) {
         matrix[dow][hour] = cnt;
+        totalViews += cnt;
         if (cnt > maxVal) maxVal = cnt;
       }
     });
     
-    const dayLabels = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+    const dayLabels = ['MIN', 'SEN', 'SEL', 'RAB', 'KAM', 'JUM', 'SAB'];
+    const dayFull = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
     
-    // Build grid HTML
-    let cells = '';
+    // Build table HTML (stable layout, label tidak terpotong)
+    let rows = '';
     for (let d = 0; d < 7; d++) {
-      cells += `<div class="admin-heatmap-label">${dayLabels[d]}</div>`;
+      let cells = `<th class="admin-heatmap-label">${dayLabels[d]}</th>`;
       for (let h = 0; h < 24; h++) {
         const v = matrix[d][h];
         let intensity = 0;
@@ -5987,24 +6419,37 @@ const Admin = {
           else if (pct > 0.2) intensity = 2;
           else intensity = 1;
         }
-        const tooltip = `${dayLabels[d]} ${String(h).padStart(2,'0')}:00 — ${v} view${v !== 1 ? 's' : ''}`;
-        cells += `<div class="admin-heatmap-cell" data-intensity="${intensity}" data-tooltip="${Admin.escape(tooltip)}"></div>`;
+        const tooltip = v === 0 
+          ? `${dayFull[d]} ${String(h).padStart(2,'0')}:00 — tidak ada view`
+          : `${dayFull[d]} ${String(h).padStart(2,'0')}:00 · ${v} view${v !== 1 ? 's' : ''}`;
+        const viewsAttr = v > 0 ? `data-views="${v}"` : '';
+        cells += `<td><div class="admin-heatmap-cell" data-intensity="${intensity}" ${viewsAttr} data-tooltip="${Admin.escape(tooltip)}"></div></td>`;
       }
+      rows += `<tr>${cells}</tr>`;
     }
     
     // X axis labels (every 3 hours)
-    let xLabels = '<div></div>';
+    let xLabels = '<th></th>';
     for (let h = 0; h < 24; h++) {
-      xLabels += `<div>${h % 3 === 0 ? String(h).padStart(2,'0') : ''}</div>`;
+      xLabels += `<th class="admin-heatmap-axis-h">${h % 3 === 0 ? String(h).padStart(2,'0') : ''}</th>`;
     }
+    
+    // Compute peak day & peak hour
+    const dayTotals = matrix.map((row, idx) => ({ day: dayFull[idx], total: row.reduce((s,v)=>s+v,0) }));
+    const hourTotals = Array(24).fill(0);
+    matrix.forEach(row => row.forEach((v, h) => hourTotals[h] += v));
+    const peakDay = dayTotals.reduce((max, d) => d.total > max.total ? d : max, { day: '-', total: 0 });
+    const peakHour = hourTotals.reduce((max, v, h) => v > max.v ? { v, h } : max, { v: 0, h: 0 });
     
     return `
       <div class="admin-heatmap-wrap">
-        <div class="admin-heatmap-grid">${cells}</div>
-        <div class="admin-heatmap-axis-x">${xLabels}</div>
+        <table class="admin-heatmap-table" cellspacing="0">
+          <tbody>${rows}</tbody>
+          <tfoot><tr>${xLabels}</tr></tfoot>
+        </table>
       </div>
       <div class="admin-heatmap-legend">
-        <span>Sepi</span>
+        <span>SEPI</span>
         <div class="admin-heatmap-legend-cells">
           <div class="admin-heatmap-legend-cell" style="background:#f3f4f6"></div>
           <div class="admin-heatmap-legend-cell" style="background:rgba(16,185,129,0.18)"></div>
@@ -6013,7 +6458,190 @@ const Admin = {
           <div class="admin-heatmap-legend-cell" style="background:rgba(16,185,129,0.78)"></div>
           <div class="admin-heatmap-legend-cell" style="background:#047857"></div>
         </div>
-        <span>Ramai (max ${maxVal} view/jam)</span>
+        <span>RAMAI · PEAK ${maxVal}/jam · ${totalViews.toLocaleString('id-ID')} views</span>
+      </div>
+      <div class="admin-mini-stats-grid">
+        <div class="admin-mini-stat-card">
+          <div class="admin-mini-stat-label">PEAK DAY</div>
+          <div class="admin-mini-stat-value">${peakDay.day}</div>
+          <div class="admin-mini-stat-sub">${peakDay.total.toLocaleString('id-ID')} views total</div>
+        </div>
+        <div class="admin-mini-stat-card">
+          <div class="admin-mini-stat-label">PEAK HOUR</div>
+          <div class="admin-mini-stat-value">${String(peakHour.h).padStart(2,'0')}:00</div>
+          <div class="admin-mini-stat-sub">${peakHour.v.toLocaleString('id-ID')} views jam tersebut</div>
+        </div>
+        <div class="admin-mini-stat-card">
+          <div class="admin-mini-stat-label">AVG VIEWS/DAY</div>
+          <div class="admin-mini-stat-value">${Math.round(totalViews / 30).toLocaleString('id-ID')}</div>
+          <div class="admin-mini-stat-sub">${totalViews.toLocaleString('id-ID')} ÷ 30 hari</div>
+        </div>
+      </div>
+    `;
+  },
+  
+  // ═══ Conversion KPI compact card ═══
+  renderConversionKPI(s) {
+    const total = Number(s.total_accounts || 0);
+    const trial = Number(s.active_trials || 0);
+    const subs = Number(s.active_subs || 0);
+    const mrr = subs * 149000;
+    const trialToSub = (subs + trial) > 0 ? ((subs / (subs + trial)) * 100).toFixed(1) : '0.0';
+    const activation = total > 0 ? ((trial / total) * 100).toFixed(1) : '0.0';
+    const arpu = (subs + trial) > 0 ? Math.round(mrr / (subs + trial)) : 0;
+    
+    return `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
+        <div style="padding:16px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:8px;border:1px solid rgba(16,185,129,0.2)">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:#047857;letter-spacing:0.1em;margin-bottom:6px">MRR</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#064e3b;line-height:1">Rp ${(mrr/1000).toFixed(0)}<span style="font-size:14px;color:#047857">K</span></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7280;margin-top:4px">${subs} subs × Rp 149K</div>
+        </div>
+        <div style="padding:16px;background:#fafafa;border-radius:8px;border:1px solid #e5e7eb">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:#6b7280;letter-spacing:0.1em;margin-bottom:6px">ARPU</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#111827;line-height:1">Rp ${(arpu/1000).toFixed(0)}<span style="font-size:14px;color:#9ca3af">K</span></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9ca3af;margin-top:4px">per user aktif</div>
+        </div>
+        <div style="padding:16px;background:#fafafa;border-radius:8px;border:1px solid #e5e7eb">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:#6b7280;letter-spacing:0.1em;margin-bottom:6px">CONVERSION</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#111827;line-height:1">${trialToSub}<span style="font-size:14px;color:#9ca3af">%</span></div>
+          <div style="height:4px;background:#e5e7eb;border-radius:99px;margin-top:8px;overflow:hidden"><div style="height:100%;width:${Math.min(100,trialToSub*5)}%;background:linear-gradient(90deg,#10b981,#047857);border-radius:99px"></div></div>
+        </div>
+        <div style="padding:16px;background:#fafafa;border-radius:8px;border:1px solid #e5e7eb">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;color:#6b7280;letter-spacing:0.1em;margin-bottom:6px">ACTIVATION</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#111827;line-height:1">${activation}<span style="font-size:14px;color:#9ca3af">%</span></div>
+          <div style="height:4px;background:#e5e7eb;border-radius:99px;margin-top:8px;overflow:hidden"><div style="height:100%;width:${Math.min(100,activation*2)}%;background:linear-gradient(90deg,#10b981,#047857);border-radius:99px"></div></div>
+        </div>
+      </div>
+    `;
+  },
+  
+  // ═══ Engagement Funnel: Account → Trial → Subscribe ═══
+  renderEngagementFunnel(s) {
+    const total = Number(s.total_accounts || 0);
+    const trial = Number(s.active_trials || 0);
+    const subs = Number(s.active_subs || 0);
+    const inactive = Math.max(0, total - trial - subs);
+    
+    const max = total || 1;
+    const trialPct = (trial / max * 100).toFixed(1);
+    const subsPct = (subs / max * 100).toFixed(1);
+    const inactivePct = (inactive / max * 100).toFixed(1);
+    
+    // Conversion rates
+    const trialToSub = trial > 0 ? ((subs / (subs + trial)) * 100).toFixed(1) : '0.0';
+    
+    return `
+      <div class="admin-funnel">
+        <div class="admin-funnel-row">
+          <div class="admin-funnel-fill" style="width:100%"></div>
+          <div class="admin-funnel-content">
+            <span class="admin-funnel-label">📋 Total Akun Terdaftar</span>
+            <span class="admin-funnel-count">${total.toLocaleString('id-ID')}</span>
+          </div>
+        </div>
+        <div class="admin-funnel-arrow">↓ ${trialPct}% aktivasi trial</div>
+        <div class="admin-funnel-row ${trial < total * 0.1 ? 'is-low' : ''}">
+          <div class="admin-funnel-fill" style="width:${Math.max(20, trialPct)}%"></div>
+          <div class="admin-funnel-content">
+            <span class="admin-funnel-label">🎁 Aktif Trial</span>
+            <span class="admin-funnel-count">${trial.toLocaleString('id-ID')}</span>
+          </div>
+        </div>
+        <div class="admin-funnel-arrow">↓ ${trialToSub}% konversi ke berbayar</div>
+        <div class="admin-funnel-row ${subs < 5 ? 'is-low' : ''}">
+          <div class="admin-funnel-fill" style="width:${Math.max(15, subsPct)}%"></div>
+          <div class="admin-funnel-content">
+            <span class="admin-funnel-label">💎 Subscriber Berbayar</span>
+            <span class="admin-funnel-count">${subs.toLocaleString('id-ID')}</span>
+          </div>
+        </div>
+      </div>
+      <div class="admin-mini-stats-grid">
+        <div class="admin-mini-stat-card">
+          <div class="admin-mini-stat-label">CONVERSION RATE</div>
+          <div class="admin-mini-stat-value">${trialToSub}<span style="font-size:14px;color:#9ca3af">%</span></div>
+          <div class="admin-mini-stat-sub">Trial → Subscriber</div>
+          <div class="admin-mini-stat-bar-wrap"><div class="admin-mini-stat-bar" style="width:${Math.min(100, trialToSub * 5)}%"></div></div>
+        </div>
+        <div class="admin-mini-stat-card">
+          <div class="admin-mini-stat-label">ACTIVATION RATE</div>
+          <div class="admin-mini-stat-value">${trialPct}<span style="font-size:14px;color:#9ca3af">%</span></div>
+          <div class="admin-mini-stat-sub">Akun → Trial aktif</div>
+          <div class="admin-mini-stat-bar-wrap"><div class="admin-mini-stat-bar" style="width:${Math.min(100, trialPct * 2)}%"></div></div>
+        </div>
+        <div class="admin-mini-stat-card">
+          <div class="admin-mini-stat-label">ESTIMATED MRR</div>
+          <div class="admin-mini-stat-value">Rp ${(subs * 149000).toLocaleString('id-ID')}</div>
+          <div class="admin-mini-stat-sub">${subs} subs × Rp 149.000</div>
+        </div>
+      </div>
+    `;
+  },
+  
+  // ═══ Top Authors Leaderboard ═══
+  renderTopAuthors(poolData) {
+    if (!poolData || poolData.length === 0) {
+      return '<div style="text-align:center;padding:30px;color:#9ca3af;font-size:13px;font-family:\'JetBrains Mono\',monospace">NO DATA · Belum ada author dengan views bulan ini.</div>';
+    }
+    const sorted = [...poolData].sort((a, b) => Number(b.views_share_pct) - Number(a.views_share_pct));
+    const maxShare = Number(sorted[0].views_share_pct) || 1;
+    
+    return `
+      <div class="admin-bar-list">
+        ${sorted.map((d, i) => {
+          const share = Number(d.views_share_pct);
+          const pct = (share / maxShare * 100).toFixed(0);
+          const isTim = d.author_type === 'tim_avenir';
+          return `
+            <div class="admin-bar-row">
+              <div class="admin-bar-label" style="${isTim ? 'color:#047857' : 'color:#92400e'}">${isTim ? '⚡' : '🤝'} ${Admin.escape(d.author_display_name)}</div>
+              <div class="admin-bar-track">
+                <div class="admin-bar-fill" style="width:${pct}%;background:${isTim ? 'linear-gradient(90deg,#1B6B3A,#10b981)' : 'linear-gradient(90deg,#d97706,#fbbf24)'}"></div>
+              </div>
+              <div class="admin-bar-value">${share.toFixed(1)}%</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  },
+  
+  // ═══ Subscription Status Distribution (Active/Trial/Expired/Never) ═══
+  renderSubStatusBars(s) {
+    const total = Number(s.total_accounts || 0);
+    if (total === 0) return '<div style="text-align:center;padding:30px;color:#9ca3af;font-size:13px;font-family:\'JetBrains Mono\',monospace">NO DATA</div>';
+    
+    const subs = Number(s.active_subs || 0);
+    const trial = Number(s.active_trials || 0);
+    const expiredOrNever = Math.max(0, total - subs - trial);
+    
+    const segments = [
+      { label: 'SUBSCRIBER', count: subs, color: '#047857' },
+      { label: 'TRIAL AKTIF', count: trial, color: '#10b981' },
+      { label: 'EXPIRED / GUEST', count: expiredOrNever, color: '#94a3b8' },
+    ];
+    const max = total;
+    
+    return `
+      <div style="display:flex;flex-direction:column;gap:14px;margin-top:8px">
+        ${segments.map(seg => {
+          const pct = (seg.count / max * 100).toFixed(1);
+          return `
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;color:#4b5563;letter-spacing:0.08em">${seg.label}</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#9ca3af">
+                  <strong style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#111827;margin-right:6px">${seg.count.toLocaleString('id-ID')}</strong>
+                  ${pct}%
+                </span>
+              </div>
+              <div style="height:10px;background:#f3f4f6;border-radius:99px;overflow:hidden">
+                <div style="height:100%;width:${pct}%;background:${seg.color};border-radius:99px;transition:width 0.6s ease-out"></div>
+              </div>
+            </div>
+          `;
+        }).join('')}
       </div>
     `;
   },
