@@ -4938,11 +4938,13 @@ const AUTH = {
       if (now < until) return true;
     }
     
-    // 2. 60-day trial — fallback ke user.created_at
+    // 2. Trial — durasi pakai grandfathering: register sebelum 2026-05-19T01:36Z = 60 hari, sesudah = 7 hari
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const TRIAL_CUTOFF = new Date('2026-05-19T01:36:00.000Z');
+      const durationDays = trialStart < TRIAL_CUTOFF ? 60 : 7;
+      const trialEnd = new Date(trialStart.getTime() + durationDays * 24 * 60 * 60 * 1000);
       if (now < trialEnd) return true;
     }
     
@@ -4966,11 +4968,13 @@ const AUTH = {
       return 'expired_paid';
     }
     
-    // 2. Trial check — fallback ke user.created_at jika kolom trial_started_at belum ada di DB
+    // 2. Trial check — durasi pakai grandfathering (sebelum 2026-05-19T01:36Z = 60 hari, sesudah = 7 hari)
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const TRIAL_CUTOFF = new Date('2026-05-19T01:36:00.000Z');
+      const durationDays = trialStart < TRIAL_CUTOFF ? 60 : 7;
+      const trialEnd = new Date(trialStart.getTime() + durationDays * 24 * 60 * 60 * 1000);
       if (now < trialEnd) return 'trial';
       return 'expired_trial';
     }
@@ -4978,11 +4982,13 @@ const AUTH = {
     return 'expired_trial';
   },
 
-  // Return remaining trial days (number, can be negative)
+  // Return remaining trial days (number, can be negative) — pakai grandfathering
   getTrialDaysRemaining() {
     if (!AUTH.profile?.trial_started_at) return null;
     const trialStart = new Date(AUTH.profile.trial_started_at);
-    const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const TRIAL_CUTOFF = new Date('2026-05-19T01:36:00.000Z');
+    const durationDays = trialStart < TRIAL_CUTOFF ? 60 : 7;
+    const trialEnd = new Date(trialStart.getTime() + durationDays * 24 * 60 * 60 * 1000);
     const now = new Date();
     return Math.ceil((trialEnd - now) / (24 * 60 * 60 * 1000));
   },
@@ -5811,7 +5817,10 @@ const Admin = {
       }
     } else if (p.trial_started_at) {
       const trial = new Date(p.trial_started_at);
-      const trialEnd = new Date(trial.getTime() + 60*24*60*60*1000);
+      // Grandfathering: user register sebelum 2026-05-19T01:36Z = 60 hari, sesudah = 7 hari
+      const TRIAL_CUTOFF = new Date('2026-05-19T01:36:00.000Z');
+      const durationDays = trial < TRIAL_CUTOFF ? 60 : 7;
+      const trialEnd = new Date(trial.getTime() + durationDays*24*60*60*1000);
       if (trialEnd > new Date()) {
         const daysLeft = Math.ceil((trialEnd - new Date()) / (24*60*60*1000));
         status = `Trial (${daysLeft} hari lagi)`;
@@ -5948,7 +5957,11 @@ const Admin = {
           if (p.subscription_until && new Date(p.subscription_until) > now) return false;
           const start = p.trial_started_at || p.created_at;
           if (!start) return false;
-          const trialEnd = new Date(new Date(start).getTime() + 60*86400000);
+          // Grandfathering: user register sebelum 2026-05-19T01:36Z = 60 hari, sesudah = 7 hari
+          const trialStart = new Date(start);
+          const TRIAL_CUTOFF = new Date('2026-05-19T01:36:00.000Z');
+          const durationDays = trialStart < TRIAL_CUTOFF ? 60 : 7;
+          const trialEnd = new Date(trialStart.getTime() + durationDays*86400000);
           return trialEnd > now && p.is_user !== false;
         }).length;
       }
@@ -7235,6 +7248,7 @@ const Admin = {
       // Smart alert berdasarkan hasil
       const sent = Number(result.sent || 0);
       const failed = Number(result.failed || 0);
+      const skipped = Number(result.skipped || 0);
       const total = Number(result.total || 0);
       
       let title, body;
@@ -7249,20 +7263,21 @@ const Admin = {
                `   sampai domain diverifikasi (kecuali email = onboarding@resend.dev)\n\n` +
                `3. API key Resend di Edge Function expired/salah\n\n` +
                `Cek detail error di Supabase → Edge Functions → blast-email → Logs`;
-      } else if (sent > 0 && failed > 0) {
-        // PARTIAL
-        title = `⚠️ Sebagian email gagal`;
-        body = `Total subscriber: ${total}\nTerkirim: ${sent} ✓\nGagal: ${failed} ✗\n\n` +
-               `Cek log Edge Function untuk detail.`;
+      } else if (sent > 0 && (failed > 0 || skipped > 0)) {
+        // PARTIAL - sukses tapi ada gagal/skipped
+        title = `✅ Email terkirim sebagian`;
+        body = `Total subscriber: ${total}\nTerkirim: ${sent} ✓`;
+        if (failed > 0) body += `\nGagal: ${failed} ✗`;
+        if (skipped > 0) body += `\nDi-skip: ${skipped} ⚠️ (email format invalid)`;
       } else {
         // SUKSES SEMUA
-        title = '✅ Email berhasil dikirim!';
+        title = '🎉 Email berhasil dikirim ke semua subscriber!';
         body = `Total subscriber: ${total}\nTerkirim: ${sent}\nGagal: ${failed}`;
       }
       
       // Detail errors kalau ada
       if (result.errors && Array.isArray(result.errors) && result.errors.length > 0) {
-        body += `\n\nDetail error (3 pertama):\n` + 
+        body += `\n\nDetail (3 pertama):\n` + 
                 result.errors.slice(0, 3).map(e => `• ${e.email || '?'}: ${e.message || e.error || JSON.stringify(e)}`).join('\n');
       }
       
