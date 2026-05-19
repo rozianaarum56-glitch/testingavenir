@@ -512,10 +512,10 @@ body.auth-state-guest [data-auth="guest"] { display: block !important; }
   <!-- REGISTER -->
   <div class="auth-view" id="auth-register">
    <h3>Buat Akun</h3>
-   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 2 bulan — tanpa kartu kredit, tanpa komitmen.</p>
+   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 7 hari — tanpa kartu kredit, tanpa komitmen.</p>
    <div class="auth-trial-banner">
     <div class="auth-trial-icon">🎁</div>
-    <div class="auth-trial-text"><strong>2 Bulan Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
+    <div class="auth-trial-text"><strong>7 Hari Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
    </div>
    <div class="auth-err" id="reg-err"></div>
    <div class="auth-2col">
@@ -744,7 +744,7 @@ window._sb = _sb;
   },
 
   // ─── Subscription Status ──
-  // Return true jika user punya akses aktif (trial 60 hari ATAU paid subscription)
+  // Return true jika user punya akses aktif (trial 7 hari ATAU paid subscription)
   isSubscriptionActive() {
     if (!AUTH.currentUser) return false;
     
@@ -760,11 +760,12 @@ window._sb = _sb;
       if (now < until) return true;
     }
     
-    // 2. 60-day trial — fallback ke user.created_at
+    // 2. Trial check (durasi grandfathered via _getTrialDurationMs)
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
+      const durationMs = AUTH._getTrialDurationMs(trialStartRaw);
+      const trialEnd = new Date(trialStart.getTime() + durationMs);
       if (now < trialEnd) return true;
     }
     
@@ -792,7 +793,8 @@ window._sb = _sb;
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
+      const durationMs = AUTH._getTrialDurationMs(trialStartRaw);
+      const trialEnd = new Date(trialStart.getTime() + durationMs);
       if (now < trialEnd) return 'trial';
       return 'expired_trial';
     }
@@ -800,11 +802,28 @@ window._sb = _sb;
     return 'expired_trial';
   },
 
+
+  // Trial duration cutoff: user register sebelum tanggal ini = 60 hari trial (grandfathered),
+  // user register sesudah = 7 hari trial.
+  TRIAL_CUTOFF_DATE: new Date('2026-05-19T01:36:00.000Z'),
+  
+  // Helper: tentukan trial duration (dalam ms) berdasarkan trial_started_at
+  _getTrialDurationMs(trialStartedAt) {
+    const trialStart = new Date(trialStartedAt);
+    // User register SEBELUM cutoff → grandfathered 60 hari
+    if (trialStart < AUTH.TRIAL_CUTOFF_DATE) {
+      return 60 * 24 * 60 * 60 * 1000;
+    }
+    // User register SESUDAH cutoff → 7 hari
+    return 7 * 24 * 60 * 60 * 1000;
+  },
+
   // Return remaining trial days (number, can be negative)
   getTrialDaysRemaining() {
     if (!AUTH.profile?.trial_started_at) return null;
     const trialStart = new Date(AUTH.profile.trial_started_at);
-    const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
+    const durationMs = AUTH._getTrialDurationMs(AUTH.profile.trial_started_at);
+    const trialEnd = new Date(trialStart.getTime() + durationMs);
     const now = new Date();
     return Math.ceil((trialEnd - now) / (24 * 60 * 60 * 1000));
   },

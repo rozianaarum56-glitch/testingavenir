@@ -4257,10 +4257,10 @@ body.auth-pending .nav-mobile-login {
   <!-- REGISTER -->
   <div class="auth-view" id="auth-register">
    <h3>Buat Akun</h3>
-   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 2 bulan — tanpa kartu kredit, tanpa komitmen.</p>
+   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 7 hari — tanpa kartu kredit, tanpa komitmen.</p>
    <div class="auth-trial-banner">
     <div class="auth-trial-icon">🎁</div>
-    <div class="auth-trial-text"><strong>2 Bulan Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
+    <div class="auth-trial-text"><strong>7 Hari Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
    </div>
    <div class="auth-err" id="reg-err"></div>
    <div class="auth-2col">
@@ -4655,7 +4655,7 @@ const AUTH = {
   },
 
   // ─── Subscription Status ──
-  // Return true jika user punya akses aktif (trial 60 hari ATAU paid subscription)
+  // Return true jika user punya akses aktif (trial 7 hari ATAU paid subscription)
   isSubscriptionActive() {
     if (!AUTH.currentUser) return false;
     
@@ -4675,7 +4675,7 @@ const AUTH = {
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
+      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
       if (now < trialEnd) return true;
     }
     
@@ -4703,7 +4703,7 @@ const AUTH = {
     const trialStartRaw = profile.trial_started_at || AUTH.currentUser.created_at;
     if (trialStartRaw) {
       const trialStart = new Date(trialStartRaw);
-      const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
+      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
       if (now < trialEnd) return 'trial';
       return 'expired_trial';
     }
@@ -4715,7 +4715,7 @@ const AUTH = {
   getTrialDaysRemaining() {
     if (!AUTH.profile?.trial_started_at) return null;
     const trialStart = new Date(AUTH.profile.trial_started_at);
-    const trialEnd = new Date(trialStart.getTime() + 60 * 24 * 60 * 60 * 1000);
+    const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
     const now = new Date();
     return Math.ceil((trialEnd - now) / (24 * 60 * 60 * 1000));
   },
@@ -5754,7 +5754,7 @@ const Admin = {
         <div class="admin-stat-card">
           <div class="admin-stat-label">🎁 Trial Aktif</div>
           <div class="admin-stat-value" data-target="${s.active_trials}" style="color:#0369a1">0</div>
-          <div class="admin-stat-sub">Dalam masa 60 hari</div>
+          <div class="admin-stat-sub">Dalam masa 7 hari</div>
         </div>
         <div class="admin-stat-card">
           <div class="admin-stat-label">🤝 Mitra</div>
