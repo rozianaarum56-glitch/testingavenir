@@ -2758,9 +2758,9 @@ text-shadow: none;
   .idx-hero { padding-left: 18px !important; padding-right: 18px !important; }
 }
 </style>
-<!-- supabase tag replaced by injected AUTH module -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- ▶ avenir-nav-mount: di-render oleh nav-avenir.js -->
+<!-- ▶ avenir-nav-mount -->
 <div id="avenir-nav-mount"></div>
 
 <style>
@@ -2786,15 +2786,6 @@ text-shadow: none;
   .mobile-drawer { display:none; position:absolute; top:54px; left:0; right:0; background:#fff; border-bottom:1px solid #e5e7eb; box-shadow:0 8px 20px rgba(0,0,0,.06); padding:8px 0 14px; max-height:calc(100vh - 54px); overflow-y:auto; z-index:499; }
   .mobile-drawer.open { display:block; }
   .mob-link { display:block; padding:11px 18px; text-decoration:none; color:#374151; font-size:14px; font-weight:600; background:transparent; border:none; width:100%; text-align:left; cursor:pointer; font-family:inherit; }
-  .mob-status-hint { display:block; font-size:11.5px; font-weight:500; color:#9ca3af; margin-top:2px; }
-  #mob-status-langganan.status-warning .mob-status-hint { color:#854d0e; font-weight:600; }
-  #mob-status-langganan.status-urgent { background:#fff7ed; }
-  #mob-status-langganan.status-urgent .mob-status-hint { color:#c2410c; font-weight:700; }
-  #mob-status-langganan.status-expired { background:#fef2f2; }
-  #mob-status-langganan.status-expired .mob-status-hint { color:#b91c1c; font-weight:700; }
-  #user-dd-sub-hint.status-warning { color:#854d0e !important; font-weight:600 !important; }
-  #user-dd-sub-hint.status-urgent { color:#c2410c !important; font-weight:700 !important; }
-  #user-dd-sub-hint.status-expired { color:#b91c1c !important; font-weight:700 !important; }
   .mob-link:hover { background:#f9fafb; color:#1B6B3A; }
   .mob-divider { border-top:1px solid #f3f4f6; margin:6px 14px; }
   .mob-btn-primary-style { background:#1B6B3A !important; color:#fff !important; border-radius:8px !important; margin:6px 18px !important; width:calc(100% - 36px) !important; text-align:center !important; }
@@ -2814,7 +2805,7 @@ text-shadow: none;
   }
 </style>
 
-<!-- ▶ auth modal: di-handle nav-avenir.js -->
+<!-- ▶ auth modal -->
 <div class="page" id="page-artikel" style="display:block">
 <style>
 .artikel-page { max-width:1100px; margin:0 auto; padding:48px 24px 80px; }
@@ -2848,6 +2839,23 @@ text-shadow: none;
 </div>
 <div class="artikel-grid">
 <!-- Article: Pelemahan Rupiah 2026 -->
+<div class="artikel-card" onclick="window.location.href='artikel-paradoks-pdb-rupiah-2026.html'">
+<div class="artikel-card-cover">
+<img alt="Paradoks PDB 5,61% dan Pelemahan Rupiah Avenir Research" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20viewBox%3D%220%200%201200%20675%22%3E%0A%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23140a05%22/%3E%3Cstop%20offset%3D%220.5%22%20stop-color%3D%22%23281410%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231a0a05%22/%3E%3C/linearGradient%3E%0A%3CradialGradient%20id%3D%22r1%22%20cx%3D%2272%25%22%20cy%3D%2235%25%22%20r%3D%2255%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f59e0b%22%20stop-opacity%3D%220.30%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f59e0b%22%20stop-opacity%3D%220%22/%3E%3C/radialGradient%3E%0A%3ClinearGradient%20id%3D%22gold%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%220%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fcd34d%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23d97706%22/%3E%3C/linearGradient%3E%0A%3C/defs%3E%0A%3Crect%20width%3D%221200%22%20height%3D%22675%22%20fill%3D%22url%28%23bg%29%22/%3E%0A%3Crect%20width%3D%221200%22%20height%3D%22675%22%20fill%3D%22url%28%23r1%29%22/%3E%0A%3C%21--%20Chart%20area%20bg%20--%3E%0A%3Cg%20opacity%3D%220.08%22%20stroke%3D%22%23fcd34d%22%20stroke-width%3D%220.7%22%3E%3Cpath%20d%3D%22M780%20180H1140M780%20240H1140M780%20300H1140M780%20360H1140M780%20420H1140M780%20480H1140%22/%3E%3Cpath%20d%3D%22M780%20180V480M840%20180V480M900%20180V480M960%20180V480M1020%20180V480M1080%20180V480M1140%20180V480%22/%3E%3C/g%3E%0A%3C%21--%20PDB%20bar%20chart%20-%20rising%20--%3E%0A%3Cg%3E%3Crect%20x%3D%22790%22%20y%3D%22400%22%20width%3D%2240%22%20height%3D%2280%22%20fill%3D%22%2316a34a%22%20opacity%3D%220.7%22/%3E%3Crect%20x%3D%22850%22%20y%3D%22370%22%20width%3D%2240%22%20height%3D%22110%22%20fill%3D%22%2316a34a%22%20opacity%3D%220.75%22/%3E%3Crect%20x%3D%22910%22%20y%3D%22345%22%20width%3D%2240%22%20height%3D%22135%22%20fill%3D%22%2316a34a%22%20opacity%3D%220.8%22/%3E%3Crect%20x%3D%22970%22%20y%3D%22315%22%20width%3D%2240%22%20height%3D%22165%22%20fill%3D%22%2316a34a%22%20opacity%3D%220.85%22/%3E%3Crect%20x%3D%221030%22%20y%3D%22285%22%20width%3D%2240%22%20height%3D%22195%22%20fill%3D%22%2316a34a%22%20opacity%3D%220.9%22/%3E%3Crect%20x%3D%221090%22%20y%3D%22245%22%20width%3D%2240%22%20height%3D%22235%22%20fill%3D%22%2316a34a%22%20opacity%3D%220.95%22/%3E%3C/g%3E%0A%3C%21--%20Rupiah%20line%20descending%20overlay%20--%3E%0A%3Cpath%20d%3D%22M810%20230L870%20245L930%20255L990%20275L1050%20300L1110%20335%22%20stroke%3D%22%23ef4444%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20opacity%3D%220.9%22/%3E%0A%3Ccircle%20cx%3D%22810%22%20cy%3D%22230%22%20r%3D%224%22%20fill%3D%22%23ef4444%22/%3E%3Ccircle%20cx%3D%22870%22%20cy%3D%22245%22%20r%3D%224%22%20fill%3D%22%23ef4444%22/%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22255%22%20r%3D%224%22%20fill%3D%22%23ef4444%22/%3E%3Ccircle%20cx%3D%22990%22%20cy%3D%22275%22%20r%3D%224%22%20fill%3D%22%23ef4444%22/%3E%3Ccircle%20cx%3D%221050%22%20cy%3D%22300%22%20r%3D%224%22%20fill%3D%22%23ef4444%22/%3E%3Ccircle%20cx%3D%221110%22%20cy%3D%22335%22%20r%3D%225%22%20fill%3D%22%23ef4444%22/%3E%0A%3Ctext%20x%3D%22790%22%20y%3D%22515%22%20fill%3D%22%2316a34a%22%20font-family%3D%22Inter%2CArial%22%20font-size%3D%2211%22%20font-weight%3D%22700%22%3EPDB%20QoQ%20%E2%86%97%3C/text%3E%0A%3Ctext%20x%3D%221045%22%20y%3D%22220%22%20fill%3D%22%23ef4444%22%20font-family%3D%22Inter%2CArial%22%20font-size%3D%2211%22%20font-weight%3D%22700%22%3ERupiah%20%E2%86%98%3C/text%3E%0A%3C%21--%20Tag%20--%3E%0A%3Ctext%20x%3D%2280%22%20y%3D%22155%22%20fill%3D%22%23fcd34d%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22800%22%20letter-spacing%3D%224%22%3EAVENIR%20RESEARCH%20%C2%B7%20MACRO%20%C2%B7%20FX%20STRATEGY%3C/text%3E%0A%3Ctext%20x%3D%2280%22%20y%3D%22245%22%20fill%3D%22%23ffffff%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2262%22%20font-weight%3D%22700%22%20letter-spacing%3D%22-1.5%22%3EParadoks%20PDB%3C/text%3E%0A%3Ctext%20x%3D%2280%22%20y%3D%22315%22%20fill%3D%22%23ffffff%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2262%22%20font-weight%3D%22700%22%20letter-spacing%3D%22-1.5%22%3E5%2C61%25%3A%3C/text%3E%0A%3Ctext%20x%3D%2280%22%20y%3D%22390%22%20fill%3D%22url%28%23gold%29%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2236%22%20font-style%3D%22italic%22%20font-weight%3D%22600%22%3EKualitas%20Pertumbuhan%2C%3C/text%3E%0A%3Ctext%20x%3D%2280%22%20y%3D%22435%22%20fill%3D%22url%28%23gold%29%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2236%22%20font-style%3D%22italic%22%20font-weight%3D%22600%22%3EDSR/Revenue%2C%20Risiko%20Fiskal%3C/text%3E%0A%3Ctext%20x%3D%2280%22%20y%3D%22480%22%20fill%3D%22%23bbaaaa%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2218%22%3EQ1-2026%20Tertinggi%20Sejak%20Q3-2022%20%C2%B7%20Rp17.668%2FUSD%20%C2%B7%20Mei%202026%3C/text%3E%0A%3Crect%20x%3D%2280%22%20y%3D%22520%22%20width%3D%22155%22%20height%3D%2236%22%20rx%3D%2218%22%20fill%3D%22rgba%2822%2C163%2C74%2C0.18%29%22%20stroke%3D%22%2316a34a%22%20stroke-width%3D%221.5%22/%3E%3Ctext%20x%3D%22157%22%20y%3D%22544%22%20text-anchor%3D%22middle%22%20fill%3D%22%2386efac%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2212%22%20font-weight%3D%22800%22%3EPDB%20Q1%205%2C61%25%3C/text%3E%0A%3Crect%20x%3D%22250%22%20y%3D%22520%22%20width%3D%22155%22%20height%3D%2236%22%20rx%3D%2218%22%20fill%3D%22rgba%28239%2C68%2C68%2C0.18%29%22%20stroke%3D%22%23ef4444%22%20stroke-width%3D%221.5%22/%3E%3Ctext%20x%3D%22327%22%20y%3D%22544%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fca5a5%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2212%22%20font-weight%3D%22800%22%3EIDR%2017.668%2FUSD%3C/text%3E%0A%3Crect%20x%3D%22420%22%20y%3D%22520%22%20width%3D%22155%22%20height%3D%2236%22%20rx%3D%2218%22%20fill%3D%22rgba%28252%2C211%2C77%2C0.15%29%22%20stroke%3D%22%23fcd34d%22%20stroke-width%3D%221.5%22/%3E%3Ctext%20x%3D%22497%22%20y%3D%22544%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fcd34d%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2212%22%20font-weight%3D%22800%22%3EBELANJA%20%2B21%2C8%25%3C/text%3E%0A%3C/svg%3E"/>
+<div class="artikel-badge">Macro &middot; PDB &middot; Fiscal</div>
+</div>
+<div class="artikel-card-body">
+<div class="artikel-card-cat">Macro &amp; Markets &middot; Fiscal Policy &middot; PDB &middot; Rupiah &middot; DSR Revenue</div>
+<div class="artikel-card-title">Paradoks PDB 5,61% dan Pelemahan Rupiah: Kualitas Pertumbuhan, DSR/Revenue, dan Repricing Risiko Fiskal</div>
+<div class="artikel-card-excerpt">PDB Indonesia Q1-2026 tumbuh <strong>5,61% YoY</strong> &mdash; tertinggi sejak Q3-2022, tetapi rupiah tetap melemah ke rekor <strong>Rp17.668/USD</strong>. Avenir Research membedah paradoks ini: dorongan belanja pemerintah <strong>+21,8%</strong>, oil shock importir energi, MSCI deletion <strong>18 saham</strong>, dan kerangka <strong>DSR/Revenue</strong> dari M. Chatib Basri yang menyoroti risiko fiskal. Bahasan: dekomposisi PDB by expenditure, anatomi belanja pemerintah konsumtif vs produktif, tax-to-GDP stagnan ~10,3%, debt-service-to-revenue mendekati 30%, dan komentar Sri Mulyani, Perry Warjiyo, Chatib Basri. Tiga skenario kualitatif 2026 (Bull/Base/Bear) tanpa target kurs atau target saham.</div>
+<div class="artikel-card-meta">
+<span>18 Mei 2026</span>
+<span>&middot;</span>
+<span class="author">Tim Avenir Research</span>
+</div>
+</div>
+</div>
+
 <div class="artikel-card" onclick="window.location.href='artikel-pelemahan-rupiah-2026.html'">
 <div class="artikel-card-cover">
 <img alt="Pelemahan Rupiah 2026 Oil Shock Dollar Premium Bank Indonesia Fitch MSCI" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20viewBox%3D%220%200%201200%20675%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23140a05%22/%3E%3Cstop%20offset%3D%220.5%22%20stop-color%3D%22%23281410%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231a0a05%22/%3E%3C/linearGradient%3E%3CradialGradient%20id%3D%22g1%22%20cx%3D%2272%25%22%20cy%3D%2235%25%22%20r%3D%2255%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f59e0b%22%20stop-opacity%3D%220.30%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f59e0b%22%20stop-opacity%3D%220%22/%3E%3C/radialGradient%3E%3ClinearGradient%20id%3D%22gold%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%220%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fcd34d%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23d97706%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%221200%22%20height%3D%22675%22%20fill%3D%22url%28%23bg%29%22/%3E%3Crect%20width%3D%221200%22%20height%3D%22675%22%20fill%3D%22url%28%23g1%29%22/%3E%3Cg%20opacity%3D%220.45%22%3E%3Cpath%20d%3D%22M780%20300L830%20290L860%20310L900%20305L940%20330L970%20325L1010%20355L1050%20345L1080%20380L1110%20395L1140%20420%22%20stroke%3D%22%23f87171%22%20stroke-width%3D%223%22%20fill%3D%22none%22/%3E%3C/g%3E%3Ctext%20x%3D%221050%22%20y%3D%22220%22%20fill%3D%22%23fcd34d%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%22160%22%20font-weight%3D%22700%22%20opacity%3D%220.10%22%3ERp%3C/text%3E%3Ctext%20x%3D%2280%22%20y%3D%22155%22%20fill%3D%22%23fcd34d%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22800%22%20letter-spacing%3D%224%22%3EAVENIR%20RESEARCH%20%C2%B7%20MACRO%20%C2%B7%20FX%20STRATEGY%3C/text%3E%3Ctext%20x%3D%2280%22%20y%3D%22245%22%20fill%3D%22%23ffffff%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2262%22%20font-weight%3D%22700%22%20letter-spacing%3D%22-1.5%22%3EPelemahan%20Rupiah%3C/text%3E%3Ctext%20x%3D%2280%22%20y%3D%22315%22%20fill%3D%22%23ffffff%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2262%22%20font-weight%3D%22700%22%20letter-spacing%3D%22-1.5%22%3E2026%3A%3C/text%3E%3Ctext%20x%3D%2280%22%20y%3D%22390%22%20fill%3D%22url%28%23gold%29%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2242%22%20font-style%3D%22italic%22%20font-weight%3D%22600%22%3EOil%20Shock%2C%20Dollar%20Premium%2C%3C/text%3E%3Ctext%20x%3D%2280%22%20y%3D%22440%22%20fill%3D%22url%28%23gold%29%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2242%22%20font-style%3D%22italic%22%20font-weight%3D%22600%22%3Edan%20Diskon%20Kredibilitas%3C/text%3E%3Ctext%20x%3D%2280%22%20y%3D%22490%22%20fill%3D%22%23bbaaaa%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2218%22%3ERp17.512/USD%20%C2%B7%20Cadev%20%24146%2C2B%20%C2%B7%20Fitch%20Outlook%20Negatif%3C/text%3E%3Crect%20x%3D%2280%22%20y%3D%22530%22%20width%3D%22170%22%20height%3D%2236%22%20rx%3D%2218%22%20fill%3D%22rgba%28239%2C68%2C68%2C0.18%29%22%20stroke%3D%22%23ef4444%22%20stroke-width%3D%221.5%22/%3E%3Ctext%20x%3D%22165%22%20y%3D%22554%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fca5a5%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2212%22%20font-weight%3D%22800%22%3EUSD/IDR%2017.512%3C/text%3E%3Crect%20x%3D%22265%22%20y%3D%22530%22%20width%3D%22170%22%20height%3D%2236%22%20rx%3D%2218%22%20fill%3D%22rgba%28252%2C211%2C77%2C0.15%29%22%20stroke%3D%22%23fcd34d%22%20stroke-width%3D%221.5%22/%3E%3Ctext%20x%3D%22350%22%20y%3D%22554%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fcd34d%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2212%22%20font-weight%3D%22800%22%3ECADEV%20%24146%2C2B%3C/text%3E%3Crect%20x%3D%22450%22%20y%3D%22530%22%20width%3D%22170%22%20height%3D%2236%22%20rx%3D%2218%22%20fill%3D%22rgba%28220%2C38%2C38%2C0.18%29%22%20stroke%3D%22%23dc2626%22%20stroke-width%3D%221.5%22/%3E%3Ctext%20x%3D%22535%22%20y%3D%22554%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fca5a5%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2212%22%20font-weight%3D%22800%22%3EFITCH%20OUTLOOK%20NEG%3C/text%3E%3C/svg%3E"/>
@@ -3187,24 +3195,9 @@ text-shadow: none;
 </div>
 </footer>
 
-<!-- ▶ Logo loader: di-handle nav-avenir.js -->
+<!-- ▶ logo di nav-avenir.js -->
 
-
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- INJECTED: Supabase + AUTH module + Status Langganan -->
-<!-- Source: synced from index.html (single source of truth) -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- ▶ Supabase init: di-handle nav-avenir.js -->
-
-<!-- ▶ AUTH module: di-handle nav-avenir.js -->
-
-<!-- ▶ Status updater: di-handle nav-avenir.js -->
-
-
-
-<!-- Nav Global (single source of truth) -->
-<script src="/nav-avenir.js?v=20260525" defer></script>
+<!-- Nav Global -->
+<script src="/nav-avenir.js?v=20260526" defer></script>
 </body>
 </html>
