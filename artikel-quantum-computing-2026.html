@@ -3494,7 +3494,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
       scene.fog = new THREE.Fog(0x0a0e1a, 8, 20);
       
       var camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-      camera.position.set(3, 1.7, 5.5);
+      camera.position.set(3, 1.1, 5.5);
       camera.lookAt(0, 0, 0);
       
       var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true, alpha: true});
@@ -3519,6 +3519,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
       
       // Main group
       var chandelier = new THREE.Group();
+      chandelier.scale.set(0.7, 0.7, 0.7);
       scene.add(chandelier);
       
       // Five-stage gold plates (decreasing radius)
@@ -3727,10 +3728,10 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
         coreLight.intensity = 1.5 + Math.sin(t * 2) * 0.5;
         
         // Camera position based on zoom
-        var camY = 1.5 + 0.2 * (zoomLevel / 6);
+        var camY = 0.9 + 0.15 * (zoomLevel / 6);
         var camDist = zoomLevel;
         camera.position.set(camDist * 0.55, camY, camDist * 0.85);
-        camera.lookAt(0, 0.3, 0);
+        camera.lookAt(0, 0.42, 0);
         
         renderer.render(scene, camera);
         
