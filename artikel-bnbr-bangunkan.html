@@ -3514,15 +3514,17 @@ Pada 25 Mei 2026, PT Bakrie &amp; Brothers Tbk (kode: <strong>BNBR</strong>) men
 
 <p style="margin:0 0 16px;font-size:15.5px;line-height:1.85;color:#1f2937">Visualisasi 3D di bawah menampilkan struktur aliran dana hasil PMHMETD V sebagai jaringan interaktif. Pusat adalah <strong>BNBR</strong> sebagai holding. Lapis tengah: tiga anak perusahaan penerima dana — <strong>BTI</strong> (PT Bakrie Toll Indonesia), <strong>BCONS</strong>, dan <strong>CCT</strong> (PT Cimanggis Cibitung Tollways). Lapis luar: kreditur yang akan dilunasi BTI — <strong>Hartman International Pte. Ltd.</strong> dan <strong>PT Bank Nationalnobu Tbk</strong>. Setiap tube menunjukkan arah aliran dana; partikel animasi merepresentasikan kas yang mengalir.</p>
 
-<div style="margin:32px 0; padding:0; background:linear-gradient(135deg,#0a1e14 0%,#1a2e1e 100%); border-radius:12px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.2);">
-  <div id="bnbr-flow-container" style="position:relative; width:100%; aspect-ratio:4/3; min-height:0;">
-    <canvas id="bnbr-flow-canvas" style="width:100%; height:100%; display:block; cursor:grab;"></canvas>
-    <div style="position:absolute; top:12px; left:14px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#6ee7b7; letter-spacing:.14em; text-transform:uppercase; opacity:.9; pointer-events:none; background:rgba(10,30,20,0.7); padding:5px 10px; border-radius:4px;">◆ AVENIR · 3D · CAPITAL FLOW</div>
-    <div style="position:absolute; bottom:12px; left:14px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#94a3b8; opacity:.7; pointer-events:none; background:rgba(10,30,20,0.5); padding:4px 8px; border-radius:4px;">Drag · Pinch zoom · Auto-rotate</div>
-    <div style="position:absolute; top:12px; right:14px; font-family:'JetBrains Mono',monospace; font-size:10px; color:#fbbf24; pointer-events:none; background:rgba(10,30,20,0.7); padding:5px 10px; border-radius:4px; max-width:55%; text-align:right;">Investor → BNBR → BTI → Creditors</div>
+<div style="margin:28px auto; padding:0; max-width:580px; background:linear-gradient(135deg,#0a1e14 0%,#1a2e1e 100%); border-radius:12px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,0.18);">
+  <div style="padding:10px 14px; background:rgba(0,0,0,0.25); border-bottom:1px solid rgba(110,231,183,0.12); display:flex; justify-content:space-between; align-items:center; gap:8px;">
+    <span style="font-family:'JetBrains Mono',monospace; font-size:9px; color:#6ee7b7; letter-spacing:.14em; text-transform:uppercase; font-weight:700;">◆ Capital Flow · 3D</span>
+    <span style="font-family:'JetBrains Mono',monospace; font-size:9px; color:#fbbf24;">Investor → BNBR → BTI → Creditors</span>
   </div>
-  <div style="padding:14px 20px 18px; font-size:12px; color:#6b7280; line-height:1.6; background:rgba(255,255,255,0.02); border-top:1px solid rgba(255,255,255,0.06);">
-    <strong style="color:#374151;">Aliran dana PMHMETD V dalam tiga tahap.</strong> (1) Investor publik dan BCI menyetor Rp 4,77T ke BNBR via pelaksanaan HMETD. (2) BNBR menyalurkan Rp 4,36T ke BTI sebagai pinjaman, Rp 200M ke BCONS, dan Rp 40M ke CCT sebagai penyertaan modal. (3) BTI menggunakan dana untuk melunasi Rp 3,66T ke Hartman International dan Rp 700M ke Bank Nobu. Sisa Rp 170M sebagai modal kerja BNBR.
+  <div id="bnbr-flow-container" style="position:relative; width:100%; aspect-ratio:16/10; min-height:0;">
+    <canvas id="bnbr-flow-canvas" style="width:100%; height:100%; display:block; cursor:grab;"></canvas>
+    <div style="position:absolute; bottom:10px; left:12px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#94a3b8; opacity:.65; pointer-events:none; background:rgba(10,30,20,0.6); padding:3px 8px; border-radius:4px;">Drag · Pinch zoom</div>
+  </div>
+  <div style="padding:12px 16px 14px; font-size:11.5px; color:#6b7280; line-height:1.6; background:rgba(255,255,255,0.02); border-top:1px solid rgba(255,255,255,0.06);">
+    <strong style="color:#374151;">Aliran dana PMHMETD V dalam tiga tahap.</strong> (1) Investor publik dan BCI menyetor Rp 4,77T ke BNBR. (2) BNBR menyalurkan Rp 4,36T ke BTI, Rp 200M ke BCONS, Rp 40M ke CCT. (3) BTI melunasi Rp 3,66T ke Hartman International dan Rp 700M ke Bank Nobu. Sisa Rp 170M sebagai modal kerja BNBR.
   </div>
 </div>
 
@@ -3541,8 +3543,8 @@ Pada 25 Mei 2026, PT Bakrie &amp; Brothers Tbk (kode: <strong>BNBR</strong>) men
     var scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0x0a1e14, 12, 30);
     var camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-    camera.position.set(0, 4, 13);
-    camera.lookAt(0, 0, 0);
+    camera.position.set(0, 1, 14.5);
+    camera.lookAt(0, 0.2, 0);
     var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true, alpha: true});
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -3675,15 +3677,17 @@ Pada 25 Mei 2026, PT Bakrie &amp; Brothers Tbk (kode: <strong>BNBR</strong>) men
 
 <p style="margin:0 0 16px;font-size:15.5px;line-height:1.85;color:#1f2937">Struktur permodalan BNBR memiliki karakteristik tidak lazim: <strong>lima seri saham</strong> dengan nilai nominal sangat berbeda — dari Rp 5.687 (Seri A) hingga Rp 12 (Seri E). Visualisasi 3D di bawah menggambarkan tower lima seri ini. Radius disc proporsional terhadap nilai nominal per saham; tinggi disc mencerminkan jumlah saham terhadap total Modal Dasar.</p>
 
-<div style="margin:32px 0; padding:0; background:linear-gradient(135deg,#0f1a14 0%,#1f2e22 100%); border-radius:12px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.2);">
-  <div id="bnbr-tower-container" style="position:relative; width:100%; aspect-ratio:4/3; min-height:0;">
-    <canvas id="bnbr-tower-canvas" style="width:100%; height:100%; display:block; cursor:grab;"></canvas>
-    <div style="position:absolute; top:12px; left:14px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#6ee7b7; letter-spacing:.14em; text-transform:uppercase; opacity:.9; pointer-events:none; background:rgba(15,26,20,0.7); padding:5px 10px; border-radius:4px;">◆ AVENIR · 3D · CAPITAL TOWER</div>
-    <div style="position:absolute; bottom:12px; left:14px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#94a3b8; opacity:.7; pointer-events:none; background:rgba(15,26,20,0.5); padding:4px 8px; border-radius:4px;">Drag · Pinch zoom · 5 Seri Saham</div>
-    <div style="position:absolute; top:12px; right:14px; font-family:'JetBrains Mono',monospace; font-size:10px; color:#fbbf24; pointer-events:none; background:rgba(15,26,20,0.7); padding:5px 10px; border-radius:4px;"><span>Seri A → Seri E</span></div>
+<div style="margin:28px auto; padding:0; max-width:580px; background:linear-gradient(135deg,#0f1a14 0%,#1f2e22 100%); border-radius:12px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,0.18);">
+  <div style="padding:10px 14px; background:rgba(0,0,0,0.25); border-bottom:1px solid rgba(110,231,183,0.12); display:flex; justify-content:space-between; align-items:center; gap:8px;">
+    <span style="font-family:'JetBrains Mono',monospace; font-size:9px; color:#6ee7b7; letter-spacing:.14em; text-transform:uppercase; font-weight:700;">◆ Capital Tower · 3D</span>
+    <span style="font-family:'JetBrains Mono',monospace; font-size:9px; color:#fbbf24;">Seri A → Seri E</span>
   </div>
-  <div style="padding:14px 20px 18px; font-size:12px; color:#6b7280; line-height:1.6; background:rgba(255,255,255,0.02); border-top:1px solid rgba(255,255,255,0.06);">
-    <strong style="color:#374151;">Lima seri saham BNBR.</strong> Seri A (radius terbesar, Rp 5.687 nominal) di atas — hanya 19,4 juta saham, secara persentase tak signifikan. Seri E (radius terkecil, Rp 12 nominal) di bawah — mendominasi 97,98% dari Modal Dasar BNBR. Anomali strukturasi ini adalah jejak historis beberapa kali aksi korporasi dan reverse split. PMHMETD V menambah saham Seri E sebanyak 89,9 miliar lembar, memperdalam dominasi Seri E.
+  <div id="bnbr-tower-container" style="position:relative; width:100%; aspect-ratio:16/10; min-height:0;">
+    <canvas id="bnbr-tower-canvas" style="width:100%; height:100%; display:block; cursor:grab;"></canvas>
+    <div style="position:absolute; bottom:10px; left:12px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#94a3b8; opacity:.65; pointer-events:none; background:rgba(15,26,20,0.6); padding:3px 8px; border-radius:4px;">Drag · 5 Seri Saham</div>
+  </div>
+  <div style="padding:12px 16px 14px; font-size:11.5px; color:#6b7280; line-height:1.6; background:rgba(255,255,255,0.02); border-top:1px solid rgba(255,255,255,0.06);">
+    <strong style="color:#374151;">Lima seri saham BNBR.</strong> Seri A (radius terbesar, Rp 5.687 nominal) di atas — hanya 19,4 juta saham. Seri E (radius terkecil, Rp 12 nominal) di bawah — mendominasi 97,98% Modal Dasar. PMHMETD V menambah 89,9 miliar saham Seri E, memperdalam dominasi.
   </div>
 </div>
 
@@ -3702,7 +3706,7 @@ Pada 25 Mei 2026, PT Bakrie &amp; Brothers Tbk (kode: <strong>BNBR</strong>) men
     var scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0x0f1a14, 14, 30);
     var camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-    camera.position.set(4.5, 3, 7.5); camera.lookAt(0, 0, 0);
+    camera.position.set(3.5, 2, 9); camera.lookAt(0, 0, 0);
     var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -3805,15 +3809,17 @@ Pada 25 Mei 2026, PT Bakrie &amp; Brothers Tbk (kode: <strong>BNBR</strong>) men
 
 <p style="margin:0 0 16px;font-size:15.5px;line-height:1.85;color:#1f2937">Visualisasi 3D di bawah menggambarkan struktur kepemilikan BNBR dalam bentuk <em>donut chart</em> 3D, dengan dua status bergantian otomatis setiap 4,5 detik: <em>Sebelum PMHMETD V</em> dan <em>Sesudah PMHMETD V</em> (asumsi base case: semua pemegang saham non-Port Fraser/Fountain City melaksanakan HMETD penuh). Yang paling mencolok: munculnya BCI sebagai entitas baru dengan 15,22% kepemilikan pasca-aksi, dan turunnya Port Fraser serta Fountain City dari 22,41% / 22,17% menjadi 14,76% / 14,60%.</p>
 
-<div style="margin:32px 0; padding:0; background:linear-gradient(135deg,#14140a 0%,#2e2e1a 100%); border-radius:12px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.2);">
-  <div id="bnbr-wheel-container" style="position:relative; width:100%; aspect-ratio:4/3; min-height:0;">
-    <canvas id="bnbr-wheel-canvas" style="width:100%; height:100%; display:block; cursor:grab;"></canvas>
-    <div style="position:absolute; top:12px; left:14px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#fbbf24; letter-spacing:.14em; text-transform:uppercase; opacity:.9; pointer-events:none; background:rgba(20,20,10,0.7); padding:5px 10px; border-radius:4px;">◆ AVENIR · 3D · DILUTION WHEEL</div>
-    <div style="position:absolute; bottom:12px; left:14px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#94a3b8; opacity:.7; pointer-events:none; background:rgba(20,20,10,0.5); padding:4px 8px; border-radius:4px;">Drag · Auto-toggle setiap 4,5 detik</div>
-    <div id="bnbr-wheel-state" style="position:absolute; top:12px; right:14px; font-family:'JetBrains Mono',monospace; font-size:11px; color:#6ee7b7; font-weight:700; letter-spacing:.05em; pointer-events:none; background:rgba(20,20,10,0.8); padding:6px 12px; border-radius:4px;">SEBELUM PMHMETD V</div>
+<div style="margin:28px auto; padding:0; max-width:580px; background:linear-gradient(135deg,#14140a 0%,#2e2e1a 100%); border-radius:12px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,0.18);">
+  <div style="padding:10px 14px; background:rgba(0,0,0,0.25); border-bottom:1px solid rgba(251,191,36,0.18); display:flex; justify-content:space-between; align-items:center; gap:8px;">
+    <span style="font-family:'JetBrains Mono',monospace; font-size:9px; color:#fbbf24; letter-spacing:.14em; text-transform:uppercase; font-weight:700;">◆ Dilution Wheel · 3D</span>
+    <span id="bnbr-wheel-state" style="font-family:'JetBrains Mono',monospace; font-size:9px; color:#6ee7b7; font-weight:700; letter-spacing:.05em;">SEBELUM PMHMETD V</span>
   </div>
-  <div style="padding:14px 20px 18px; font-size:12px; color:#6b7280; line-height:1.6; background:rgba(255,255,255,0.02); border-top:1px solid rgba(255,255,255,0.06);">
-    <strong style="color:#374151;">Sebelum:</strong> Port Fraser 22,41% + Fountain City 22,17% mendominasi (gabungan 44,58%), tidak ada BCI. <strong>Sesudah:</strong> keduanya terdilusi ke 14,76% + 14,60% (gabungan 29,36%); BCI muncul dengan 15,22%. Publik (di bawah 5%) naik dari 27,14% menjadi 29,34% karena seri saham minor (C, D) terdilusi dalam basis lebih besar.
+  <div id="bnbr-wheel-container" style="position:relative; width:100%; aspect-ratio:16/10; min-height:0;">
+    <canvas id="bnbr-wheel-canvas" style="width:100%; height:100%; display:block; cursor:grab;"></canvas>
+    <div style="position:absolute; bottom:10px; left:12px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#94a3b8; opacity:.65; pointer-events:none; background:rgba(20,20,10,0.6); padding:3px 8px; border-radius:4px;">Auto-toggle 4,5 detik</div>
+  </div>
+  <div style="padding:12px 16px 14px; font-size:11.5px; color:#6b7280; line-height:1.6; background:rgba(255,255,255,0.02); border-top:1px solid rgba(255,255,255,0.06);">
+    <strong style="color:#374151;">Sebelum:</strong> Port Fraser 22,41% + Fountain City 22,17% (gabungan 44,58%), tidak ada BCI. <strong>Sesudah:</strong> terdilusi ke 14,76% + 14,60% (gabungan 29,36%); BCI muncul dengan 15,22%. Publik naik dari 27,14% menjadi 29,34%.
   </div>
 </div>
 
@@ -3833,7 +3839,7 @@ Pada 25 Mei 2026, PT Bakrie &amp; Brothers Tbk (kode: <strong>BNBR</strong>) men
     var scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0x14140a, 14, 30);
     var camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-    camera.position.set(0, 6, 8); camera.lookAt(0, 0, 0);
+    camera.position.set(0, 5, 9); camera.lookAt(0, 0, 0);
     var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
