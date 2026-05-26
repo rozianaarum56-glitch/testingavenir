@@ -7036,9 +7036,12 @@ const Admin = {
     { url: "artikel-industri-ethanol-indonesia.html", title: "Industri Ethanol Indonesia: Peta Pemain, Regulasi, dan Implikasi Investasi", category: "Artikel" },
     { url: "news-eral-xpeng-eido-mei-2026.html", title: "ERAL Lepas 90,1% Saham EIDO ke XPENG: Restrukturisasi Manufaktur EV dan Posisi Baru Erajaya Active Lifestyle", category: "News" },
     { url: "news-ctth-keterbukaan-mei-2026.html", title: "CTTH: Keterbukaan Informasi Mei 2026", category: "News" },
+    { url: "news-btpn-portofolio-pensiun-btn-mei-2026.html", title: "Bank SMBC Indonesia Lepas Portofolio Kredit Pensiun Rp 19,93 Triliun ke Bank BTN — 46,3% Ekuitas", category: "News" },
+    { url: "news-pkpk-prospek-2026.html", title: "Paragon Karya Perkasa Target Lonjakan Pendapatan 399,48% Jadi Rp 3,74 Triliun di 2026", category: "News" },
     { url: "news-cpo-transfer-pricing-mei-2026.html", title: "Transfer Pricing CPO US$84 Juta: Saham SSMS Anjlok 8,57% — Avenir News", category: "News" },
     { url: "news-gmfi-kuasi-reorganisasi-mei-2026.html", title: "GMFI Rencana Kuasi Reorganisasi: Eliminasi Defisit AS$512 Juta", category: "News" },
     { url: "news-bei-indeks-global-mei-2026.html", title: "BEI Upayakan Saham RI Kembali Masuk Indeks Global", category: "News" },
+    { url: "artikel-bnbr-bangunkan.html", title: "BNBR Right Issue V: Anatomi Penambahan Modal Rp 4,77 Triliun untuk Deleveraging", category: "Artikel" },
     { url: "artikel-quantum-computing-2026.html", title: "Quantum Computing: Dari US$2 Miliar Insentif AS ke Kerangka Equity Tematik", category: "Artikel" },
     { url: "news-sofa-psel-danantara-mei-2026.html", title: "SOFA Resmi Masuk Konsorsium Zhejiang Weiming untuk PSEL Danantara di Denpasar dan Bogor Raya", category: "News" },
     { url: "news-ratu-bank-mandiri-mei-2026.html", title: "RATU Tarik Kredit USD 109,2 Juta dari Bank Mandiri: Akuisisi 20% PI Blok Selat Madura HCML", category: "News" },
@@ -7344,6 +7347,8 @@ const Admin = {
         btn.style.opacity = '1';
         btn.textContent = originalText;
       }
+      // Always refresh UI so other buttons remain clickable
+      try { Admin.loadNotif(); } catch (_) {}
     }
   },
   
@@ -7424,6 +7429,8 @@ const Admin = {
         btn.style.opacity = '1';
         btn.textContent = originalText;
       }
+      // Always refresh UI so other buttons remain clickable
+      try { Admin.loadNotif(); } catch (_) {}
     }
   },
   
