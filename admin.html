@@ -7041,6 +7041,7 @@ const Admin = {
     { url: "news-cpo-transfer-pricing-mei-2026.html", title: "Transfer Pricing CPO US$84 Juta: Saham SSMS Anjlok 8,57% — Avenir News", category: "News" },
     { url: "news-gmfi-kuasi-reorganisasi-mei-2026.html", title: "GMFI Rencana Kuasi Reorganisasi: Eliminasi Defisit AS$512 Juta", category: "News" },
     { url: "news-bei-indeks-global-mei-2026.html", title: "BEI Upayakan Saham RI Kembali Masuk Indeks Global", category: "News" },
+    { url: "artikel-sini-akuisisi-kms.html", title: "SINI Rights Issue Rp 3,6 Triliun: Anatomi Akuisisi KMS dari Petrosea dan Pivot Holding Hotel ke Tambang Batubara", category: "Artikel" },
     { url: "artikel-bnbr-bangunkan.html", title: "BNBR Right Issue V: Anatomi Penambahan Modal Rp 4,77 Triliun untuk Deleveraging", category: "Artikel" },
     { url: "artikel-quantum-computing-2026.html", title: "Quantum Computing: Dari US$2 Miliar Insentif AS ke Kerangka Equity Tematik", category: "Artikel" },
     { url: "news-sofa-psel-danantara-mei-2026.html", title: "SOFA Resmi Masuk Konsorsium Zhejiang Weiming untuk PSEL Danantara di Denpasar dan Bogor Raya", category: "News" },
@@ -7310,7 +7311,12 @@ const Admin = {
       );
       
       const result = await resp.json();
-      if (!resp.ok) throw new Error(result.error || 'Failed: ' + resp.status);
+      if (!resp.ok) {
+        let errMsg = result.error || 'Failed: ' + resp.status;
+        if (result.version) errMsg += '\n[Edge Function: ' + result.version + ']';
+        if (result.hint) errMsg += '\n💡 ' + result.hint;
+        throw new Error(errMsg);
+      }
       
       const sent = Number(result.sent || 0);
       const failed = Number(result.failed || 0);
@@ -7382,7 +7388,12 @@ const Admin = {
       );
       
       const result = await resp.json();
-      if (!resp.ok) throw new Error(result.error || 'Failed: ' + resp.status);
+      if (!resp.ok) {
+        let errMsg = result.error || 'Failed: ' + resp.status;
+        if (result.version) errMsg += '\n[Edge Function: ' + result.version + ']';
+        if (result.hint) errMsg += '\n💡 ' + result.hint;
+        throw new Error(errMsg);
+      }
       
       // Smart alert berdasarkan hasil
       const sent = Number(result.sent || 0);
