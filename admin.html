@@ -7422,7 +7422,10 @@ const Admin = {
       } else {
         // SUKSES SEMUA
         title = '🎉 Email berhasil dikirim ke semua subscriber!';
-        body = `Total subscriber: ${total}\nTerkirim: ${sent}\nGagal: ${failed}`;
+        body = `Notifikasi: ${result.notification_count || 1}\nTotal subscriber: ${total}\nTerkirim: ${sent} ✓\nGagal: ${failed} ✗\nDi-skip: ${result.skipped || 0} ⚠`;
+        if (result.diagnostic) {
+          body += `\n\n📊 Diagnostic:\nTotal profiles di DB: ${result.diagnostic.total_profiles}\nis_user=true: ${result.diagnostic.is_user_true}\nOpt-out (blast_opt_in=false): ${result.diagnostic.opted_out}\nTanpa is_user: ${result.diagnostic.no_is_user}`;
+        }
       }
       
       // Detail errors kalau ada
