@@ -3502,13 +3502,14 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
 
 <style>
 /* ═══ CBRS-specific styles ═══ */
+/* GFS-style: cream body + dark hero */
+#page-cbrs { background:#fafaf7; padding-bottom:56px; }
 #page-cbrs .hero {
-  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #0f172a 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1c1c1c 100%);
   color: #fff;
-  padding: 80px 24px 60px;
+  padding: 88px 24px 64px;
   position: relative;
   overflow: hidden;
-  /* REVISI #2: Tambah margin-bottom biar tidak nempel langsung dengan stat row */
   margin-bottom: 0;
 }
 #page-cbrs .hero::before {
@@ -3525,7 +3526,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
 
 #page-cbrs .hero h1 {
   color: #fff !important;
-  font-family: 'Fraunces', 'Cormorant Garamond', Georgia, serif !important;
+  font-family: 'Cormorant Garamond', 'Cormorant Garamond', Georgia, serif !important;
   font-size: clamp(28px, 4.5vw, 48px) !important;
   font-weight: 700 !important;
   line-height: 1.15 !important;
@@ -3593,10 +3594,10 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
   box-shadow: 0 4px 14px rgba(0,0,0,0.06);
 }
 .powr-stat .sv {
-  font-family: 'Fraunces',Georgia,serif;
-  font-size: 26px;
-  font-weight: 700;
-  color: #1e3a8a;
+  font-family: 'IBM Plex Mono',monospace;
+  font-size: 24px;
+  font-weight: 600;
+  color: #0f172a;
   line-height: 1.1;
   margin-bottom: 4px;
 }
@@ -3612,11 +3613,11 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
 
 /* Sections */
 #page-cbrs h2.sec {
-  font-family: 'Fraunces',Georgia,serif;
-  font-size: clamp(26px, 3.5vw, 36px);
-  font-weight: 700;
-  color: #1e3a8a;
-  margin: 56px 0 18px;
+  font-family: 'Cormorant Garamond',Georgia,serif;
+  font-size: clamp(28px, 3.8vw, 38px);
+  font-weight: 600;
+  color: #0f172a;
+  margin: 60px 0 18px;
   line-height: 1.15;
   letter-spacing: -0.01em;
   display: flex;
@@ -3629,8 +3630,8 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
   justify-content: center;
   width: 38px;
   height: 38px;
-  background: #9B7BC9;
-  color: #1e3a8a;
+  background: #7C5BB0;
+  color: #fff;
   border-radius: 8px;
   font-family: 'Inter',sans-serif;
   font-size: 18px;
@@ -3638,7 +3639,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
   flex-shrink: 0;
 }
 #page-cbrs h3.sub {
-  font-family: 'Fraunces',Georgia,serif;
+  font-family: 'Cormorant Garamond',Georgia,serif;
   font-size: 22px;
   font-weight: 600;
   color: #1f2937;
@@ -3651,7 +3652,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
   color: #374151;
   margin: 0 0 18px;
 }
-#page-cbrs p strong { color: #1e3a8a; }
+#page-cbrs p strong { color: #7C5BB0; }
 
 /* Photo figure */
 .powr-fig {
@@ -3706,14 +3707,14 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
   /* width grows naturally based on content (white-space: nowrap di th/td) */
 }
 .powr-table thead th {
-  background: #1e3a8a;
+  background: #1c1c1c;
   color: #fff;
-  padding: 12px 14px;
+  padding: 11px 13px;
   text-align: left;
-  font-weight: 600;
-  font-size: 12px;
+  font-weight: 700;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: .04em;
+  letter-spacing: .06em;
   border-right: 1px solid rgba(255,255,255,0.08);
   white-space: nowrap;
 }
@@ -3736,10 +3737,11 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
 }
 .powr-table tbody td.num.pos { color: #15803d; }
 .powr-table tbody td.num.neg { color: #b91c1c; }
-.powr-table tbody tr.subtotal { background: #f1f5f9; font-weight: 700; }
-.powr-table tbody tr.subtotal td { color: #1e3a8a; }
-.powr-table tbody tr.totalrow { background: #fef3c7; font-weight: 700; }
-.powr-table tbody tr.totalrow td { color: #1e3a8a; }
+.powr-table tbody tr:nth-child(even) td { background:#fafaf7; }
+.powr-table tbody tr.subtotal { background: #f3f4f6; font-weight: 700; }
+.powr-table tbody tr.subtotal td { color: #0f172a; }
+.powr-table tbody tr.totalrow { background: #f3f4f6; font-weight: 700; border-top:2px solid #7C5BB0; }
+.powr-table tbody tr.totalrow td { color: #0f172a; border-top:2px solid #7C5BB0; }
 .powr-table tfoot td { font-size: 11.5px; color: #6b7280; padding: 10px 14px; font-style: italic; white-space: normal; }
 
 /* Mobile scroll hint */
@@ -3759,33 +3761,31 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
 
 /* Callout boxes */
 .powr-callout {
-  border-left: 4px solid #1e3a8a;
-  background: #f0f9ff;
-  padding: 18px 22px;
+  border-left: 3px solid #7C5BB0;
+  background: #f5f0fa;
+  padding: 16px 22px;
   margin: 24px 0;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 10px 10px 0;
+  color:#4b3a66;
 }
 .powr-callout.gold { border-left-color: #9B7BC9; background: #f5f0fa; }
 .powr-callout.green { border-left-color: #15803d; background: #f0fdf4; }
 .powr-callout.red { border-left-color: #dc2626; background: #fef2f2; }
 .powr-callout.purple { border-left-color: #7c3aed; background: #f5f3ff; }
-.powr-callout strong { color: #1e3a8a; }
+.powr-callout strong { color: #7C5BB0; }
 .powr-callout.gold strong { color: #b45309; }
 .powr-callout.green strong { color: #166534; }
 .powr-callout.red strong { color: #991b1b; }
 .powr-callout.purple strong { color: #5b21b6; }
 
 .powr-eyebrow {
-  display: inline-block;
-  padding: 5px 12px;
-  background: rgba(30,58,138,0.06);
-  color: #1e3a8a;
+  display: block;
+  color: #7C5BB0;
   font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: .12em;
+  letter-spacing: .18em;
   text-transform: uppercase;
-  border-radius: 4px;
-  margin-bottom: 12px;
+  margin: 0 0 12px;
 }
 
 .powr-metric-row {
@@ -3801,10 +3801,10 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
   padding: 14px 16px;
 }
 .powr-metric-row .m .v {
-  font-family: 'Fraunces',Georgia,serif;
+  font-family: 'Cormorant Garamond',Georgia,serif;
   font-size: 22px;
   font-weight: 700;
-  color: #1e3a8a;
+  color: #7C5BB0;
   line-height: 1.1;
   margin-bottom: 3px;
 }
@@ -3819,7 +3819,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
 
 #page-cbrs ul { font-size: 15px; line-height: 1.75; color: #374151; padding-left: 24px; margin: 0 0 18px; }
 #page-cbrs ul li { margin-bottom: 8px; }
-#page-cbrs ul li strong { color: #1e3a8a; }
+#page-cbrs ul li strong { color: #7C5BB0; }
 
 .powr-qa {
   background: #fff;
@@ -3830,7 +3830,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
 }
 .powr-qa .q {
   font-weight: 700;
-  color: #1e3a8a;
+  color: #7C5BB0;
   font-size: 14.5px;
   margin-bottom: 10px;
   display: flex;
@@ -3839,7 +3839,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
 }
 .powr-qa .q .qmark {
   display: inline-block;
-  background: #1e3a8a;
+  background: #7C5BB0;
   color: #fff;
   font-size: 11px;
   padding: 3px 9px;
@@ -3849,7 +3849,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
   margin-top: 2px;
 }
 .powr-qa .a { color: #374151; line-height: 1.7; font-size: 14.5px; }
-.powr-qa .a strong { color: #1e3a8a; }
+.powr-qa .a strong { color: #7C5BB0; }
 
 .powr-container {
   max-width: 1100px;
@@ -3859,7 +3859,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
 
 /* DC SPECIFIC GRADIENT BOX */
 .powr-dc-feature {
-  background: linear-gradient(135deg, #1e3a8a 0%, #6366f1 100%);
+  background: linear-gradient(135deg, #1c1c1c 0%, #4a3a66 100%);
   color: #fff;
   padding: 28px 32px;
   border-radius: 14px;
@@ -3869,7 +3869,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
 }
 .powr-dc-feature h4 {
   color: #9B7BC9;
-  font-family: 'Fraunces',Georgia,serif;
+  font-family: 'Cormorant Garamond',Georgia,serif;
   font-size: 22px;
   font-weight: 700;
   margin: 0 0 14px;
@@ -3894,7 +3894,7 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
   border: 1px solid rgba(255,255,255,0.15);
 }
 .powr-dc-feature .dc-stats .ds .dv {
-  font-family: 'Fraunces',Georgia,serif;
+  font-family: 'Cormorant Garamond',Georgia,serif;
   font-size: 22px;
   font-weight: 700;
   color: #9B7BC9;
