@@ -3622,261 +3622,189 @@ body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .gue
 .mk-tl-desc { font-size:13.5px; line-height:1.6; color:#475569; }
 @media (max-width:768px){ #mk-canvas{ height:360px; } .mk-3d-title{ font-size:19px; } }
 </style>
+<style>
+/* ═══ DSI deep-dive (SanDisk format) ═══ */
+.art-page{max-width:820px;margin:0 auto;padding:8px 0 40px}
+.art-page h2{font-family:'Cormorant Garamond',Georgia,serif;color:#0f172a;font-size:28px;margin:48px 0 18px;font-weight:700;line-height:1.2}
+.art-page h3{font-family:'Cormorant Garamond',Georgia,serif;color:#0f172a;font-size:20px;margin:26px 0 10px;font-weight:700}
+.art-page p{margin:0 0 16px;font-size:15.5px;line-height:1.85;color:#1f2937}
+.art-page .lead-deck{border-left:3px solid #b45309;padding:14px 18px;background:rgba(251,124,42,0.05);margin:18px 0;color:#374151;font-size:15.5px;line-height:1.7}
+.art-page .meta-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;color:#64748b;font-size:13px;margin-top:18px;padding-top:16px;border-top:1px solid #e2e8f0}
+.art-page .badge-eyebrow{display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(251,124,42,0.10);border:1px solid rgba(251,124,42,0.35);color:#b45309;font-size:10px;font-weight:800;letter-spacing:1.2px;margin-bottom:18px;box-sizing:border-box}
+.box-amber{background:#fff7ed;border-left:4px solid #FB7C2A;padding:14px 18px;margin:24px 0;border-radius:6px;font-size:14.5px;line-height:1.7;color:#7c3a12}
+.box-neutral{background:#f8fafc;border:1px solid #e2e8f0;padding:18px 22px;margin:28px 0;border-radius:8px;font-size:14.5px;line-height:1.7;color:#374151}
+.box-blue{background:#eff6ff;border-left:4px solid #3b82f6;padding:14px 18px;margin:24px 0;border-radius:6px;font-size:14.5px;line-height:1.7;color:#1e3a5f}
+.box-red{background:#fef2f2;border-left:4px solid #dc2626;padding:14px 18px;margin:24px 0;border-radius:6px;font-size:14px;line-height:1.6;color:#7f1d1d}
+.dd-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:20px 0 28px;border:2px solid #0f172a;border-radius:8px;background:#fff}
+.dd-table{margin:0;width:max-content;min-width:100%;border-collapse:collapse;font-size:13.5px}
+.dd-table th{background:#0f172a;color:#fff;padding:11px 13px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid #334155}
+.dd-table td{padding:11px 13px;border:1px solid #d8cfc0;color:#374151;vertical-align:top}
+.dd-table tr.hl td{background:#fff7ed;font-weight:600}
+.dd-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+.dd-kpi .k{background:linear-gradient(135deg,#0a0a0a,#161616);border-radius:12px;padding:16px 14px;color:#fff}
+.dd-kpi .kv{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700;color:#fb923c;line-height:1.1}
+.dd-kpi .kl{font-size:11px;color:#cbd5e1;margin-top:6px;line-height:1.4}
+.dd-toc{background:#faf9f6;border:1px solid #e7e2d8;border-radius:10px;padding:18px 22px;margin:26px 0}
+.dd-toc h4{margin:0 0 10px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#b45309;font-weight:800}
+.dd-toc ol{margin:0;padding-left:20px;columns:2;column-gap:28px}
+.dd-toc li{font-size:13.5px;line-height:1.7;color:#475569;margin-bottom:3px}
+.dd-toc a{color:#475569;text-decoration:none}
+.dd-toc a:hover{color:#b45309}
+.dd-pull{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;line-height:1.4;color:#0f172a;border-top:2px solid #FB7C2A;border-bottom:2px solid #FB7C2A;padding:18px 0;margin:28px 0;font-style:italic}
+@media(max-width:768px){.dd-kpi{grid-template-columns:repeat(2,1fr)}.dd-toc ol{columns:1}.art-page h2{font-size:23px}}
+</style>
+<div class="art-page">
 
-<section class="gfs-hero">
-  <div class="gfs-hero-inner">
-    <div class="gfs-eyebrow">◆ Avenir Research · Policy &amp; Trade Strategy · Indonesia</div>
-    <h1 class="gfs-title">Ekspor Satu Pintu &amp; PT DSI<br>Sentralisasi Tata Kelola Komoditas Strategis</h1>
-    <div class="gfs-subtitle">Mulai 1 Juni 2026, ekspor CPO, batu bara, dan feronikel wajib melewati <strong class="mk-hl">PT Danantara Sumberdaya Indonesia (DSI)</strong> — awalnya sebagai <em>co-exporter</em>, lalu eksportir tunggal penuh per 1 Januari 2027. Pemerintah membidik kebocoran devisa dari <em>under-invoicing</em>, transfer pricing, dan parkir DHE di luar negeri. Catatan ini memetakan mekanisme, dasar ekonomi, risiko eksekusi, dan skenario base/best/worst — bukan rekomendasi.</div>
-    <div class="gfs-meta">
-      <div class="gfs-meta-item"><div class="lbl">Entitas</div><div class="val">PT DSI (Grup Danantara)</div></div>
-      <div class="gfs-meta-item"><div class="lbl">Komoditas Tahap 1</div><div class="val">CPO · Batu Bara · Feronikel</div></div>
-      <div class="gfs-meta-item"><div class="lbl">Mulai (transisi)</div><div class="val">1 Juni 2026</div></div>
-      <div class="gfs-meta-item"><div class="lbl">Implementasi penuh</div><div class="val">1 Januari 2027</div></div>
-      <div class="gfs-meta-item"><div class="lbl">Nilai 3 komoditas</div><div class="val">±US$63 M (~23% ekspor)</div></div>
-      <div class="gfs-meta-item"><div class="lbl">Sumber</div><div class="val">BPS · Kemenko · Kemendag · Danantara</div></div>
-      <div class="gfs-meta-item"><div class="lbl">Update</div><div class="val">per 29 Mei 2026</div></div>
-    </div>
-  </div>
-</section>
+<header style="margin-bottom:8px">
+<div class="badge-eyebrow">◆ AVENIR RESEARCH · POLICY &amp; TRADE STRATEGY · INDONESIA</div>
+<h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,5vw,42px);line-height:1.15;color:#0f172a;margin:8px 0 14px;font-weight:700;word-wrap:break-word">Ekspor Satu Pintu &amp; PT DSI: Anatomi Sentralisasi Tata Kelola Komoditas SDA Strategis</h1>
+<div class="lead-deck">Pada 20 Mei 2026, Presiden Prabowo Subianto mengumumkan bahwa ekspor tiga komoditas sumber daya alam strategis — <strong>CPO, batu bara, dan feronikel</strong> — wajib melewati satu BUMN: <strong>PT Danantara Sumberdaya Indonesia (DSI)</strong>. Pemerintah membidik kebocoran devisa yang ditaksir hingga <strong>US$150 miliar per tahun</strong> akibat under-invoicing, transfer pricing, dan pelarian devisa hasil ekspor. Implementasi penuh dimundurkan dari 1 September 2026 ke <strong>1 Januari 2027</strong>. Paper ini membedah mandat, anatomi entitas, mekanisme tiga fase, reaksi pasar, hingga tiga skenario kualitatif — dengan disiplin: setiap angka bersumber, tanpa rekomendasi.</div>
+<div class="meta-row">
+<span><strong>Tim Avenir Research</strong></span>
+<span>·</span><span>31 Mei 2026</span>
+<span>·</span><span>DSI · Danantara · CPO · Batu Bara · Feronikel · DHE</span>
+<span>·</span><span>~28 menit baca · 12 bagian</span>
+</div>
+</header>
 
-<div class="gfs-body">
-<div class="gfs-body-inner">
+<img alt="Ekspor Satu Pintu PT DSI Danantara" style="width:100%;border-radius:14px;margin:8px 0 6px;display:block" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20675%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bgH%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%230a0a0a%22%2F%3E%3Cstop%20offset%3D%220.5%22%20stop-color%3D%22%2316100a%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230a0a0a%22%2F%3E%3C%2FlinearGradient%3E%3CradialGradient%20id%3D%22glowH%22%20cx%3D%2274%25%22%20cy%3D%2230%25%22%20r%3D%2258%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23FB7C2A%22%20stop-opacity%3D%220.34%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23FB7C2A%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3ClinearGradient%20id%3D%22barH%22%20x1%3D%220%22%20y1%3D%221%22%20x2%3D%220%22%20y2%3D%220%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23b45309%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23fb923c%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22goldH%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%220%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fcd34d%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23fb923c%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22675%22%20fill%3D%22url%28%23bgH%29%22%2F%3E%3Crect%20width%3D%221200%22%20height%3D%22675%22%20fill%3D%22url%28%23glowH%29%22%2F%3E%3Cg%20opacity%3D%220.06%22%20stroke%3D%22%23fb923c%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20135H1200M0%20270H1200M0%20405H1200M0%20540H1200%22%2F%3E%3Cpath%20d%3D%22M120%200V675M240%200V675M360%200V675M480%200V675M600%200V675M720%200V675M840%200V675M960%200V675M1080%200V675%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28815%20150%29%22%20opacity%3D%220.96%22%3E%3Cline%20x1%3D%22-10%22%20y1%3D%22310%22%20x2%3D%22320%22%20y2%3D%22310%22%20stroke%3D%22%23fb923c%22%20stroke-opacity%3D%220.25%22%20stroke-width%3D%222%22%2F%3E%3Cpolygon%20points%3D%2246%2C70%2062%2C60%2062%2C290%2046%2C300%22%20fill%3D%22%23b45309%22%2F%3E%3Cpolygon%20points%3D%220%2C70%2046%2C70%2062%2C60%2016%2C60%22%20fill%3D%22%23fdba74%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2270%22%20width%3D%2246%22%20height%3D%22230%22%20fill%3D%22url%28%23barH%29%22%2F%3E%3Cpolygon%20points%3D%22116%2C99%20132%2C89%20132%2C290%20116%2C300%22%20fill%3D%22%23b45309%22%2F%3E%3Cpolygon%20points%3D%2270%2C99%20116%2C99%20132%2C89%2086%2C89%22%20fill%3D%22%23fdba74%22%2F%3E%3Crect%20x%3D%2270%22%20y%3D%2299%22%20width%3D%2246%22%20height%3D%22201%22%20fill%3D%22url%28%23barH%29%22%2F%3E%3Cpolygon%20points%3D%22186%2C100%20202%2C90%20202%2C290%20186%2C300%22%20fill%3D%22%23b45309%22%2F%3E%3Cpolygon%20points%3D%22140%2C100%20186%2C100%20202%2C90%20156%2C90%22%20fill%3D%22%23fdba74%22%2F%3E%3Crect%20x%3D%22140%22%20y%3D%22100%22%20width%3D%2246%22%20height%3D%22200%22%20fill%3D%22url%28%23barH%29%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%22345%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fdba74%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22700%22%20letter-spacing%3D%221%22%3EEKSPOR%202025%20%28US%24%20M%29%3C%2Ftext%3E%3C%2Fg%3E%3Ctext%20x%3D%2280%22%20y%3D%22150%22%20fill%3D%22%23fb923c%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22800%22%20letter-spacing%3D%223.5%22%3EAVENIR%20RESEARCH%20%26%23xb7%3B%20POLICY%20%26amp%3B%20TRADE%20%26%23xb7%3B%20INDONESIA%3C%2Ftext%3E%3Ctext%20x%3D%2280%22%20y%3D%22226%22%20fill%3D%22%23ffffff%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2250%22%20font-weight%3D%22700%22%20letter-spacing%3D%22-1.5%22%3EEkspor%20Satu%20Pintu%20%26amp%3B%20PT%20DSI%3C%2Ftext%3E%3Ctext%20x%3D%2280%22%20y%3D%22288%22%20fill%3D%22url%28%23goldH%29%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2234%22%20font-style%3D%22italic%22%20font-weight%3D%22600%22%20letter-spacing%3D%22-1%22%3ESentralisasi%20Komoditas%20SDA%20Strategis%3C%2Ftext%3E%3Ctext%20x%3D%2280%22%20y%3D%22338%22%20fill%3D%22%23cbd5e1%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22500%22%3ECPO%20%26%23xb7%3B%20Batu%20Bara%20%26%23xb7%3B%20Feronikel%20%26%23xb7%3B%20Grup%20Danantara%20%26%23xb7%3B%20per%2031%20Mei%202026%3C%2Ftext%3E%3Cg%20transform%3D%22translate%2880%20470%29%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22200%22%20height%3D%2238%22%20rx%3D%2219%22%20fill%3D%22rgba%28251%2C124%2C42%2C0.20%29%22%20stroke%3D%22%23fb923c%22%2F%3E%3Ctext%20x%3D%22100%22%20y%3D%2225%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fdba74%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2212%22%20font-weight%3D%22800%22%20letter-spacing%3D%221%22%3EMULAI%201%20JUNI%202026%3C%2Ftext%3E%3Crect%20x%3D%22214%22%20y%3D%220%22%20width%3D%22234%22%20height%3D%2238%22%20rx%3D%2219%22%20fill%3D%22rgba%2816%2C185%2C129%2C0.14%29%22%20stroke%3D%22%2334d399%22%2F%3E%3Ctext%20x%3D%22331%22%20y%3D%2225%22%20text-anchor%3D%22middle%22%20fill%3D%22%236ee7b7%22%20font-family%3D%22Inter%2CArial%2Csans-serif%22%20font-size%3D%2212%22%20font-weight%3D%22800%22%20letter-spacing%3D%221%22%3EPENUH%201%20JANUARI%202027%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E"/>
 
-  <!-- DASHBOARD -->
-  <div class="gfs-grid-4" style="margin-bottom:14px">
-    <div class="gfs-stat"><div class="lbl">Ekspor CPO 2025</div><div class="val">24,42</div><div class="sub">miliar USD · +21,83% yoy · BPS</div></div>
-    <div class="gfs-stat"><div class="lbl">Ekspor Batu Bara 2025</div><div class="val">24,48</div><div class="sub">miliar USD · −19,70% yoy · BPS</div></div>
-    <div class="gfs-stat"><div class="lbl">Ekspor Besi-Baja 2025</div><div class="val">27,97</div><div class="sub">miliar USD · +8,41% yoy · BPS</div></div>
-    <div class="gfs-stat"><div class="lbl">3 Komoditas</div><div class="val">~23%</div><div class="sub">total ekspor · ±US$63 M</div></div>
-    <div class="gfs-stat"><div class="lbl">Gap Data vs China</div><div class="val">20–30</div><div class="sub">miliar USD · selisih pencatatan (Airlangga)</div></div>
-    <div class="gfs-stat"><div class="lbl">Gap Data vs AS</div><div class="val">16–17</div><div class="sub">miliar USD · selisih pencatatan</div></div>
-    <div class="gfs-stat"><div class="lbl">Modal Dasar DSI</div><div class="val">Rp100 jt</div><div class="sub">akta AHU 18 Mei · BUMN 25 Mei 2026</div></div>
-    <div class="gfs-stat"><div class="lbl">Foreign Outflow</div><div class="val">~Rp54,5 T</div><div class="sub">pasar saham · s.d. akhir Mei 2026</div></div>
-  </div>
+<div class="dd-kpi">
+<div class="k"><div class="kv">US$150 M/thn</div><div class="kl">Estimasi kebocoran devisa yang dibidik (Rosan Roeslani) — setara ±Rp2.653 T</div></div>
+<div class="k"><div class="kv">±23%</div><div class="kl">Pangsa 3 komoditas terhadap total ekspor (±US$63 M)</div></div>
+<div class="k"><div class="kv">99% / 1%</div><div class="kl">Kepemilikan DSI: BPI Danantara / BP BUMN</div></div>
+<div class="k"><div class="kv">1 Jan 2027</div><div class="kl">Target implementasi penuh — mundur dari 1 Sep 2026</div></div>
+</div>
 
-  <!-- 3D -->
-  <div class="mk-3d-wrap">
-    <div class="mk-3d-head">
-      <div>
-        <div class="mk-3d-eyebrow">Visualisasi 3D Interaktif</div>
-        <div class="mk-3d-title" id="mk-3d-title">Nilai Ekspor 3 Komoditas Strategis 2025 (US$ miliar)</div>
-      </div>
-      <div class="mk-3d-toggle">
-        <button class="mk-tg-btn active" data-ds="nilai">Nilai Ekspor</button>
-        <button class="mk-tg-btn" data-ds="pangsa">Pangsa Nonmigas</button>
-        <button class="mk-tg-btn" data-ds="bocor">Indikasi Kebocoran</button>
-      </div>
-    </div>
-    <div class="mk-canvas-holder">
-      <canvas id="mk-canvas"></canvas>
-      <div class="mk-tip" id="mk-tip"></div>
-    </div>
-    <div class="mk-3d-foot">
-      <div class="mk-3d-hint"><kbd>seret</kbd> untuk memutar &middot; <kbd>hover</kbd> untuk nilai &middot; klik tombol untuk ganti data</div>
-      <div class="mk-srcline" id="mk-3d-src">Sumber: BPS, nilai ekspor Januari–Desember 2025</div>
-    </div>
-  </div>
+<div class="dd-toc"><h4>Daftar Isi · 12 Bagian</h4><ol>
+<li><a href="#s1">Mandat &amp; Latar: Pidato 20 Mei</a></li>
+<li><a href="#s2">Tiga Mekanisme Kebocoran</a></li>
+<li><a href="#s3">Anatomi Entitas: Siapa DSI</a></li>
+<li><a href="#s4">Pengawas atau Pedagang?</a></li>
+<li><a href="#s5">Mekanisme Tiga Fase &amp; Timeline</a></li>
+<li><a href="#s6">Data Komoditas: Tiga Pilar Ekspor</a></li>
+<li><a href="#s7">Visualisasi 3D Interaktif</a></li>
+<li><a href="#s8">Reaksi Pasar &amp; Emiten Terdampak</a></li>
+<li><a href="#s9">Tiga Risiko yang Ditakuti Pasar</a></li>
+<li><a href="#s10">Suara Ekonom &amp; Model NOC</a></li>
+<li><a href="#s11">Tiga Skenario Kualitatif</a></li>
+<li><a href="#s12">Variabel Penentu &amp; Catatan Penutup</a></li>
+</ol></div>
 
-  <!-- SECTION 1 -->
-  <div class="gfs-section">
-    <div class="gfs-section-eyebrow">01 — Latar &amp; Mandat</div>
-    <h2 class="gfs-section-title">Negara Mengambil Alih Pintu Ekspor</h2>
-    <p class="gfs-section-lead">Pada rapat paripurna DPR ke-19, Rabu 20 Mei 2026, saat menyampaikan Kerangka Ekonomi Makro dan Pokok-pokok Kebijakan Fiskal (KEM-PPKF) RAPBN 2027, Presiden Prabowo Subianto mengumumkan satu perubahan mendasar dalam tata kelola ekspor: komoditas sumber daya alam (SDA) strategis tidak lagi boleh diekspor sendiri-sendiri oleh swasta, melainkan wajib melewati satu BUMN. Entitas itu adalah <strong>PT Danantara Sumberdaya Indonesia (DSI)</strong>, anak usaha Badan Pengelola Investasi (BPI) Danantara. Tahap pertama mencakup tiga komoditas — minyak sawit mentah (CPO), batu bara, dan paduan besi (ferro alloy/feronikel) — yang bersama-sama merepresentasikan porsi besar penerimaan ekspor nasional.</p>
-    <p>Dalam pidatonya, Prabowo menggunakan bahasa yang keras. Ia menyebut praktik <em>under-invoicing</em> sudah berlangsung berpuluh tahun dan menyamakannya dengan penipuan: nilai yang dijual pengusaha, menurutnya, tidak dilaporkan sebagaimana mestinya. Presiden juga mengutip Pasal 33 UUD 1945 tentang penguasaan negara atas kekayaan alam untuk kemakmuran rakyat, dan menegaskan bahwa era pembiaran bagi pengemplang devisa harus diakhiri. Dengan kerangka itu, kebijakan ekspor satu pintu diposisikan bukan sekadar perubahan administratif, melainkan upaya menutup kebocoran yang selama ini dianggap menggerus hak negara.</p>
-    <p>Skala persoalan yang diklaim pemerintah sangat besar. CEO Danantara Rosan Roeslani menaksir potensi kebocoran devisa mencapai sekitar <strong>US$150 miliar per tahun</strong> dari tata kelola SDA yang bocor. Dalam kesempatan terpisah, tokoh yang mendorong penguatan tata kelola ini menyebut akumulasi kebocoran devisa hasil ekspor (DHE) selama 22 tahun terakhir bisa menembus <strong>US$343 miliar</strong>; angka US$150 miliar per tahun itu setara sekitar Rp2.653 triliun pada asumsi kurs Rp17.692 per dolar AS. Sebagai konteks, sektor SDA menyumbang sekitar 60% total ekspor Indonesia, sehingga membenahi tata kelolanya berdampak langsung pada neraca pembayaran dan penerimaan negara.</p>
+<h2 id="s1">1. Mandat &amp; Latar: Pidato 20 Mei</h2>
+<p>Perubahan besar dalam tata kelola ekspor Indonesia diumumkan di forum yang tinggi: rapat paripurna DPR ke-19, Rabu 20 Mei 2026, saat Presiden Prabowo Subianto menyampaikan Kerangka Ekonomi Makro dan Pokok-pokok Kebijakan Fiskal (KEM-PPKF) RAPBN 2027. Inti pesannya, komoditas sumber daya alam (SDA) strategis tidak lagi boleh diekspor sendiri-sendiri oleh swasta, melainkan wajib melewati satu BUMN yang ditunjuk pemerintah — PT Danantara Sumberdaya Indonesia (DSI), anak usaha Badan Pengelola Investasi (BPI) Danantara.</p>
+<p>Bahasa yang dipakai Presiden tergolong keras. Ia menyebut praktik <em>under-invoicing</em> sudah berlangsung berpuluh tahun dan menyamakannya dengan penipuan: "Selama 34 tahun, apa yang terjadi adalah apa yang disebut under-invoicing. Under-invoicing adalah fraud atau penipuan. Yang dijual pengusaha tidak dilaporkan yang sebenarnya." Prabowo mengutip Pasal 33 UUD 1945 tentang penguasaan negara atas kekayaan alam untuk kemakmuran rakyat, dan menegaskan era pembiaran bagi pengemplang devisa harus diakhiri. Ia menggambarkan peran BUMN ini sebagai <em>marketing facility</em>: hasil penjualan ekspor diteruskan ke pelaku usaha pengelola, sementara pintu keluar dan pencatatannya dikonsolidasi.</p>
+<p>Skala persoalan yang diklaim pemerintah sangat besar. CEO Danantara Rosan Roeslani menaksir potensi kebocoran devisa mencapai sekitar US$150 miliar per tahun. Dalam forum terpisah, akumulasi kebocoran devisa hasil ekspor (DHE) selama 22 tahun terakhir disebut bisa menembus US$343 miliar; angka US$150 miliar per tahun setara sekitar Rp2.653 triliun pada asumsi kurs Rp17.692 per dolar AS. Karena sektor SDA menyumbang sekitar 60% total ekspor Indonesia, membenahi tata kelolanya berdampak langsung pada neraca pembayaran, penerimaan pajak, dan stabilitas rupiah.</p>
+<div class="box-amber"><strong>Selisih data dagang.</strong> Menko Perekonomian Airlangga Hartarto menyebut adanya <em>trade data gap</em> sekitar US$16–17 miliar dengan AS dan US$20–30 miliar dengan China — selisih antara yang dicatat Indonesia dan yang dicatat mitra dagang, indikasi nilai ekspor yang dilaporkan lebih rendah dari transaksi sebenarnya. Dengan menyatukan jalur ekspor, negara ingin tahu persis: apa yang diekspor, oleh siapa, ke mana, berapa harga sebenarnya, dan kapan devisanya pulang.</div>
 
-    <div class="gfs-callout"><strong>Akar masalah.</strong> Menko Perekonomian Airlangga Hartarto menyebut adanya selisih pencatatan dagang (<em>trade data gap</em>) sekitar <strong>US$16–17 miliar dengan AS</strong> dan <strong>US$20–30 miliar dengan China</strong> — indikasi nilai ekspor yang dilaporkan lebih rendah dari transaksi sebenarnya. Dengan menyatukan jalur ekspor, negara ingin tahu persis: apa yang diekspor, oleh siapa, ke mana, berapa harga sebenarnya, dan kapan devisanya pulang.</div>
+<h2 id="s2">2. Tiga Mekanisme Kebocoran</h2>
+<p>Akar persoalan yang ingin diselesaikan sebenarnya klasik: Indonesia adalah produsen terbesar dunia untuk sejumlah komoditas, tetapi penerimaan negaranya kerap dinilai tidak sebanding dengan volume yang dikeruk. Pemerintah menunjuk tiga mekanisme kebocoran yang saling berkaitan.</p>
+<p><strong>Pertama, under-invoicing.</strong> Nilai ekspor yang dilaporkan dalam dokumen lebih rendah dari nilai transaksi riil. Dampaknya berlapis: sebagian devisa dan penerimaan pajak tidak tercatat optimal, dan harga acuan yang dipakai untuk menghitung royalti maupun bea keluar bisa lebih kecil dari yang seharusnya — sehingga negara dirugikan dua kali.</p>
+<p><strong>Kedua, transfer pricing.</strong> Penetapan harga antar entitas terafiliasi — kerap melalui perusahaan dagang (trader) atau "perusahaan bayangan" yang berkedudukan di yurisdiksi pajak rendah — yang menggeser margin, dan dengan demikian basis pajak, ke luar Indonesia. Komoditas dijual murah ke afiliasi di luar negeri, lalu afiliasi itu menjualnya dengan harga pasar dan menahan selisihnya di sana.</p>
+<p><strong>Ketiga, pelarian DHE.</strong> Devisa hasil ekspor yang tidak sepenuhnya kembali ke sistem keuangan domestik. Ini menggerus cadangan devisa, menekan likuiditas valas dalam negeri, dan pada gilirannya menambah tekanan pada nilai tukar rupiah. Salah satu tujuan eksplisit kebijakan adalah memastikan DHE 100% masuk ke perbankan domestik.</p>
+<div class="dd-table-wrap"><table class="dd-table">
+<thead><tr><th>Praktik</th><th>Cara kerja</th><th>Yang dirugikan</th></tr></thead>
+<tbody>
+<tr><td><strong>Under-invoicing</strong></td><td>Nilai di dokumen lebih rendah dari transaksi riil</td><td>Devisa, PPh/PPN, dasar royalti &amp; bea keluar</td></tr>
+<tr><td><strong>Transfer pricing</strong></td><td>Margin digeser ke afiliasi di yurisdiksi pajak rendah</td><td>Basis pajak domestik</td></tr>
+<tr><td><strong>Pelarian DHE</strong></td><td>Devisa diparkir di luar negeri</td><td>Cadangan devisa, likuiditas valas, rupiah</td></tr>
+</tbody></table></div>
 
-    <p>Akar persoalan yang ingin diselesaikan sebenarnya klasik: Indonesia adalah produsen terbesar dunia untuk sejumlah komoditas, tetapi penerimaan negaranya kerap dinilai tidak sebanding dengan volume yang dikeruk. Tiga mekanisme kebocoran yang paling sering disebut adalah sebagai berikut.</p>
+<h2 id="s3">3. Anatomi Entitas: Siapa DSI</h2>
+<p>DSI adalah perusahaan yang sangat baru. Akta pendiriannya tercatat di Direktorat Jenderal Administrasi Hukum Umum (AHU) Kementerian Hukum melalui SK pengesahan bernomor AHU-0039765.AH.01.01.Tahun 2026 tertanggal 18–19 Mei 2026, dengan kantor pusat di Wisma Danantara Indonesia, Jalan Gatot Subroto, Jakarta. Saat dibentuk, statusnya adalah perseroan swasta nasional tertutup; pemegang sahamnya PT Danantara Investment Management (DIM) pada saham seri A dan PT Danantara Mitra Sinergi pada saham seri B.</p>
+<p>Status itu berubah cepat. Pada Senin, 25 Mei 2026, DSI resmi menyandang status Badan Usaha Milik Negara (BUMN) setelah saham negara sebesar 1% masuk ke struktur kepemilikan. "Hari ini sudah menjadi BUMN ya," kata Chief Operating Officer Danantara Dony Oskaria di Kompleks Parlemen, menandai rampungnya proses. Setelah perubahan, Chief Investment Officer Danantara Pandu Sjahrir menyebut komposisi pemegang saham DSI menjadi <strong>99% BPI Danantara dan 1% BP BUMN</strong>. DSI berada di bawah payung BPI Danantara yang dipimpin Rosan Roeslani (CEO), dengan Dony Oskaria (COO) dan Pandu Sjahrir (CIO).</p>
+<p>Pemerintah menegaskan kebijakan ini tidak mengambil alih aset maupun operasional perusahaan, dan tidak mengubah regulasi bea keluar serta royalti yang berlaku. Kementerian ESDM, melalui Wakil Menteri Yuliot Tanjung, menyatakan tengah mengonsolidasikan data izin pertambangan — izin usaha pertambangan, pengangkutan, dan penjualan — dengan Danantara untuk menopang operasi DSI. Dasar hukumnya adalah Peraturan Pemerintah tentang Tata Kelola Ekspor Komoditas Sumber Daya Alam melalui BUMN.</p>
 
-    <div class="gfs-grid-3" style="margin-top:18px">
-      <div class="gfs-card">
-        <div class="gfs-section-eyebrow">Masalah 1</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:21px;margin:6px 0 10px;color:#0f172a">Under-invoicing</h3>
-        <p style="font-size:14px;line-height:1.7;color:#374151;margin:0">Nilai ekspor yang dilaporkan lebih rendah dari nilai transaksi riil. Akibatnya, sebagian devisa &amp; penerimaan pajak tidak tercatat optimal, dan harga acuan yang dipakai untuk menghitung royalti maupun bea bisa lebih kecil dari yang seharusnya.</p>
-      </div>
-      <div class="gfs-card">
-        <div class="gfs-section-eyebrow">Masalah 2</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:21px;margin:6px 0 10px;color:#0f172a">Transfer pricing</h3>
-        <p style="font-size:14px;line-height:1.7;color:#374151;margin:0">Penetapan harga antar entitas terafiliasi — sering melalui perusahaan dagang (trader) atau "perusahaan bayangan" di yurisdiksi pajak rendah — yang menggeser margin, dan basis pajak, ke luar Indonesia.</p>
-      </div>
-      <div class="gfs-card">
-        <div class="gfs-section-eyebrow">Masalah 3</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:21px;margin:6px 0 10px;color:#0f172a">Pelarian DHE</h3>
-        <p style="font-size:14px;line-height:1.7;color:#374151;margin:0">Devisa hasil ekspor yang tidak sepenuhnya kembali ke sistem keuangan domestik — menggerus cadangan devisa, menekan likuiditas valas, dan pada gilirannya menambah tekanan pada nilai tukar rupiah.</p>
-      </div>
-    </div>
-  </div>
+<h2 id="s4">4. Pengawas atau Pedagang?</h2>
+<p>Inilah ambiguitas paling tajam dalam kebijakan ini, dan yang paling menentukan dampaknya bagi eksportir: apakah DSI menjadi <em>wasit</em> yang menutup kebocoran, atau <em>pemain dagang</em> yang mengejar laba dan menambah lapisan biaya?</p>
+<p>Dua pejabat senior memberi sinyal yang berbeda. Wakil Menteri Pertanian Sudaryono menegaskan DSI "tidak mengambil keuntungan" dalam ekspor CPO satu pintu. Dalam konferensi pers bersama Menko Airlangga, Menteri Rosan, dan Menkeu Purbaya, pemerintah pun menyebut DSI tidak akan mengambil margin atau <em>fee</em> perdagangan dari eksportir. Namun Pandu Sjahrir menyatakan sebaliknya dalam Investor Daily Round Table: "Dari awal karena kebetulan di bawah Danantara, dan namanya Danantara Sumberdaya Indonesia, ide awalnya memang menjadi suatu perusahaan dan perusahaan BUMN yang memang harus profit for profit."</p>
+<p>Pandu menambahkan pendekatan bertahap: "Jadi biar jelas saja. Dari sisi PT DSI sendiri, ini namanya 'you cannot get all three on one go'. Semuanya selangkah demi selangkah. Jadi awalnya menjadi agent of business dahulu." Ia menyebut fokus awal sesuai mandat — "kita membeli dan terus menjual" — dengan hal lain dibahas belakangan setelah operasi berjalan, termasuk dialog dengan sektor swasta.</p>
+<div class="box-blue"><strong>Mengapa ini penting bagi eksportir.</strong> Jika DSI murni pengawas tanpa margin, dampaknya ke arus kas dan profitabilitas emiten relatif terbatas — yang berubah terutama kecepatan dan administrasi. Tetapi jika DSI bertindak sebagai trader berorientasi laba, ada potensi lapisan biaya baru (counterparty cost) yang memangkas margin eksportir, plus risiko denominasi mata uang. Ketidakjelasan posisi inilah yang menjadi sumber utama <em>risk premium</em> di saham komoditas.</div>
 
-  <!-- SECTION 2 -->
-  <div class="gfs-section">
-    <div class="gfs-section-eyebrow">02 — Anatomi Entitas</div>
-    <h2 class="gfs-section-title">Siapa PT Danantara Sumberdaya Indonesia</h2>
-    <p class="gfs-section-lead">DSI adalah perusahaan yang sangat baru. Akta pendiriannya tercatat di Direktorat Jenderal Administrasi Hukum Umum (AHU) Kementerian Hukum melalui SK pengesahan AHU-0039765.AH.01.01.Tahun 2026 tertanggal 18–19 Mei 2026, dengan kantor pusat di Wisma Danantara Indonesia, Jalan Gatot Subroto, Jakarta. Awalnya berstatus perseroan swasta nasional tertutup; saat dibentuk, pemegang sahamnya adalah PT Danantara Investment Management (DIM) yang menggenggam saham seri A dan PT Danantara Mitra Sinergi pada saham seri B.</p>
-    <p>Status itu berubah cepat. Pada Senin, 25 Mei 2026, DSI resmi menyandang status Badan Usaha Milik Negara (BUMN) setelah saham negara sebesar 1% masuk ke struktur kepemilikan. Setelah perubahan itu, Chief Investment Officer Danantara Pandu Sjahrir menyebut komposisi pemegang saham DSI menjadi <strong>99% BPI Danantara dan 1% BP BUMN</strong>. "Hari ini sudah menjadi BUMN ya," ujar Chief Operating Officer Danantara Dony Oskaria di Kompleks Parlemen, menandai rampungnya proses tersebut. DSI berada di bawah payung BPI Danantara yang dipimpin Rosan Roeslani (CEO), dengan Dony Oskaria (COO) dan Pandu Sjahrir (CIO).</p>
+<h2 id="s5">5. Mekanisme Tiga Fase &amp; Timeline</h2>
+<p>Implementasi dirancang bertahap, dan jadwalnya sempat berubah. Target operasional penuh yang semula 1 September 2026 resmi dimundurkan menjadi 1 Januari 2027. Menko Airlangga menyebut penundaan ini sengaja memberi ruang transisi: "Nanti kita akan evaluasi secara paralel untuk tiga bulan berikutnya, dan full nanti pada tanggal 1 Januari." CEO Danantara Rosan Roeslani menegaskan transaksi penuh melalui platform digital DSI baru berlaku mulai Januari 2027.</p>
+<div class="mk-tl" style="margin-top:8px">
+<div class="mk-tl-item"><div class="mk-tl-dot"></div><div class="mk-tl-date">18–25 Mei 2026</div><div class="mk-tl-title">DSI berdiri &amp; berstatus BUMN</div><div class="mk-tl-desc">Akta legalitas tercatat di AHU (18–19 Mei). Status BUMN efektif 25 Mei setelah saham negara 1% masuk; kepemilikan menjadi 99% BPI Danantara dan 1% BP BUMN.</div></div>
+<div class="mk-tl-item"><div class="mk-tl-dot"></div><div class="mk-tl-date">1 Juni – 31 Agustus 2026</div><div class="mk-tl-title">Fase 1 — Transisi awal (pelaporan)</div><div class="mk-tl-desc">Transaksi tetap dilakukan perusahaan dengan pembelinya, tetapi dokumentasi disampaikan ke DSI. Pada Dokumen Pemberitahuan Ekspor Barang (PEB), pelaku usaha tercatat sebagai pemilik barang sementara eksportir tercatat atas nama DSI. DSI berperan sebagai penilai dan perantara.</div></div>
+<div class="mk-tl-item"><div class="mk-tl-dot"></div><div class="mk-tl-date">1 September – 31 Desember 2026</div><div class="mk-tl-title">Fase 2 — Transisi lanjutan (hibrida)</div><div class="mk-tl-desc">Skema berjalan hibrida: perusahaan yang siap dapat sepenuhnya mengalihkan transaksi dan kontraknya melalui BUMN Ekspor, sementara yang lain masih menyesuaikan. Aturan teknis (Permendag) difinalisasi.</div></div>
+<div class="mk-tl-item"><div class="mk-tl-dot"></div><div class="mk-tl-date">1 Januari 2027</div><div class="mk-tl-title">Fase 3 — Implementasi penuh</div><div class="mk-tl-desc">Seluruh transaksi wajib masuk ke platform digital terintegrasi DSI; DSI menjadi satu-satunya pihak yang berkontrak langsung dengan pembeli luar negeri. Bea Cukai tetap terintegrasi; tidak ada pengambilalihan kepabeanan.</div></div>
+</div>
+<p style="margin-top:18px">Tujuan akhir desain ini, menurut pemerintah: memastikan DHE 100% kembali ke perbankan domestik, membangun ketertelusuran nasional yang relevan dengan ketentuan seperti EUDR (regulasi anti-deforestasi Uni Eropa) dan CBAM (mekanisme penyesuaian karbon di perbatasan UE), serta menggeser posisi Indonesia dari <em>price taker</em> menjadi lebih dekat ke <em>price setter</em> pada komoditas yang dikuasainya.</p>
 
-    <div class="gfs-callout gfs-callout-blue"><strong>Pengawas atau pedagang?</strong> Inilah ambiguitas paling tajam. Wakil Menteri Pertanian Sudaryono menegaskan DSI "tidak mengambil keuntungan" dalam ekspor CPO satu pintu, dan dalam konferensi pers bersama Menko Airlangga, Menteri Rosan, serta Menkeu Purbaya, pemerintah menyebut DSI tidak akan mengambil margin atau <em>fee</em> perdagangan dari eksportir. Namun Pandu Sjahrir menyatakan sebaliknya: "Ide awalnya memang menjadi suatu perusahaan dan perusahaan BUMN yang memang harus profit for profit." Ia menambahkan, DSI akan mulai sebagai <em>agent of business</em> dulu — "you cannot get all three on one go" — sebelum berkembang penuh. Apakah DSI menjadi wasit yang menutup kebocoran atau pemain dagang yang mengejar laba akan menentukan dampaknya bagi eksportir.</div>
+<h2 id="s6">6. Data Komoditas: Tiga Pilar Ekspor</h2>
+<p>Tiga komoditas tahap pertama bukan pilihan acak: ketiganya adalah tulang punggung ekspor nonmigas. Berdasarkan data BPS sepanjang 2025, nilai ekspor CPO dan turunannya mencapai US$24,42 miliar (naik 21,83%), batu bara US$24,48 miliar (turun 19,70% dari US$30,49 miliar pada 2024), dan besi-baja US$27,97 miliar (naik 8,41%). Secara kumulatif, ketiganya berkisar US$63 miliar, atau sekitar 23% total ekspor nasional.</p>
+<div class="gfs-grid-2" style="margin:18px 0">
+<div class="mk-chartcard"><h4>Nilai Ekspor: 2024 vs 2025 (US$ miliar)</h4><div class="mk-sub">CPO &amp; besi-baja naik, batu bara turun · Sumber: BPS</div><svg class="mk-chart-svg" viewBox="0 0 520 250" id="chart-cmp" preserveAspectRatio="xMidYMid meet"></svg></div>
+<div class="mk-chartcard"><h4>Harga Batu Bara Acuan 2026 (US$/ton)</h4><div class="mk-sub">Volatil sejak awal tahun · Sumber: data pasar global</div><svg class="mk-chart-svg" viewBox="0 0 520 250" id="chart-coal" preserveAspectRatio="xMidYMid meet"></svg></div>
+</div>
+<div class="dd-table-wrap"><table class="dd-table">
+<thead><tr><th>Komoditas (2025)</th><th>Nilai (US$ M)</th><th>Δ yoy</th><th>Volume</th><th>Catatan</th></tr></thead>
+<tbody>
+<tr><td>CPO &amp; turunannya</td><td>24,42</td><td style="color:#15803d">+21,83%</td><td>23,61 jt ton</td><td>Permintaan India &amp; Tiongkok membaik</td></tr>
+<tr><td>Batu bara</td><td>24,48</td><td style="color:#dc2626">−19,70%</td><td>390,3 jt ton</td><td>Turun dari US$30,49 M (2024)</td></tr>
+<tr><td>Besi &amp; baja (incl. feronikel)</td><td>27,97</td><td style="color:#15803d">+8,41%</td><td>23,26 jt ton</td><td>Didorong hilirisasi logam</td></tr>
+<tr class="hl"><td><strong>Total 3 komoditas</strong></td><td><strong>±63</strong></td><td><strong>—</strong></td><td><strong>—</strong></td><td><strong>±23% total ekspor nasional</strong></td></tr>
+</tbody></table></div>
+<p style="font-size:13px;color:#6b7280">Catatan: data kumulatif Januari–September 2025 (BPS) mencatat ekspor CPO &amp; turunannya US$18,14 miliar (+32,40%, 17,58 jt ton) dan batu bara US$17,94 miliar (−20,85%, 285,23 jt ton); angka tabel adalah agregat setahun penuh 2025. Nilai besi-baja adalah agregat HS72; cakupan kebijakan tahap awal pada subkategori feronikel/ferro alloy.</p>
 
-    <p>Yang juga ditegaskan pemerintah: kebijakan ini disebut tidak mengambil alih aset maupun operasional perusahaan, dan tidak mengubah regulasi bea keluar serta royalti yang berlaku. Kementerian ESDM, melalui Wakil Menteri Yuliot Tanjung, menyatakan tengah mengonsolidasikan data izin pertambangan — izin usaha pertambangan, pengangkutan, dan penjualan — dengan Danantara untuk menopang operasi DSI. Dasar hukumnya adalah Peraturan Pemerintah tentang Tata Kelola Ekspor Komoditas Sumber Daya Alam melalui BUMN.</p>
-  </div>
+<h2 id="s7">7. Visualisasi 3D Interaktif</h2>
+<p>Untuk membantu menakar bobot tiap komoditas dan ukuran kebocoran yang dibidik, kami menyajikan visualisasi tiga dimensi interaktif berikut. Seret untuk memutar, arahkan kursor untuk melihat nilai, dan ganti dataset antara nilai ekspor, pangsa terhadap ekspor nonmigas, serta indikasi kebocoran yang ditargetkan.</p>
+<div class="mk-3d-wrap">
+<div class="mk-3d-head"><div><div class="mk-3d-eyebrow">Visualisasi 3D Interaktif</div><div class="mk-3d-title" id="mk-3d-title">Nilai Ekspor 3 Komoditas Strategis 2025 (US$ miliar)</div></div>
+<div class="mk-3d-toggle"><button class="mk-tg-btn active" data-ds="nilai">Nilai Ekspor</button><button class="mk-tg-btn" data-ds="pangsa">Pangsa Nonmigas</button><button class="mk-tg-btn" data-ds="bocor">Indikasi Kebocoran</button></div></div>
+<div class="mk-canvas-holder"><canvas id="mk-canvas"></canvas><div class="mk-tip" id="mk-tip"></div></div>
+<div class="mk-3d-foot"><div class="mk-3d-hint"><kbd>seret</kbd> untuk memutar &middot; <kbd>hover</kbd> untuk nilai &middot; klik tombol untuk ganti data</div><div class="mk-srcline" id="mk-3d-src">Sumber: BPS, nilai ekspor Januari–Desember 2025</div></div>
+</div>
 
-  <!-- SECTION 3 -->
-  <div class="gfs-section">
-    <div class="gfs-section-eyebrow">03 — Mekanisme &amp; Timeline</div>
-    <h2 class="gfs-section-title">Dari Co-Exporter ke Eksportir Tunggal</h2>
-    <p class="gfs-section-lead">Implementasi dirancang bertahap, dan jadwalnya sempat berubah. Target operasional penuh yang semula 1 September 2026 resmi dimundurkan menjadi <strong>1 Januari 2027</strong>. Menko Airlangga menyebut penundaan ini sengaja memberi ruang transisi agar tata kelola matang tanpa mengganggu arus ekspor maupun penerimaan devisa: "Nanti kita akan evaluasi secara paralel untuk tiga bulan berikutnya, dan full nanti pada tanggal 1 Januari." CEO Danantara Rosan Roeslani menegaskan, transaksi penuh melalui platform digital DSI baru berlaku mulai Januari 2027.</p>
+<h2 id="s8">8. Reaksi Pasar &amp; Emiten Terdampak</h2>
+<p>Pasar modal merespons cepat dan negatif. Begitu kebijakan diumumkan pada 20 Mei 2026, saham emiten dengan eksposur ekspor tinggi langsung terkoreksi. Pada penutupan hari itu, saham PT Bayan Resources (BYAN) turun 2,18% ke Rp11.200 dan PT Alamtri Resources Indonesia (ADRO) melemah 4,29% ke Rp2.230. Sehari setelahnya koreksi meluas: PT Bukit Asam (PTBA) sempat terpangkas 3,9% dan PT Indo Tambangraya Megah (ITMG) mengalami koreksi terdalam sekitar 5,1%, dengan sebagian emiten bahkan menyentuh Auto Reject Bawah (ARB).</p>
+<p>Yang paling rentan adalah emiten dengan porsi ekspor besar. Berdasarkan data Mirae Asset Sekuritas, porsi ekspor PT Adaro Andalan Indonesia (AADI) mencapai 77%, PT Indo Tambangraya Megah (ITMG) 85%, dan PT Dian Swastatika Sentosa (DSSA) 63%. Di sektor CPO, emiten dengan eksposur ekspor terbesar antara lain SMAR, SSMS, dan AALI. Di sektor nikel, analis menyoroti PT Trimegah Bangun Persada (NCKL) yang memiliki hubungan penjualan dengan Glencore. Emiten yang penjualannya dominan di pasar domestik dinilai relatif lebih aman.</p>
+<div class="dd-table-wrap"><table class="dd-table">
+<thead><tr><th>Emiten</th><th>Sektor</th><th>Porsi ekspor / catatan</th></tr></thead>
+<tbody>
+<tr><td>ITMG — Indo Tambangraya Megah</td><td>Batu bara</td><td class="">85% (koreksi terdalam ~5,1%)</td></tr>
+<tr><td>AADI — Adaro Andalan Indonesia</td><td>Batu bara</td><td>77%</td></tr>
+<tr><td>DSSA — Dian Swastatika Sentosa</td><td>Batu bara</td><td>63%</td></tr>
+<tr><td>BYAN — Bayan Resources</td><td>Batu bara</td><td>−2,18% (20 Mei)</td></tr>
+<tr><td>ADRO — Alamtri Resources</td><td>Batu bara</td><td>−4,29% (20 Mei)</td></tr>
+<tr><td>SMAR · SSMS · AALI</td><td>CPO</td><td>Eksposur ekspor terbesar</td></tr>
+<tr><td>NCKL — Trimegah Bangun Persada</td><td>Nikel</td><td>Hubungan penjualan dengan Glencore</td></tr>
+</tbody></table></div>
+<p>Emiten memilih menahan diri. Dalam pengumuman di BEI, produsen CPO seperti SMAR, PT Dharma Satya Nusantara (DSNG), dan PT Mahkota Group (MGRO) menyatakan masih memantau dan menunggu finalisasi regulasi. Wakil Direktur Utama SMAR Gianto Widjaja menyebut perseroan memahami pemerintah berencana menerbitkan regulasi tata kelola ekspor komoditas strategis termasuk produk sawit. Retail Analyst RHB Sekuritas Muhammad Fatah Al Falah menggambarkan pelaku pasar cenderung <em>wait and see</em>. Sentimen sempat membaik begitu pasar menyerap kabar penundaan ke 2027 — pada salah satu sesi, ITMG dan BYAN tercatat menguat dan IHSG naik tipis — menandakan tekanan awal lebih bersifat reaksi kejut ketimbang penilaian final atas fundamental.</p>
 
-    <div class="mk-tl">
-      <div class="mk-tl-item"><div class="mk-tl-dot"></div><div class="mk-tl-date">18–25 Mei 2026</div><div class="mk-tl-title">DSI berdiri &amp; berstatus BUMN</div><div class="mk-tl-desc">Akta legalitas tercatat di AHU (18–19 Mei). Status BUMN efektif 25 Mei setelah saham negara 1% masuk; kepemilikan menjadi 99% BPI Danantara dan 1% BP BUMN. Kantor pusat di Wisma Danantara, Jakarta.</div></div>
-      <div class="mk-tl-item"><div class="mk-tl-dot"></div><div class="mk-tl-date">1 Juni – 31 Agustus 2026</div><div class="mk-tl-title">Tahap transisi awal (pelaporan)</div><div class="mk-tl-desc">Transaksi ekspor tetap dilakukan perusahaan dengan pembelinya, tetapi dokumentasi disampaikan ke DSI. Pada Dokumen Pemberitahuan Ekspor Barang (PEB), pelaku usaha tercatat sebagai pemilik barang sementara eksportir tercatat atas nama DSI. DSI berperan sebagai penilai dan perantara (agent of business) antara penjual dan pembeli.</div></div>
-      <div class="mk-tl-item"><div class="mk-tl-dot"></div><div class="mk-tl-date">1 September – 31 Desember 2026</div><div class="mk-tl-title">Transisi lanjutan (hibrida)</div><div class="mk-tl-desc">Skema berjalan hibrida: perusahaan yang sudah siap dapat sepenuhnya mengalihkan transaksi dan kontraknya melalui BUMN Ekspor, sementara yang lain masih menyesuaikan. Aturan teknis (Permendag) dan mekanisme terkait difinalisasi pada periode ini.</div></div>
-      <div class="mk-tl-item"><div class="mk-tl-dot"></div><div class="mk-tl-date">1 Januari 2027</div><div class="mk-tl-title">Implementasi penuh — DSI eksportir tunggal</div><div class="mk-tl-desc">Komoditas SDA strategis tidak lagi diekspor mandiri oleh swasta. Seluruh transaksi wajib masuk ke platform digital terintegrasi DSI; DSI menjadi satu-satunya pihak yang berkontrak langsung dengan pembeli luar negeri. Bea Cukai tetap terintegrasi; pemerintah menegaskan tidak ada pengambilalihan kepabeanan.</div></div>
-    </div>
+<h2 id="s9">9. Tiga Risiko yang Ditakuti Pasar</h2>
+<p>Analis BRI Danareksa Sekuritas Abida Massi Armand merinci mengapa pasar bereaksi negatif: ketidakpastian regulasi menciptakan <em>risk premium</em> yang menekan valuasi, khususnya pada emiten dengan eksposur ekspor tinggi. Ia menyebut tiga risiko utama.</p>
+<div class="dd-table-wrap"><table class="dd-table">
+<thead><tr><th>#</th><th>Risiko</th><th>Penjelasan</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Tekanan ASP</td><td>Harga jual rata-rata berpotensi turun akibat hilangnya fleksibilitas negosiasi langsung dengan pembeli premium</td></tr>
+<tr><td>2</td><td>Risiko selisih kurs</td><td>Bila transaksi via DSI didenominasi rupiah sementara pasar batu bara memakai dolar AS</td></tr>
+<tr><td>3</td><td>Biaya counterparty</td><td>Potensi biaya tambahan dari skema perantara yang belum jelas, berpotensi memangkas margin yang sudah tipis</td></tr>
+</tbody></table></div>
+<div class="dd-pull">"Tekanan ASP karena hilangnya fleksibilitas negosiasi langsung dengan pembeli premium, risiko selisih kurs jika transaksi Danantara dalam rupiah sementara pasar batu bara berdenominasi dolar, dan biaya counterparty Danantara yang belum jelas namun berpotensi memotong margin yang sudah tipis." — Abida Massi Armand, BRI Danareksa Sekuritas</div>
 
-    <p style="margin-top:18px">Presiden Prabowo menggambarkan peran BUMN ini sebagai <em>marketing facility</em>: hasil penjualan ekspor diteruskan BUMN yang ditunjuk kepada pelaku usaha pengelola. Dengan kata lain, secara desain, eksportir tetap memiliki barangnya, tetapi pintu keluar dan pencatatan nilainya dikonsolidasi di satu tempat. Tujuan akhirnya, menurut pemerintah, adalah memastikan DHE 100% kembali ke perbankan domestik, membangun ketertelusuran nasional yang relevan dengan ketentuan seperti EUDR (regulasi anti-deforestasi Uni Eropa) dan CBAM (mekanisme penyesuaian karbon di perbatasan UE), serta menggeser posisi Indonesia dari <em>price taker</em> menjadi lebih dekat ke <em>price setter</em> pada komoditas yang dikuasainya.</p>
-  </div>
+<h2 id="s10">10. Suara Ekonom &amp; Model NOC</h2>
+<p>Para ekonom membagi pandangan antara peluang dan kewaspadaan. Ekonom dan pakar kebijakan publik UPN Veteran Jakarta, Achmad Nur Hidayat, mengingatkan kebijakan ini bisa berdampak dua arah.</p>
+<div class="box-neutral">"Ekspor satu pintu bisa menjadi alat kedaulatan ekonomi, tetapi juga bisa menjadi pintu rente baru jika BUMN tidak transparan, tidak profesional, dan tidak diawasi secara ketat. Jika swasta selama ini dituduh bermain under invoicing dan transfer pricing, maka negara harus membuktikan bahwa BUMN lebih bersih, lebih efisien, dan lebih akuntabel." Ia menambahkan, BUMN yang menjadi pintu ekspor tidak boleh sekadar "meja baru untuk stempel dan komisi", melainkan harus menjadi <em>trading house</em> canggih yang menguasai harga global, kontrak internasional, manajemen risiko, pembiayaan, logistik, standar kualitas, dan kepastian pembayaran. — Achmad Nur Hidayat, UPN Veteran Jakarta</div>
+<p>Ekonom lain menilai sentralisasi tidak otomatis mendongkrak harga maupun penerimaan negara. Indonesia memang dominan sebagai eksportir batu bara, tetapi pembeli utama seperti China dan India memiliki alternatif pasokan, sehingga tidak bisa dipaksa membeli dengan harga lebih tinggi. Tambahan penerimaan negara yang realistis, menurut argumen ini, lebih mungkin datang dari perbaikan pencatatan volume dan pengetatan transaksi afiliasi ketimbang dari sekadar mengubah mekanisme penjualan melalui eksportir tunggal.</p>
+<div class="box-amber"><strong>Pelajaran model NOC.</strong> Eksportir tunggal milik negara terbukti efektif menjaga kontrol penerimaan pada model <em>National Oil Company</em> (Saudi Aramco, QatarEnergy, Kuwait). Bedanya, minyak adalah komoditas terkonsentrasi dan relatif homogen; CPO, batu bara, dan feronikel Indonesia tersebar di ratusan eksportir swasta dengan grade beragam dan kontrak jangka panjang. Kontrol negara bisa menaikkan penerimaan — tetapi hanya jika kapasitas operasional dan kejelasan aturan memadai.</div>
 
-  <!-- SECTION 4 -->
-  <div class="gfs-section">
-    <div class="gfs-section-eyebrow">04 — Data Komoditas</div>
-    <h2 class="gfs-section-title">Tiga Pilar Ekspor yang Dikonsolidasi</h2>
-    <p class="gfs-section-lead">Tiga komoditas tahap pertama bukan pilihan acak: ketiganya adalah tulang punggung ekspor nonmigas. Berdasarkan data BPS sepanjang 2025, nilai ekspor CPO dan turunannya mencapai US$24,42 miliar (naik 21,83%), batu bara US$24,48 miliar (turun 19,70% dari US$30,49 miliar pada 2024), dan besi-baja US$27,97 miliar (naik 8,41%). Secara kumulatif, ketiganya berkisar US$63 miliar, atau sekitar 23% total ekspor nasional.</p>
+<h2 id="s11">11. Tiga Skenario Kualitatif</h2>
+<p>Skenario berikut bersifat kondisional atas kualitas eksekusi kebijakan hingga implementasi penuh 1 Januari 2027 — bukan prediksi, bukan rekomendasi. Tiap skenario menyertakan indikator yang dapat dipantau.</p>
+<h3>Base — Transisi Bertahap (paling mungkin)</h3>
+<p><strong>Asumsi:</strong> Permendag teknis terbit bertahap; skema pelaporan dan hibrida berjalan dengan friksi terbatas; klasifikasi komoditas diperjelas sebelum 2027. <strong>Implikasi:</strong> capture DHE dan transparansi membaik perlahan; emiten menyesuaikan kontrak; disrupsi ekspor minimal; <em>policy-risk premium</em> mereda seiring kejelasan aturan. <strong>Pantau:</strong> terbitnya Permendag &amp; mekanisme biaya/kurs, kelancaran arus PEB, kenaikan DHE onshore secara bertahap.</p>
+<h3>Best — Eksekusi Rapi (upside)</h3>
+<p><strong>Asumsi:</strong> platform digital andal dan tepat waktu; DSI menjelma <em>trading house</em> profesional; kebocoran/misinvoicing ditutup; ketertelusuran memenuhi EUDR/CBAM. <strong>Implikasi:</strong> DHE dan cadangan devisa menguat; rupiah lebih stabil; akses pasar Uni Eropa terbuka dengan premium; daya tawar harga naik; emiten yang patuh dan efisien diuntungkan. <strong>Pantau:</strong> lonjakan DHE onshore, kelancaran sertifikasi EUDR/CBAM untuk CPO, tidak ada penumpukan ekspor di pelabuhan.</p>
+<h3>Worst — Simpul Baru (downside / tail risk)</h3>
+<p><strong>Asumsi:</strong> aturan tetap abu-abu; biaya perantara dan risiko kurs membebani; sentralisasi menciptakan bottleneck administratif; eksekusi mendahului kesiapan sistem; muncul perilaku rente. <strong>Implikasi:</strong> ekspor tertunda, kontrak batal atau pindah ke pemasok negara lain; margin emiten tertekan; <em>policy-risk premium</em> naik sehingga outflow berlanjut dan rupiah tertekan. <strong>Pantau:</strong> antrean PEB dan biaya demurrage, penurunan volume ekspor atau diskon harga jual, pelebaran foreign outflow dan CDS.</p>
 
-    <div class="gfs-grid-2">
-      <div class="mk-chartcard">
-        <h4>Nilai Ekspor: 2024 vs 2025 (US$ miliar)</h4>
-        <div class="mk-sub">CPO &amp; besi-baja naik, batu bara turun · Sumber: BPS</div>
-        <svg class="mk-chart-svg" viewBox="0 0 520 250" id="chart-cmp" preserveAspectRatio="xMidYMid meet"></svg>
-      </div>
-      <div class="mk-chartcard">
-        <h4>Harga Batu Bara Acuan 2026 (US$/ton)</h4>
-        <div class="mk-sub">Volatil sejak awal tahun · Sumber: data pasar global</div>
-        <svg class="mk-chart-svg" viewBox="0 0 520 250" id="chart-coal" preserveAspectRatio="xMidYMid meet"></svg>
-      </div>
-    </div>
+<h2 id="s12">12. Variabel Penentu &amp; Catatan Penutup</h2>
+<p>Niat menutup kebocoran devisa sah dan didukung banyak pihak — yang diuji adalah alat dan eksekusinya. Dari seluruh pembahasan, jalur mana yang akhirnya terwujud bergantung pada tiga variabel penentu.</p>
+<p><strong>Pertama, kejelasan dan ketepatan waktu aturan teknis</strong> — Permendag, klasifikasi komoditas turunan, serta mekanisme biaya dan denominasi mata uang. <strong>Kedua, kesiapan platform digital dan kapasitas operasional DSI</strong> sebagai trading house sebelum 1 Januari 2027; sebuah entitas yang baru berdiri pada Mei 2026 harus membangun kapabilitas dagang kelas dunia dalam waktu singkat. <strong>Ketiga, posisi DSI</strong> — apakah menjadi pengawas yang menutup kebocoran, atau pelaku dagang yang menambah lapisan biaya. Tarik-menarik "no-margin" versus "profit for profit" belum tuntas, dan jawabannya akan menentukan dampak ke arus kas emiten.</p>
+<div class="box-red"><strong>Disclaimer.</strong> Catatan ini bersifat informatif dan edukatif. Tidak memuat rekomendasi beli/jual, target harga, maupun saran investasi atas instrumen apa pun. Nama emiten disebut semata sebagai ilustrasi paparan ekspor, bukan saran. Skenario base/best/worst adalah kerangka kondisional untuk menalar risiko kebijakan, bukan ramalan. Keputusan investasi sepenuhnya tanggung jawab pembaca.</div>
 
-    <table class="gfs-table" style="margin-top:16px">
-      <thead><tr><th>Komoditas (2025)</th><th style="text-align:right">Nilai (US$ M)</th><th style="text-align:right">Δ yoy</th><th style="text-align:right">Volume</th><th>Catatan</th></tr></thead>
-      <tbody>
-        <tr><td>CPO &amp; turunannya</td><td style="text-align:right;font-family:'IBM Plex Mono',monospace">24,42</td><td style="text-align:right;color:#15803d">+21,83%</td><td style="text-align:right">23,61 jt ton</td><td>Permintaan India &amp; Tiongkok membaik</td></tr>
-        <tr><td>Batu bara</td><td style="text-align:right;font-family:'IBM Plex Mono',monospace">24,48</td><td style="text-align:right;color:#dc2626">−19,70%</td><td style="text-align:right">390,3 jt ton</td><td>Turun dari US$30,49 M (2024); harga volatil</td></tr>
-        <tr><td>Besi &amp; baja (incl. feronikel)</td><td style="text-align:right;font-family:'IBM Plex Mono',monospace">27,97</td><td style="text-align:right;color:#15803d">+8,41%</td><td style="text-align:right">23,26 jt ton</td><td>Didorong hilirisasi logam</td></tr>
-        <tr class="totalrow"><td><strong>Total 3 komoditas (cakupan: feronikel)</strong></td><td style="text-align:right;font-family:'IBM Plex Mono',monospace"><strong>±63</strong></td><td style="text-align:right"><strong>—</strong></td><td style="text-align:right"><strong>—</strong></td><td><strong>±23% total ekspor nasional</strong></td></tr>
-      </tbody>
-    </table>
-    <div class="mk-srcline" style="margin-top:6px">Catatan: data kumulatif Januari–September 2025 (BPS) menunjukkan ekspor CPO &amp; turunannya US$18,14 miliar (+32,40%, 17,58 jt ton) dan batu bara US$17,94 miliar (−20,85%, 285,23 jt ton); angka di tabel adalah agregat setahun penuh 2025. Nilai besi-baja adalah agregat HS72; cakupan kebijakan tahap awal pada subkategori feronikel/ferro alloy.</div>
-  </div>
+<div class="box-neutral"><strong>Sumber.</strong> Pidato Presiden Prabowo pada Rapat Paripurna DPR (KEM-PPKF RAPBN 2027), 20 Mei 2026; BPS (nilai &amp; volume ekspor 2024–2025); Kemenko Perekonomian (Airlangga Hartarto), Kemenkeu (Purbaya Yudhi Sadewa), Kemendag, Kementerian ESDM (Wamen Yuliot Tanjung); BPI Danantara (Rosan Roeslani, Pandu Sjahrir, Dony Oskaria); SK pendirian AHU-0039765.AH.01.01.Tahun 2026; analis BRI Danareksa Sekuritas (Abida Massi Armand), Mirae Asset Sekuritas, RHB Sekuritas (Muhammad Fatah Al Falah); ekonom Achmad Nur Hidayat (UPN Veteran Jakarta); pernyataan emiten via pengumuman BEI. Komentar pihak ketiga dikutip sebagai perspektif, bukan posisi Avenir Research.</div>
 
-  <!-- SECTION 5 -->
-  <div class="gfs-section">
-    <div class="gfs-section-eyebrow">05 — Reaksi Pasar</div>
-    <h2 class="gfs-section-title">Saham Komoditas Tertekan, Pelaku Pasar Wait-and-See</h2>
-    <p class="gfs-section-lead">Pasar modal merespons cepat dan negatif. Begitu kebijakan diumumkan pada 20 Mei 2026, saham emiten dengan eksposur ekspor tinggi langsung terkoreksi. Pada penutupan hari itu, saham PT Bayan Resources (BYAN) turun 2,18% ke Rp11.200 dan PT Alamtri Resources Indonesia (ADRO) melemah 4,29% ke Rp2.230. Sehari setelahnya, koreksi meluas: PT Bukit Asam (PTBA) sempat terpangkas 3,9% dan PT Indo Tambangraya Megah (ITMG) mengalami koreksi terdalam sekitar 5,1%, dengan sebagian emiten bahkan menyentuh Auto Reject Bawah (ARB).</p>
-
-    <p>Yang paling rentan adalah emiten dengan porsi ekspor besar. Berdasarkan data Mirae Asset Sekuritas, porsi ekspor PT Adaro Andalan Indonesia (AADI) mencapai 77%, PT Indo Tambangraya Megah (ITMG) 85%, dan PT Dian Swastatika Sentosa (DSSA) 63%. Di sektor CPO, emiten dengan eksposur ekspor terbesar antara lain PT Sinar Mas Agro Resources and Technology (SMAR), PT Sawit Sumbermas Sarana (SSMS), dan PT Astra Agro Lestari (AALI). Di sektor nikel, analis menyoroti PT Trimegah Bangun Persada (NCKL) yang memiliki hubungan penjualan dengan Glencore. Emiten yang penjualannya dominan di pasar domestik dinilai relatif lebih aman.</p>
-
-    <div class="gfs-callout"><strong>Tiga risiko yang dikhawatirkan pasar.</strong> Analis BRI Danareksa Sekuritas Abida Massi Armand merinci tiga sumber tekanan bagi emiten batu bara: <strong>(1)</strong> tekanan harga jual rata-rata (ASP) akibat hilangnya fleksibilitas negosiasi langsung dengan pembeli premium; <strong>(2)</strong> risiko selisih kurs bila transaksi melalui DSI didenominasi rupiah sementara pasar batu bara memakai dolar AS; dan <strong>(3)</strong> potensi biaya tambahan (<em>counterparty cost</em>) dari skema perantara yang belum jelas dan berpotensi memangkas margin yang sudah tipis. Ketidakpastian regulasi ini menciptakan <em>risk premium</em> yang menekan valuasi.</div>
-
-    <p>Emiten sendiri memilih menahan diri. Dalam pengumuman di BEI, produsen CPO seperti SMAR, PT Dharma Satya Nusantara (DSNG), dan PT Mahkota Group (MGRO) menyatakan masih memantau perkembangan dan menunggu finalisasi regulasi. Wakil Direktur Utama SMAR Gianto Widjaja menyebut perseroan memahami pemerintah berencana menerbitkan regulasi tata kelola ekspor komoditas strategis termasuk produk sawit. Retail Analyst RHB Sekuritas Muhammad Fatah Al Falah menggambarkan pelaku pasar cenderung mengambil sikap <em>wait and see</em>.</p>
-
-    <p>Sentimen sempat membaik begitu pasar menyerap kabar penundaan ke 2027: pada salah satu sesi setelahnya, ITMG dan BYAN tercatat menguat dan IHSG sempat naik tipis, menandakan tekanan awal lebih bersifat reaksi kejut atas ketidakpastian ketimbang penilaian final atas dampak fundamental. Sejumlah analis menilai, jika dikelola efektif, konsolidasi pemasaran bisa memperkuat posisi tawar Indonesia secara kolektif dan mengakhiri perang harga antar-eksportir domestik — dengan catatan eksekusinya rapi.</p>
-  </div>
-
-  <!-- SECTION 6 -->
-  <div class="gfs-section">
-    <div class="gfs-section-eyebrow">06 — Kerangka Tiga Lensa</div>
-    <h2 class="gfs-section-title">Manfaat · Risiko Eksekusi · Pasar</h2>
-    <p class="gfs-section-lead">Kerangka kami menilai kebijakan ini lewat tiga lensa. Lensa 1 menimbang tujuan struktural; Lensa 2 menguji alatnya (sentralisasi penuh vs sekadar pengawasan); Lensa 3 membaca implikasi pasar. Niat menutup kebocoran sah dan didukung banyak pihak — yang diuji adalah alat dan eksekusinya.</p>
-
-    <div class="gfs-grid-3">
-      <div class="gfs-card" style="border-top:3px solid #10b981">
-        <div class="gfs-section-eyebrow" style="color:#10b981">Lensa 1 · Manfaat</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;margin:6px 0 10px;color:#0f172a">Transparansi &amp; Devisa</h3>
-        <p style="font-size:14px;line-height:1.7;color:#374151;margin:0 0 8px">Konsolidasi data harga/volume/invoice; target DHE kembali penuh ke perbankan domestik; sistem ketertelusuran nasional untuk memenuhi EUDR &amp; CBAM; potensi naik dari <em>price taker</em> ke <em>price setter</em>; serta peluang mengakhiri perang harga antar-eksportir domestik.</p>
-        <span class="mk-pill mk-up">Tujuan struktural</span>
-      </div>
-      <div class="gfs-card" style="border-top:3px solid #dc2626">
-        <div class="gfs-section-eyebrow" style="color:#dc2626">Lensa 2 · Risiko</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;margin:6px 0 10px;color:#0f172a">Risiko Eksekusi</h3>
-        <p style="font-size:14px;line-height:1.7;color:#374151;margin:0 0 8px">Aturan teknis masih "abu-abu"; biaya perantara &amp; risiko kurs belum jelas; potensi bottleneck &amp; ekspor melambat; gangguan kontrak berjalan; risiko "pintu rente baru" bila BUMN tidak transparan; serta tantangan membangun kapabilitas <em>trading house</em> kelas dunia dalam waktu singkat.</p>
-        <span class="mk-pill mk-down">Ujian implementasi</span>
-      </div>
-      <div class="gfs-card" style="border-top:3px solid #FB7C2A">
-        <div class="gfs-section-eyebrow">Lensa 3 · Pasar</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;margin:6px 0 10px;color:#0f172a">Pasar &amp; Emiten</h3>
-        <p style="font-size:14px;line-height:1.7;color:#374151;margin:0 0 8px">Saham komoditas tertekan &amp; pelaku pasar <em>wait-and-see</em>; emiten ekspor-tinggi (AADI 77%, ITMG 85%, DSSA 63%) paling rentan; emiten domestik relatif aman. Analis menilai pemain berbiaya rendah &amp; berneraca kuat lebih tahan.</p>
-        <span class="mk-pill" style="background:#fff7ed;color:#b45309">Sentimen kebijakan</span>
-      </div>
-    </div>
-
-    <div class="gfs-callout gfs-callout-blue" style="margin-top:18px"><strong>Suara ekonom.</strong> Ekonom UPN Veteran Jakarta Achmad Nur Hidayat mengingatkan kebijakan ini "bisa menjadi alat kedaulatan ekonomi, tetapi juga bisa menjadi pintu rente baru jika BUMN tidak transparan, tidak profesional, dan tidak diawasi secara ketat." Ia menekankan DSI tidak boleh sekadar "meja baru untuk stempel dan komisi", melainkan harus menjadi <em>trading house</em> canggih yang menguasai harga global, kontrak internasional, manajemen risiko, pembiayaan, logistik, dan kepastian pembayaran. Ekonom lain menilai sentralisasi tidak otomatis mendongkrak harga maupun penerimaan: Indonesia memang dominan, tetapi pembeli utama seperti China dan India punya alternatif. Tambahan penerimaan yang realistis lebih mungkin datang dari perbaikan pencatatan volume dan pengetatan transaksi afiliasi ketimbang dari perubahan mekanisme penjualan itu sendiri.</div>
-
-    <div class="gfs-callout"><strong>Pelajaran model NOC.</strong> Eksportir tunggal milik negara terbukti efektif menjaga kontrol penerimaan pada model <em>National Oil Company</em> (Saudi Aramco, QatarEnergy, Kuwait). Bedanya, minyak adalah komoditas terkonsentrasi dan relatif homogen; CPO, batu bara, dan feronikel Indonesia tersebar di ratusan eksportir swasta dengan grade beragam dan kontrak jangka panjang. Kontrol negara bisa menaikkan penerimaan — tetapi hanya jika kapasitas operasional dan kejelasan aturan memadai.</div>
-  </div>
-
-  <!-- SECTION 7 -->
-  <div class="gfs-section">
-    <div class="gfs-section-eyebrow">07 — Skenario Implementasi</div>
-    <h2 class="gfs-section-title">Base · Best · Worst</h2>
-    <p class="gfs-section-lead">Skenario berikut bersifat kondisional atas kualitas eksekusi kebijakan hingga implementasi penuh 1 Januari 2027 — bukan prediksi, bukan rekomendasi. Tiap skenario menyertakan indikator yang dapat dipantau untuk mengonfirmasi jalur yang sedang berlangsung.</p>
-
-    <div class="gfs-grid-3">
-      <div class="gfs-card" style="border-top:3px solid #FB7C2A">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="mk-pill" style="background:#fff7ed;color:#b45309">BASE</span><span style="font-size:11px;color:#6b7280">paling mungkin</span></div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;margin:2px 0 8px;color:#0f172a">Transisi Bertahap</h3>
-        <p style="font-size:13.5px;line-height:1.65;color:#374151;margin:0 0 4px"><strong>Asumsi:</strong> Permendag teknis terbit bertahap; skema pelaporan &amp; hibrida berjalan dengan friksi terbatas; klasifikasi komoditas diperjelas sebelum 2027.</p>
-        <p style="font-size:13.5px;line-height:1.65;color:#374151;margin:0"><strong>Implikasi:</strong> capture DHE &amp; transparansi membaik perlahan; emiten menyesuaikan kontrak; disrupsi ekspor minimal; <em>policy-risk premium</em> mereda seiring kejelasan aturan.</p>
-        <ul class="mk-watch">
-          <li>Permendag &amp; mekanisme biaya/kurs terbit jelas</li>
-          <li>Arus PEB lancar, tanpa antrean</li>
-          <li>DHE onshore naik bertahap</li>
-        </ul>
-      </div>
-      <div class="gfs-card" style="border-top:3px solid #10b981">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="mk-pill mk-up">BEST</span><span style="font-size:11px;color:#6b7280">upside</span></div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;margin:2px 0 8px;color:#0f172a">Eksekusi Rapi</h3>
-        <p style="font-size:13.5px;line-height:1.65;color:#374151;margin:0 0 4px"><strong>Asumsi:</strong> platform digital andal &amp; tepat waktu; DSI menjelma <em>trading house</em> profesional; kebocoran/misinvoicing ditutup; ketertelusuran memenuhi EUDR/CBAM.</p>
-        <p style="font-size:13.5px;line-height:1.65;color:#374151;margin:0"><strong>Implikasi:</strong> DHE &amp; cadangan devisa menguat; rupiah lebih stabil; akses pasar UE terbuka (premium); daya tawar harga naik; emiten patuh &amp; efisien diuntungkan.</p>
-        <ul class="mk-watch">
-          <li>DHE onshore naik signifikan</li>
-          <li>Sertifikasi EUDR/CBAM lancar untuk CPO</li>
-          <li>Tidak ada penumpukan ekspor di pelabuhan</li>
-        </ul>
-      </div>
-      <div class="gfs-card" style="border-top:3px solid #dc2626">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="mk-pill mk-down">WORST</span><span style="font-size:11px;color:#6b7280">downside / tail risk</span></div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;margin:2px 0 8px;color:#0f172a">Simpul Baru</h3>
-        <p style="font-size:13.5px;line-height:1.65;color:#374151;margin:0 0 4px"><strong>Asumsi:</strong> aturan tetap abu-abu; biaya perantara &amp; risiko kurs membebani; sentralisasi menciptakan bottleneck; eksekusi mendahului kesiapan sistem; muncul perilaku rente.</p>
-        <p style="font-size:13.5px;line-height:1.65;color:#374151;margin:0"><strong>Implikasi:</strong> ekspor tertunda, kontrak pindah ke pemasok negara lain; margin emiten tertekan; <em>policy-risk premium</em> naik → outflow lanjut &amp; tekanan rupiah.</p>
-        <ul class="mk-watch">
-          <li>Antrean PEB &amp; biaya demurrage naik</li>
-          <li>Volume ekspor turun / diskon harga jual</li>
-          <li>Foreign outflow &amp; CDS melebar</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="gfs-callout gfs-callout-blue" style="margin-top:20px"><strong>Variabel penentu.</strong> Jalur mana yang terwujud bergantung pada tiga hal: <strong>(1)</strong> kejelasan &amp; ketepatan waktu aturan teknis (Permendag, klasifikasi komoditas, mekanisme biaya &amp; denominasi mata uang); <strong>(2)</strong> kesiapan platform digital &amp; kapasitas operasional DSI sebelum 1 Januari 2027; dan <strong>(3)</strong> posisi DSI — pengawas yang menutup kebocoran, atau pelaku dagang yang menambah lapisan biaya. Pantau ketiganya sebelum menyimpulkan.</div>
-  </div>
-
-  <!-- SOURCES -->
-  <div class="gfs-section">
-    <div class="gfs-section-eyebrow">Metodologi &amp; Sumber</div>
-    <h2 class="gfs-section-title">Catatan Data</h2>
-    <div class="gfs-grid-2">
-      <div class="gfs-card">
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:19px;margin:0 0 8px;color:#0f172a">Sumber primer</h3>
-        <p style="font-size:13.5px;line-height:1.7;color:#374151;margin:0">Pidato Presiden Prabowo Subianto pada Rapat Paripurna DPR (KEM-PPKF RAPBN 2027), 20 Mei 2026 · BPS — nilai &amp; volume ekspor komoditas 2024–2025 · Kemenko Perekonomian (Airlangga Hartarto), Kemenkeu (Purbaya Yudhi Sadewa), Kemendag, Kementerian ESDM (Wamen Yuliot Tanjung) · BPI Danantara (Rosan Roeslani, Pandu Sjahrir, Dony Oskaria) · SK pendirian AHU-0039765.AH.01.01.Tahun 2026.</p>
-      </div>
-      <div class="gfs-card">
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:19px;margin:0 0 8px;color:#0f172a">Komentar pihak ketiga</h3>
-        <p style="font-size:13.5px;line-height:1.7;color:#374151;margin:0">Analis pasar: BRI Danareksa Sekuritas (Abida Massi Armand), Mirae Asset Sekuritas, RHB Sekuritas (Muhammad Fatah Al Falah). Ekonom: Achmad Nur Hidayat (UPN Veteran Jakarta). Pernyataan emiten (SMAR/Gianto Widjaja, DSNG, MGRO) via pengumuman BEI. Dikutip sebagai perspektif pihak ketiga — bukan posisi Avenir Research; nama emiten disebut sebagai ilustrasi paparan ekspor, bukan saran beli/jual.</p>
-      </div>
-    </div>
-    <div class="gfs-callout gfs-callout-red" style="margin-top:18px"><strong>Disclaimer.</strong> Catatan ini bersifat informatif dan edukatif. Tidak memuat rekomendasi beli/jual, target harga, maupun saran investasi atas instrumen apa pun. Skenario base/best/worst adalah kerangka kondisional untuk menalar risiko kebijakan, bukan ramalan. Keputusan investasi sepenuhnya tanggung jawab pembaca.</div>
-  </div>
-  </div>
 </div>
 
 <script>
