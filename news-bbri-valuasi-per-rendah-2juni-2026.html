@@ -6,17 +6,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Avenir Research</title>
+<title>Valuasi BBRI Tertekan ke PER 7,64x, Di Bawah Rata-Rata 10 Tahun | Avenir News</title>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Avenir Research">
-<meta property="og:title" content="News & Market Update — Avenir Research">
-<meta property="og:description" content="Berita pasar terkini dan update riset dari Avenir Research.">
-<meta property="og:url" content="https://avenirresearch.app/news">
+<meta property="og:title" content="Valuasi BBRI ke PER 7,64x, Di Bawah Rata-Rata 10 Tahun | Avenir News">
+<meta property="og:description" content="Saham BBRI jadi sorotan: PER turun ke 7,64x — di bawah −1 SD rata-rata 10 tahun (9,92x). Saham terkoreksi 16,12% YTD dan 28,94% dalam setahun, namun performa 10 tahun tetap +53,50%. Valuasi murah secara historis, bukan jaminan arah harga.">
+<meta property="og:url" content="https://researchavenir.com/news-bbri-valuasi-per-rendah-2juni-2026">
 <meta property="og:image" content="https://avenirresearch.app/og-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="News & Market Update — Avenir Research">
-<meta name="twitter:description" content="Berita pasar terkini dan update riset dari Avenir Research.">
-<meta name="description" content="Berita pasar terkini dan update riset dari Avenir Research.">
+<meta name="twitter:title" content="Valuasi BBRI ke PER 7,64x, Di Bawah Rata-Rata 10 Tahun | Avenir News">
+<meta name="twitter:description" content="BBRI PER 7,64x (di bawah −1SD 10thn 9,92x). YTD −16%, 1thn −29%, 10thn +53,5%. Valuasi murah historis, bukan rekomendasi.">
+<meta name="description" content="Saham BBRI jadi sorotan: PER turun ke 7,64x — di bawah −1 SD rata-rata 10 tahun (9,92x). Saham terkoreksi 16,12% YTD dan 28,94% dalam setahun, namun performa 10 tahun tetap +53,50%. Valuasi murah secara historis, bukan jaminan arah harga.">
 
 <style>
 
@@ -2757,6 +2757,11 @@ text-shadow: none;
   .cnt { padding-left: 18px !important; padding-right: 18px !important; }
   .idx-hero { padding-left: 18px !important; padding-right: 18px !important; }
 }
+
+.art-photo-fig { margin:36px 0; }
+.art-photo-fig img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:10px; display:block; }
+.art-photo-fig figcaption { font-size:12px; color:#6b7280; text-align:center; margin-top:10px; line-height:1.5; font-style:italic; }
+@media(max-width:640px) { .art-photo-fig img { aspect-ratio:4/3; } }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -2818,11 +2823,6 @@ body > nav, body > .nav-global { flex-shrink: 0; }
 body > .page { flex: 1 0 auto; }
 body > .footer-spacer { flex: 0 0 auto; }
 body > footer { flex-shrink: 0; margin-top: auto; }
-
-@media (max-width: 600px) {
-  
-  
-}
 
 .auth-trial-banner { display: flex; gap: 10px; align-items: center; background: var(--grn-gl, rgba(27,107,58,.07)); border: 1px solid rgba(27,107,58,.2); border-radius: 8px; padding: 10px 14px; margin: 10px 0 18px; }
 .auth-trial-icon { font-size: 22px; line-height: 1; }
@@ -2990,6 +2990,250 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   display: none !important;
 }
 </style>
+
+
+
+<style>
+/* ═══ AVENIR GUEST LOCK — blur overlay pattern (sama dengan katalog/artikel lama) ═══ */
+
+/* Wrapper */
+.guest-lock-wrap {
+  position: relative;
+  min-height: 600px;
+}
+
+/* Default: no lock effect */
+.guest-lock-content {
+  filter: none;
+  pointer-events: auto;
+  user-select: auto;
+}
+
+/* Hide overlay by default — only show if .is-guest active */
+.guest-lock-overlay {
+  display: none;
+}
+
+/* Anti-flash: hide overlay sampai auth state resolved */
+body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .guest-lock-overlay,
+body:not(.auth-state-user):not(.auth-state-guest) .guest-lock-wrap.is-guest .guest-lock-content {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* GUEST LOCKED STATE — blur konten + show overlay */
+.guest-lock-wrap.is-guest .guest-lock-content {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+  max-height: 700px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 60px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 30%, #ffffff 60%);
+  z-index: 100;
+}
+
+/* Overlay card content */
+.gl-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.gl-title {
+  font-family: 'Cormorant Garamond', 'Fraunces', Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  max-width: 600px;
+}
+
+.gl-sub {
+  font-size: 15px;
+  color: #4b5563;
+  line-height: 1.65;
+  margin-bottom: 16px;
+  max-width: 560px;
+}
+
+.gl-price {
+  display: inline-block;
+  padding: 10px 20px;
+  background: rgba(27,107,58,0.06);
+  border: 1px solid rgba(27,107,58,0.18);
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: #14532d;
+  margin-bottom: 24px;
+}
+
+.gl-price strong {
+  color: #14532d;
+  font-weight: 700;
+}
+
+.gl-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.gl-btn-primary,
+.gl-btn-secondary {
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  letter-spacing: .02em;
+  transition: all .2s;
+  border: none;
+  font-family: inherit;
+}
+
+.gl-btn-primary {
+  background: #1B6B3A;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(27,107,58,0.2);
+}
+
+.gl-btn-primary:hover {
+  background: #14532d;
+  transform: translateY(-1px);
+}
+
+.gl-btn-secondary {
+  background: #fff;
+  color: #1B6B3A;
+  border: 1.5px solid #1B6B3A;
+}
+
+.gl-btn-secondary:hover {
+  background: rgba(27,107,58,0.04);
+}
+
+.gl-link {
+  font-size: 12.5px;
+  color: #6b7280;
+}
+
+.gl-link a {
+  color: #1B6B3A;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .gl-title { font-size: 26px; }
+  .gl-sub { font-size: 14px; }
+  .gl-price { font-size: 12.5px; padding: 8px 14px; }
+  .gl-btn-primary, .gl-btn-secondary { padding: 12px 20px; font-size: 13px; width: 100%; }
+  .gl-actions { flex-direction: column; }
+}
+</style>
+<style>
+/* ═══ AVENIR GUEST LOCK OVERRIDE — overlay HIDDEN if not guest locked ═══ */
+.guest-lock-overlay {
+  display: none !important;
+}
+.guest-lock-wrap.is-guest .guest-lock-overlay {
+  display: flex !important;
+}
+</style>
+<style>
+/* ═══ AVENIR OVERLAY FIX — proper centered overlay for desktop & mobile ═══ */
+.guest-lock-wrap {
+  position: relative !important;
+  min-height: 600px !important;
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 60px 24px !important;
+  text-align: center !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 30%, #ffffff 60%) !important;
+  z-index: 100 !important;
+  box-sizing: border-box !important;
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay > * {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 600px !important;
+  width: auto !important;
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay .gl-icon {
+  font-size: 48px !important;
+  margin: 0 auto 16px !important;
+  text-align: center !important;
+  display: block !important;
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay .gl-title {
+  font-size: 32px !important;
+  text-align: center !important;
+  margin: 0 auto 12px !important;
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay .gl-sub {
+  text-align: center !important;
+  margin: 0 auto 16px !important;
+}
+
+.guest-lock-wrap.is-guest .guest-lock-overlay .gl-actions {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 auto 16px !important;
+}
+
+@media (max-width: 600px) {
+  .guest-lock-wrap.is-guest .guest-lock-overlay .gl-title {
+    font-size: 24px !important;
+  }
+  .guest-lock-wrap.is-guest .guest-lock-overlay .gl-actions {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .guest-lock-wrap.is-guest .guest-lock-overlay .gl-btn-primary,
+  .guest-lock-wrap.is-guest .guest-lock-overlay .gl-btn-secondary {
+    width: 100% !important;
+  }
+}
+</style>
 </head>
 <body>
 <script>
@@ -3008,8 +3252,10 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   }
 })();
 </script>
+
 <!-- ▶ avenir-nav-mount: di-render oleh nav-avenir.js -->
 <div id="avenir-nav-mount"></div>
+
 <style>
   .nav-link { padding:6px 11px; border-radius:6px; text-decoration:none; color:#4b5563; font-size:12.5px; font-weight:600; transition:all .15s; }
   .nav-link:hover { background:#f3f4f6; color:#1B6B3A; }
@@ -3051,978 +3297,122 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   }
   }
 </style>
-<div class="auth-overlay" id="auth-overlay" style="display:none" onclick="AUTH.closeOutside(event)">
- <div class="auth-box">
-  <button class="auth-close" onclick="AUTH.close()">✕</button>
 
-  <!-- LOGIN -->
-  <div class="auth-view active" id="auth-login">
-   <h3>Selamat Datang</h3>
-   <p class="auth-sub">Masuk untuk mengakses riset yang sudah Anda beli</p>
-   <div class="auth-err" id="login-err"></div>
-   <div class="auth-fg"><label>EMAIL</label><input type="email" id="l-email" placeholder="email@anda.com" autocomplete="email"></div>
-   <div class="auth-fg"><label>PASSWORD</label><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password"></div>
-   <button class="auth-submit grn" onclick="AUTH.login()">Masuk →</button>
-   <div class="auth-sep">Belum punya akun?</div>
-   <button class="auth-submit" style="background:transparent;border:1px solid var(--bd);color:var(--t2);font-weight:600;padding:11px;border-radius:50px;width:100%;cursor:pointer;font-family:inherit" onclick="AUTH.show('register')">Daftar Gratis</button>
-   <div style="border-top:1px solid var(--bd);margin:20px 0 14px"></div>
-   <div style="text-align:center;font-size:11.5px;color:var(--t3);margin-bottom:10px;letter-spacing:.04em">ANDA ANALIS PROFESIONAL?</div>
-   <button class="auth-submit" style="background:#854d0e;color:#fff;border:1px solid #854d0e;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;width:100%;cursor:pointer;font-family:inherit;margin-bottom:8px" onclick="AUTH.show('login-mitra')">LOGIN SEBAGAI MITRA →</button>
-   <a href="daftar-mitra.html" style="display:block;text-align:center;background:#fef9c3;color:#854d0e;border:1px solid #fde68a;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase">DAFTAR SEBAGAI MITRA →</a>
+<!-- ▶ auth modal: di-handle nav-avenir.js -->
+<div id="page-news-bbri-valuasi-per-rendah-2juni-2026" class="page" style="display:block">
+<div class="guest-lock-wrap">
+<div class="guest-lock-content">
+
+<style>
+/* ── News Page — Article Styles ── */
+.art-page { max-width:780px; margin:0 auto; padding:40px 24px 80px; }
+.art-label { display:inline-block; background:#1B6B3A; color:#fff; font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:4px 10px; border-radius:4px; margin-bottom:18px; }
+.art-title { font-family:'Cormorant Garamond',Georgia,serif; font-size:clamp(30px,5vw,50px); font-weight:600; line-height:1.08; color:#0f172a; margin:0 0 16px; letter-spacing:-.02em; }
+.art-deck { font-size:17px; line-height:1.7; color:#374151; margin:0 0 24px; font-weight:400; border-left:3px solid #1B6B3A; padding-left:16px; }
+.art-meta { display:flex; flex-wrap:wrap; gap:8px 24px; font-size:12px; color:#6b7280; padding-bottom:20px; border-bottom:1px solid #e5e7eb; margin-bottom:32px; }
+.art-meta strong { color:#374151; }
+.art-hero { width:100%; aspect-ratio:16/7; object-fit:cover; border-radius:12px; margin-bottom:36px; background:#0f172a; }
+.art-body { font-size:16px; line-height:1.85; color:#1f2937; }
+.art-body p { margin:0 0 20px; }
+.art-body h2 { font-family:'Cormorant Garamond',Georgia,serif; font-size:28px; font-weight:600; color:#0f172a; margin:48px 0 14px; padding-top:8px; border-top:2px solid #f3f4f6; }
+.art-body h3 { font-size:17px; font-weight:700; color:#0f172a; margin:32px 0 10px; }
+.art-body strong { color:#0f172a; }
+.art-callout { background:#f0fdf4; border-left:4px solid #1B6B3A; padding:16px 20px; border-radius:0 10px 10px 0; margin:24px 0; font-size:14.5px; line-height:1.75; color:#14532d; }
+.art-callout-amber { background:#fffbeb; border-left-color:#d97706; color:#78350f; }
+.art-callout-blue { background:#eff6ff; border-left-color:#1e40af; color:#1e3a8a; }
+.art-table { width:100%; border-collapse:collapse; font-size:13.5px; table-layout:auto; border:2px solid #0f172a; }
+.art-table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:20px 0 28px; border:2px solid #0f172a; border-radius:8px; background:#fff; }
+.art-table-wrap .art-table { margin:0; width:max-content; min-width:100%; border:0; }
+.art-table th { background:#0f172a; color:#fff; padding:11px 13px; text-align:left; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; border:1px solid #334155; }
+.art-table td { padding:11px 13px; border:1px solid #d8cfc0; color:#374151; vertical-align:top; }
+.art-table tr:nth-child(even) td { background:#fafaf7; }
+.art-table tr.art-hl td { background:#f0fdf4; font-weight:600; color:#14532d; }
+.art-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; margin:28px 0; }
+.art-stat { background:#0f172a; color:#fff; border-radius:10px; padding:18px; text-align:center; }
+.art-stat .sv { font-family:'IBM Plex Mono',monospace; font-size:22px; font-weight:700; color:#4ade80; margin-bottom:4px; }
+.art-stat .sl { font-size:11px; color:#94a3b8; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+.art-toc { background:#fafaf7; border:1px solid #e5e7eb; border-radius:10px; padding:20px 24px; margin:28px 0; }
+.art-toc h4 { font-size:11px; font-weight:700; letter-spacing:.1em; color:#6b7280; text-transform:uppercase; margin:0 0 12px; }
+.art-toc ol { margin:0; padding-left:20px; font-size:14px; line-height:1.9; color:#374151; }
+.art-toc ol li a { color:#1B6B3A; text-decoration:none; font-weight:500; }
+.art-sources { font-size:12px; line-height:1.8; color:#6b7280; margin-top:48px; padding-top:24px; border-top:1px solid #e5e7eb; }
+.art-sources strong { color:#374151; }
+.art-poin { display:flex; gap:16px; padding:16px; background:#fafaf7; border-radius:10px; margin:12px 0; align-items:flex-start; }
+.art-poin-num { background:#0f172a; color:#4ade80; font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:700; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+.art-poin-body { font-size:14px; line-height:1.7; color:#374151; }
+.art-poin-body strong { color:#0f172a; }
+.art-photo-fig { margin:36px 0; }
+.art-photo-fig img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:10px; display:block; }
+.art-photo-fig figcaption { font-size:12px; color:#6b7280; text-align:center; margin-top:10px; line-height:1.5; font-style:italic; }
+@media(max-width:640px) { .art-stats { grid-template-columns:repeat(2,1fr); } .art-photo-fig img { aspect-ratio:4/3; } }
+
+
+/* Baseline stat value - prevent wrapping at any width */
+.art-stat .sv { white-space: nowrap !important; }
+
+/* === MOBILE-FIRST RESPONSIVE FIXES (Avenir News) === */
+@media (max-width: 480px) {
+  /* Stat cards - tighten + scale */
+  .art-stats { gap: 12px; margin: 22px 0; }
+  .art-stat { padding: 14px 10px !important; border-radius: 8px; }
+  .art-stat .sv { font-size: 18px !important; white-space: nowrap; }
+  .art-stat .sl { font-size: 9.5px !important; line-height: 1.35; }
+  /* Title - allow softer wrap */
+  .art-title { font-size: 28px !important; line-height: 1.18; word-break: break-word; }
+  /* Deck */
+  .art-deck { font-size: 14.5px; line-height: 1.65; padding: 14px 14px 14px 16px; }
+  /* Callout */
+  .art-callout, .art-callout-amber { padding: 14px 16px; font-size: 14px; line-height: 1.65; }
+  /* TOC */
+  .art-toc { padding: 14px 16px; }
+  .art-toc li { font-size: 13.5px; line-height: 1.5; margin-bottom: 4px; }
+  /* Tables - guarantee horizontal scroll */
+  .art-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 16px -8px; padding: 0 8px; }
+  .art-table { font-size: 12.5px; min-width: 100%; width: max-content; }
+  .art-table th, .art-table td { padding: 10px 12px; }
+  /* H2 */
+  .art-body h2 { font-size: 22px !important; line-height: 1.25; margin: 32px 0 12px; }
+  .art-body h3 { font-size: 17px !important; }
+  /* Body text */
+  .art-body p, .art-body ul, .art-body ol { font-size: 15px; line-height: 1.7; }
+  /* Sources */
+  .art-sources { font-size: 12px; padding: 14px 16px; line-height: 1.6; }
+  /* Photo */
+  img.art-hero { margin: 16px 0 !important; border-radius: 8px !important; }
+  /* Inline photos in body */
+  .art-body img { margin: 16px 0 !important; }
+}
+
+@media (max-width: 360px) {
+  .art-stat .sv { font-size: 16px !important; }
+  .art-stat .sl { font-size: 9px !important; }
+  .art-title { font-size: 25px !important; }
+}
+
+/* Tabel: improve horizontal scroll cue */
+.art-table-wrap { overflow-x: auto; max-width: 100%; }
+.art-table { border-collapse: collapse; }
+</style>
+
+<div class="art-page">
+  <div class="art-label">◆ Avenir News · Saham · Perbankan</div>
+  <h1 class="art-title">Valuasi BBRI Tertekan ke PER 7,64x, Di Bawah Rata-Rata 10 Tahun</h1>
+  <div class="art-meta"><span><strong>Tim Avenir Research</strong></span><span>·</span><span>JAKARTA, 2 Juni 2026</span><span>·</span><span>BBRI · Bank Rakyat Indonesia · Valuasi</span><span>·</span><span>~5 menit baca</span></div>
+  <div class="art-stats"><div class="art-stat"><div class="sv">PER 7,64x</div><div class="sl">Di bawah &minus;1 SD rata-rata 10 tahun (9,92x)</div></div><div class="art-stat"><div class="sv">&minus;16,12%</div><div class="sl">Kinerja saham BBRI year-to-date 2026</div></div><div class="art-stat"><div class="sv">&minus;28,94%</div><div class="sl">Kinerja 1 tahun terakhir</div></div><div class="art-stat"><div class="sv">+53,50%</div><div class="sl">Pertumbuhan 10 tahun &mdash; ketahanan fundamental</div></div></div>
+  <div class="art-body">
+    <p class="art-deck">Saham PT Bank Rakyat Indonesia (BBRI) menjadi sorotan setelah valuasinya tertekan ke price-to-earnings ratio (PER) 7,64 kali &mdash; di bawah batas &minus;1 standar deviasi rata-rata 10 tahun terakhir di 9,92 kali &mdash; di tengah koreksi saham perbankan berkapitalisasi besar sepanjang 2026.</p>
+    <p>Sebagai salah satu emiten dengan kapitalisasi pasar terbesar di bursa, pergerakan BBRI berbobot terhadap arah IHSG. Berdasarkan data yang dikutip media pasar modal, <strong>PER BBRI saat ini 7,64x</strong>, berada di bawah <em>&minus;1 PE standard deviation</em> 10 tahun (9,92x). Artinya, secara historis saham diperdagangkan pada valuasi yang relatif murah dibandingkan rentang normalnya. <em>PER</em> mengukur berapa kali laba bersih per saham dihargai pasar; angka di bawah rata-rata historis kerap dibaca sebagian investor sebagai area akumulasi, meski bukan jaminan arah harga.</p>
+    <p>Tekanan harga cukup nyata dalam jangka pendek hingga menengah. Data historis menunjukkan BBRI <strong>terkoreksi 16,12% sepanjang 2026 (year-to-date)</strong> dan menyusut 28,94% dalam satu tahun terakhir. Pada 20 Mei 2026, saham sempat ditutup melemah ke Rp3.040 saat IHSG anjlok 3,46%. Meski demikian, dalam horizon panjang, performa 10 tahun BBRI tetap positif sekitar 53,50% &mdash; mencerminkan ketahanan fundamental emiten bank fokus segmen mikro ini.</p>
+    <p>Penurunan tersebut membawa harga ke area penyangga (support) yang dipandang krusial secara teknikal, dengan volatilitas mencerminkan aksi ambil untung sekaligus akumulasi kembali oleh investor. Bagi pelaku pasar, BBRI kerap dibandingkan dengan bank besar lain seperti BBCA dalam memilih antara strategi dividen dan potensi capital gain.</p>
+    <p><em>Catatan: artikel ini informatif dan bukan rekomendasi investasi; valuasi murah secara historis tidak menjamin kenaikan harga.</em></p>
   </div>
-
-  <!-- LOGIN MITRA -->
-  <div class="auth-view" id="auth-login-mitra">
-   <h3 style="color:#854d0e">🟡 Masuk sebagai Mitra</h3>
-   <p class="auth-sub">Login khusus untuk Mitra Analis Avenir Research yang sudah terdaftar.</p>
-   <div class="auth-err" id="login-mitra-err"></div>
-   <div class="auth-fg"><label>EMAIL MITRA</label><input type="email" id="lm-email" placeholder="email@anda.com" autocomplete="email"></div>
-   <div class="auth-fg"><label>PASSWORD</label><input type="password" id="lm-pass" placeholder="••••••••" autocomplete="current-password"></div>
-   <button class="auth-submit" style="background:#854d0e;color:#fff;border:none;padding:12px;border-radius:50px;width:100%;cursor:pointer;font-family:inherit;font-weight:700;letter-spacing:.04em;text-transform:uppercase" onclick="AUTH.loginMitra()">MASUK SEBAGAI MITRA →</button>
-   <div class="auth-sep">Belum jadi Mitra?</div>
-   <a href="daftar-mitra.html" style="display:block;text-align:center;background:#fef9c3;color:#854d0e;border:1px solid #fde68a;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase">DAFTAR SEBAGAI MITRA →</a>
-   <div class="auth-toggle">Mau login sebagai pengguna? <a onclick="AUTH.show('login')">Login Pengguna</a></div>
-  </div>
-
-  <!-- REGISTER -->
-  <div class="auth-view" id="auth-register">
-   <h3>Buat Akun</h3>
-   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 2 bulan — tanpa kartu kredit, tanpa komitmen.</p>
-   <div class="auth-trial-banner">
-    <div class="auth-trial-icon">🎁</div>
-    <div class="auth-trial-text"><strong>2 Bulan Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
-   </div>
-   <div class="auth-err" id="reg-err"></div>
-   <div class="auth-2col">
-    <div class="auth-fg"><label>NAMA DEPAN</label><input type="text" id="r-fname" placeholder="Budi"></div>
-    <div class="auth-fg"><label>NAMA BELAKANG</label><input type="text" id="r-lname" placeholder="Santoso"></div>
-   </div>
-   <div class="auth-fg"><label>EMAIL</label><input type="email" id="r-email" placeholder="email@anda.com" autocomplete="email"></div>
-   <div class="auth-fg"><label>PASSWORD</label><input type="password" id="r-pass" placeholder="Min. 8 karakter" autocomplete="new-password"></div>
-   <div class="auth-fg">
-    <label>PROFIL INVESTOR</label>
-    <select id="r-profile">
-     <option>Investor Individu</option>
-     <option>Trader Aktif</option>
-     <option>Fund Manager</option>
-     <option>Institusi / Perusahaan</option>
-    </select>
-   </div>
-   <button class="auth-submit grn" onclick="AUTH.register()">Daftar Sekarang →</button>
-   <div class="auth-toggle">Sudah punya akun? <a onclick="AUTH.show('login')">Masuk</a></div>
-   <div style="border-top:1px solid var(--bd);margin:20px 0 14px"></div>
-   <div style="text-align:center;font-size:11.5px;color:var(--t3);margin-bottom:10px;letter-spacing:.04em">ANDA ANALIS PROFESIONAL?</div>
-   <button class="auth-submit" style="background:#854d0e;color:#fff;border:1px solid #854d0e;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;width:100%;cursor:pointer;font-family:inherit;margin-bottom:8px" onclick="AUTH.show('login-mitra')">LOGIN SEBAGAI MITRA →</button>
-   <a href="daftar-mitra.html" style="display:block;text-align:center;background:#fef9c3;color:#854d0e;border:1px solid #fde68a;padding:11px;border-radius:50px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase">DAFTAR SEBAGAI MITRA →</a>
-  </div>
-
-  <!-- DAFTAR MITRA ANALIS -->
-  <div class="auth-view" id="auth-analyst">
-   <h3>Pendaftaran Mitra Analis</h3>
-   <p class="auth-sub">Kirimkan aplikasi Anda sebagai analis riset freelance Avenir</p>
-   <div class="auth-info-box">
-    Setiap riset yang diterima akan ditinjau oleh tim editorial kami untuk pemilihan riset yang akan dipublikasikan. Analis mitra mendapatkan <strong>bagi hasil 40%</strong> dari pool subscription, dibagi proporsional berdasarkan views. (Sisa 60% untuk operasional Avenir: platform, kurasi editorial, marketing & pengembangan)
-   </div>
-   <div class="auth-err" id="analyst-err"></div>
-   <div class="auth-2col">
-    <div class="auth-fg"><label>NAMA DEPAN</label><input type="text" id="a-fname" placeholder="Dewi"></div>
-    <div class="auth-fg"><label>NAMA BELAKANG</label><input type="text" id="a-lname" placeholder="Kusuma, CFA"></div>
-   </div>
-   <div class="auth-fg"><label>EMAIL PROFESIONAL</label><input type="email" id="a-email" placeholder="dewi@perusahaan.com"></div>
-   <div class="auth-fg"><label>NO. HANDPHONE / WA</label><input type="tel" id="a-phone" placeholder="08xx-xxxx-xxxx"></div>
-   <div class="auth-2col">
-    <div class="auth-fg">
-     <label>SERTIFIKASI UTAMA</label>
-     <select id="a-cert">
-      <option>CFA Charterholder</option>
-      <option>CFA Level 1</option>
-      <option>CFA Level 2</option>
-      <option>WPPE</option>
-      <option>WPEE</option>
-      <option>WPMPM</option>
-      <option>Lainnya</option>
-     </select>
-    </div>
-    <div class="auth-fg">
-     <label>SEKTOR SPESIALISASI</label>
-     <select id="a-sector">
-      <option>Banking & Finance</option>
-      <option>Consumer & Retail</option>
-      <option>Energy & Mining</option>
-      <option>Technology & Telco</option>
-      <option>Healthcare & Pharma</option>
-      <option>Infrastruktur & Properti</option>
-      <option>Multi-sektor</option>
-     </select>
-    </div>
-   </div>
-   <div class="auth-fg">
-    <label>INSTITUSI / AFILIASI SAAT INI</label>
-    <input type="text" id="a-company" placeholder="Nama perusahaan atau 'Independen'">
-   </div>
-   <div class="auth-fg">
-    <label>LINK CONTOH RISET (Google Drive / Scribd / LinkedIn)</label>
-    <input type="url" id="a-portfolio" placeholder="https://...">
-   </div>
-   <button class="auth-submit gold" onclick="AUTH.submitAnalyst()">Kirim Aplikasi →</button>
-   <div class="auth-toggle" style="margin-top:12px;font-size:11px">Tim kami akan menghubungi Anda dalam <strong>5–7 hari kerja</strong></div>
-  </div>
-
-  <!-- SUCCESS -->
-  <div class="auth-view" id="auth-success">
-   <div class="auth-success-icon" id="success-icon">✅</div>
-   <h3 style="text-align:center" id="success-title">Berhasil!</h3>
-   <p class="auth-sub" style="text-align:center" id="success-msg">Selamat datang di Avenir Research.</p>
-   <button class="auth-submit grn" onclick="AUTH.close()">Mulai Jelajahi Riset →</button>
-  </div>
-
- </div>
-</div>
-<div id="page-news" class="page" style="display:block">
-<div class="news-content-wrap">
-<div class="news-content-inner">
-
-<!-- News list view -->
-<div id="news-list-view">
-<div class="news-page">
-  <div class="news-page-header">
-    <div class="news-page-tag">Market News</div>
-    <h1>Berita & Analisis Pasar</h1>
-    <p style="color:var(--t2);font-size:15px;margin-top:8px">Analisis makroekonomi dan market update dari tim Avenir Research. Bebas diakses untuk semua.</p>
-  </div>
-  <div class="news-grid">
-
-    <div class="news-card" onclick="window.location.href='news-grup-prajogo-top-gainers-2juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Saham · Grup Prajogo · BREN · CUAN · BRPT</div>
-        <div class="news-card-title">Saham Grup Prajogo (BREN, CUAN, BRPT) Pimpin Top Gainers, Sektor Energi Memimpin</div>
-        <div class="news-card-excerpt">Saham grup Prajogo Pangestu memimpin pergerakan bursa: di pembukaan 2 Juni 2026, CUAN dan BRPT masuk top gainers LQ45 dan IDX Sektor Energi melonjak ~3%. Reli berlanjut dari pekan sebelumnya — BREN +34,69% ke Rp3.300, CUAN ~+24,75% ke Rp630, BRPT +20,87% ke Rp1.940.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">2 Juni 2026, 10:15 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-bbri-valuasi-per-rendah-2juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Saham · Perbankan · BBRI · Valuasi</div>
-        <div class="news-card-title">Valuasi BBRI Tertekan ke PER 7,64x, Di Bawah Rata-Rata 10 Tahun</div>
-        <div class="news-card-excerpt">Saham BBRI jadi sorotan: PER turun ke 7,64x — di bawah −1 SD rata-rata 10 tahun (9,92x). Saham terkoreksi 16,12% YTD dan 28,94% dalam setahun, namun performa 10 tahun tetap +53,50%. Valuasi murah secara historis, bukan jaminan arah harga.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">2 Juni 2026, 10:05 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-jsmr-cum-date-dividen-2juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Saham · Dividen · JSMR · Jasa Marga</div>
-        <div class="news-card-title">Jasa Marga (JSMR) Cum Date Dividen ~Rp156 per Saham Hari Ini</div>
-        <div class="news-card-excerpt">PT Jasa Marga (JSMR) memasuki cum date dividen tunai ~Rp156 per saham pada hari ini, 2 Juni 2026. Investor harus memegang saham hingga cum date untuk berhak atas dividen; pada ex-date harga biasanya menyesuaikan turun kira-kira sebesar nilai dividen.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">2 Juni 2026, 09:50 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-amrt-msci-rebound-2juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Saham · Indeks MSCI · AMRT · Alfamart</div>
-        <div class="news-card-title">Didepak dari MSCI, Saham Alfamart (AMRT) Justru Rebound Masuk Top Gainers LQ45</div>
-        <div class="news-card-excerpt">Saham Alfamart (AMRT) sempat tertekan usai didegradasi dari indeks MSCI (review efektif 29 Mei, berlaku di perdagangan mulai 2 Juni). Namun di pembukaan 2 Juni 2026, AMRT justru rebound masuk top gainers LQ45 bersama CUAN dan BRPT seiring IHSG +1,53%.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">2 Juni 2026, 09:40 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-asing-net-sell-msci-alumni-2juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Saham · Arus Dana Asing · MSCI · BREN · AMMN</div>
-        <div class="news-card-title">Asing Net Sell Rp53,97 Triliun Sepanjang 2026, Saham Alumni MSCI Jadi Sorotan</div>
-        <div class="news-card-excerpt">Investor asing membukukan net sell ~Rp53,97 triliun sepanjang 2026 (Rp8,52 triliun di akhir pekan lalu), menekan IHSG. Rebalancing MSCI memicu rotasi: saham alumni seperti BREN, CUAN (Rp630), DSSA (Rp492), dan AMMN (Rp3.300) menguat, sementara mayoritas small-cap eks-MSCI tertekan.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">2 Juni 2026, 09:35 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-inflasi-mei-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Makro · Inflasi · BPS · BI · Rupiah</div>
-        <div class="news-card-title">Inflasi Mei 2026 Naik ke 3,08% (yoy), Didorong Pangan dan Transportasi</div>
-        <div class="news-card-excerpt">BPS mencatat inflasi Mei 2026 sebesar 0,28% (mtm) dan 3,08% (yoy) — lebih tinggi dari April (2,42% yoy). IHK naik ke 111,40; inflasi inti 0,22% mtm didorong minyak goreng, ponsel, dan laptop. Penyumbang utama: pangan (cabai merah, minyak goreng, bawang merah) dan transportasi. Masih dalam sasaran BI 1,5–3,5%.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">2 Juni 2026, 11:30 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-rupiah-tertekan-awal-juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Makro · Nilai Tukar · Rupiah · BI</div>
-        <div class="news-card-title">Rupiah Tertekan di Kisaran Rp17.870, Pelemahan Mei Terburuk Sejak Okt 2024</div>
-        <div class="news-card-excerpt">Nilai tukar rupiah masih tertekan di kisaran Rp17.870 per dolar AS pada awal Juni 2026. Sepanjang Mei, rupiah melemah sekitar 3,28% — pelemahan bulanan terburuk sejak Oktober 2024 — menekan inflasi inti via harga barang impor. Faktor: dolar AS kuat, konflik Timur Tengah, dan arus keluar dana asing.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">2 Juni 2026, 11:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-bnbr-rights-issue-v-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Emiten · Aksi Korporasi · BNBR · Rights Issue</div>
-        <div class="news-card-title">Bakrie & Brothers (BNBR) Gelar Rights Issue V Rp4,77 Triliun, Bakrie Capital Jadi Pembeli Siaga</div>
-        <div class="news-card-excerpt">PT Bakrie & Brothers (BNBR) menggelar PMHMETD V senilai hingga Rp4,77 triliun: 89,92 miliar saham Seri E pada harga pelaksanaan Rp53, rasio 27:14, cum date 26 Juni 2026, perdagangan HMETD 30 Juni–13 Juli 2026. PT Bakrie Capital Indonesia jadi pembeli siaga dan menyerap HMETD dari Port Fraser & Fountain City senilai ~Rp2,12 triliun.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">2 Juni 2026, 10:30 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-btpn-smbc-jual-portofolio-pensiun-btn-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Emiten · Perbankan · BTPN/Bank SMBC · BTN</div>
-        <div class="news-card-title">Bank SMBC Indonesia (Eks-BTPN) Jual Portofolio Pinjaman Pensiunan Rp19,93 Triliun ke BTN</div>
-        <div class="news-card-excerpt">PT Bank SMBC Indonesia (sebelumnya BTPN) menjual dan mengalihkan portofolio pinjaman pensiunan & pra-pensiunan ke PT Bank Tabungan Negara (BTN) senilai Rp19,93 triliun — setara 46,3% nilai ekuitas — sehingga tergolong transaksi material per POJK 17/2020. Perjanjian ditandatangani 22 Mei 2026; tanpa RUPS dan tanpa hubungan afiliasi.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">2 Juni 2026, 10:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-gmfi-kuasi-reorganisasi-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Emiten · Aksi Korporasi · GMFI · Kuasi Reorganisasi</div>
-        <div class="news-card-title">GMF Aero Asia (GMFI) Siapkan Kuasi Reorganisasi untuk Bersihkan Defisit</div>
-        <div class="news-card-excerpt">PT GMF Aero Asia (GMFI) berencana melakukan kuasi reorganisasi melalui RUPSLB untuk menata ulang ekuitas dan menghapus defisit saldo laba, dengan cara pengurangan modal, menggunakan posisi laporan keuangan konsolidasian per 31 Januari 2026. Langkah ini dilakukan setelah aksi korporasi pendahuluan berupa PMHMETD.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">2 Juni 2026, 09:45 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-pkpk-public-expose-juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Emiten · Public Expose · PKPK · Batu Bara</div>
-        <div class="news-card-title">Public Expose PKPK: Pendapatan 2025 Melonjak 206% ke Rp749 Miliar, Laba Naik 251%</div>
-        <div class="news-card-excerpt">PT Paragon Karya Perkasa (PKPK) dalam materi Public Expose 3 Juni 2026 memaparkan kinerja 2025: pendapatan usaha Rp749,37 miliar (+206,09% dari Rp244,82 miliar) dan laba tahun berjalan Rp55,74 miliar (+250,88%), ditopang kontribusi segmen pertambangan batu bara via entitas anak TRIOP (kepemilikan tidak langsung 69,96%).</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">2 Juni 2026, 12:05 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-ihsg-sesi1-2juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Pasar Modal · IHSG · BEI · LQ45 · MSCI</div>
-        <div class="news-card-title">IHSG Sesi I Ditutup Menguat 1,49% ke 6.218,86, Rebound Pasca Libur Hari Lahir Pancasila</div>
-        <div class="news-card-excerpt">IHSG menutup sesi I Selasa (2/6/2026) menguat 1,49% atau 91,48 poin ke level 6.218,86 — hari bursa pertama setelah libur Hari Lahir Pancasila — seiring meredanya tekanan rebalancing MSCI. Sepanjang sesi indeks bergerak 6.162–6.264; transaksi Rp14,81 triliun dengan 347 saham menguat. Analis memproyeksikan gerak sideways 6.000–6.300.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">2 Juni 2026, 11:45 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-alphabet-galang-80miliar-ai-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Saham AS · GOOGL · Alphabet · Berkshire · AI</div>
-        <div class="news-card-title">Alphabet Galang US$80 Miliar Lewat Penjualan Saham untuk Danai Belanja AI</div>
-        <div class="news-card-excerpt">Induk Google, Alphabet (GOOGL), mengumumkan rencana menggalang dana hingga US$80 miliar melalui serangkaian penjualan saham untuk membiayai ekspansi infrastruktur AI — termasuk suntikan US$10 miliar dari Berkshire Hathaway. Saham Alphabet telah melonjak lebih dari 130% setahun terakhir dan mendekati valuasi US$5 triliun, calon kedua setelah Nvidia.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 10:10 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-micron-tembus-1000-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Saham AS · MU · Micron · Semikonduktor · AI</div>
-        <div class="news-card-title">Saham Micron Tembus US$1.000 untuk Pertama Kali, Reli Cip Memori Berlanjut</div>
-        <div class="news-card-excerpt">Saham produsen cip memori Micron Technology (MU) menembus US$1.000 untuk pertama kalinya, menguat 5,7% ke US$1.022 pada awal Juni, melanjutkan reli yang dipicu lonjakan permintaan memori berkapasitas tinggi (HBM) untuk server kecerdasan buatan. Micron jadi salah satu pemimpin kenaikan semikonduktor sepanjang Mei.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 10:25 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-qualcomm-anjlok-nvidia-pc-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Saham AS · QCOM · Qualcomm · AMD · Semikonduktor</div>
-        <div class="news-card-title">Qualcomm Anjlok 6,7% Saat Nvidia Masuk Pasar Cip PC</div>
-        <div class="news-card-excerpt">Tidak semua saham cip diuntungkan gebrakan Nvidia. Saham Qualcomm (QCOM) anjlok 6,7% setelah Nvidia mengumumkan masuk ke pasar prosesor komputer pribadi lewat cip RTX Spark berbasis Arm bersama Microsoft. AMD turun 2,6% dan Intel melemah, sementara produsen memori Micron justru melonjak 5,7% — reaksi semikonduktor terbelah.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 10:40 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-berkshire-taylor-morrison-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Pasar Global · M&amp;A · TMHC · Berkshire · Buffett</div>
-        <div class="news-card-title">Berkshire Hathaway Akuisisi Pembangun Rumah Taylor Morrison Senilai US$6,8 Miliar</div>
-        <div class="news-card-excerpt">Berkshire Hathaway milik Warren Buffett sepakat mengakuisisi pembangun rumah Taylor Morrison (TMHC) senilai US$6,8 miliar secara tunai, mengerek saham Taylor Morrison melonjak 22%. Pada hari yang sama, Berkshire juga ikut dalam penggalangan dana Alphabet sebesar US$10 miliar — menandakan konglomerat ini aktif menempatkan kas raksasanya.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 11:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-bitcoin-melemah-kripto-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Pasar Global · Kripto · Bitcoin · Strategy</div>
-        <div class="news-card-title">Bitcoin Melemah ke US$72.674, Tekan Saham Terkait Kripto di Awal Juni</div>
-        <div class="news-card-excerpt">Harga Bitcoin melemah ke kisaran US$72.674 pada awal Juni, turun sekitar 1,55% dalam sehari, menyeret turun saham-saham terkait kripto termasuk Strategy (sebelumnya MicroStrategy) — kontras dengan reli saham kecerdasan buatan yang menopang indeks. Pengingat volatilitas tinggi kelas aset kripto bagi investor.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 11:15 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-nvidia-rtx-spark-pc-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Saham AS · NVDA · Computex · Arm · Microsoft</div>
-        <div class="news-card-title">Nvidia Masuk Pasar PC dengan Cip AI "RTX Spark", Saham Melonjak</div>
-        <div class="news-card-excerpt">Nvidia (NVDA) meluncurkan superchip AI RTX Spark (N1X) untuk PC Windows hasil kolaborasi dengan Microsoft, debut musim gugur 2026 pada lini Dell, HP, Lenovo, ASUS, dan MSI. Saham Nvidia naik 2–6%, Arm Holdings melonjak, sementara Intel tertekan. Vera CPU diklaim 1,8x lebih cepat dari x86; pasar AI PC diproyeksi tumbuh dari US$58 M (2025) ke US$321 M.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 08:30 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-software-ibm-melonjak-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Saham AS · IBM · ServiceNow · Software · Barclays</div>
-        <div class="news-card-title">Saham Software Bangkit: IBM Melonjak 12% Setelah Huang Redakan Kekhawatiran AI</div>
-        <div class="news-card-excerpt">Saham perangkat lunak AS rebound tajam setelah CEO Nvidia Jensen Huang menyebut AI memperbesar peluang software, bukan menggusurnya. IBM melonjak 12% terdorong Barclays yang memulai coverage dengan rekomendasi Overweight (target US$350); ServiceNow +10%, dan ETF software IGV naik ~17% dalam sebulan. Salesforce dan Adobe ikut menguat.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 08:50 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-anthropic-ipo-sec-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Pasar Global · IPO · Anthropic · OpenAI · AI</div>
-        <div class="news-card-title">Anthropic Ajukan IPO Rahasia ke SEC, Pacu Perlombaan Pencatatan Saham AI</div>
-        <div class="news-card-excerpt">Anthropic, perusahaan AI pembuat chatbot Claude, mengumumkan telah mengajukan dokumen pendaftaran IPO secara rahasia (confidential S-1) ke SEC — mendahului rival OpenAI. Perusahaan baru menutup pendanaan dengan valuasi US$965 miliar (dari US$380 M pada Februari), dengan revenue run-rate yang dilaporkan melonjak ke sekitar US$47 miliar.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 09:10 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-wall-street-minyak-dow-1juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Pasar Global · Wall Street · Dow · Minyak</div>
-        <div class="news-card-title">Indeks AS Bertahan Dekat Rekor, Lonjakan Minyak Tekan Dow di Awal Juni</div>
-        <div class="news-card-excerpt">Bursa AS mengawali Juni dengan bertahan di dekat rekor, ditopang reli saham Nvidia dan kebangkitan software, meski lonjakan harga minyak akibat eskalasi baru di Timur Tengah menekan indeks Dow. Estimasi laba korporasi tumbuh ~20% yoy (FactSet), tetapi indeks volatilitas yang ikut naik menjadi sinyal kehati-hatian investor.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 09:30 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-broadcom-earnings-ai-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Saham AS · AVGO · Broadcom · Cadence · AI</div>
-        <div class="news-card-title">Broadcom Jadi Sorotan Jelang Rilis Laba Pekan Ini di Tengah Demam AI</div>
-        <div class="news-card-excerpt">Broadcom (AVGO) menjadi salah satu saham paling dinanti pekan ini menjelang rilis laporan keuangan, dengan investor memantau pertumbuhan pendapatan cip AI. Broadcom terlibat kesepakatan komputasi ~5 gigawatt dengan Anthropic dan Google. Cadence (CDNS) menguat usai meluncurkan alat desain cip berbasis AI, sementara pelemahan Bitcoin menekan saham kripto.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 09:50 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-dividen-emiten-awal-juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Emiten · Dividen · TPMA · SOHO · GEMS</div>
-        <div class="news-card-title">Musim Dividen Berlanjut: Puluhan Emiten Cum Date Akhir Mei hingga Awal Juni</div>
-        <div class="news-card-excerpt">Gelombang pembagian dividen lintas sektor berlanjut di BEI: 9 emiten cum date 29 Mei, 12 emiten 2 Juni, dan 13 emiten 3 Juni 2026. Sejumlah saham menawarkan yield menarik — TPMA Rp42/saham (~8,3%), SOHO Rp39,5 (total Rp501,32 M), GEMS US$0,0136 (US$80 juta), serta PGAS (~6,63%) dan INTP (~9,7%).</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 09:10 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-sini-rights-issue-akuisisi-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Emiten · Aksi Korporasi · SINI · PTRO · Rights Issue</div>
-        <div class="news-card-title">SINI Bidik Rp3,6 Triliun Lewat Rights Issue untuk Akuisisi Tambang dari PTRO</div>
-        <div class="news-card-excerpt">PT Singaraja Putra (SINI) berencana menggelar rights issue hingga Rp3,6 triliun (maks 721,5 juta saham) untuk mengakuisisi 99,99% PT Kemilau Mulia Sakti dari Petrosea (PTRO) senilai Rp1,73 triliun, sekaligus melunasi utang bank Rp900 miliar. Transaksi tergolong material (110,27% total aset) sekaligus afiliasi tanpa benturan kepentingan.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 09:30 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-aadi-buyback-5triliun-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Emiten · Buyback · AADI · Batu Bara</div>
-        <div class="news-card-title">Adaro Andalan (AADI) Siapkan Buyback Saham hingga Rp5 Triliun</div>
-        <div class="news-card-excerpt">PT Adaro Andalan Indonesia (AADI) berencana membeli kembali (buyback) sahamnya dengan alokasi dana hingga Rp5 triliun selama 12 bulan sejak 23 Mei 2026, dibahas dalam RUPST 22 Mei. Langkah ini muncul di tengah tekanan harga saham batu bara akibat rencana sentralisasi ekspor; porsi ekspor AADI tercatat sekitar 77%.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 09:50 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-ptro-kinerja-q1-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Emiten · Kinerja · PTRO · Jasa Tambang</div>
-        <div class="news-card-title">Petrosea (PTRO) Bukukan Pendapatan US$284 Juta di Kuartal I, Melonjak 84%</div>
-        <div class="news-card-excerpt">PT Petrosea (PTRO) mencatat lonjakan kinerja kuartal I 2026: pendapatan US$284,13 juta (naik 84,23% yoy dari US$154,21 juta) dan laba bersih tumbuh 50,54% secara tahunan. Emiten jasa pertambangan terafiliasi grup Prajogo Pangestu ini juga tengah melepas anak usaha tambang KMS ke SINI senilai Rp1,73 triliun.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 10:10 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-bnbr-kinerja-q1-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Emiten · Kinerja · BNBR · Konglomerasi</div>
-        <div class="news-card-title">Bakrie & Brothers (BNBR) Catat Pendapatan Rp1,13 Triliun pada Kuartal I 2026</div>
-        <div class="news-card-excerpt">PT Bakrie &amp; Brothers (BNBR) membukukan pendapatan Rp1,13 triliun pada kuartal I 2026. Holding grup Bakrie dengan lini manufaktur, infrastruktur, dan energi ini menjadi bagian dari musim rilis kinerja emiten domestik, di tengah konteks makro berupa BI Rate 5,25%, pelemahan rupiah, dan arus keluar dana asing.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 10:30 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-bei-libur-pancasila-1juni2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Pasar Modal · IHSG · BEI · Libur Bursa</div>
-        <div class="news-card-title">Bursa Libur Hari Lahir Pancasila, IHSG Tak Bertransaksi Hari Ini</div>
-        <div class="news-card-excerpt">Bursa Efek Indonesia tutup pada Senin, 1 Juni 2026 untuk memperingati Hari Lahir Pancasila — IHSG tidak bertransaksi sepanjang hari. Perdagangan kembali dibuka Selasa 2 Juni, langsung menyambut rilis data inflasi Mei, PMI manufaktur, dampak rebalancing MSCI, serta kelanjutan arus keluar asing yang menembus &gt;Rp8,5 triliun pada sesi 29 Mei.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 09:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-emas-awal-juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Komoditas · Emas · XAU/USD · Safe-Haven</div>
-        <div class="news-card-title">Emas Bertahan di US$4.541 Awal Juni, Ditopang Ketidakpastian Iran & Fed</div>
-        <div class="news-card-excerpt">Harga emas dunia membuka Juni nyaris datar di US$4.541,80 per troy ounce (1 Juni, +0,01% harian), namun telah melonjak 34,31% dibanding setahun lalu. Logam mulia tetap diburu sebagai aset aman di tengah konflik Timur Tengah dan ekspektasi suku bunga AS yang tinggi; permintaan emas global kuartal I 2026 mencetak rekor 1.230,9 ton menurut World Gold Council.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 09:20 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-futures-as-awal-juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Pasar Global · Wall Street · Dow · Fed</div>
-        <div class="news-card-title">Futures Saham AS Menguat Awali Juni, Fokus Beralih ke Data Tenaga Kerja</div>
-        <div class="news-card-excerpt">Kontrak berjangka saham Amerika Serikat menguat tipis mengawali Juni 2026, melanjutkan reli Mei yang menjadi bulan terkuat sejak 2023 (Dow rekor 51.032, S&amp;P 500 sembilan pekan beruntun, Nasdaq +8%). Perhatian pekan ini beralih ke data tenaga kerja AS, lowongan kerja JOLTS, dan Beige Book The Fed di bawah Ketua baru Kevin Warsh.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 09:40 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-minyak-naik-awal-juni-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Komoditas · Minyak · Brent · WTI · Selat Hormuz</div>
-        <div class="news-card-title">Minyak Berbalik Naik Awal Juni di Tengah Ketidakpastian AS–Iran</div>
-        <div class="news-card-excerpt">Harga minyak mentah berbalik menguat mengawali Juni 2026 seiring kembali mengentalnya ketidakpastian atas nasib kesepakatan damai Amerika Serikat–Iran dan status Selat Hormuz. Kenaikan ini mengoreksi sebagian penurunan tajam Mei, ketika Brent anjlok hampir 19% — bulan terburuknya sejak pandemi — akibat optimisme gencatan senjata.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 10:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-obligasi-rupiah-1juni2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Makroekonomi · SBN · Obligasi · Rupiah · BI Rate</div>
-        <div class="news-card-title">Yield Obligasi RI Bertahan di Sekitar 6,7%, Pasar Nanti Data Inflasi Pekan Ini</div>
-        <div class="news-card-excerpt">Imbal hasil obligasi pemerintah Indonesia tenor 10 tahun bertahan di sekitar 6,7% mengawali Juni, sementara rupiah masih tertekan di kisaran Rp17.500 per dolar AS. Bank Indonesia telah menaikkan BI Rate ke 5,25% demi stabilitas kurs; pasar surat utang dan valas kini menanti data inflasi Mei sebagai penentu arah ekspektasi suku bunga.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">1 Juni 2026, 10:20 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-wall-street-rekor-mei2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Pasar Global · Wall Street · Dow · S&amp;P 500 · Nasdaq</div>
-        <div class="news-card-title">Wall Street Cetak Rekor, Dow Tembus 51.000 untuk Pertama Kali</div>
-        <div class="news-card-excerpt">Tiga indeks utama bursa AS kompak mencetak rekor pada Jumat (29/5): Dow +0,72% ke 51.032 (pertama kali di atas 51.000), S&amp;P 500 ke 7.580 dengan sembilan pekan menguat beruntun (terpanjang sejak 2023), dan Nasdaq ke 26.972. Reli ditopang saham teknologi/AI dan meredanya harga minyak.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">30 Mei 2026, 08:30 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-dell-server-ai-mei2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Pasar Global · Saham AS · DELL · Server AI · Semikonduktor</div>
-        <div class="news-card-title">Saham Dell Meroket 33% dalam Sehari, Terdorong Ledakan Permintaan Server AI</div>
-        <div class="news-card-excerpt">Saham Dell (DELL) melonjak 32,76% pada Jumat (29/5) — hari terbaik sepanjang sejarahnya — ke rekor ~US$ 429 setelah pendapatan kuartal I tembus US$ 43,84 miliar (+88% yoy) dan pendapatan server AI melonjak 757% ke US$ 16,1 miliar. Reli ikut mengangkat HP, Super Micro, Oracle, hingga Micron.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">30 Mei 2026, 08:45 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-foreign-outflow-ihsg-mei2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Pasar Modal · IHSG · Foreign Outflow · BBRI · GOTO · Rupiah</div>
-        <div class="news-card-title">IHSG Bertahan di 6.127, Tapi Outflow Asing Tembus Rp 54,5 Triliun Sampai Akhir Mei</div>
-        <div class="news-card-excerpt">IHSG terkoreksi 0,56% sepekan ke 6.127 sementara net sell asing menembus ~Rp 54,5 triliun hingga akhir Mei 2026. Paradoksnya, kapitalisasi pasar BEI justru naik Rp 94 triliun — BBRI tertekan, asing malah memborong GOTO.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">30 Mei 2026, 17:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-emas-safe-haven-mei2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Komoditas · Emas · ANTM · Safe-Haven · Logam Mulia</div>
-        <div class="news-card-title">Emas Antam Naik ke Rp 2,799 Juta per Gram — Reli Safe-Haven Berlanjut di Akhir Mei 2026</div>
-        <div class="news-card-excerpt">Emas Antam dibanderol Rp 2.799.000 per gram pada 30 Mei 2026, naik Rp 45.000 dalam dua hari, didorong perburuan safe-haven dan emas global US$ 4.535,82/oz. Masih sekitar 11,6% di bawah rekor Januari (Rp 3.168.000).</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">30 Mei 2026, 10:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-bbm-hormuz-energi-mei2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Energi · BBM · Pertamina · Selat Hormuz · Subsidi · ESDM</div>
-        <div class="news-card-title">Harga BBM Subsidi Bertahan, Nonsubsidi Melonjak — Selat Hormuz Jadi Penentu Arah</div>
-        <div class="news-card-excerpt">Pertalite ditahan Rp 10.000/L dan Biosolar Rp 6.800/L, tapi nonsubsidi melonjak — Pertamina Dex tembus Rp 27.900/L. Pertamina menyebut harga masih dievaluasi dengan kondisi Selat Hormuz sebagai penentu.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">30 Mei 2026, 12:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- Article: MSCI Shock Mei 2026 -->
-    <!-- News: CTTH Keterbukaan Informasi Mei 2026 -->
-    <div class="news-card" onclick="window.location.href='news-btpn-portofolio-pensiun-btn-mei-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">BTPN · BSMBC · BBTN · Pensiun · TASPEN · ASABRI · Material Transaction</div>
-        <div class="news-card-title">Bank SMBC Indonesia Lepas Portofolio Kredit Pensiun Rp 19,93 Triliun ke Bank BTN — 46,3% Ekuitas</div>
-        <div class="news-card-excerpt">PT Bank SMBC Indonesia Tbk (kode: BTPN — sebelumnya BTPN) dan PT Bank Tabungan Negara Tbk (BBTN) menandatangani CPTA dan CLATA pada 22 Mei 2026 untuk pengalihan portofolio kredit pensiunan dan pra-pensiunan dengan manfaat pensiun yang dikelola TASPEN, ASABRI, dan dana pensiun lainnya, serta pinjaman karyawan aktif. Total nilai transaksi Rp 19.928.197.559.246 atau 46,3% nilai ekuitas BSMBC per 31 Desember 2025 — di bawah threshold 50% sehingga tidak memerlukan persetujuan RUPS sesuai POJK 17/2020. BSMBC dan BBTN tidak memiliki hubungan afiliasi. Transaksi bersifat conditional dengan syarat pendahuluan yang harus dipenuhi sebelum penyelesaian. 9 bagian analisis: struktur CPTA vs CLATA, material threshold POJK 17/2020, alasan BTN sebagai pembeli, framework skenario penyelesaian, implikasi neraca dan rasio perbankan kedua bank.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">26 Mei 2026, 14:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-pkpk-prospek-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">PKPK · Paragon Karya Perkasa · TRIOP · Pertambangan · Batubara · Public Expose · Prospek 2026</div>
-        <div class="news-card-title">Paragon Karya Perkasa Target Lonjakan Pendapatan 399,48% Jadi Rp 3,74 Triliun di 2026</div>
-        <div class="news-card-excerpt">PT Paragon Karya Perkasa Tbk (PKPK) — sebelumnya PT Perdana Karya Perkasa Tbk — Public Expose Tahunan 3 Juni 2026: target pendapatan konsolidasian Rp 3.742,98 miliar di 2026, lonjakan 399,48% dari realisasi 2025 sebesar Rp 749,37 miliar. Target ditopang dua pilar: (1) entitas anak PT Tri Oetama Persada (TRIOP, IUPOP di Kalimantan Tengah, kepemilikan tidak langsung 69,96%) dengan RKAB 3 juta metrik ton menghasilkan pendapatan Rp 3.292 miliar; (2) entitas anak baru yang diakuisisi PT Deli Pratama Angkutan Laut dengan kontribusi Rp 450,98 miliar. Basis 2025: produksi TRIOP 1,09 juta MT, harga rata-rata ICI 4 USD 40,56/MT. Avenir Research membedah komposisi target, asumsi implisit volume dan harga, faktor risiko (harga batubara, RKAB, eksekusi), framework skenario base-best-worst, dan implikasi outlook 2026.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">26 Mei 2026, 13:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-cpo-transfer-pricing-mei-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">SSMS · AALI · LSIP · TAPG · DSNG · CPO · Transfer Pricing · Macro</div>
-        <div class="news-card-title">Transfer Pricing CPO US$84 Juta: Saham SSMS Anjlok 8,57%, Menkeu Sebut "Baru Sampel"</div>
-        <div class="news-card-excerpt">Pemerintah dan Kejaksaan Agung umumkan dugaan transfer pricing US$84 juta oleh 10 eksportir CPO terbesar Indonesia periode 2020-2024 — Menkeu Purbaya Yudhi Sadewa sebut angka ini "baru sampel" dari beberapa perusahaan, sinyal investigasi yang jauh lebih besar. Saham SSMS terkapar -8,57% ke Rp800 pada 25 Mei 2026, mengikuti pola koreksi sektor consumer primer -0,68%. AALI relatif tahan di Rp6.600 (+1,15%) karena status emiten BUMN, sementara LSIP Rp1.295 dan TAPG Rp1.520 stabil. Gapki dukung proses hukum tapi minta verifikasi data. 10 bagian analisis: mekanisme transfer pricing, posisi Kemenkeu, segmentasi dampak emiten, framework risiko legal-pajak-reputasi, dan implikasi rantai nilai sawit.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">25 Mei 2026, 18:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-gmfi-kuasi-reorganisasi-mei-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">GMFI · Corporate Action · Aviation MRO · Kuasi Reorganisasi · IX.L.1</div>
-        <div class="news-card-title">GMFI Rencana Kuasi Reorganisasi: Eliminasi Defisit AS$512,87 Juta, Nilai Nominal Saham Seri A Turun 76%</div>
-        <div class="news-card-excerpt">PT Garuda Maintenance Facility Aero Asia Tbk (GMFI) umumkan rencana kuasi reorganisasi untuk mengeliminasi saldo laba negatif AS$512,87 juta (akumulasi 8 tahun, 77-205% modal disetor, 18,99-21,34x rata-rata laba 3 tahun terakhir). Mekanisme 6 lapis: Agio AS$299,56 juta → Selisih Treasuri → Selisih Kurs → Selisih Non-Pengendali → Selisih Entitas Sepengendali AS$1,14 juta → Pengurangan Modal AS$212,86 juta (Seri A nominal Rp100→Rp24 turun 76%, Seri B Rp25→Rp17 turun 32%). Struktur kepemilikan: Angkasa Pura 65,77%, Garuda Indonesia 27,43%, publik 6,52%. RUPSLB dijadwalkan 1 Juli 2026. Memenuhi seluruh persyaratan POJK IX.L.1. 10 bagian analisis: dasar laporan keuangan 31 Januari 2026, recovery pendapatan 2023-2025 (US$373→491 juta), framework risiko dilusi-otorisasi-eksekusi.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">25 Mei 2026, 17:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-bei-indeks-global-mei-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">BEI · MSCI · FTSE · Indeks Global · Capital Market · Macro</div>
-        <div class="news-card-title">BEI Upayakan Saham RI Kembali Masuk Indeks Global Setelah MSCI Keluarkan 6 Saham Besar</div>
-        <div class="news-card-excerpt">Direksi Bursa Efek Indonesia siapkan strategi identifikasi emiten potensial agar saham Indonesia kembali masuk MSCI Global Standard dan FTSE GEIS, setelah rebalancing Mei 2026 (efektif 29 Mei) mengeluarkan AMMN, BREN, TPIA, DSSA, CUAN, dan AMRT dari MSCI Global Standard. Bobot Indonesia dalam MSCI EM turun 10bp dari 0,9% menjadi 0,8% — potential outflow US$1-1,7 miliar menurut Samuel Sekuritas. MSCI Small Cap juga keluarkan 13 emiten termasuk ANTM, AALI, BANK, BSDE, DSNG, SIDO, MIDI, MIKA, SSMS, TAPG. FTSE Juni 2026 (efektif 22 Juni) keluarkan DSSA dari Large Cap (HSC 95,76%) plus DAAZ, HILL, MLIA. Tersisa 11 saham di MSCI Global Standard (BBCA, BBRI, BMRI, TLKM, ASII, +6 lainnya). 9 bagian analisis: kriteria masuk indeks, dampak outflow pasif, dan framework emiten kandidat.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">25 Mei 2026, 16:45 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-sofa-psel-danantara-mei-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">SOFA · Corporate Action · Waste-to-Energy · Danantara · Renewable</div>
-        <div class="news-card-title">SOFA Resmi Masuk Konsorsium Zhejiang Weiming untuk PSEL Danantara: Anak Usaha AEA Jadi Mitra Lokal di Denpasar dan Bogor Raya</div>
-        <div class="news-card-excerpt">PT Solusi Environment Asia Tbk (SOFA) — sebelumnya bernama Boston Furniture Industries — umumkan anak usaha PT Ananta Energi Asia (AEA) resmi disetujui sebagai mitra lokal dalam konsorsium Zhejiang Weiming untuk dua proyek PSEL Danantara tahap pertama: Denpasar Raya dan Bogor Raya. Tarif PPA tetap USD 0,20/kWh selama 30 tahun dengan PLN. Closure milestone dari transformasi struktural SOFA — dari produsen furnitur kayu ke platform investasi infrastruktur hijau dalam 5 bulan, dengan pipeline 25 kota PSEL nasional. 9 bagian analisis: anatomi pivot, profil Zhejiang Weiming, struktur AEA-AIC, economics PPA 30 tahun, lanskap kompetitor (OASA), dan lima pilar risiko eksekusi.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">25 Mei 2026, 17:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-ratu-bank-mandiri-mei-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">RATU · Corporate Action · Oil &amp; Gas · M&amp;A · HCML</div>
-        <div class="news-card-title">RATU Tarik Kredit USD 109,2 Juta dari Bank Mandiri: Membiayai Akuisisi 20% PI di Blok Selat Madura HCML</div>
-        <div class="news-card-excerpt">PT Raharja Energi Cepu Tbk (RATU) umumkan anak usaha PT Raharja Energi Madura tanda tangani Perjanjian Kredit Bilateral USD 109,2 juta dengan Bank Mandiri untuk membiayai akuisisi 100% saham SMS Development Limited — yang memegang 20% participating interest di PSC Selat Madura HCML, produsen gas terbesar Jawa Timur dengan kapasitas ~250 MMscfd. Perseroan berikan corporate guarantee dan cash deficit guarantee. Closure pendanaan ini melengkapi rangkaian transaksi sejak SPA Desember 2025 dengan total nilai USD 141,2 juta. 9 bagian analisis: timeline transaksi, anatomi kredit, struktur guarantee, profil HCML, valuasi implisit, dan empat pilar risiko eksekusi.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">25 Mei 2026, 16:30 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-ctth-keterbukaan-mei-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">CTTH · Corporate Action · Marble · Limestone</div>
-        <div class="news-card-title">Di Balik Rally 619% Saham CTTH: Realitas Q1 yang Pahit dan JV Kapur yang Belum Pasti</div>
-        <div class="news-card-excerpt">PT Citatah Tbk merilis dua keterbukaan informasi material kepada Bursa Efek Indonesia awal Mei lalu — tanggapan permintaan penjelasan soal JV USD 10,5 juta dengan Chememan Thailand, dan studi kelayakan KJPP untuk lini KBLI 46733 (IRR 61,42 persen, payback 4 tahun). Bersamaan, laporan Q1 menunjukkan pendapatan anjlok 41,9 persen dan rugi membengkak 129 persen. Sementara harga saham sudah meroket 619 persen dalam setahun. 15 bagian analisis: dari penandatanganan di Bangkok Oktober lalu, peta risiko PPKH dan UBO, sampai empat skenario yang mungkin terjadi enam bulan ke depan.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">13 Mei 2026, 14:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="news-card" onclick="window.location.href='news-msci-deletion-ihsg-shock-mei2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Pasar · MSCI · IDX · Global Flow</div>
-        <div class="news-card-title">MSCI Shock Mei 2026: Enam Saham RI Didepak, IHSG Sempat Sentuh 6.726</div>
-        <div class="news-card-excerpt">MSCI menghapus AMMN, BREN, TPIA, DSSA, CUAN, dan AMRT dari Global Standard Indonesia. AMRT turun ke Small Cap, sementara IHSG sempat menyentuh 6.726 dari previous close 6.859. Avenir membedah forced selling risk, indexability discount, market tape, dan skenario menuju rebalancing 29 Mei 2026.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">13 Mei 2026, 11:30 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- Article: RATU RAJA Kasuri Value Chain -->
-    <div class="news-card" onclick="window.location.href='news-ratu-akuisisi-pi-kasuri.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Korporasi · Migas · LNG · RATU · RAJA</div>
-        <div class="news-card-title">RATU–RAJA Masuk Ekosistem Kasuri: 5% PI Hulu, 5% PT LNG, dan Taruhan FLNG Pertama Indonesia</div>
-        <div class="news-card-excerpt">RATU melalui PT REN masuk 5% participating interest WK Kasuri senilai US$9,647 juta, sementara RAJA merencanakan akuisisi 5% PT Layar Nusantara Gas senilai US$38,575 juta. Avenir membedah koneksi hulu gas, midstream, FLNG, valuasi, proyeksi yield, dan risiko eksekusi.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">11 Mei 2026</span>
-          <span>Tim Avenir Research</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    
-    <!-- Article: Hantavirus & Saham Kesehatan -->
-    <div class="news-card" onclick="window.location.href='news-hantavirus-saham-kesehatan.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Pandemi · Sektor Kesehatan · IDX</div>
-        <div class="news-card-title">Hantavirus Sampai Indonesia: 23 Kasus, 3 Kematian — Saham Sektor Kesehatan Naik di Tengah IHSG Tertekan</div>
-        <div class="news-card-excerpt">Kementerian Kesehatan RI mengonfirmasi 23 kasus dan 3 kematian akibat hantavirus di sembilan provinsi sejak 2024, sementara wabah viral MV Hondius (kapal pesiar Belanda) di Atlantik Selatan menambah kewaspadaan global dengan strain Andes yang langka. Pasar saham merespons dengan reli sektor Kesehatan +0.29% di tengah IHSG yang dominan terkoreksi. MEDS melonjak +27.59%, HALO +19.75%, KAEF +16.67%. Tim Avenir memaparkan kronologi lengkap, perbedaan strain Andes vs Asian, sindrom klinis HFRS vs HPS, dan analisis pasar.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">8 Mei 2026, 14:30 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-    <!-- Article: COCO Akuisisi SMA -->
-    <div class="news-card" onclick="window.location.href='news-coco-akuisisi-sma.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Korporasi · Konsumsi · IDX</div>
-        <div class="news-card-title">Wahana Interfood (COCO) Teken CSPA Akuisisi 99,99% Saham PT Sari Murni Abadi (SMA) — Ekspansi Cacao Regional</div>
-        <div class="news-card-excerpt">PT Wahana Interfood Nusantara Tbk (COCO) menandatangani Conditional Share Purchase Agreement dengan Metaside Global Holding Pte Ltd asal Singapura untuk akuisisi maksimal 99,99% saham SMA. Transaksi bertujuan ekspansi distribusi cacao ke Indonesia dan Vietnam, sinergi pengembangan produk, serta perluasan ke industri Ingredients dan FMCG. Penyelesaian masih bergantung pada pemenuhan condition precedent dan prosedur transaksi material POJK 17/2020.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">8 Mei 2026, 11:15 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- Article 3: TPIA Force Majeure -->
-    <div class="news-card" onclick="window.location.href='news-ctth-pubex-insidental-mei2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Korporasi · Material &amp; Konstruksi · IDX</div>
-        <div class="news-card-title">Citatah (CTTH) di Persimpangan: Suspensi BEI, Rugi Melebar Dua Kali Lipat, dan Taruhan US$18 Juta di Industri Quicklime</div>
-        <div class="news-card-excerpt">PT Citatah Tbk menggelar Public Expose Insidental 5 Mei 2026 setelah BEI menjatuhkan suspensi cooling down. Manajemen mempertahankan target penjualan Rp 140 miliar meski Q1 baru terealisasi 12 persen, sembari mempersiapkan JV quicklime dengan Chememan Thailand bernilai US$18 juta yang dirancang tanpa kas keluar.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">8 Mei 2026, 09:45 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-card" onclick="window.location.href='news-tpia-force-majeure.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Korporasi · Petrokimia · IDX</div>
-        <div class="news-card-title">Chandra Asri (TPIA) Cabut Status Force Majeure — Pasokan Polymer dan Monomer Kembali Aman</div>
-        <div class="news-card-excerpt">TPIA resmi mencabut status force majeure setelah berhasil mengamankan bahan baku alternatif dari pasar internasional, termasuk Amerika Serikat, serta mengoptimalkan fasilitas kilang di Singapura. Langkah ini ditempuh di tengah gangguan rantai pasok akibat ketegangan geopolitik di Selat Hormuz.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">7 Mei 2026, 16:20 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Article 2: Windfall Tax Nikel -->
-    <div class="news-card" onclick="window.location.href='news-windfall-tax-nikel.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Kebijakan Fiskal · Komoditas · IDX</div>
-        <div class="news-card-title">Purbaya Konfirmasi Windfall Tax dan Bea Keluar Nikel — Saham Sektor Tambang Tertekan</div>
-        <div class="news-card-excerpt">Menteri Keuangan memastikan pemerintah akan memberlakukan windfall tax dan bea keluar untuk nikel dan batu bara sebagai tambal sulam subsidi APBN. Tarif belum ditetapkan, namun pasar langsung merespons negatif. ICON anjlok 13,90%, MBMA melemah 8,89%, NCKL dan ANTM masing-masing turun sekitar 2,9%. Hanya DKFT yang bergerak di zona hijau +0,60%.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">7 Mei 2026, 14:00 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Article 1: PDB Q1-2026 -->
-    <div class="news-card" onclick="window.location.href='news-pdb-q1-2026.html'">
-      <div class="news-card-body">
-        <div class="news-card-cat">Makroekonomi · Indonesia</div>
-        <div class="news-card-title">PDB Indonesia Q1-2026 Tumbuh 5,61% YoY — Terkuat Sejak Q3 2022, Tapi Ada yang Perlu Diwaspadai</div>
-        <div class="news-card-excerpt">PDB Q1-2026 tumbuh 5,61 persen — melampaui konsensus dan tertinggi sejak Q3 2022. Namun belanja pemerintah yang melonjak 21,81 persen dan konsumsi musiman mendominasi pertumbuhan, sementara ekspor nyaris stagnan di 0,90 persen dan manufaktur justru melambat.</div>
-        <div class="news-card-meta">
-          <span class="news-card-date">7 Mei 2026, 10:30 WIB</span>
-          <span>·</span>
-          <span>Tim Avenir Research</span>
-          <span>·</span>
-          <span class="news-card-free">Akses Gratis</span>
-        </div>
-      </div>
-    </div>
-
+  <div class="art-sources"><p><strong>Sumber data:</strong></p>
+    <p>1. Investor.id (2 Juni 2026) &mdash; PER BBRI 7,64x, di bawah &minus;1 PE standard deviation 10 tahun (9,92x).</p>
+    <p>2. Data historis via Stockbit/TradingView (Mei 2026) &mdash; BBRI YTD &minus;16,12%, 1 tahun &minus;28,94%, 10 tahun +53,50%; penutupan Rp3.040 pada 20 Mei 2026 saat IHSG &minus;3,46%.</p>
+    <p><em>Catatan editorial Avenir News, bukan rekomendasi investasi.</em></p>
   </div>
 </div>
-</div>
 
-<!-- Article views -->
-
-</div>
-
-</div>
-</div>
-<div class="footer-spacer" style="clear:both;height:0;width:100%"></div>
 <footer style="display:block!important;visibility:visible!important;background:#0f172a;color:#94a3b8;padding:48px 24px 24px;margin-top:80px">
   <div style="max-width:1280px;margin:0 auto">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-bottom:32px">
@@ -4056,6 +3446,7 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   </div>
 </footer>
 
+
 <!-- ▶ AUTH module: di-handle nav-avenir.js -->
 
 <!-- ▶ Logo loader: di-handle nav-avenir.js -->
@@ -4080,6 +3471,44 @@ html body:not(.auth-state-user):not(.auth-state-guest) [data-auth="guest"] {
   setTimeout(forceFooter, 100);
   setTimeout(forceFooter, 500);
   setTimeout(forceFooter, 1500);
+})();
+</script>
+
+<script>
+// Track view ke research_views table
+(function() {
+  function getResearchId() {
+    const path = window.location.pathname;
+    const fname = path.split('/').pop().replace('.html', '') || path.replace(/^\/+|\/+$/g, '');
+    return fname || 'unknown';
+  }
+  
+  async function recordView() {
+    if (!window._sb || !window.AUTH || !window.AUTH.currentUser) return;
+    
+    try {
+      await window._sb.from('research_views').insert({
+        user_id: window.AUTH.currentUser.id,
+        research_id: getResearchId()
+      });
+    } catch (e) {
+      // Silent fail — tracking shouldnt break user experience
+    }
+  }
+  
+  // Wait for AUTH ready, then record
+  function tryRecord() {
+    if (window.AUTH && window.AUTH.currentUser) {
+      recordView();
+    } else if (window.AUTH) {
+      // AUTH ready but user not logged - skip
+    } else {
+      // AUTH not ready yet, retry
+      setTimeout(tryRecord, 800);
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => setTimeout(tryRecord, 1500));
 })();
 </script>
 
@@ -4183,6 +3612,34 @@ if (document.body && !document.body.classList.contains('auth-state-user') && !do
 })();
 </script>
 
+
+<script>
+/* ═══ AVENIR APPLY LOCK — guest-lock pattern (blur + overlay) ═══ */
+(function() {
+  function hasAccess() {
+    // News pages are FREE ACCESS for all visitors (guest + logged-in)
+    return true;
+  }
+  
+  function applyLock() {
+    var locked = !hasAccess();
+    document.querySelectorAll('.guest-lock-wrap').forEach(function(el){
+      if (locked) {
+        el.classList.add('is-guest');
+      } else {
+        el.classList.remove('is-guest');
+      }
+    });
+  }
+  
+  window._applyLock = applyLock;
+  
+  // Initial apply
+  setTimeout(applyLock, 300);
+  setTimeout(applyLock, 1000);
+  setTimeout(applyLock, 2500);
+})();
+</script>
 
 <!-- Nav Global (single source of truth) -->
 <script src="/nav-avenir.js?v=20260526" defer></script>
