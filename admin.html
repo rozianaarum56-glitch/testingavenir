@@ -5395,7 +5395,7 @@ document.addEventListener('DOMContentLoaded', () => AUTH.init());
 <script>
 /* ═══ OVERRIDE: showPage HARUS navigate URL (multi-page architecture) ═══ */
 window.showPage = function(id){
-  var m = {"home": "index.html", "index": "katalog.html", "news": "news.html", "news-pdb-q1-2026": "news-pdb-q1-2026.html", "news-windfall-tax-nikel": "news-windfall-tax-nikel.html", "news-tpia-force-majeure": "news-tpia-force-majeure.html", "ptro": "ptro.html", "cmry": "cmry.html", "avia": "avia.html", "mrvl": "mrvl.html", "nisp": "nisp.html", "bbri": "bbri.html", "asgr": "asgr.html", "dmas": "dmas.html", "dewa": "dewa.html", "ades": "ades.html", "wifi": "wifi.html", "part": "part.html", "smar": "smar.html", "crm": "crm.html", "tentang": "tentang.html", "mitra": "mitra.html", "pengguna": "pengguna.html"};
+  var m = {"home": "index.html", "index": "katalog.html", "news": "news.html", "news-pdb-q1-2026": "news-pdb-q1-2026.html", "news-windfall-tax-nikel": "news-windfall-tax-nikel.html", "news-tpia-force-majeure": "news-tpia-force-majeure.html", "ptro": "ptro.html", "cmry": "cmry.html", "avia": "avia.html", "mrvl": "mrvl.html", "mrvl-q1fy2027": "mrvl-q1fy2027.html", "nisp": "nisp.html", "bbri": "bbri.html", "asgr": "asgr.html", "dmas": "dmas.html", "dewa": "dewa.html", "ades": "ades.html", "wifi": "wifi.html", "part": "part.html", "smar": "smar.html", "crm": "crm.html", "tentang": "tentang.html", "mitra": "mitra.html", "pengguna": "pengguna.html"};
   if (m[id]) {
     window.location.href = m[id];
   }
@@ -7024,33 +7024,6 @@ const Admin = {
   
   // List artikel/news/riset untuk dropdown auto-pick
   NOTIF_ARTICLE_LIST: [
-    { url: "news-alphabet-galang-80miliar-ai-2026.html", title: "Alphabet Galang US$80 Miliar Lewat Penjualan Saham untuk Danai Belanja AI", category: "News" },
-    { url: "news-micron-tembus-1000-2026.html", title: "Saham Micron Tembus US$1.000 untuk Pertama Kali, Reli Cip Memori Berlanjut", category: "News" },
-    { url: "news-qualcomm-anjlok-nvidia-pc-2026.html", title: "Qualcomm Anjlok 6,7% Saat Nvidia Masuk Pasar Cip PC", category: "News" },
-    { url: "news-berkshire-taylor-morrison-2026.html", title: "Berkshire Hathaway Akuisisi Pembangun Rumah Taylor Morrison Senilai US$6,8 Miliar", category: "News" },
-    { url: "news-bitcoin-melemah-kripto-2026.html", title: "Bitcoin Melemah ke US$72.674, Tekan Saham Terkait Kripto di Awal Juni", category: "News" },
-    { url: "news-nvidia-rtx-spark-pc-2026.html", title: "Nvidia Masuk Pasar PC dengan Cip AI RTX Spark, Saham Melonjak", category: "News" },
-    { url: "news-software-ibm-melonjak-2026.html", title: "Saham Software Bangkit: IBM Melonjak 12% Setelah Huang Redakan Kekhawatiran AI", category: "News" },
-    { url: "news-anthropic-ipo-sec-2026.html", title: "Anthropic Ajukan IPO Rahasia ke SEC, Pacu Perlombaan Pencatatan Saham AI", category: "News" },
-    { url: "news-wall-street-minyak-dow-1juni-2026.html", title: "Indeks AS Bertahan Dekat Rekor, Lonjakan Minyak Tekan Dow di Awal Juni", category: "News" },
-    { url: "news-broadcom-earnings-ai-2026.html", title: "Broadcom Jadi Sorotan Jelang Rilis Laba Pekan Ini di Tengah Demam AI", category: "News" },
-    { url: "news-dividen-emiten-awal-juni-2026.html", title: "Musim Dividen Berlanjut: Puluhan Emiten Cum Date Akhir Mei hingga Awal Juni", category: "News" },
-    { url: "news-sini-rights-issue-akuisisi-2026.html", title: "SINI Bidik Rp3,6 Triliun Lewat Rights Issue untuk Akuisisi Tambang dari PTRO", category: "News" },
-    { url: "news-aadi-buyback-5triliun-2026.html", title: "Adaro Andalan (AADI) Siapkan Buyback Saham hingga Rp5 Triliun", category: "News" },
-    { url: "news-ptro-kinerja-q1-2026.html", title: "Petrosea (PTRO) Bukukan Pendapatan US$284 Juta di Kuartal I, Melonjak 84%", category: "News" },
-    { url: "news-bnbr-kinerja-q1-2026.html", title: "Bakrie & Brothers (BNBR) Catat Pendapatan Rp1,13 Triliun pada Kuartal I 2026", category: "News" },
-    { url: "news-bei-libur-pancasila-1juni2026.html", title: "Bursa Libur Hari Lahir Pancasila, IHSG Tak Bertransaksi Hari Ini", category: "News" },
-    { url: "news-emas-awal-juni-2026.html", title: "Emas Bertahan di US$4.541 Awal Juni, Ditopang Ketidakpastian Iran & Fed", category: "News" },
-    { url: "news-futures-as-awal-juni-2026.html", title: "Futures Saham AS Menguat Awali Juni, Fokus Beralih ke Data Tenaga Kerja", category: "News" },
-    { url: "news-minyak-naik-awal-juni-2026.html", title: "Minyak Berbalik Naik Awal Juni di Tengah Ketidakpastian AS-Iran", category: "News" },
-    { url: "news-obligasi-rupiah-1juni2026.html", title: "Yield Obligasi RI Bertahan di Sekitar 6,7%, Pasar Nanti Data Inflasi Pekan Ini", category: "News" },
-    { url: "artikel-pkpk-dpal-akuisisi-2026.html", title: "PKPK Akuisisi 49% DPAL Rp890 Miliar: Integrasi Vertikal Batu Bara & Anatomi Transaksi Afiliasi", category: "Artikel" },
-    { url: "news-wall-street-rekor-mei2026.html", title: "Wall Street Cetak Rekor, Dow Tembus 51.000 untuk Pertama Kali", category: "News" },
-    { url: "news-dell-server-ai-mei2026.html", title: "Saham Dell Meroket 33% dalam Sehari, Terdorong Ledakan Permintaan Server AI", category: "News" },
-    { url: "news-foreign-outflow-ihsg-mei2026.html", title: "IHSG Bertahan di 6.127, Tapi Outflow Asing Tembus Rp 54,5 Triliun Sampai Akhir Mei", category: "News" },
-    { url: "news-emas-safe-haven-mei2026.html", title: "Emas Antam Naik ke Rp 2,799 Juta per Gram — Reli Safe-Haven Berlanjut di Akhir Mei 2026", category: "News" },
-    { url: "news-bbm-hormuz-energi-mei2026.html", title: "Harga BBM Subsidi Bertahan, Nonsubsidi Melonjak — Selat Hormuz Jadi Penentu Arah", category: "News" },
-    { url: "makro.html", title: "Ekspor Satu Pintu & PT DSI: Sentralisasi Tata Kelola Komoditas Strategis", category: "Artikel" },
     { url: "artikel-paradoks-pdb-rupiah-2026.html", title: "Paradoks PDB 5,61% dan Pelemahan Rupiah: Kualitas Pertumbuhan, DSR/Revenue, dan Repricing Risiko Fiskal", category: "Artikel" },
     { url: "artikel-pelemahan-rupiah-2026.html", title: "Pelemahan Rupiah 2026: Oil Shock, Dollar Premium, dan Diskon Kredibilitas Kebijakan", category: "Artikel" },
     { url: "artikel-sandisk-ai-storage-2026.html", title: "Sejarah Reli Sandisk: Dari Spin-off Western Digital ke AI Storage Proxy", category: "Artikel" },
@@ -7086,6 +7059,7 @@ const Admin = {
     { url: "riset/crm.html", title: "Riset Saham CRM", category: "Riset" },
     { url: "riset/dewa.html", title: "Riset Saham DEWA", category: "Riset" },
     { url: "riset/mrvl.html", title: "Riset Saham MRVL", category: "Riset" },
+    { url: "riset/mrvl-q1fy2027.html", title: "Update MRVL Q1 FY2027: Revenue Rekor $2,418B; Huang Sebut Calon Perusahaan Triliun Dolar", category: "Riset" },
     { url: "riset/nisp.html", title: "Riset Saham NISP", category: "Riset" },
     { url: "riset/part.html", title: "Riset Saham PART", category: "Riset" },
     { url: "riset/ptro.html", title: "Riset Saham PTRO", category: "Riset" },
