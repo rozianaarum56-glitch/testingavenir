@@ -3102,7 +3102,7 @@ body > footer { flex-shrink: 0; margin-top: auto; }
  <div class="pw-box">
   <div class="pw-eyebrow">◆ Avenir Research</div>
   <div class="pw-lock">🔒</div>
-  <div class="pw-title">Marvell Technology Inc</div>
+  <div class="pw-title">Marvell Technology &mdash; Update Q1 FY2027</div>
   <div class="pw-sub">Riset ini hanya tersedia bagi pengguna yang telah melakukan pembayaran. Akses berlaku selamanya setelah dikonfirmasi.</div>
   <div class="pw-price-pill">
    <div class="pw-price-num">Rp15.000</div>
@@ -3211,7 +3211,8 @@ Keduanya memperkuat posisi di AI scale-up networking market</p>
 </div>
 
 <!-- ===== BLOK UPDATE RISET (Q1 FY2027 + Computex) ditambahkan terpisah, tidak mengubah blok lama ===== -->
-<div style="grid-column:1/-1;background:linear-gradient(135deg,#160f2b,#322554);border-radius:8px;padding:24px 26px;margin:0 0 28px;border:1px solid rgba(155,123,201,.4);border-left:5px solid #9B7BC9;box-shadow:0 4px 18px rgba(0,0,0,.18)">
+<style>.huang-blk strong{color:#fff!important}.huang-blk em{color:#C9B7E9!important}.huang-blk a{color:#C9B7E9!important}</style>
+<div class="huang-blk" style="grid-column:1/-1;background:linear-gradient(135deg,#160f2b,#322554);border-radius:8px;padding:24px 26px;margin:0 0 28px;border:1px solid rgba(155,123,201,.4);border-left:5px solid #9B7BC9;box-shadow:0 4px 18px rgba(0,0,0,.18)">
   <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:6px">
     <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;color:#0f172a;background:#C9B7E9;border-radius:20px;padding:4px 11px;font-weight:800">&#9889; UPDATE RISET</span>
     <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#C9B7E9;letter-spacing:.04em">2 Juni 2026 &middot; Q1 FY2027 &amp; Computex Taipei</span>
@@ -3656,7 +3657,7 @@ function showNewsArticle(id){showPage('news-'+id);}
 function showNewsList(){showPage('news');}
 </script>
 <script>
-const FREE_RESEARCH = ['smar','mrvl','crm','ptro','cmry','avia','nisp','bbri','asgr','dewa','dmas','ades','wifi','part'];
+const FREE_RESEARCH = ['smar','crm','ptro','cmry','avia','nisp','bbri','asgr','dewa','dmas','ades','wifi','part'];
 
 const pages=['home','index','news','news-pdb-q1-2026','news-windfall-tax-nikel','news-tpia-force-majeure','ptro','cmry','avia','mrvl','nisp','bbri','asgr','dewa','dmas','ades','wifi','part','smar','crm','tentang','mitra','pengguna'];
 
@@ -3721,7 +3722,7 @@ function filterCards(cat, btn){
 
  const unlocked = JSON.parse(localStorage.getItem('ar_unlocked') || '[]');
 
- const free = (typeof FREE_RESEARCH !== 'undefined') ? FREE_RESEARCH : ['smar','mrvl','crm'];
+ const free = (typeof FREE_RESEARCH !== 'undefined') ? FREE_RESEARCH : ['smar','crm'];
     const myTickers = [...new Set([...unlocked, ...free])];
  document.querySelectorAll('.card').forEach(c=>{
   const tags = (c.dataset.tags || c.dataset.cat || '').toLowerCase();
@@ -3738,7 +3739,7 @@ function filterCards(cat, btn){
 
 function updateMineFilter() {
 
-  const free = (typeof FREE_RESEARCH !== 'undefined') ? FREE_RESEARCH : ['smar','mrvl','crm'];
+  const free = (typeof FREE_RESEARCH !== 'undefined') ? FREE_RESEARCH : ['smar','crm'];
   const unlocked = JSON.parse(localStorage.getItem('ar_unlocked') || '[]');
   const myTickers = [...new Set([...unlocked, ...free])];
   const myCount = myTickers.length;
@@ -3793,7 +3794,7 @@ const AR = (() => {
 
  function updateAllButtons() {
 
-  const FREE_RESEARCH = ['smar','mrvl','crm','ptro','cmry','avia','nisp','bbri','asgr','dewa','dmas','ades','wifi','part'];
+  const FREE_RESEARCH = ['smar','crm','ptro','cmry','avia','nisp','bbri','asgr','dewa','dmas','ades','wifi','part'];
   FREE_RESEARCH.forEach(ticker => {
    const btn = document.getElementById("btn-" + ticker);
    const pw = document.getElementById("pw-" + ticker);
