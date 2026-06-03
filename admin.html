@@ -5395,7 +5395,7 @@ document.addEventListener('DOMContentLoaded', () => AUTH.init());
 <script>
 /* ═══ OVERRIDE: showPage HARUS navigate URL (multi-page architecture) ═══ */
 window.showPage = function(id){
-  var m = {"home": "index.html", "index": "katalog.html", "news": "news.html", "news-pdb-q1-2026": "news-pdb-q1-2026.html", "news-windfall-tax-nikel": "news-windfall-tax-nikel.html", "news-tpia-force-majeure": "news-tpia-force-majeure.html", "ptro": "ptro.html", "cmry": "cmry.html", "avia": "avia.html", "mrvl": "mrvl.html", "mrvl-q1fy2027": "mrvl-q1fy2027.html", "nisp": "nisp.html", "bbri": "bbri.html", "asgr": "asgr.html", "dmas": "dmas.html", "dewa": "dewa.html", "ades": "ades.html", "wifi": "wifi.html", "part": "part.html", "smar": "smar.html", "crm": "crm.html", "tentang": "tentang.html", "mitra": "mitra.html", "pengguna": "pengguna.html"};
+  var m = {"home": "index.html", "index": "katalog.html", "news": "news.html", "news-pdb-q1-2026": "news-pdb-q1-2026.html", "news-windfall-tax-nikel": "news-windfall-tax-nikel.html", "news-tpia-force-majeure": "news-tpia-force-majeure.html", "ptro": "ptro.html", "cmry": "cmry.html", "avia": "avia.html", "mrvl": "mrvl.html", "hero": "hero.html", "mrvl-q1fy2027": "mrvl-q1fy2027.html", "nisp": "nisp.html", "bbri": "bbri.html", "asgr": "asgr.html", "dmas": "dmas.html", "dewa": "dewa.html", "ades": "ades.html", "wifi": "wifi.html", "part": "part.html", "smar": "smar.html", "crm": "crm.html", "tentang": "tentang.html", "mitra": "mitra.html", "pengguna": "pengguna.html"};
   if (m[id]) {
     window.location.href = m[id];
   }
@@ -7024,6 +7024,7 @@ const Admin = {
   
   // List artikel/news/riset untuk dropdown auto-pick
   NOTIF_ARTICLE_LIST: [
+    { url: "hero.html", title: "Riset Saham HERO — DFI Retail Nusantara: Turnaround Guardian & IKEA, P/BV 0,93x", category: "Riset" },
     { url: "news-pmi-manufaktur-mei-2026.html", title: "PMI Manufaktur Mei 2026 Kembali ke 50,0, Masuk Zona Ekspansi; Ekonom: Stabilisasi, Belum Pemulihan", category: "News" },
     { url: "news-ihsg-rekomendasi-3juni-2026.html", title: "IHSG Hari Ini (3 Juni) Berpeluang Lanjut Menguat, MNC Sekuritas Rekomendasi BRPT, IMPC, INCO, KLBF", category: "News" },
     { url: "news-asing-net-sell-10-saham-2juni-2026.html", title: "Asing Net Sell Rp1,39 Triliun di Awal Juni, TPIA dan ASII Paling Banyak Dilepas", category: "News" },
